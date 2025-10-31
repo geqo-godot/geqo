@@ -29,7 +29,7 @@ point_count = 2
 [sub_resource type="BoxShape3D" id="BoxShape3D_v5n8s"]
 
 [node name="TestPlayer" type="CharacterBody3D" groups=["player"]]
-collision_layer = 3
+collision_layer = 2
 script = ExtResource("1_ib1tq")
 
 [node name="Camera3D" type="Camera3D" parent="."]
