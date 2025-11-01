@@ -1,3 +1,4 @@
+## Stores information about where the item is, and if it collided with anything, or got filtered.
 class_name QueryItem
 extends RefCounted
 

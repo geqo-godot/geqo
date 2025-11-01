@@ -1,11 +1,12 @@
+## Uses generators and tests to gather data about the environment.
 @tool
 class_name EnvironmentQuery
 extends Node
 
 signal query_finished(result: QueryResult)
 
+## Visualize each item with spheres
 @export var use_debug_shapes: bool = false
-@export var debug_color: Gradient
 
 var query_items: Array[QueryItem]
 
@@ -17,7 +18,7 @@ func _ready() -> void:
 func init_generator():
 	query_items = []
 	
-
+## Get query as a return or a signal
 func request_query() -> QueryResult:
 	query_items.clear()
 	var result: QueryResult
@@ -34,7 +35,7 @@ func request_query() -> QueryResult:
 	return result
 
 
-# DEBUG PURPOSE
+## Call Debug to draw the items
 func draw_debug(query_items_list: Array[QueryItem]):
 	DebugSphere.draw_items(query_items_list)
 	
@@ -93,6 +94,7 @@ func get_all_children(node) -> Array:
 
 	return nodes
 
+## EnvironmentQuery sends result and has some functions to quickly get a return value
 class QueryResult extends RefCounted:
 	var query_items: Array[QueryItem]
 	# TODO: Maybe a function to get copy of the results

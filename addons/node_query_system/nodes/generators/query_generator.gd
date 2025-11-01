@@ -1,3 +1,4 @@
+## Generates an array of QueryItems that can then be used to perform tests.
 @tool
 @abstract
 class_name Generator

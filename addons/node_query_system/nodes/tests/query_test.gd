@@ -1,3 +1,4 @@
+## Performs tests on a QueryItem, it can be a variety of operations, such as getting the distance between the Item and the context, or casting a ray to the context.
 @abstract
 class_name QueryTest
 extends Node3D
@@ -13,5 +14,6 @@ enum ScoreOperator {AVERAGE_SCORE, MAX_SCORE, MIN_SCORE}
 @abstract
 func perform_test(projection: QueryItem)
 
+## Helper function to sum a list of floats
 func sum_f(accum: float, number: float) -> float:
     return accum + number
