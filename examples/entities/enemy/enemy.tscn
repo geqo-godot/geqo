@@ -42,7 +42,6 @@ script = ExtResource("5_721x4")
 distance_to = NodePath("../../../Contexts/ContextPlayer")
 min_distance = 5.0
 scoring_curve = SubResource("Curve_61ikd")
-test_purpose = 2
 metadata/_custom_type_script = "uid://btm8tt22wulwi"
 
 [node name="Contexts" type="Node3D" parent="."]

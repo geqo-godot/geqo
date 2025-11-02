@@ -22,15 +22,18 @@ func perform_test(projection: QueryItem):
 
 	for node: Node3D in context_nodes:
 		var distance: float = projection.projection_position.distance_to(node.global_position)
-		print_debug("Current distance to context: ", distance)
+		if test_purpose in [TestPurpose.FILTER_SCORE, TestPurpose.FILTER_ONLY]:
+			if distance < min_distance or distance > max_distance:
+				scores.append(0.0)
+				continue
 		
 		var linear_score: float = (distance - min_distance) / (max_distance - min_distance)
-		var clamped_score: float = clamp(linear_score, 0, 1)
-		print_debug("The clamped score: ", linear_score)
+		var clamped_score: float = clamp(linear_score, 0.0, 1.0)
 		var curve_score: float = scoring_curve.sample_baked(clamped_score)
 
 		scores.append(curve_score)
 	
+		
 	var result: float = 0.0
 	match multiple_context_operator:
 		ScoreOperator.AVERAGE_SCORE:
@@ -41,5 +44,14 @@ func perform_test(projection: QueryItem):
 		ScoreOperator.MIN_SCORE:
 			result = scores.min()
 		
-	print_debug("Added score: ", result)
-	projection.add_score(result)
+	match test_purpose:
+		TestPurpose.FILTER_SCORE:
+			if result == 0.0:
+				projection.is_filtered = true
+			else:
+				projection.add_score(result)
+		TestPurpose.FILTER_ONLY:
+			if result == 0.0:
+				projection.is_filtered = true
+		TestPurpose.SCORE_ONLY:
+			projection.add_score(result)
