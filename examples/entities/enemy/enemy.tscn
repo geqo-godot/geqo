@@ -38,7 +38,6 @@ script = ExtResource("6_721x4")
 context = NodePath("../../../Contexts/ContextPlayer")
 exclusions = [NodePath("../../..")]
 collision_mask = 3
-test_purpose = 2
 metadata/_custom_type_script = "uid://d1q6i40l8gvoi"
 
 [node name="Contexts" type="Node3D" parent="."]

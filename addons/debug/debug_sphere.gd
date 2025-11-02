@@ -8,6 +8,7 @@ var debug_color: Gradient
 func _ready():
     mesh_instance = MeshInstance3D.new()
     immediate_mesh = ImmediateMesh.new()
+    mesh_instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
     mesh_instance.mesh = immediate_mesh
 
     # Create unlit material for debug lines

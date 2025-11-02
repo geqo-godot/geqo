@@ -37,7 +37,7 @@ func perform_test(projection: QueryItem):
 	var got_hit: bool = false
 	if result.get("collider") == context_nodes[0]:
 		got_hit = true
-		print_debug(context_nodes[0], " hit!")
+		#print_debug(context_nodes[0], " hit!")
 		
 	var filter: bool
 	var score = 0.0
