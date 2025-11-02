@@ -1,5 +1,6 @@
 ## Generates an array of QueryItems that can then be used to perform tests.
 @tool
+@icon("../../icons/generator3d.svg")
 @abstract
 class_name Generator
 extends Node3D

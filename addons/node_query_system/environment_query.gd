@@ -1,5 +1,6 @@
 ## Uses generators and tests to gather data about the environment.
 @tool
+@icon("./icons/environment_query.svg")
 class_name EnvironmentQuery
 extends Node
 
