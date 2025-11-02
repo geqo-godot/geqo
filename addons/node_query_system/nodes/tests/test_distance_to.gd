@@ -22,9 +22,12 @@ func perform_test(projection: QueryItem):
 
 	for node: Node3D in context_nodes:
 		var distance: float = projection.projection_position.distance_to(node.global_position)
+		print_debug("Current distance to context: ", distance)
 		
-		var linear_score: float = clamp(distance / max_distance, 0.0, 1.0)
-		var curve_score: float = scoring_curve.sample_baked(linear_score)
+		var linear_score: float = (distance - min_distance) / (max_distance - min_distance)
+		var clamped_score: float = clamp(linear_score, 0, 1)
+		print_debug("The clamped score: ", linear_score)
+		var curve_score: float = scoring_curve.sample_baked(clamped_score)
 
 		scores.append(curve_score)
 	
@@ -38,4 +41,5 @@ func perform_test(projection: QueryItem):
 		ScoreOperator.MIN_SCORE:
 			result = scores.min()
 		
+	print_debug("Added score: ", result)
 	projection.add_score(result)

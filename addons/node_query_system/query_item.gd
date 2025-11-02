@@ -13,6 +13,6 @@ func _init(pos: Vector3, collider: Node3D = null, new_score = null) -> void:
     score = new_score
     
 func add_score(incoming_score: float):
-    if score == null:
+    if score is not float:
         score = 0.0
     score += incoming_score

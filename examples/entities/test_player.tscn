@@ -1,8 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://c2ih13se78qrg"]
+[gd_scene load_steps=15 format=3 uid="uid://c2ih13se78qrg"]
 
 [ext_resource type="Script" uid="uid://bd1sfbmbnph3x" path="res://examples/entities/test_player.gd" id="1_ib1tq"]
 [ext_resource type="Script" uid="uid://dpf3gdda0hw3d" path="res://addons/node_query_system/environment_query.gd" id="2_s8sja"]
-[ext_resource type="Gradient" uid="uid://co8qm6fnjpdhx" path="res://examples/world/materials/debug_colors.tres" id="3_16irf"]
 [ext_resource type="Script" uid="uid://y7tg0wcvbq0a" path="res://addons/node_query_system/nodes/generators/generator_grid_shape.gd" id="3_v5n8s"]
 [ext_resource type="Script" uid="uid://btm8tt22wulwi" path="res://addons/node_query_system/nodes/tests/test_distance_to.gd" id="4_58ypk"]
 [ext_resource type="Script" uid="uid://cku0g6f6geqcx" path="res://addons/node_query_system/nodes/contexts/context_target_node.gd" id="4_v5n8s"]
@@ -50,10 +49,9 @@ shape = SubResource("CapsuleShape3D_ib1tq")
 [node name="EnvironmentQuery" type="Node" parent="."]
 script = ExtResource("2_s8sja")
 use_debug_shapes = true
-debug_color = ExtResource("3_16irf")
 metadata/_custom_type_script = "uid://dpf3gdda0hw3d"
 
-[node name="GridShape" type="Node3D" parent="EnvironmentQuery" node_paths=PackedStringArray("generate_around")]
+[node name="GeneratorGridShape" type="Node3D" parent="EnvironmentQuery" node_paths=PackedStringArray("generate_around")]
 script = ExtResource("3_v5n8s")
 grid_half_size = 10.0
 space_between = 2.0
@@ -61,16 +59,16 @@ generate_around = NodePath("../../Contexts/ContextEnemies")
 post_projection_vertical_offset = 1.5
 metadata/_custom_type_script = "uid://y7tg0wcvbq0a"
 
-[node name="TestDistanceToPlayer" type="Node3D" parent="EnvironmentQuery/GridShape" node_paths=PackedStringArray("distance_to")]
+[node name="TestDistanceToPlayer" type="Node3D" parent="EnvironmentQuery/GeneratorGridShape" node_paths=PackedStringArray("distance_to")]
 script = ExtResource("4_58ypk")
 distance_to = NodePath("../../../Contexts/ContextTargetNode")
 scoring_curve = SubResource("Curve_02d4r")
 
-[node name="TestRaycastTo" type="Node3D" parent="EnvironmentQuery/GridShape" node_paths=PackedStringArray("context")]
+[node name="TestRaycastTo" type="Node3D" parent="EnvironmentQuery/GeneratorGridShape" node_paths=PackedStringArray("context")]
 script = ExtResource("5_02d4r")
 context = NodePath("../../../Contexts/ContextTargetNode")
 
-[node name="TestDistanceToEnemy" type="Node3D" parent="EnvironmentQuery/GridShape" node_paths=PackedStringArray("distance_to")]
+[node name="TestDistanceToEnemy" type="Node3D" parent="EnvironmentQuery/GeneratorGridShape" node_paths=PackedStringArray("distance_to")]
 script = ExtResource("4_58ypk")
 distance_to = NodePath("../../../Contexts/ContextEnemies")
 scoring_curve = SubResource("Curve_16irf")

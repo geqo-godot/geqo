@@ -12,6 +12,12 @@ enum RaycastMode {BODY, AREA, BODY_AREA}
 @abstract
 func perform_generation(query_item_list: Array[QueryItem]) -> void
 
+func perform_tests(query_item_list: Array[QueryItem]):
+    for test: QueryTest in get_children():
+        for query_item: QueryItem in query_item_list:
+            if !query_item.is_filtered:
+                test.perform_test(query_item)
+
 func _notification(what: int) -> void:
     if !Engine.is_editor_hint():
         return

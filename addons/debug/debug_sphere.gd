@@ -39,7 +39,7 @@ func draw_items(query_items_list: Array[QueryItem], time_to_destroy: float = 2.0
             text_label.set_deferred("text", "Filtered")
             draw_debug_sphere(item.projection_position, 0.5, Color.BLUE)
         else:
-            if item.score:
+            if item.score is float:
                 text_label.set_deferred("text", "%0.2f" % item.score)
                 draw_debug_sphere(item.projection_position, 0.5, debug_color.sample(item.score))
             else:

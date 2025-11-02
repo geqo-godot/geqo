@@ -1,5 +1,5 @@
 @tool
-class_name GridShape extends Generator
+class_name GeneratorGridShape extends Generator
 
 @export_group("Generator")
 @export var grid_half_size: float = 20
@@ -11,6 +11,7 @@ class_name GridShape extends Generator
 @export var project_down: float = 100.0
 @export var project_up: float = 100.0
 @export var post_projection_vertical_offset: float = 0.0
+@export_flags_3d_physics var projection_collision_mask: int = 1
 
 func perform_generation(query_item_list: Array[QueryItem]) -> void:
 	var grid_size: int = roundi(grid_half_size * 2 / space_between) + 1
@@ -35,15 +36,10 @@ func perform_generation(query_item_list: Array[QueryItem]) -> void:
 				if ray_result:
 					query_item_list.append(QueryItem.new(ray_result.position + Vector3.UP * post_projection_vertical_offset, ray_result.collider))
 	
-	for test: QueryTest in get_children():
-		for query_item: QueryItem in query_item_list:
-			if !query_item.is_filtered:
-				test.perform_test(query_item)
-
 
 func cast_ray_projection(start_pos: Vector3, end_pos: Vector3, exclusions: Array) -> Dictionary:
 	var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
-	var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(start_pos, end_pos)
+	var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(start_pos, end_pos, projection_collision_mask)
 	var exclusion_rids: Array[RID] = []
 
 	for exclusion in exclusions:

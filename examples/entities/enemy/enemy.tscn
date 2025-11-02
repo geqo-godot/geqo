@@ -1,12 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://nvso64245ltb"]
+[gd_scene load_steps=10 format=3 uid="uid://nvso64245ltb"]
 
 [ext_resource type="Script" uid="uid://cyqo7rh6dj286" path="res://examples/entities/enemy/enemy.gd" id="1_3fvr7"]
 [ext_resource type="Script" uid="uid://dpf3gdda0hw3d" path="res://addons/node_query_system/environment_query.gd" id="2_dt443"]
-[ext_resource type="Gradient" uid="uid://co8qm6fnjpdhx" path="res://examples/world/materials/debug_colors.tres" id="3_4wwj3"]
 [ext_resource type="Script" uid="uid://y7tg0wcvbq0a" path="res://addons/node_query_system/nodes/generators/generator_grid_shape.gd" id="4_d50e0"]
 [ext_resource type="Script" uid="uid://cku0g6f6geqcx" path="res://addons/node_query_system/nodes/contexts/context_target_node.gd" id="5_4wwj3"]
 [ext_resource type="Script" uid="uid://btm8tt22wulwi" path="res://addons/node_query_system/nodes/tests/test_distance_to.gd" id="5_721x4"]
-[ext_resource type="Script" uid="uid://d1q6i40l8gvoi" path="res://addons/node_query_system/nodes/tests/test_raycast_to.gd" id="6_721x4"]
 [ext_resource type="Script" uid="uid://bvvrmnqi0eyge" path="res://addons/node_query_system/nodes/contexts/context_in_group.gd" id="6_d50e0"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_036b0"]
@@ -14,14 +12,11 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fj7yv"]
 
 [sub_resource type="Curve" id="Curve_61ikd"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Curve" id="Curve_5bnyk"]
-_data = [Vector2(0, 1), 0.0, 1.4, 0, 0, Vector2(0.39436623, 0.23783183), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.46899226, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
 [node name="Enemy" type="CharacterBody3D" groups=["enemies"]]
+collision_layer = 4
 script = ExtResource("1_3fvr7")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -33,34 +28,21 @@ shape = SubResource("CapsuleShape3D_fj7yv")
 [node name="EnvironmentQuery" type="Node" parent="."]
 script = ExtResource("2_dt443")
 use_debug_shapes = true
-debug_color = ExtResource("3_4wwj3")
 metadata/_custom_type_script = "uid://dpf3gdda0hw3d"
 
-[node name="GridShape" type="Node3D" parent="EnvironmentQuery" node_paths=PackedStringArray("generate_around")]
+[node name="GeneratorGridShape" type="Node3D" parent="EnvironmentQuery" node_paths=PackedStringArray("generate_around")]
 script = ExtResource("4_d50e0")
-grid_half_size = 10.0
 space_between = 3.0
 generate_around = NodePath("../../Contexts/ContextSelf")
 post_projection_vertical_offset = 1.5
 metadata/_custom_type_script = "uid://y7tg0wcvbq0a"
 
-[node name="TestDistanceToPlayer" type="Node3D" parent="EnvironmentQuery/GridShape" node_paths=PackedStringArray("distance_to")]
+[node name="TestDistanceToPlayer" type="Node3D" parent="EnvironmentQuery/GeneratorGridShape" node_paths=PackedStringArray("distance_to")]
 script = ExtResource("5_721x4")
 distance_to = NodePath("../../../Contexts/ContextPlayer")
+min_distance = 5.0
 scoring_curve = SubResource("Curve_61ikd")
-metadata/_custom_type_script = "uid://btm8tt22wulwi"
-
-[node name="TestRaycastTo" type="Node3D" parent="EnvironmentQuery/GridShape" node_paths=PackedStringArray("context", "exclusions")]
-script = ExtResource("6_721x4")
-context = NodePath("../../../Contexts/ContextPlayer")
-exclusions = [NodePath("../../..")]
-collision_mask = 3
-metadata/_custom_type_script = "uid://d1q6i40l8gvoi"
-
-[node name="TestDistanceToSelf" type="Node3D" parent="EnvironmentQuery/GridShape" node_paths=PackedStringArray("distance_to")]
-script = ExtResource("5_721x4")
-distance_to = NodePath("../../../Contexts/ContextSelf")
-scoring_curve = SubResource("Curve_5bnyk")
+test_purpose = 2
 metadata/_custom_type_script = "uid://btm8tt22wulwi"
 
 [node name="Contexts" type="Node3D" parent="."]
