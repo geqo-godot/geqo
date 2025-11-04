@@ -37,8 +37,10 @@ script = ExtResource("2_dt443")
 use_debug_shapes = true
 metadata/_custom_type_script = "uid://dpf3gdda0hw3d"
 
-[node name="GeneratorGridShape" type="Node3D" parent="EnvironmentQuery"]
+[node name="GeneratorGridShape" type="Node3D" parent="EnvironmentQuery" node_paths=PackedStringArray("generate_around")]
 script = ExtResource("4_d50e0")
+generate_around = NodePath("../../Contexts/ContextSelf")
+post_projection_vertical_offset = 1.5
 metadata/_custom_type_script = "uid://y7tg0wcvbq0a"
 
 [node name="TestDotProduct" type="Node3D" parent="EnvironmentQuery/GeneratorGridShape" node_paths=PackedStringArray("from_place", "to_target")]
