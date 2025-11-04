@@ -22,8 +22,7 @@ func perform_generation(query_item_list: Array[QueryItem]) -> void:
 		starting_pos.x -= grid_half_size
 		starting_pos.z -= grid_half_size
 
-		var total_rays: int = grid_size * 2
-		var current_iteration: int = 0
+		var processed_count: int = 0
 		for z in grid_size:
 			for x in grid_size:
 				var pos_x: float = starting_pos.x + (x * space_between)
@@ -33,6 +32,10 @@ func perform_generation(query_item_list: Array[QueryItem]) -> void:
 					query_item_list.append(QueryItem.new(Vector3(pos_x, context.global_position.y, pos_z)))
 					continue
 
+				if frame_slice > 0 and processed_count >= frame_slice:
+					await get_tree().process_frame
+					processed_count = 0
+				processed_count += 1
 				var ray_pos: Vector3 = Vector3(pos_x, starting_pos.y, pos_z)
 				
 				var ray_result: Dictionary = cast_ray_projection(ray_pos + (Vector3.UP * project_up), ray_pos + (Vector3.DOWN * project_down), contexts)

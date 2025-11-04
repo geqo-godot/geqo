@@ -4,6 +4,7 @@ var immediate_mesh: ImmediateMesh
 var mesh_instance: MeshInstance3D
 var text_labels: Array
 var debug_color: Gradient
+var frame_slice: int = 20
 
 func _ready():
     mesh_instance = MeshInstance3D.new()
@@ -29,7 +30,13 @@ func draw_items(query_items_list: Array[QueryItem], time_to_destroy: float = 2.0
     # TODO: MAX_MESH_SURFACES prevents drawing more circles
     immediate_mesh.clear_surfaces()
     remove_labels()
+    var processed_count: int = 0
     for item: QueryItem in query_items_list:
+        if frame_slice > 0 and processed_count >= frame_slice:
+            await get_tree().process_frame
+            processed_count = 0
+        processed_count += 1
+
         var text_label: Label3D = Label3D.new()
         text_labels.append(text_label)
         get_tree().root.add_child(text_label)

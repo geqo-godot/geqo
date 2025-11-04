@@ -13,7 +13,8 @@ var current_target
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("request_query"):
-		var query_result: EnvironmentQuery.QueryResult = $EnvironmentQuery.request_query()
+		$EnvironmentQuery.request_query()
+		var query_result: EnvironmentQuery.QueryResult = await $EnvironmentQuery.query_finished
 		final_target = query_result.get_highest_score_position()
 		nav_agent.target_position = final_target
 		current_target = nav_agent.get_next_path_position()

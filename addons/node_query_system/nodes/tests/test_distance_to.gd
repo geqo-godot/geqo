@@ -18,7 +18,7 @@ func _ready() -> void:
 
 func perform_test(projection: QueryItem):
 	var context_nodes: Array = distance_to.get_context_positions()
-	print_debug("Context positions: ", context_nodes)
+	# print_debug("Context positions: ", context_nodes)
 	var scores: Array[float] = []
 
 	for context_pos: Vector3 in context_nodes:
