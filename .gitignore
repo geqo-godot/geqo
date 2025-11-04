@@ -1,5 +1,17 @@
+# Project
+project/addons/node_query_system/bin/
+
 # Godot 4+ specific ignores
 project/.godot/
 project/android/
 export.cfg
 export_presets.cfg
+
+# Object
+.scons-cache/
+*.os
+*.obj
+*.o
+
+# Editors
+.vscode/
