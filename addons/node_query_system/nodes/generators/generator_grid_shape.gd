@@ -15,12 +15,15 @@ class_name GeneratorGridShape extends Generator
 
 func perform_generation(query_item_list: Array[QueryItem]) -> void:
 	var grid_size: int = roundi(grid_half_size * 2 / space_between) + 1
-	var contexts: Array[Node3D] = generate_around.get_context()
+	var contexts: Array[Variant] = generate_around.get_context()
 
-	for context: Node3D in contexts:
-		var starting_pos = context.global_position
+	for context: Variant in contexts:
+		var starting_pos = context if context is Vector3 else context.global_position
 		starting_pos.x -= grid_half_size
 		starting_pos.z -= grid_half_size
+
+		var total_rays: int = grid_size * 2
+		var current_iteration: int = 0
 		for z in grid_size:
 			for x in grid_size:
 				var pos_x: float = starting_pos.x + (x * space_between)
@@ -50,6 +53,8 @@ func cast_ray_projection(start_pos: Vector3, end_pos: Vector3, exclusions: Array
 	var exclusion_rids: Array[RID] = []
 
 	for exclusion in exclusions:
+		if exclusion is not Node:
+			continue
 		exclusion_rids.append(exclusion.get_rid())
 	query.exclude = exclusion_rids
 

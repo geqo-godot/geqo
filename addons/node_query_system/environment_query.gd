@@ -25,8 +25,8 @@ func request_query() -> QueryResult:
 	var result: QueryResult
 	
 	for generator: Generator in get_children():
-		generator.perform_generation(query_items)
-		generator.perform_tests(query_items)
+		await generator.perform_generation(query_items)
+		await generator.perform_tests(query_items)
 
 	if use_debug_shapes:
 		draw_debug(query_items)

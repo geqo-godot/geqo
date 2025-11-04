@@ -17,11 +17,12 @@ func _ready() -> void:
 	scoring_curve.bake()
 
 func perform_test(projection: QueryItem):
-	var context_nodes: Array[Node3D] = distance_to.get_context()
+	var context_nodes: Array = distance_to.get_context_positions()
+	print_debug("Context positions: ", context_nodes)
 	var scores: Array[float] = []
 
-	for node: Node3D in context_nodes:
-		var distance: float = projection.projection_position.distance_to(node.global_position)
+	for context_pos: Vector3 in context_nodes:
+		var distance: float = projection.projection_position.distance_to(context_pos)
 		if test_purpose in [TestPurpose.FILTER_SCORE, TestPurpose.FILTER_ONLY]:
 			if distance < min_distance or distance > max_distance:
 				scores.append(0.0)

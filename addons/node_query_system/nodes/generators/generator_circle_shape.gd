@@ -22,11 +22,11 @@ extends Generator
 @export_flags_3d_physics var projection_collision_mask: int = 1
 
 func perform_generation(query_items_list: Array[QueryItem]) -> void:
-	var contexts: Array[Node3D] = circle_center.get_context()
+	var contexts: Array[Variant] = circle_center.get_context()
 	var points_amount: int = roundi(circle_radius / space_between)
 
-	for context: Node3D in contexts:
-		var starting_pos: Vector3 = context.global_position
+	for context: Variant in contexts:
+		var starting_pos: Vector3 = context if context is Vector3 else context.global_position
 		var previous_angle: float = 0.0
 		var angle_step: float = TAU / points_amount
 		for point in points_amount:
@@ -68,6 +68,8 @@ func cast_ray_projection(start_pos: Vector3, end_pos: Vector3, exclusions: Array
 	var exclusion_rids: Array[RID] = []
 
 	for exclusion in exclusions:
+		if exclusion is not Node:
+			continue
 		exclusion_rids.append(exclusion.get_rid())
 	query.exclude = exclusion_rids
 

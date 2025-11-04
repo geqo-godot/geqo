@@ -46,6 +46,7 @@ func idle():
 
 func walking(delta: float):
 	if !current_target:
+		current_state = State.IDLE
 		return
 	current_target = nav_agent.get_next_path_position()
 	move_to_target(delta, current_target)
