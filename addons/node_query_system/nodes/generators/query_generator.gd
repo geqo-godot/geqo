@@ -32,24 +32,24 @@ func _notification(what: int) -> void:
 			update_configuration_warnings()
 		NOTIFICATION_ENTER_TREE:
 			update_configuration_warnings()
-			
+
 func _get_configuration_warnings() -> PackedStringArray:
 	var result: Array = []
-	
+
 	var has_invalid_node: bool = false
 	var has_generator: bool = false
-	
+
 	for child in get_children():
 		if child is Generator:
 			has_generator = true
 		elif child is not QueryTest:
 			has_invalid_node = true
-			
+
 	if has_invalid_node:
 		result.append("Generator has invalid children. Only QueryTest children are allowed")
-	
+
 	if has_generator:
 		result.append("Cannot nest Generators on each other.")
-	
-	
+
+
 	return result

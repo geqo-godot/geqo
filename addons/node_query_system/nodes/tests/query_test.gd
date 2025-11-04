@@ -17,4 +17,4 @@ func perform_test(projection: QueryItem)
 
 ## Helper function to sum a list of floats
 func sum_f(accum: float, number: float) -> float:
-    return accum + number
+	return accum + number

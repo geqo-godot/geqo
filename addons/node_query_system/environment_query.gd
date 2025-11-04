@@ -18,12 +18,12 @@ func _ready() -> void:
 
 func init_generator():
 	query_items = []
-	
+
 ## Get query as a return or a signal
 func request_query() -> QueryResult:
 	query_items.clear()
 	var result: QueryResult
-	
+
 	for generator: Generator in get_children():
 		await generator.perform_generation(query_items)
 		await generator.perform_tests(query_items)
@@ -40,7 +40,7 @@ func request_query() -> QueryResult:
 ## Call Debug to draw the items
 func draw_debug(query_items_list: Array[QueryItem]):
 	NQSDebugSpheres.draw_items(query_items_list)
-	
+
 
 func _notification(what: int) -> void:
 	if !Engine.is_editor_hint():
@@ -53,7 +53,7 @@ func _notification(what: int) -> void:
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var result: Array = []
-	
+
 	if get_children().is_empty():
 		result.append("Query needs at least one Generator node.")
 	else:
@@ -66,23 +66,23 @@ func _get_configuration_warnings() -> PackedStringArray:
 			result.append("EnvironmentQuery can only have Generator children.")
 		if !check_has_tests():
 			result.append("Query needs at least one test on any Generator")
-		
+
 
 	return result
 
 # Recursively check if there are any tests at all
 func check_has_tests() -> bool:
 	var has_test: bool = false
-	
+
 	var nodes: Array = get_all_children(self)
-	
+
 	for node in nodes:
 		if node is QueryTest:
 			has_test = true
 			break
-	
+
 	return has_test
-			
+
 
 func get_all_children(node) -> Array:
 	var nodes: Array = []
@@ -102,7 +102,7 @@ class QueryResult extends RefCounted:
 	# TODO: Maybe a function to get copy of the results
 	func _init(val: Array[QueryItem]):
 		query_items = val
-		
+
 	func get_highest_score_position() -> Vector3:
 		var highest: float
 		var highest_position: Vector3

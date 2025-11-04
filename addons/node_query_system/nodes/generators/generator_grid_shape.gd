@@ -37,16 +37,16 @@ func perform_generation(query_item_list: Array[QueryItem]) -> void:
 					processed_count = 0
 				processed_count += 1
 				var ray_pos: Vector3 = Vector3(pos_x, starting_pos.y, pos_z)
-				
+
 				var ray_result: Dictionary = cast_ray_projection(ray_pos + (Vector3.UP * project_up), ray_pos + (Vector3.DOWN * project_down), contexts)
 				if ray_result:
 					query_item_list.append(QueryItem.new(ray_result.position + Vector3.UP * post_projection_vertical_offset, ray_result.collider))
-	
+
 
 func cast_ray_projection(start_pos: Vector3, end_pos: Vector3, exclusions: Array) -> Dictionary:
 	var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
 	var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(start_pos, end_pos, projection_collision_mask)
-	
+
 	# Choose what to collide with
 	if raycast_mode == RaycastMode.AREA:
 		query.collide_with_bodies = false
