@@ -1,8 +1,12 @@
 [configuration]
 
-entry_symbol = "example_library_init"
+entry_symbol = "geqo_library_init"
 compatibility_minimum = "4.5"
 reloadable = true
+
+[icons]
+
+CEnvironmentQuery = "res://addons/geqo/icons/environment_query.svg"
 
 [libraries]
 
