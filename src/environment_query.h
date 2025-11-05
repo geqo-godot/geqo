@@ -1,28 +1,38 @@
 #ifndef ENVIRONMENTQUERY_H
 #define ENVIRONMENTQUERY_H
+struct CQueryItem
+{
+    double score;
+    bool is_filtered;
+    bool has_score;
+    Vector3 projection_position;
+    Node collided_with;
+};
 
 #include <godot_cpp/classes/node.hpp>
+#include <vector>
+using std::vector;
+using namespace godot;
 
-namespace godot
+class CEnvironmentQuery : public Node
 {
+    GDCLASS(CEnvironmentQuery, Node)
 
-    class CEnvironmentQuery : public Node
-    {
-        GDCLASS(CEnvironmentQuery, Node)
+protected:
+    static void _bind_methods();
 
-    private:
-        double time_passed;
+public:
+    CEnvironmentQuery();
+    ~CEnvironmentQuery();
 
-    protected:
-        static void _bind_methods();
+    void set_use_debug_shapes(const bool use_debug);
+    bool get_use_debug_shapes() const;
 
-    public:
-        CEnvironmentQuery();
-        ~CEnvironmentQuery();
+    void request_query();
 
-        void _process(double delta) override;
-    };
-
-}
+private:
+    bool use_debug_shapes;
+    vector<CQueryItem> query_items;
+};
 
 #endif
