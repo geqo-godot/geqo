@@ -1,38 +1,40 @@
 #ifndef ENVIRONMENTQUERY_H
 #define ENVIRONMENTQUERY_H
-struct CQueryItem
-{
-    double score;
-    bool is_filtered;
-    bool has_score;
-    Vector3 projection_position;
-    Node collided_with;
-};
 
 #include <godot_cpp/classes/node.hpp>
 #include <vector>
 using std::vector;
-using namespace godot;
 
-class CEnvironmentQuery : public Node
+namespace godot
 {
-    GDCLASS(CEnvironmentQuery, Node)
+    struct CQueryItem
+    {
+        double score = 0.0;
+        bool is_filtered = false;
+        bool has_score = false;
+        Vector3 projection_position;
+        Node *collided_with;
+    };
+    class CEnvironmentQuery : public Node
+    {
+        GDCLASS(CEnvironmentQuery, Node)
 
-protected:
-    static void _bind_methods();
+    protected:
+        static void _bind_methods();
 
-public:
-    CEnvironmentQuery();
-    ~CEnvironmentQuery();
+    public:
+        CEnvironmentQuery();
+        ~CEnvironmentQuery();
 
-    void set_use_debug_shapes(const bool use_debug);
-    bool get_use_debug_shapes() const;
+        void set_use_debug_shapes(const bool use_debug);
+        bool get_use_debug_shapes() const;
 
-    void request_query();
+        void request_query();
 
-private:
-    bool use_debug_shapes;
-    vector<CQueryItem> query_items;
-};
+    private:
+        bool use_debug_shapes;
+        vector<CQueryItem> query_items;
+    };
 
+}
 #endif

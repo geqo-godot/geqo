@@ -19,7 +19,7 @@ public:
     ~CQueryResult();
 
     Vector3 get_highest_score_position() const;
-    Node get_highest_score_node() const;
+    Node* get_highest_score_node() const;
 
 private:
     vector<CQueryItem> query_items;

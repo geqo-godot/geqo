@@ -25,7 +25,8 @@ Vector3 CQueryResult::get_highest_score_position() const
     return Vector3();
 }
 
-Node CQueryResult::get_highest_score_node() const
+Node *CQueryResult::get_highest_score_node() const
 {
-    return Node();
+    Node *node;
+    return node;
 }

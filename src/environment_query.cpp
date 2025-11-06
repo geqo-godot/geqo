@@ -3,11 +3,10 @@
 
 using namespace godot;
 
-
 void CEnvironmentQuery::_bind_methods()
 {
     ClassDB::bind_method(D_METHOD("get_use_debug_shapes"), &CEnvironmentQuery::get_use_debug_shapes);
-    ClassDB::bind_method(D_METHOD("set_use_debug_shapes", "value"), &CEnvironmentQuery::set_use_debug_shapes);
+    ClassDB::bind_method(D_METHOD("set_use_debug_shapes", "use_debug"), &CEnvironmentQuery::set_use_debug_shapes);
 
     ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_debug_shapes"), "set_use_debug_shapes", "get_use_debug_shapes");
 }
