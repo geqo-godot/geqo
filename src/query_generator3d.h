@@ -21,7 +21,7 @@ namespace godot
         CQueryGenerator3D();
         ~CQueryGenerator3D();
 
-        void perform_generation(vector<CQueryItem>);
+        virtual void perform_generation(vector<CQueryItem>);
         void perform_tests(vector<CQueryItem>);
 
     private:

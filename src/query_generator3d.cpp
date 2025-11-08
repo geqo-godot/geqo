@@ -16,3 +16,11 @@ CQueryGenerator3D::~CQueryGenerator3D()
 {
     // Add your cleanup here.
 }
+
+void godot::CQueryGenerator3D::perform_generation(vector<CQueryItem>)
+{
+}
+
+void godot::CQueryGenerator3D::perform_tests(vector<CQueryItem>)
+{
+}

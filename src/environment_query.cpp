@@ -1,4 +1,5 @@
 #include "environment_query.h"
+#include "query_generator3d.h"
 #include <godot_cpp/core/class_db.hpp>
 
 using namespace godot;
@@ -42,13 +43,17 @@ Ref<CQueryResult> CEnvironmentQuery::request_query()
 
     for (Variant child : get_children())
     {
-        UtilityFunctions::print_rich(String("Sus node"), child);
+        // TODO: Verify child is generator
+        CQueryGenerator3D *generator = cast_to<CQueryGenerator3D>(child);
+        generator->perform_generation(query_items);
+        generator->perform_tests(query_items);
     }
+
+    // TODO: Reimplement draw debug
 
     Ref<CQueryResult> result;
     result.instantiate();
     result->set_items(query_items);
 
-    UtilityFunctions::print_verbose(result);
     return result;
 }
