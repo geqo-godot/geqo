@@ -7,6 +7,8 @@ reloadable = true
 [icons]
 
 CEnvironmentQuery = "res://addons/geqo/icons/environment_query.svg"
+CQueryTest3D = "res://addons/geqo/icons/query_test3d.svg"
+CQueryGenerator3D = "res://addons/geqo/icons/generator3d.svg"
 
 [libraries]
 
