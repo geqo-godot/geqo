@@ -11,6 +11,8 @@ CQueryTest3D = "res://addons/geqo/icons/query_test3d.svg"
 CQueryGenerator3D = "res://addons/geqo/icons/generator3d.svg"
 CTestDistanceTo = "res://addons/geqo/icons/distance_test3d.svg"
 
+CGeneratorGridShape3D = "res://addons/geqo/icons/generator3d.svg"
+
 [libraries]
 
 macos.debug = "res://addons/geqo/bin/geqo.macos.template_debug.framework"

@@ -7,6 +7,9 @@
 #include "query_generator3d.h"
 #include "query_test3d.h"
 
+// Generators
+#include <generators/generator_grid_shape3d.h>
+
 // Tests
 #include <tests/test_distance_to3d.h>
 
@@ -28,6 +31,9 @@ void initialize_geqo_module(ModuleInitializationLevel p_level)
     GDREGISTER_ABSTRACT_CLASS(CQueryContext3D);
     GDREGISTER_ABSTRACT_CLASS(CQueryGenerator3D);
     GDREGISTER_ABSTRACT_CLASS(CQueryTest3D);
+
+    // Generators
+    GDREGISTER_CLASS(CGeneratorGridShape3D);
 
     // Tests
     GDREGISTER_CLASS(CTestDistanceTo);

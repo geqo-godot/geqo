@@ -12,6 +12,15 @@ struct CQueryItem
     Vector3 projection_position = Vector3(0.0, 0.0, 0.0);
     Node *collided_with = nullptr;
 
+    void add_score(double amount)
+    {
+        score += amount;
+        if (has_score == false)
+        {
+            has_score = true;
+        }
+    }
+
     bool operator<(const CQueryItem &item) const
     {
         if (is_filtered || !has_score)

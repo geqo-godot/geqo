@@ -68,6 +68,10 @@ metadata/_custom_type_script = "uid://btm8tt22wulwi"
 
 [node name="CEnvironmentQuery" type="CEnvironmentQuery" parent="."]
 
+[node name="CGeneratorGridShape3D" type="CGeneratorGridShape3D" parent="CEnvironmentQuery"]
+
+[node name="CTestDistanceTo" type="CTestDistanceTo" parent="CEnvironmentQuery/CGeneratorGridShape3D"]
+
 [node name="Contexts" type="Node3D" parent="."]
 
 [node name="ContextSelf" type="Node3D" parent="Contexts" node_paths=PackedStringArray("target_node")]
