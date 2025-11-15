@@ -3,6 +3,7 @@
 #include <godot_cpp/classes/physics_ray_query_parameters3d.hpp>
 #include <godot_cpp/classes/world3d.hpp>
 #include <godot_cpp/classes/node3d.hpp>
+#include <godot_cpp/classes/collision_object3d.hpp>
 
 void CGeneratorGridShape3D::_bind_methods()
 {
@@ -132,7 +133,7 @@ void CGeneratorGridShape3D::set_projection_collision_mask(int mask)
     projection_collision_mask = mask;
 }
 
-void CGeneratorGridShape3D::perform_generation(vector<CQueryItem> query_item_list)
+void CGeneratorGridShape3D::perform_generation(vector<CQueryItem> &query_item_list)
 {
     if (generate_around == nullptr)
     {
@@ -206,12 +207,12 @@ Dictionary CGeneratorGridShape3D::cast_ray_projection(Vector3 start_pos, Vector3
     // TODO: Figure out how to get the RIDs
     for (Variant exclusion : exclusions)
     {
-        Node *node = Object::cast_to<Node>(exclusion.operator Object *());
+        CollisionObject3D *node = Object::cast_to<CollisionObject3D>(exclusion.operator Object *());
         if (node == nullptr)
             continue;
-        // exclusion_rids.append(node->get_instance_id());
+        exclusion_rids.append(node->get_rid());
     }
-    // query->set_exclude(exclusion_rids);
+    query->set_exclude(exclusion_rids);
 
     return space_state->intersect_ray(query);
 }

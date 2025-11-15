@@ -44,8 +44,12 @@ Ref<CQueryResult> CEnvironmentQuery::request_query()
 
     for (Variant child : get_children())
     {
-        // TODO: Verify child is generator
         CQueryGenerator3D *generator = cast_to<CQueryGenerator3D>(child);
+        if (generator == nullptr)
+        {
+            print_error("EnvironmentQuery: Child is not Generator");
+            continue;
+        }
         generator->perform_generation(query_items);
         generator->perform_tests(query_items);
     }

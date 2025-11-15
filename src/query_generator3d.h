@@ -24,8 +24,8 @@ namespace godot
         RaycastMode get_raycast_mode() const;
         void set_raycast_mode(RaycastMode mode);
 
-        virtual void perform_generation(vector<CQueryItem> query_item_list) = 0;
-        void perform_tests(vector<CQueryItem> query_item_list);
+        virtual void perform_generation(vector<CQueryItem> &query_item_list) = 0;
+        void perform_tests(vector<CQueryItem> &query_item_list);
 
     private:
         RaycastMode raycast_mode = BODY;

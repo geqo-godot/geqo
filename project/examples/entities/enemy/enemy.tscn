@@ -44,7 +44,6 @@ target_node = NodePath("../..")
 
 [node name="EnvironmentQuery" type="Node" parent="."]
 script = ExtResource("2_dt443")
-use_debug_shapes = true
 metadata/_custom_type_script = "uid://dpf3gdda0hw3d"
 
 [node name="GeneratorGridShape" type="Node3D" parent="EnvironmentQuery" node_paths=PackedStringArray("generate_around")]
@@ -62,6 +61,7 @@ test_purpose = 2
 metadata/_custom_type_script = "uid://d1q6i40l8gvoi"
 
 [node name="CEnvironmentQuery" type="CEnvironmentQuery" parent="."]
+use_debug_shapes = true
 
 [node name="CGeneratorGridShape3D" type="CGeneratorGridShape3D" parent="CEnvironmentQuery" node_paths=PackedStringArray("generate_around")]
 generate_around = NodePath("../../Contexts/CContextSelf")

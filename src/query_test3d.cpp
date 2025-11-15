@@ -40,7 +40,3 @@ void CQueryTest3D::set_context_operator(const ScoreOperator score_op)
 {
     multiple_context_operator = score_op;
 }
-
-void CQueryTest3D::perform_test(CQueryItem &projection)
-{
-}

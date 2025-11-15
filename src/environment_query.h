@@ -25,6 +25,10 @@ namespace godot
     private:
         bool use_debug_shapes;
         vector<CQueryItem> query_items;
+        // TODO: Check how many rays have been casted in total, cap it so it does a certain amount of rays per tick
+        // Since rays are the heaviest calculations by far I think
+        int casted_rays = 0;
+        int rays_per_tick = 1000;
     };
 
 }
