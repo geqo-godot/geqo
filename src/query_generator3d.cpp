@@ -37,7 +37,7 @@ void CQueryGenerator3D::perform_tests(vector<CQueryItem> &query_item_list)
     for (Variant test : get_children())
     {
         // TODO: Make sure generator only has QueryTest children
-        for (CQueryItem query_item : query_item_list)
+        for (CQueryItem &query_item : query_item_list)
         {
             CQueryTest3D *current_test = Object::cast_to<CQueryTest3D>(test);
             if (current_test == nullptr)

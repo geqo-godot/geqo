@@ -13,6 +13,7 @@ void CEnvironmentQuery::_bind_methods()
     ClassDB::bind_method(D_METHOD("request_query"), &CEnvironmentQuery::request_query);
 
     ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_debug_shapes"), "set_use_debug_shapes", "get_use_debug_shapes");
+    ADD_SIGNAL(MethodInfo("query_finished", PropertyInfo(Variant::OBJECT, "result")));
 }
 
 CEnvironmentQuery::CEnvironmentQuery()
@@ -74,5 +75,6 @@ Ref<CQueryResult> CEnvironmentQuery::request_query()
     }
     UtilityFunctions::print("Results: ", result->get_highest_score_position());
     UtilityFunctions::print("Amount of items: ", result->get_query_items().size());
+    emit_signal("query_finished", result);
     return result;
 }

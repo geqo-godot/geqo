@@ -10,12 +10,12 @@ var final_target: Vector3
 var current_target
 
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
+@onready var env_query: CEnvironmentQuery = $CEnvironmentQuery
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("request_query"):
-		$EnvironmentQuery.request_query()
-		$CEnvironmentQuery.request_query()
-		var query_result: EnvironmentQuery.QueryResult = await $EnvironmentQuery.query_finished
+		var query_result: CQueryResult = env_query.request_query()
+		print("Bichito: ", query_result.get_highest_score_position())
 		final_target = query_result.get_highest_score_position()
 		if !final_target:
 			return

@@ -20,16 +20,13 @@ struct CQueryItem
     void add_score(double amount)
     {
         score += amount;
-        if (has_score == false)
-        {
-            has_score = true;
-        }
+        has_score = true;
     }
 
     bool operator<(const CQueryItem &item) const
     {
         if (is_filtered || !has_score)
-            return false;
+            return true;
         return score < item.score;
     }
 

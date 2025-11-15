@@ -75,7 +75,7 @@ void godot::CTestDistanceTo::set_max_distance(double dist)
 
 void CTestDistanceTo::perform_test(CQueryItem &projection)
 {
-    UtilityFunctions::print_rich("Testing the tested test to test");
+    // UtilityFunctions::print_rich("Testing the tested test to test");
     if (distance_to == nullptr)
     {
         UtilityFunctions::print_rich("Test has no context");
@@ -83,7 +83,7 @@ void CTestDistanceTo::perform_test(CQueryItem &projection)
     }
 
     Array context_positions = distance_to->get_context_positions();
-    vector<double> scores;
+    vector<double> scores = {};
 
     for (Variant context_pos : context_positions)
     {
@@ -104,6 +104,7 @@ void CTestDistanceTo::perform_test(CQueryItem &projection)
         double linear_score = (distance - min_distance) / (max_distance - min_distance);
         double clamped_score = std::clamp(linear_score, 0.0, 1.0);
         double curve_score = scoring_curve->sample_baked(clamped_score);
+        scores.push_back(curve_score);
     }
 
     double result = 0.0;
@@ -118,7 +119,7 @@ void CTestDistanceTo::perform_test(CQueryItem &projection)
         break;
     }
     case MAX_SCORE:
-        result = *std::max_element(scores.begin(), scores.end());
+        result = *std::max(scores.begin(), scores.end());
         break;
     case MIN_SCORE:
         result = *std::min_element(scores.begin(), scores.end());
