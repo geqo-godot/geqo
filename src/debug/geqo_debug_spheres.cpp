@@ -46,6 +46,8 @@ void CGEQODebugSpheres::draw_items(vector<CQueryItem> &query_items_list, double 
         }
         else
         {
+            print_error("Has score: ");
+            print_error(query_item.has_score);
             if (query_item.has_score)
             {
                 // TODO: Set the precision to 2 decimals

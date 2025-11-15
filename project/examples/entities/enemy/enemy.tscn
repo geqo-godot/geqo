@@ -71,5 +71,6 @@ post_projection_vertical_offset = 1.5
 distance_to = NodePath("../../../Contexts/CContextSelf")
 max_distance = 15.0
 scoring_curve = SubResource("Curve_qgt2e")
+test_purpose = 2
 
 [connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]
