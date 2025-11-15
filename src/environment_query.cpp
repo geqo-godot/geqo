@@ -36,6 +36,14 @@ bool CEnvironmentQuery::get_use_debug_shapes() const
     return use_debug_shapes;
 }
 
+void godot::CEnvironmentQuery::_ready()
+{
+    if (Engine::get_singleton()->is_editor_hint())
+        return;
+    debug_spheres = memnew(CGEQODebugSpheres);
+    call_deferred("add_sibling", debug_spheres);
+}
+
 Ref<CQueryResult> CEnvironmentQuery::request_query()
 {
     UtilityFunctions::print_rich(String("Requested a query in C++"));
@@ -62,7 +70,7 @@ Ref<CQueryResult> CEnvironmentQuery::request_query()
 
     if (use_debug_shapes)
     {
-        Object *debug_shape_node = Engine::get_singleton()->get_singleton("GEQODebugSpheres");
+        debug_spheres->draw_items(query_items);
     }
     UtilityFunctions::print("Results: ", result->get_highest_score_position());
     UtilityFunctions::print("Amount of items: ", result->get_query_items().size());

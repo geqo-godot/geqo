@@ -1,5 +1,6 @@
 #include "register_types.h"
 
+#include <debug/geqo_debug_spheres.h>
 #include "gdexample.h"
 #include "environment_query.h"
 #include "query_result.h"
@@ -28,8 +29,9 @@ void initialize_geqo_module(ModuleInitializationLevel p_level)
         return;
     }
 
-    GDREGISTER_RUNTIME_CLASS(CQueryResult);
-    GDREGISTER_RUNTIME_CLASS(CEnvironmentQuery);
+    GDREGISTER_CLASS(CGEQODebugSpheres);
+    GDREGISTER_CLASS(CQueryResult);
+    GDREGISTER_CLASS(CEnvironmentQuery);
     GDREGISTER_ABSTRACT_CLASS(CQueryContext3D);
     GDREGISTER_ABSTRACT_CLASS(CQueryGenerator3D);
     GDREGISTER_ABSTRACT_CLASS(CQueryTest3D);

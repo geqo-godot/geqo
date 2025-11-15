@@ -1,6 +1,7 @@
 #pragma once
 #include "query_result.h"
 #include <godot_cpp/classes/node.hpp>
+#include <debug/geqo_debug_spheres.h>
 #include <vector>
 using std::vector;
 
@@ -20,6 +21,8 @@ namespace godot
         void set_use_debug_shapes(const bool use_debug);
         bool get_use_debug_shapes() const;
 
+        void _ready() override;
+
         Ref<CQueryResult> request_query();
 
     private:
@@ -29,6 +32,7 @@ namespace godot
         // Since rays are the heaviest calculations by far I think
         int casted_rays = 0;
         int rays_per_tick = 1000;
+        CGEQODebugSpheres *debug_spheres = nullptr;
     };
 
 }

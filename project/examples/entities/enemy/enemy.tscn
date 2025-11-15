@@ -65,6 +65,7 @@ use_debug_shapes = true
 
 [node name="CGeneratorGridShape3D" type="CGeneratorGridShape3D" parent="CEnvironmentQuery" node_paths=PackedStringArray("generate_around")]
 generate_around = NodePath("../../Contexts/CContextSelf")
+post_projection_vertical_offset = 1.5
 
 [node name="CTestDistanceTo" type="CTestDistanceTo" parent="CEnvironmentQuery/CGeneratorGridShape3D" node_paths=PackedStringArray("distance_to")]
 distance_to = NodePath("../../../Contexts/CContextSelf")
