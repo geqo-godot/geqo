@@ -196,14 +196,15 @@ Dictionary CGeneratorGridShape3D::cast_ray_projection(Vector3 start_pos, Vector3
 
     Array exclusion_rids = Array();
 
+    // TODO: Figure out how to get the RIDs
     for (Variant exclusion : exclusions)
     {
         Node *node = Object::cast_to<Node>(exclusion.operator Object *());
         if (node == nullptr)
             continue;
-        exclusion_rids.append(node->get_instance_id());
+        // exclusion_rids.append(node->get_instance_id());
     }
-    query->set_exclude(exclusion_rids);
+    // query->set_exclude(exclusion_rids);
 
     return space_state->intersect_ray(query);
 }
