@@ -66,7 +66,7 @@ void CGEQODebugSpheres::remove_labels()
     for (Variant label : text_labels)
     {
         Label3D *label_ref = Object::cast_to<Label3D>(label);
-        if (label_ref = nullptr)
+        if (label_ref == nullptr)
         {
             print_error("Not a label");
             continue;
@@ -87,7 +87,7 @@ void CGEQODebugSpheres::draw_debug_sphere(Vector3 pos, double radius, Color colo
         for (int seg = 0; seg < segments; seg++)
         {
             double theta = Math_TAU * (double)seg / (double)segments;
-            double theta_next = Math_TAU * (double)seg + 1.0 / (double)segments;
+            double theta_next = Math_TAU * (double)(seg + 1) / (double)segments;
 
             // Current ring
             Vector3 p1 = _sphere_point(radius, phi, theta) + pos;
@@ -99,6 +99,7 @@ void CGEQODebugSpheres::draw_debug_sphere(Vector3 pos, double radius, Color colo
         }
     }
 
+    // Vertical segments (longitude lines)
     for (int seg = 0; seg < segments; seg++)
     {
         double theta = Math_TAU * (double)seg / (double)segments;
@@ -106,10 +107,10 @@ void CGEQODebugSpheres::draw_debug_sphere(Vector3 pos, double radius, Color colo
         for (int ring = 0; ring < rings; ring++)
         {
             double phi = Math_PI * (double)ring / (double)rings;
-            double phi_next = Math_PI * (double)ring + 1 / (double)rings;
+            double phi_next = Math_PI * (double)(ring + 1) / (double)rings;
 
             Vector3 p1 = _sphere_point(radius, phi, theta) + pos;
-            Vector3 p2 = _sphere_point(radius, phi, theta) + pos;
+            Vector3 p2 = _sphere_point(radius, phi_next, theta) + pos;
 
             immediate_mesh->surface_set_color(color);
             immediate_mesh->surface_add_vertex(p1);
