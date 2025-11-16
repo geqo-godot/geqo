@@ -39,7 +39,7 @@ namespace godot
         CQueryContext3D *context = nullptr;
         bool hitting_is_true = true;
         bool cast_from_context = false;
-        TypedArray<NodePath> exclusions;
+        TypedArray<NodePath> exclusions = TypedArray<NodePath>();
         int collision_mask = 1;
     };
 

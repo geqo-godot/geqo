@@ -15,6 +15,7 @@ CTestRaycastTo3D = "res://addons/geqo/icons/raycast_test3d.svg"
 CTestDotProduct3D = "res://addons/geqo/icons/dot_product_test3d.svg"
 
 CGeneratorGridShape3D = "res://addons/geqo/icons/generator3d.svg"
+CGeneratorCircleShape3D = "res://addons/geqo/icons/generator3d.svg"
 
 [libraries]
 

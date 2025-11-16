@@ -12,6 +12,7 @@
 #include <contexts/context_in_group3d.h>
 
 // Generators
+#include <generators/generator_circle_shape3d.h>
 #include <generators/generator_grid_shape3d.h>
 
 // Tests
@@ -45,6 +46,7 @@ void initialize_geqo_module(ModuleInitializationLevel p_level)
 
     // Generators
     GDREGISTER_CLASS(CGeneratorGridShape3D);
+    GDREGISTER_CLASS(CGeneratorCircleShape3D);
 
     // Tests
     GDREGISTER_CLASS(CTestDistanceTo3D);

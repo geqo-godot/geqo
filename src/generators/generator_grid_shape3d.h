@@ -15,8 +15,6 @@ namespace godot
         CGeneratorGridShape3D();
         ~CGeneratorGridShape3D();
 
-        void _ready() override;
-
         double get_grid_half_size() const;
         void set_grid_half_size(double size);
 

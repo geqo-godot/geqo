@@ -6,7 +6,7 @@ namespace godot
 {
     class CQueryGenerator3D : public Node3D
     {
-        GDCLASS(CQueryGenerator3D, Node)
+        GDCLASS(CQueryGenerator3D, Node3D)
 
     protected:
         static void _bind_methods();

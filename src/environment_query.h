@@ -26,8 +26,8 @@ namespace godot
         Ref<CQueryResult> request_query();
 
     private:
-        bool use_debug_shapes;
-        vector<CQueryItem> query_items;
+        bool use_debug_shapes = false;
+        vector<CQueryItem> query_items = {};
         CGEQODebugSpheres *debug_spheres = nullptr;
     };
 

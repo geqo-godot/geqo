@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://nvso64245ltb"]
+[gd_scene load_steps=10 format=3 uid="uid://nvso64245ltb"]
 
 [ext_resource type="Script" uid="uid://cyqo7rh6dj286" path="res://examples/entities/enemy/enemy.gd" id="1_3fvr7"]
 [ext_resource type="Script" uid="uid://dpf3gdda0hw3d" path="res://addons/geqo/environment_query.gd" id="2_dt443"]
@@ -11,10 +11,6 @@
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_036b0"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fj7yv"]
-
-[sub_resource type="Curve" id="Curve_qgt2e"]
-_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
-point_count = 2
 
 [node name="Enemy" type="CharacterBody3D" groups=["enemies"]]
 collision_layer = 4
@@ -37,12 +33,6 @@ metadata/_custom_type_script = "uid://cku0g6f6geqcx"
 script = ExtResource("6_d50e0")
 group = &"player"
 metadata/_custom_type_script = "uid://bvvrmnqi0eyge"
-
-[node name="CContextSelf" type="CContextTargetNode3D" parent="Contexts" node_paths=PackedStringArray("target_node")]
-target_node = NodePath("../..")
-
-[node name="CContextPlayer" type="CContextInGroup3D" parent="Contexts"]
-group = &"player"
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
@@ -71,23 +61,6 @@ metadata/_custom_type_script = "uid://doup3ax1vq4dw"
 [node name="CEnvironmentQuery" type="CEnvironmentQuery" parent="."]
 use_debug_shapes = true
 
-[node name="CGeneratorGridShape3D" type="CGeneratorGridShape3D" parent="CEnvironmentQuery" node_paths=PackedStringArray("generate_around")]
-generate_around = NodePath("../../Contexts/CContextSelf")
-post_projection_vertical_offset = 1.5
-
-[node name="CTestDistanceTo3D" type="CTestDistanceTo3D" parent="CEnvironmentQuery/CGeneratorGridShape3D" node_paths=PackedStringArray("distance_to")]
-distance_to = NodePath("../../../Contexts/CContextPlayer")
-min_distance = 5.0
-max_distance = 20.0
-scoring_curve = SubResource("Curve_qgt2e")
-
-[node name="CTestRaycastTo3D" type="CTestRaycastTo3D" parent="CEnvironmentQuery/CGeneratorGridShape3D" node_paths=PackedStringArray("context")]
-context = NodePath("../../../Contexts/CContextPlayer")
-exclusions = [NodePath("../../..")]
-collision_mask = 3
-
-[node name="CTestDotProduct3D" type="CTestDotProduct3D" parent="CEnvironmentQuery/CGeneratorGridShape3D" node_paths=PackedStringArray("from_place", "to_target")]
-from_place = NodePath("../../../Contexts/CContextSelf")
-to_target = NodePath("../../../Contexts/CContextPlayer")
+[node name="CGeneratorGridShape3D" type="CGeneratorGridShape3D" parent="CEnvironmentQuery"]
 
 [connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]

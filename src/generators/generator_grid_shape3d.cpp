@@ -44,10 +44,6 @@ CGeneratorGridShape3D::~CGeneratorGridShape3D()
 {
 }
 
-void godot::CGeneratorGridShape3D::_ready()
-{
-}
-
 double CGeneratorGridShape3D::get_grid_half_size() const
 {
     return grid_half_size;

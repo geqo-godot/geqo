@@ -18,8 +18,6 @@ void CEnvironmentQuery::_bind_methods()
 
 CEnvironmentQuery::CEnvironmentQuery()
 {
-    // Initialize any variables here.
-    use_debug_shapes = false;
 }
 
 CEnvironmentQuery::~CEnvironmentQuery()
