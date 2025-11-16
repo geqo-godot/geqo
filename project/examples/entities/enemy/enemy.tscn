@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://nvso64245ltb"]
+[gd_scene load_steps=11 format=3 uid="uid://nvso64245ltb"]
 
 [ext_resource type="Script" uid="uid://cyqo7rh6dj286" path="res://examples/entities/enemy/enemy.gd" id="1_3fvr7"]
 [ext_resource type="Script" uid="uid://dpf3gdda0hw3d" path="res://addons/geqo/environment_query.gd" id="2_dt443"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://cku0g6f6geqcx" path="res://addons/geqo/nodes/contexts/context_target_node.gd" id="5_4wwj3"]
 [ext_resource type="Script" uid="uid://d1q6i40l8gvoi" path="res://addons/geqo/nodes/tests/test_raycast_to.gd" id="6_721x4"]
 [ext_resource type="Script" uid="uid://bvvrmnqi0eyge" path="res://addons/geqo/nodes/contexts/context_in_group.gd" id="6_d50e0"]
+[ext_resource type="Script" uid="uid://doup3ax1vq4dw" path="res://addons/geqo/nodes/tests/test_dot_product.gd" id="7_5peh2"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_036b0"]
 
@@ -63,6 +64,10 @@ collision_mask = 3
 test_purpose = 2
 metadata/_custom_type_script = "uid://d1q6i40l8gvoi"
 
+[node name="TestDotProduct" type="Node3D" parent="EnvironmentQuery/GeneratorGridShape"]
+script = ExtResource("7_5peh2")
+metadata/_custom_type_script = "uid://doup3ax1vq4dw"
+
 [node name="CEnvironmentQuery" type="CEnvironmentQuery" parent="."]
 use_debug_shapes = true
 
@@ -80,5 +85,9 @@ scoring_curve = SubResource("Curve_qgt2e")
 context = NodePath("../../../Contexts/CContextPlayer")
 exclusions = [NodePath("../../..")]
 collision_mask = 3
+
+[node name="CTestDotProduct3D" type="CTestDotProduct3D" parent="CEnvironmentQuery/CGeneratorGridShape3D" node_paths=PackedStringArray("from_place", "to_target")]
+from_place = NodePath("../../../Contexts/CContextSelf")
+to_target = NodePath("../../../Contexts/CContextPlayer")
 
 [connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]

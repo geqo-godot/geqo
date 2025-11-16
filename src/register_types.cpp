@@ -17,6 +17,7 @@
 // Tests
 #include <tests/test_distance_to3d.h>
 #include <tests/test_raycast_to3d.h>
+#include <tests/test_dot_product3d.h>
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -47,7 +48,8 @@ void initialize_geqo_module(ModuleInitializationLevel p_level)
 
     // Tests
     GDREGISTER_CLASS(CTestDistanceTo3D);
-    GDREGISTER_CLASS(CTestRaycastTo3D)
+    GDREGISTER_CLASS(CTestRaycastTo3D);
+    GDREGISTER_CLASS(CTestDotProduct3D);
 }
 
 void uninitialize_geqo_module(ModuleInitializationLevel p_level)

@@ -28,7 +28,7 @@ namespace godot
         double get_max_distance() const;
         void set_max_distance(double dist);
 
-        void perform_test(CQueryItem &projection);
+        void perform_test(CQueryItem &projection) override;
         void _ready() override;
 
     private:

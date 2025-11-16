@@ -32,7 +32,7 @@ namespace godot
         int get_collision_mask() { return collision_mask; }
         void set_collision_mask(int mask);
 
-        void perform_test(CQueryItem &projection);
+        void perform_test(CQueryItem &projection) override;
         void _ready() override;
 
     private:

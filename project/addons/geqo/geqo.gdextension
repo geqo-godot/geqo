@@ -12,6 +12,7 @@ CQueryGenerator3D = "res://addons/geqo/icons/generator3d.svg"
 
 CTestDistanceTo3D = "res://addons/geqo/icons/distance_test3d.svg"
 CTestRaycastTo3D = "res://addons/geqo/icons/raycast_test3d.svg"
+CTestDotProduct3D = "res://addons/geqo/icons/dot_product_test3d.svg"
 
 CGeneratorGridShape3D = "res://addons/geqo/icons/generator3d.svg"
 
