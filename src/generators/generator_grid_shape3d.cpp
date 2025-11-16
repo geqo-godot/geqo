@@ -42,6 +42,7 @@ CGeneratorGridShape3D::CGeneratorGridShape3D()
 
 CGeneratorGridShape3D::~CGeneratorGridShape3D()
 {
+    this->generate_around = nullptr;
 }
 
 double CGeneratorGridShape3D::get_grid_half_size() const

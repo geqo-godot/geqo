@@ -14,5 +14,4 @@ CGeneratorCircleShape3D::~CGeneratorCircleShape3D()
 
 void CGeneratorCircleShape3D::perform_generation(vector<CQueryItem> &query_item_list)
 {
-    return;
 }

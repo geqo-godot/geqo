@@ -26,6 +26,8 @@ CTestDotProduct3D::CTestDotProduct3D()
 
 CTestDotProduct3D::~CTestDotProduct3D()
 {
+    from_place = nullptr;
+    to_target = nullptr;
 }
 
 double CTestDotProduct3D::get_min_value()

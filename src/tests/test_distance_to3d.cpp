@@ -31,6 +31,7 @@ CTestDistanceTo3D::CTestDistanceTo3D()
 
 CTestDistanceTo3D::~CTestDistanceTo3D()
 {
+    distance_to = nullptr;
 }
 
 Ref<Curve> CTestDistanceTo3D::get_scoring_curve() const

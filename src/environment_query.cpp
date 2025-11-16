@@ -23,6 +23,8 @@ CEnvironmentQuery::CEnvironmentQuery()
 CEnvironmentQuery::~CEnvironmentQuery()
 {
     // Add your cleanup here.
+    CGEQODebugSpheres *debug_spheres = nullptr;
+    query_items.clear();
 }
 
 void CEnvironmentQuery::set_use_debug_shapes(const bool use_debug)

@@ -34,6 +34,7 @@ CTestRaycastTo3D::CTestRaycastTo3D()
 
 CTestRaycastTo3D::~CTestRaycastTo3D()
 {
+    context = nullptr;
 }
 
 void CTestRaycastTo3D::set_context(CQueryContext3D *context_node)
