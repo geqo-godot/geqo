@@ -3,31 +3,27 @@
 #include <godot_cpp/classes/node.hpp>
 #include <debug/geqo_debug_spheres.h>
 #include <vector>
-
-namespace godot
+using namespace godot;
+class CEnvironmentQuery : public Node
 {
-    class CEnvironmentQuery : public Node
-    {
-        GDCLASS(CEnvironmentQuery, Node)
+    GDCLASS(CEnvironmentQuery, Node)
 
-    protected:
-        static void _bind_methods();
+protected:
+    static void _bind_methods();
 
-    public:
-        CEnvironmentQuery();
-        ~CEnvironmentQuery();
+public:
+    CEnvironmentQuery();
+    ~CEnvironmentQuery();
 
-        void set_use_debug_shapes(const bool use_debug);
-        bool get_use_debug_shapes() const;
+    void set_use_debug_shapes(const bool use_debug);
+    bool get_use_debug_shapes() const;
 
-        void _ready() override;
+    void _ready() override;
 
-        Ref<CQueryResult> request_query();
+    Ref<CQueryResult> request_query();
 
-    private:
-        bool use_debug_shapes = false;
-        std::vector<CQueryItem> query_items = {};
-        CGEQODebugSpheres *debug_spheres = nullptr;
-    };
-
-}
+private:
+    bool use_debug_shapes = false;
+    std::vector<CQueryItem> query_items = {};
+    CGEQODebugSpheres *debug_spheres = nullptr;
+};

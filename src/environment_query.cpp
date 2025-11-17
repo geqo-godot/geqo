@@ -37,7 +37,7 @@ bool CEnvironmentQuery::get_use_debug_shapes() const
     return use_debug_shapes;
 }
 
-void godot::CEnvironmentQuery::_ready()
+void CEnvironmentQuery::_ready()
 {
     if (Engine::get_singleton()->is_editor_hint())
         return;

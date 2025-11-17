@@ -39,7 +39,7 @@ Ref<Curve> CTestDistanceTo3D::get_scoring_curve() const
     return scoring_curve;
 }
 
-void godot::CTestDistanceTo3D::set_scoring_curve(Ref<Curve> curve)
+void CTestDistanceTo3D::set_scoring_curve(Ref<Curve> curve)
 {
     scoring_curve = curve;
 }
@@ -64,12 +64,12 @@ void CTestDistanceTo3D::set_min_distance(double dist)
     min_distance = dist;
 }
 
-double godot::CTestDistanceTo3D::get_max_distance() const
+double CTestDistanceTo3D::get_max_distance() const
 {
     return max_distance;
 }
 
-void godot::CTestDistanceTo3D::set_max_distance(double dist)
+void CTestDistanceTo3D::set_max_distance(double dist)
 {
     max_distance = dist;
 }

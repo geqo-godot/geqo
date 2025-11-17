@@ -1,4 +1,4 @@
-#include "generator_grid_shape3d.h"
+#include <generators/generator_grid_shape3d.h>
 
 void CGeneratorGridShape3D::_bind_methods()
 {

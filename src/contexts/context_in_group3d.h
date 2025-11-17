@@ -13,11 +13,11 @@ public:
     CContextInGroup3D();
     ~CContextInGroup3D();
 
-    void set_group(StringName new_group);
-    StringName get_group();
+    void set_group(String new_group);
+    String get_group();
 
     Array get_context() override;
 
 private:
-    StringName group = "";
+    String group = "";
 };

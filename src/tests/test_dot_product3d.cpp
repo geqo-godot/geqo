@@ -45,27 +45,27 @@ double CTestDotProduct3D::get_max_value()
     return max_value;
 }
 
-void godot::CTestDotProduct3D::set_max_value(double value)
+void CTestDotProduct3D::set_max_value(double value)
 {
     max_value = value;
 }
 
-CQueryContext3D *godot::CTestDotProduct3D::get_from_place()
+CQueryContext3D *CTestDotProduct3D::get_from_place()
 {
     return from_place;
 }
 
-void godot::CTestDotProduct3D::set_from_place(CQueryContext3D *context)
+void CTestDotProduct3D::set_from_place(CQueryContext3D *context)
 {
     from_place = context;
 }
 
-CQueryContext3D *godot::CTestDotProduct3D::get_to_target()
+CQueryContext3D *CTestDotProduct3D::get_to_target()
 {
     return to_target;
 }
 
-void godot::CTestDotProduct3D::set_to_target(CQueryContext3D *context)
+void CTestDotProduct3D::set_to_target(CQueryContext3D *context)
 {
     to_target = context;
 }
