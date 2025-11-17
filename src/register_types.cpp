@@ -1,13 +1,14 @@
-#include "register_types.h"
+#include <gdextension_interface.h>
+#include <godot_cpp/core/defs.hpp>
+#include <godot_cpp/godot.hpp>
 
-#include <debug/geqo_debug_spheres.h>
-#include "gdexample.h"
-
-#include "environment_query.h"
 #include "query_result.h"
+#include "environment_query.h"
 #include "query_context3d.h"
 #include "query_generator3d.h"
 #include "query_test3d.h"
+
+#include <debug/geqo_debug_spheres.h>
 // Contexts
 #include <contexts/context_target_node3d.h>
 #include <contexts/context_in_group3d.h>
@@ -21,9 +22,7 @@
 #include <tests/test_raycast_to3d.h>
 #include <tests/test_dot_product3d.h>
 
-#include <gdextension_interface.h>
-#include <godot_cpp/core/defs.hpp>
-#include <godot_cpp/godot.hpp>
+#include "register_types.h"
 
 using namespace godot;
 
