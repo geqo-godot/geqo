@@ -37,7 +37,7 @@ void CQueryGenerator3D::set_raycast_mode(RaycastMode mode)
     raycast_mode = mode;
 }
 
-void CQueryGenerator3D::perform_tests(vector<CQueryItem> &query_item_list)
+void CQueryGenerator3D::perform_tests(std::vector<CQueryItem> &query_item_list)
 {
     for (Variant test : get_children())
     {

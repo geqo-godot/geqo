@@ -1,6 +1,7 @@
 #pragma once
 #include <godot_cpp/classes/node3d.hpp>
 #include "query_result.h"
+#include <vector>
 
 namespace godot
 {
@@ -24,8 +25,8 @@ namespace godot
         RaycastMode get_raycast_mode() const;
         void set_raycast_mode(RaycastMode mode);
 
-        virtual void perform_generation(vector<CQueryItem> &query_item_list) = 0;
-        void perform_tests(vector<CQueryItem> &query_item_list);
+        virtual void perform_generation(std::vector<CQueryItem> &query_item_list) = 0;
+        void perform_tests(std::vector<CQueryItem> &query_item_list);
         Dictionary cast_ray_projection(Vector3 start_pos, Vector3 end_pos, Array exclusions, int col_mask = 1);
 
     private:

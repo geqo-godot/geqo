@@ -125,7 +125,7 @@ void CGeneratorGridShape3D::set_projection_collision_mask(int mask)
     projection_collision_mask = mask;
 }
 
-void CGeneratorGridShape3D::perform_generation(vector<CQueryItem> &query_item_list)
+void CGeneratorGridShape3D::perform_generation(std::vector<CQueryItem> &query_item_list)
 {
     if (generate_around == nullptr)
     {

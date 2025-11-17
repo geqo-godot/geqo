@@ -12,6 +12,6 @@ CGeneratorCircleShape3D::~CGeneratorCircleShape3D()
 {
 }
 
-void CGeneratorCircleShape3D::perform_generation(vector<CQueryItem> &query_item_list)
+void CGeneratorCircleShape3D::perform_generation(std::vector<CQueryItem> &query_item_list)
 {
 }

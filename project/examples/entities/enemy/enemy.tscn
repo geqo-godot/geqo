@@ -34,6 +34,8 @@ script = ExtResource("6_d50e0")
 group = &"player"
 metadata/_custom_type_script = "uid://bvvrmnqi0eyge"
 
+[node name="CContextInGroup3D" type="CContextInGroup3D" parent="Contexts"]
+
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [node name="EnvironmentQuery" type="Node" parent="."]
@@ -60,5 +62,9 @@ metadata/_custom_type_script = "uid://doup3ax1vq4dw"
 
 [node name="CEnvironmentQuery" type="CEnvironmentQuery" parent="."]
 use_debug_shapes = true
+
+[node name="CGeneratorGridShape3D" type="CGeneratorGridShape3D" parent="CEnvironmentQuery"]
+
+[node name="CGeneratorCircleShape3D" type="CGeneratorCircleShape3D" parent="CEnvironmentQuery"]
 
 [connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]

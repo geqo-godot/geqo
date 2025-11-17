@@ -84,7 +84,7 @@ void CTestDistanceTo3D::perform_test(CQueryItem &projection)
     }
 
     Array context_positions = distance_to->get_context_positions();
-    vector<double> scores = {};
+    std::vector<double> scores = {};
 
     for (Variant context_pos : context_positions)
     {

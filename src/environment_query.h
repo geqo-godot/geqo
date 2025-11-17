@@ -3,7 +3,6 @@
 #include <godot_cpp/classes/node.hpp>
 #include <debug/geqo_debug_spheres.h>
 #include <vector>
-using std::vector;
 
 namespace godot
 {
@@ -27,7 +26,7 @@ namespace godot
 
     private:
         bool use_debug_shapes = false;
-        vector<CQueryItem> query_items = {};
+        std::vector<CQueryItem> query_items = {};
         CGEQODebugSpheres *debug_spheres = nullptr;
     };
 

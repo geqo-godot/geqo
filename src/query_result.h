@@ -1,7 +1,6 @@
 #pragma once
 #include <godot_cpp/classes/node.hpp>
 #include <vector>
-using std::vector;
 using namespace godot;
 
 struct CQueryItem
@@ -44,7 +43,7 @@ class CQueryResult : public RefCounted
 {
     GDCLASS(CQueryResult, RefCounted)
 private:
-    vector<CQueryItem> query_items;
+    std::vector<CQueryItem> query_items;
 
 protected:
     static void _bind_methods();
@@ -53,9 +52,9 @@ public:
     CQueryResult();
     ~CQueryResult();
 
-    void set_items(const vector<CQueryItem> &items) { query_items = items; }
+    void set_items(const std::vector<CQueryItem> &items) { query_items = items; }
 
     Vector3 get_highest_score_position() const;
     Node *get_highest_score_node() const;
-    vector<CQueryItem> &get_query_items();
+    std::vector<CQueryItem> &get_query_items();
 };

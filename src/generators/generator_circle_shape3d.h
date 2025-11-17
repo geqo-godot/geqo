@@ -1,5 +1,7 @@
 #pragma once
 #include "query_generator3d.h"
+#include "query_context3d.h"
+#include <vector>
 
 namespace godot
 {
@@ -14,7 +16,7 @@ namespace godot
         CGeneratorCircleShape3D();
         ~CGeneratorCircleShape3D();
 
-        void perform_generation(vector<CQueryItem> &query_item_list) override;
+        void perform_generation(std::vector<CQueryItem> &query_item_list) override;
 
     private:
     };

@@ -1,4 +1,3 @@
-
 #pragma once
 #include "query_test3d.h"
 #include "query_context3d.h"

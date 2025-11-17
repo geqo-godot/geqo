@@ -1,6 +1,7 @@
 #pragma once
 #include "query_generator3d.h"
 #include "query_context3d.h"
+#include <vector>
 
 namespace godot
 {
@@ -39,7 +40,7 @@ namespace godot
         int get_projection_collision_mask() const;
         void set_projection_collision_mask(int mask);
 
-        void perform_generation(vector<CQueryItem> &query_item_list) override;
+        void perform_generation(std::vector<CQueryItem> &query_item_list) override;
 
     private:
         // QueryGenerator
