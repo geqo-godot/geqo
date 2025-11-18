@@ -29,6 +29,8 @@ String CContextInGroup3D::get_group()
 
 Array CContextInGroup3D::get_context()
 {
-    Array nodes = get_tree()->get_nodes_in_group(group);
+    Array nodes = Array();
+    if (is_inside_tree())
+        Array nodes = get_tree()->get_nodes_in_group(group);
     return nodes;
 }

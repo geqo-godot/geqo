@@ -1,4 +1,6 @@
-#pragma once
+#ifndef QUERYGENERATOR3D_H
+#define QUERYGENERATOR3D_H
+
 #include <godot_cpp/classes/node3d.hpp>
 #include <godot_cpp/variant/array.hpp>
 #include "query_result.h"
@@ -38,3 +40,4 @@ private:
 };
 
 VARIANT_ENUM_CAST(CQueryGenerator3D::RaycastMode);
+#endif

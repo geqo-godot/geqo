@@ -61,13 +61,11 @@ Ref<CQueryResult> CEnvironmentQuery::request_query()
         generator->perform_tests(query_items);
     }
 
-    // TODO: Reimplement draw debug
-
     Ref<CQueryResult> result;
     result.instantiate();
     result->set_items(query_items);
 
-    if (use_debug_shapes)
+    if (use_debug_shapes && debug_spheres)
     {
         debug_spheres->draw_items(query_items);
     }
