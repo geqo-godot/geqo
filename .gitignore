@@ -6,6 +6,7 @@ project/.godot/
 project/android/
 export.cfg
 export_presets.cfg
+.godot
 
 # Object
 .scons-cache/
@@ -20,3 +21,9 @@ export_presets.cfg
 .vscode/
 compile_commands.json
 vc140.pdb
+
+# JetBrains
+.idea
+
+# Python
+.venv
