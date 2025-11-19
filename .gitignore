@@ -1,3 +1,6 @@
+# Ignore generated compile_commands.json
+compile_commands.json
+
 # Project
 project/addons/geqo/bin/
 
@@ -8,14 +11,27 @@ export.cfg
 export_presets.cfg
 .godot
 
-# Object
-.scons-cache/
-*.os
-*.obj
+# Binaries
 *.o
+*.os
+*.so
+*.obj
+*.bc
+*.pyc
+*.dblite
+*.pdb
+*.lib
+*.config
+*.creator
+*.creator.user
+*.files
+*.includes
+*.idb
+*.exp
 
 # Sconstruct
 .sconsign.dblite
+.scons-cache/
 
 # Editors
 .vscode/
@@ -27,3 +43,6 @@ vc140.pdb
 
 # Python
 .venv
+# Cmake
+cmake-build*
+CMakeUserPresets.json
