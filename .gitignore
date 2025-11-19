@@ -3,7 +3,7 @@ compile_commands.json
 
 # Project
 project/addons/geqo/bin/
-
+out/
 # Godot 4+ specific ignores
 project/.godot/
 project/android/
@@ -35,6 +35,7 @@ export_presets.cfg
 
 # Editors
 .vscode/
+.vs/
 compile_commands.json
 vc140.pdb
 
