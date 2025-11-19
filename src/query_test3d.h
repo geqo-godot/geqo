@@ -1,6 +1,6 @@
 #pragma once
 #include <godot_cpp/classes/node3d.hpp>
-#include <query_result.h>
+#include "query_result.h"
 using namespace godot;
 class CQueryTest3D : public Node3D
 {
