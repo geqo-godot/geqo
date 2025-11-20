@@ -18,7 +18,7 @@ sources = Glob("src/*.cpp")
 
 if env["platform"] == "macos":
     library = env.SharedLibrary(
-        "project/addons/geqo/bin/geqo.{}.{}.framework/libgdexample.{}.{}".format(
+        "project/addons/geqo/bin/geqo.{}.{}.framework/geqo.{}.{}".format(
             env["platform"], env["target"], env["platform"], env["target"]
         ),
         source=sources,
