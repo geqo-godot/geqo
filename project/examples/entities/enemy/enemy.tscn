@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://nvso64245ltb"]
+[gd_scene load_steps=9 format=3 uid="uid://nvso64245ltb"]
 
 [ext_resource type="Script" uid="uid://cyqo7rh6dj286" path="res://examples/entities/enemy/enemy.gd" id="1_3fvr7"]
+[ext_resource type="Script" uid="uid://c0cw0j1gv0ytb" path="res://addons/geqo/nodes/generators/generator_circle_shape.gd" id="4_b26f7"]
 [ext_resource type="Script" uid="uid://cku0g6f6geqcx" path="res://addons/geqo/nodes/contexts/context_target_node.gd" id="5_4wwj3"]
 [ext_resource type="Script" uid="uid://bvvrmnqi0eyge" path="res://addons/geqo/nodes/contexts/context_in_group.gd" id="6_d50e0"]
 
@@ -69,5 +70,9 @@ test_purpose = 1
 distance_to = NodePath("../../../Contexts/CContextSelf")
 scoring_curve = SubResource("Curve_5bnyk")
 test_purpose = 2
+
+[node name="GeneratorCircleShape" type="Node3D" parent="CEnvironmentQuery"]
+script = ExtResource("4_b26f7")
+metadata/_custom_type_script = "uid://c0cw0j1gv0ytb"
 
 [connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]
