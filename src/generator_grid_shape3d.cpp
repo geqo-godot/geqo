@@ -106,12 +106,21 @@ void CGeneratorGridShape3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_projection_collision_mask"), &CGeneratorGridShape3D::get_projection_collision_mask);
 	ClassDB::bind_method(D_METHOD("set_projection_collision_mask", "mask"), &CGeneratorGridShape3D::set_projection_collision_mask);
 
+	ADD_GROUP("Generator", "");
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "generate_around", PROPERTY_HINT_NODE_TYPE, "CQueryContext3D"), "set_generate_around", "get_generate_around");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "grid_half_size"), "set_grid_half_size", "get_grid_half_size");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "space_between"), "set_space_between", "get_space_between");
+
+	ADD_GROUP("Projection Data", "");
 	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_vertical_projection"), "set_use_vertical_projection", "get_use_vertical_projection");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "project_up"), "set_project_up", "get_project_up");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "project_down"), "set_project_down", "get_project_down");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "post_projection_vertical_offset"), "set_post_projection_vertical_offset", "get_post_projection_vertical_offset");
-	ADD_PROPERTY(PropertyInfo(Variant::INT, "projection_collision_mask", PROPERTY_HINT_LAYERS_3D_PHYSICS), "set_projection_collision_mask", "get_projection_collision_mask");
+	ADD_PROPERTY(
+			PropertyInfo(
+					Variant::INT,
+					"projection_collision_mask",
+					PROPERTY_HINT_LAYERS_3D_PHYSICS),
+			"set_projection_collision_mask",
+			"get_projection_collision_mask");
 }

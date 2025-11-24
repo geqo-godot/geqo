@@ -81,7 +81,7 @@ void CGeneratorCircleShape3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_projection_collision_mask", "mask"), &CGeneratorCircleShape3D::set_projection_collision_mask);
 	ClassDB::bind_method(D_METHOD("get_projection_collision_mask"), &CGeneratorCircleShape3D::get_projection_collision_mask);
 
-	ADD_GROUP("QueryGenerator", "");
+	ADD_GROUP("Generator", "");
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "circle_center", PROPERTY_HINT_NODE_TYPE, "CQueryContext3D"), "set_circle_center", "get_circle_center");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "circle_radius"), "set_circle_radius", "get_circle_radius");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "space_between"), "set_space_between", "get_space_between");
@@ -95,7 +95,8 @@ void CGeneratorCircleShape3D::_bind_methods() {
 					Variant::INT,
 					"cast_collision_mask",
 					PROPERTY_HINT_LAYERS_3D_PHYSICS),
-			"set_cast_collision_mask", "get_cast_collision_mask");
+			"set_cast_collision_mask",
+			"get_cast_collision_mask");
 
 	ADD_GROUP("Projection Data", "");
 	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_vertical_projection"), "set_use_vertical_projection", "get_use_vertical_projection");
@@ -107,5 +108,6 @@ void CGeneratorCircleShape3D::_bind_methods() {
 					Variant::INT,
 					"projection_collision_mask",
 					PROPERTY_HINT_LAYERS_3D_PHYSICS),
-			"set_projection_collision_mask", "get_projection_collision_mask");
+			"set_projection_collision_mask",
+			"get_projection_collision_mask");
 }
