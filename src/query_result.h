@@ -22,8 +22,18 @@ struct CQueryItem {
 	}
 
 	bool operator<(const CQueryItem &item) const {
-		if (is_filtered || !has_score)
-			return true;
+		// Non filtered items come before filtered items
+		if (is_filtered != item.is_filtered)
+			return !is_filtered;
+
+		// Items with score also come first
+		if (has_score != item.has_score)
+			return has_score;
+
+		// Both have no score so do nothing
+		if (!has_score)
+			return false;
+
 		return score < item.score;
 	}
 
