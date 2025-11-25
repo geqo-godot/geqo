@@ -9,6 +9,12 @@
 
 using namespace godot;
 
+void CQueryGenerator3D::add_ray_tick() {
+	casted_rays += 1;
+	if (casted_rays >= rays_per_tick)
+		casted_rays = 0;
+}
+
 void CQueryGenerator3D::set_raycast_mode(RaycastMode mode) {
 	raycast_mode = mode;
 }
