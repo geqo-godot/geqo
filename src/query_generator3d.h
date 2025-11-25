@@ -28,6 +28,9 @@ public:
 	CQueryGenerator3D() {}
 	~CQueryGenerator3D() {}
 
+	void add_ray_tick();
+	int get_rays_per_tick() { return rays_per_tick; };
+
 	void set_raycast_mode(RaycastMode mode);
 	RaycastMode get_raycast_mode() const { return raycast_mode; }
 

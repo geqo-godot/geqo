@@ -1,8 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://nvso64245ltb"]
+[gd_scene load_steps=14 format=3 uid="uid://nvso64245ltb"]
 
 [ext_resource type="Script" uid="uid://cyqo7rh6dj286" path="res://examples/entities/enemy/enemy.gd" id="1_3fvr7"]
+[ext_resource type="Script" uid="uid://dpf3gdda0hw3d" path="res://addons/geqo/environment_query.gd" id="4_uyd31"]
 [ext_resource type="Script" uid="uid://cku0g6f6geqcx" path="res://addons/geqo/nodes/contexts/context_target_node.gd" id="5_4wwj3"]
+[ext_resource type="Script" uid="uid://y7tg0wcvbq0a" path="res://addons/geqo/nodes/generators/generator_grid_shape.gd" id="5_qgt2e"]
 [ext_resource type="Script" uid="uid://bvvrmnqi0eyge" path="res://addons/geqo/nodes/contexts/context_in_group.gd" id="6_d50e0"]
+[ext_resource type="Script" uid="uid://btm8tt22wulwi" path="res://addons/geqo/nodes/tests/test_distance_to.gd" id="6_qgt2e"]
+[ext_resource type="Script" uid="uid://d1q6i40l8gvoi" path="res://addons/geqo/nodes/tests/test_raycast_to.gd" id="7_5peh2"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_036b0"]
 
@@ -13,6 +17,14 @@ _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_5bnyk"]
+_data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_a8xr0"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_oqurg"]
 _data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
 point_count = 2
 
@@ -47,7 +59,6 @@ target_node = NodePath("../..")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [node name="CEnvironmentQuery" type="CEnvironmentQuery" parent="."]
-use_debug_shapes = true
 
 [node name="CGeneratorGridShape3D" type="CGeneratorGridShape3D" parent="CEnvironmentQuery" node_paths=PackedStringArray("generate_around")]
 generate_around = NodePath("../../Contexts/CContextSelf")
@@ -69,5 +80,37 @@ test_purpose = 1
 distance_to = NodePath("../../../Contexts/CContextSelf")
 scoring_curve = SubResource("Curve_5bnyk")
 test_purpose = 2
+
+[node name="EnvironmentQuery" type="Node" parent="."]
+script = ExtResource("4_uyd31")
+metadata/_custom_type_script = "uid://dpf3gdda0hw3d"
+
+[node name="GeneratorGridShape" type="Node3D" parent="EnvironmentQuery" node_paths=PackedStringArray("generate_around")]
+script = ExtResource("5_qgt2e")
+generate_around = NodePath("../../Contexts/ContextSelf")
+post_projection_vertical_offset = 1.5
+frame_slice = 5000
+metadata/_custom_type_script = "uid://y7tg0wcvbq0a"
+
+[node name="TestDistanceTo" type="Node3D" parent="EnvironmentQuery/GeneratorGridShape" node_paths=PackedStringArray("distance_to")]
+script = ExtResource("6_qgt2e")
+distance_to = NodePath("../../../Contexts/ContextPlayer")
+scoring_curve = SubResource("Curve_a8xr0")
+test_purpose = 2
+metadata/_custom_type_script = "uid://btm8tt22wulwi"
+
+[node name="TestRaycastTo" type="Node3D" parent="EnvironmentQuery/GeneratorGridShape" node_paths=PackedStringArray("context", "exclusions")]
+script = ExtResource("7_5peh2")
+context = NodePath("../../../Contexts/ContextPlayer")
+exclusions = Array[NodePath]([NodePath("../../..")])
+test_purpose = 1
+metadata/_custom_type_script = "uid://d1q6i40l8gvoi"
+
+[node name="TestDistanceTo2" type="Node3D" parent="EnvironmentQuery/GeneratorGridShape" node_paths=PackedStringArray("distance_to")]
+script = ExtResource("6_qgt2e")
+distance_to = NodePath("../../../Contexts/ContextSelf")
+scoring_curve = SubResource("Curve_oqurg")
+test_purpose = 2
+metadata/_custom_type_script = "uid://btm8tt22wulwi"
 
 [connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]
