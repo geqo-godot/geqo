@@ -1,0 +1,73 @@
+[gd_scene load_steps=8 format=3 uid="uid://nvso64245ltb"]
+
+[ext_resource type="Script" uid="uid://cyqo7rh6dj286" path="res://examples/entities/enemy/enemy.gd" id="1_3fvr7"]
+[ext_resource type="Script" uid="uid://cku0g6f6geqcx" path="res://addons/geqo/nodes/contexts/context_target_node.gd" id="5_4wwj3"]
+[ext_resource type="Script" uid="uid://bvvrmnqi0eyge" path="res://addons/geqo/nodes/contexts/context_in_group.gd" id="6_d50e0"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_036b0"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fj7yv"]
+
+[sub_resource type="Curve" id="Curve_5peh2"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_5bnyk"]
+_data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
+point_count = 2
+
+[node name="Enemy" type="CharacterBody3D" groups=["enemies"]]
+collision_layer = 4
+script = ExtResource("1_3fvr7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_036b0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_fj7yv")
+
+[node name="Contexts" type="Node3D" parent="."]
+
+[node name="ContextSelf" type="Node3D" parent="Contexts" node_paths=PackedStringArray("target_node")]
+script = ExtResource("5_4wwj3")
+target_node = NodePath("../..")
+metadata/_custom_type_script = "uid://cku0g6f6geqcx"
+
+[node name="ContextPlayer" type="Node3D" parent="Contexts"]
+script = ExtResource("6_d50e0")
+group = &"player"
+metadata/_custom_type_script = "uid://bvvrmnqi0eyge"
+
+[node name="CContextPlayer" type="CContextInGroup3D" parent="Contexts"]
+group = "player"
+
+[node name="CContextSelf" type="CContextTargetNode3D" parent="Contexts" node_paths=PackedStringArray("target_node")]
+target_node = NodePath("../..")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="CEnvironmentQuery" type="CEnvironmentQuery" parent="."]
+use_debug_shapes = true
+
+[node name="CGeneratorGridShape3D" type="CGeneratorGridShape3D" parent="CEnvironmentQuery" node_paths=PackedStringArray("generate_around")]
+generate_around = NodePath("../../Contexts/CContextSelf")
+post_projection_vertical_offset = 1.5
+
+[node name="CTestDistanceTo3D" type="CTestDistanceTo3D" parent="CEnvironmentQuery/CGeneratorGridShape3D" node_paths=PackedStringArray("distance_to")]
+distance_to = NodePath("../../../Contexts/CContextPlayer")
+scoring_curve = SubResource("Curve_5peh2")
+test_purpose = 2
+
+[node name="CTestRaycastTo3D" type="CTestRaycastTo3D" parent="CEnvironmentQuery/CGeneratorGridShape3D" node_paths=PackedStringArray("context")]
+context = NodePath("../../../Contexts/CContextPlayer")
+hitting_is_true = false
+exclusions = Array[NodePath]([NodePath("../../..")])
+collision_mask = 3
+test_purpose = 1
+
+[node name="CTestDistanceTo3D2" type="CTestDistanceTo3D" parent="CEnvironmentQuery/CGeneratorGridShape3D" node_paths=PackedStringArray("distance_to")]
+distance_to = NodePath("../../../Contexts/CContextSelf")
+scoring_curve = SubResource("Curve_5bnyk")
+test_purpose = 2
+
+[connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]

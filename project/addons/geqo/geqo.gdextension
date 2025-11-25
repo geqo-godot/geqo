@@ -1,0 +1,39 @@
+[configuration]
+
+entry_symbol = "geqo_library_init"
+compatibility_minimum = "4.5"
+reloadable = true
+
+[icons]
+
+CEnvironmentQuery = "res://addons/geqo/icons/environment_query.svg"
+CQueryTest3D = "res://addons/geqo/icons/query_test3d.svg"
+CQueryGenerator3D = "res://addons/geqo/icons/generator3d.svg"
+
+CTestDistanceTo3D = "res://addons/geqo/icons/distance_test3d.svg"
+CTestRaycastTo3D = "res://addons/geqo/icons/raycast_test3d.svg"
+CTestDotProduct3D = "res://addons/geqo/icons/dot_product_test3d.svg"
+
+CGeneratorGridShape3D = "res://addons/geqo/icons/generator3d.svg"
+CGeneratorCircleShape3D = "res://addons/geqo/icons/generator3d.svg"
+
+[libraries]
+
+macos.debug = "res://addons/geqo/bin/geqo.macos.template_debug.framework"
+macos.release = "res://addons/geqo/bin/geqo.macos.template_release.framework"
+
+ios.debug = "res://addons/geqo/bin/geqo.ios.template_debug.xcframework"
+ios.release = "res://addons/geqo/bin/geqo.ios.template_release.xcframework"
+
+windows.debug.x86_64 = "res://addons/geqo/bin/geqo.windows.template_debug.x86_64.dll"
+windows.release.x86_64 = "res://addons/geqo/bin/geqo.windows.template_release.x86_64.dll"
+
+linux.debug.x86_64 = "res://addons/geqo/bin/geqo.linux.template_debug.x86_64.so"
+linux.release.x86_64 = "res://addons/geqo/bin/geqo.linux.template_release.x86_64.so"
+linux.debug.arm64 = "res://addons/geqo/bin/geqo.linux.template_debug.arm64.so"
+linux.release.arm64 = "res://addons/geqo/bin/geqo.linux.template_release.arm64.so"
+linux.debug.rv64 = "res://addons/geqo/bin/geqo.linux.template_debug.rv64.so"
+linux.release.rv64 = "res://addons/geqo/bin/geqo.linux.template_release.rv64.so"
+
+android.debug.arm64 = "res://addons/geqo/bin/geqo.android.template_debug.arm64.so"
+android.release.arm64 = "res://addons/geqo/bin/geqo.android.template_release.arm64.so"
