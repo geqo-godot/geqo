@@ -31,9 +31,6 @@ public:
 	void add_ray_tick();
 	int get_rays_per_tick() { return rays_per_tick; };
 
-	void add_ray_tick();
-	int get_rays_per_tick() { return rays_per_tick; };
-
 	void set_raycast_mode(RaycastMode mode);
 	RaycastMode get_raycast_mode() const { return raycast_mode; }
 
