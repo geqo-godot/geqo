@@ -5,22 +5,22 @@
 
 using namespace godot;
 
-void CEnvironmentQuery::set_use_debug_shapes(const bool use_debug) {
+void EnvironmentQuery::set_use_debug_shapes(const bool use_debug) {
 	use_debug_shapes = use_debug;
 }
 
-void CEnvironmentQuery::_ready() {
+void EnvironmentQuery::_ready() {
 	if (Engine::get_singleton()->is_editor_hint())
 		return;
-	debug_spheres = memnew(CGEQODebugSpheres);
+	debug_spheres = memnew(GEQODebugSpheres);
 	call_deferred("add_sibling", debug_spheres);
 }
 
-Ref<CQueryResult> CEnvironmentQuery::request_query() {
+Ref<QueryResult> EnvironmentQuery::request_query() {
 	query_items.clear();
 
 	for (Variant child : get_children()) {
-		CQueryGenerator3D *generator = cast_to<CQueryGenerator3D>(child);
+		QueryGenerator3D *generator = cast_to<QueryGenerator3D>(child);
 		if (generator == nullptr) {
 			print_error("EnvironmentQuery: Child is not Generator");
 			continue;
@@ -29,7 +29,7 @@ Ref<CQueryResult> CEnvironmentQuery::request_query() {
 		generator->perform_tests(query_items);
 	}
 
-	Ref<CQueryResult> result;
+	Ref<QueryResult> result;
 	result.instantiate();
 	result->set_items(query_items);
 
@@ -40,11 +40,11 @@ Ref<CQueryResult> CEnvironmentQuery::request_query() {
 	return result;
 }
 
-void CEnvironmentQuery::_bind_methods() {
-	ClassDB::bind_method(D_METHOD("get_use_debug_shapes"), &CEnvironmentQuery::get_use_debug_shapes);
-	ClassDB::bind_method(D_METHOD("set_use_debug_shapes", "use_debug"), &CEnvironmentQuery::set_use_debug_shapes);
+void EnvironmentQuery::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("get_use_debug_shapes"), &EnvironmentQuery::get_use_debug_shapes);
+	ClassDB::bind_method(D_METHOD("set_use_debug_shapes", "use_debug"), &EnvironmentQuery::set_use_debug_shapes);
 
-	ClassDB::bind_method(D_METHOD("request_query"), &CEnvironmentQuery::request_query);
+	ClassDB::bind_method(D_METHOD("request_query"), &EnvironmentQuery::request_query);
 
 	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_debug_shapes"), "set_use_debug_shapes", "get_use_debug_shapes");
 	ADD_SIGNAL(MethodInfo("query_finished", PropertyInfo(Variant::OBJECT, "result")));

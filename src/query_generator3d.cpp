@@ -9,29 +9,29 @@
 
 using namespace godot;
 
-void CQueryGenerator3D::add_ray_tick() {
+void QueryGenerator3D::add_ray_tick() {
 	casted_rays += 1;
 	if (casted_rays >= rays_per_tick)
 		casted_rays = 0;
 }
 
-void CQueryGenerator3D::set_raycast_mode(RaycastMode mode) {
+void QueryGenerator3D::set_raycast_mode(RaycastMode mode) {
 	raycast_mode = mode;
 }
 
-void CQueryGenerator3D::perform_tests(std::vector<CQueryItem> &query_item_list) {
+void QueryGenerator3D::perform_tests(std::vector<QueryItem> &query_item_list) {
 	for (Variant test : get_children()) {
-		CQueryTest3D *current_test = Object::cast_to<CQueryTest3D>(test);
+		QueryTest3D *current_test = Object::cast_to<QueryTest3D>(test);
 		if (current_test == nullptr) {
 			print_error("Invalid test, is this a QueryTest node?");
 			continue;
 		}
-		for (CQueryItem &query_item : query_item_list)
+		for (QueryItem &query_item : query_item_list)
 			current_test->perform_test(query_item);
 	}
 }
 
-Dictionary CQueryGenerator3D::cast_ray_projection(Vector3 start_pos, Vector3 end_pos, Array exclusions, int col_mask) {
+Dictionary QueryGenerator3D::cast_ray_projection(Vector3 start_pos, Vector3 end_pos, Array exclusions, int col_mask) {
 	PhysicsDirectSpaceState3D *space_state = get_world_3d()->get_direct_space_state();
 	Ref<PhysicsRayQueryParameters3D> query = PhysicsRayQueryParameters3D::create(start_pos, end_pos, col_mask);
 
@@ -53,9 +53,9 @@ Dictionary CQueryGenerator3D::cast_ray_projection(Vector3 start_pos, Vector3 end
 	return space_state->intersect_ray(query);
 }
 
-void CQueryGenerator3D::_bind_methods() {
-	ClassDB::bind_method(D_METHOD("get_raycast_mode"), &CQueryGenerator3D::get_raycast_mode);
-	ClassDB::bind_method(D_METHOD("set_raycast_mode", "mode"), &CQueryGenerator3D::set_raycast_mode);
+void QueryGenerator3D::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("get_raycast_mode"), &QueryGenerator3D::get_raycast_mode);
+	ClassDB::bind_method(D_METHOD("set_raycast_mode", "mode"), &QueryGenerator3D::set_raycast_mode);
 
 	ADD_PROPERTY(PropertyInfo(Variant::INT, "raycast_mode", PROPERTY_HINT_ENUM, "Body, Area, Body Area"), "set_raycast_mode", "get_raycast_mode");
 }

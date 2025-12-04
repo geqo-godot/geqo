@@ -4,15 +4,15 @@
 #include <godot_cpp/variant/string.hpp>
 using namespace godot;
 
-class CContextInGroup3D : public CQueryContext3D {
-	GDCLASS(CContextInGroup3D, CQueryContext3D)
+class ContextInGroup3D : public QueryContext3D {
+	GDCLASS(ContextInGroup3D, QueryContext3D)
 
 private:
 	String group = "";
 
 public:
-	CContextInGroup3D() {}
-	~CContextInGroup3D() {}
+	ContextInGroup3D() {}
+	~ContextInGroup3D() {}
 
 	void set_group(String new_group);
 	String get_group() { return group; }

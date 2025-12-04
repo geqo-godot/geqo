@@ -10,15 +10,15 @@ var final_target: Vector3
 var current_target
 
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
-@onready var c_env_query: CEnvironmentQuery = $CEnvironmentQuery
+@onready var env_query: EnvironmentQuery = $EnvironmentQuery
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("request_query"):
-		var c_time_start: float = Time.get_ticks_usec()
-		var c_query_result: CQueryResult = c_env_query.request_query()
-		var c_time_end: float = Time.get_ticks_usec()
-		print("C++ Query ended in : " + str(((c_time_end - c_time_start) / 1000)) + " ms")
-		final_target = c_query_result.get_highest_score_position()
+		var time_start: float = Time.get_ticks_usec()
+		var query_result: QueryResult = env_query.request_query()
+		var time_end: float = Time.get_ticks_usec()
+		print("C++ Query ended in : " + str(((time_end - time_start) / 1000)) + " ms")
+		final_target = query_result.get_highest_score_position()
 		if !final_target:
 			return
 		nav_agent.target_position = final_target

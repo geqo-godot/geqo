@@ -3,7 +3,7 @@
 
 using namespace godot;
 
-PackedVector3Array CQueryContext3D::get_context_positions() {
+PackedVector3Array QueryContext3D::get_context_positions() {
 	Array contexts;
 	PackedVector3Array results = PackedVector3Array();
 	if (has_method("get_context"))
@@ -27,7 +27,7 @@ PackedVector3Array CQueryContext3D::get_context_positions() {
 	return results;
 }
 
-void CQueryContext3D::_bind_methods() {
-	ClassDB::bind_method(D_METHOD("get_context"), &CQueryContext3D::get_context);
-	ClassDB::bind_method(D_METHOD("get_context_positions"), &CQueryContext3D::get_context_positions);
+void QueryContext3D::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("get_context"), &QueryContext3D::get_context);
+	ClassDB::bind_method(D_METHOD("get_context_positions"), &QueryContext3D::get_context_positions);
 }

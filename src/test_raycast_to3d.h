@@ -6,22 +6,22 @@
 #include <godot_cpp/variant/node_path.hpp>
 #include <godot_cpp/variant/typed_array.hpp>
 using namespace godot;
-class CTestRaycastTo3D : public CQueryTest3D {
-	GDCLASS(CTestRaycastTo3D, CQueryTest3D)
+class TestRaycastTo3D : public QueryTest3D {
+	GDCLASS(TestRaycastTo3D, QueryTest3D)
 
 private:
-	CQueryContext3D *context = nullptr;
+	QueryContext3D *context = nullptr;
 	bool hitting_is_true = true;
 	bool cast_from_context = false;
 	TypedArray<NodePath> exclusions;
 	int collision_mask = 1;
 
 public:
-	CTestRaycastTo3D() {}
-	~CTestRaycastTo3D() {}
+	TestRaycastTo3D() {}
+	~TestRaycastTo3D() {}
 
-	void set_context(CQueryContext3D *context_node);
-	CQueryContext3D *get_context() { return context; }
+	void set_context(QueryContext3D *context_node);
+	QueryContext3D *get_context() { return context; }
 
 	void set_hitting_is_true(bool hitting);
 	bool get_hitting_is_true() const { return hitting_is_true; }
@@ -35,7 +35,7 @@ public:
 	void set_collision_mask(int mask);
 	int get_collision_mask() const { return collision_mask; }
 
-	void perform_test(CQueryItem &projection) override;
+	void perform_test(QueryItem &projection) override;
 
 protected:
 	static void _bind_methods();

@@ -6,16 +6,16 @@ reloadable = true
 
 [icons]
 
-CEnvironmentQuery = "res://addons/geqo/icons/environment_query.svg"
-CQueryTest3D = "res://addons/geqo/icons/query_test3d.svg"
-CQueryGenerator3D = "res://addons/geqo/icons/generator3d.svg"
+EnvironmentQuery = "res://addons/geqo/icons/environment_query.svg"
+QueryTest3D = "res://addons/geqo/icons/query_test3d.svg"
+QueryGenerator3D = "res://addons/geqo/icons/generator3d.svg"
 
-CTestDistanceTo3D = "res://addons/geqo/icons/distance_test3d.svg"
-CTestRaycastTo3D = "res://addons/geqo/icons/raycast_test3d.svg"
-CTestDotProduct3D = "res://addons/geqo/icons/dot_product_test3d.svg"
+TestDistanceTo3D = "res://addons/geqo/icons/distance_test3d.svg"
+TestRaycastTo3D = "res://addons/geqo/icons/raycast_test3d.svg"
+TestDotProduct3D = "res://addons/geqo/icons/dot_product_test3d.svg"
 
-CGeneratorGridShape3D = "res://addons/geqo/icons/generator3d.svg"
-CGeneratorCircleShape3D = "res://addons/geqo/icons/generator3d.svg"
+GeneratorGridShape3D = "res://addons/geqo/icons/generator3d.svg"
+GeneratorCircleShape3D = "res://addons/geqo/icons/generator3d.svg"
 
 [libraries]
 

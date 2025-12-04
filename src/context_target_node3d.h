@@ -4,15 +4,15 @@
 #include <godot_cpp/variant/array.hpp>
 using namespace godot;
 
-class CContextTargetNode3D : public CQueryContext3D {
-	GDCLASS(CContextTargetNode3D, CQueryContext3D)
+class ContextTargetNode3D : public QueryContext3D {
+	GDCLASS(ContextTargetNode3D, QueryContext3D)
 
 private:
 	Node3D *target_node = nullptr;
 
 public:
-	CContextTargetNode3D() {}
-	~CContextTargetNode3D() {}
+	ContextTargetNode3D() {}
+	~ContextTargetNode3D() {}
 
 	void set_target_node(Node3D *target);
 	Node3D *get_target_node() { return target_node; }

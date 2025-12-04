@@ -3,12 +3,12 @@
 #include "query_generator3d.h"
 #include <vector>
 using namespace godot;
-class CGeneratorCircleShape3D : public CQueryGenerator3D {
-	GDCLASS(CGeneratorCircleShape3D, CQueryGenerator3D)
+class GeneratorCircleShape3D : public QueryGenerator3D {
+	GDCLASS(GeneratorCircleShape3D, QueryGenerator3D)
 
 private:
 	// QueryGenerator
-	CQueryContext3D *circle_center = nullptr;
+	QueryContext3D *circle_center = nullptr;
 	double circle_radius = 10.0;
 	double space_between = 1.0;
 
@@ -26,11 +26,11 @@ private:
 	int projection_collision_mask = 1;
 
 public:
-	CGeneratorCircleShape3D() {}
-	~CGeneratorCircleShape3D() {}
+	GeneratorCircleShape3D() {}
+	~GeneratorCircleShape3D() {}
 
-	void set_circle_center(CQueryContext3D *context);
-	CQueryContext3D *get_circle_center() { return circle_center; }
+	void set_circle_center(QueryContext3D *context);
+	QueryContext3D *get_circle_center() { return circle_center; }
 
 	void set_circle_radius(double radius);
 	double get_circle_radius() const { return circle_radius; }
@@ -62,7 +62,7 @@ public:
 	void set_projection_collision_mask(int mask);
 	int get_projection_collision_mask() const { return projection_collision_mask; }
 
-	void perform_generation(std::vector<CQueryItem> &query_item_list) override;
+	void perform_generation(std::vector<QueryItem> &query_item_list) override;
 
 protected:
 	static void _bind_methods();

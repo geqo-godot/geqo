@@ -1,50 +1,50 @@
 #include "generator_circle_shape3d.h"
 
-void CGeneratorCircleShape3D::set_circle_center(CQueryContext3D *context) {
+void GeneratorCircleShape3D::set_circle_center(QueryContext3D *context) {
 	circle_center = context;
 }
 
-void CGeneratorCircleShape3D::set_circle_radius(double radius) {
+void GeneratorCircleShape3D::set_circle_radius(double radius) {
 	circle_radius = radius;
 }
 
-void CGeneratorCircleShape3D::set_space_between(double space) {
+void GeneratorCircleShape3D::set_space_between(double space) {
 	space_between = space;
 }
 
-void CGeneratorCircleShape3D::set_arc_angle(double angle) {
+void GeneratorCircleShape3D::set_arc_angle(double angle) {
 	arc_angle = angle;
 }
 
-void CGeneratorCircleShape3D::set_use_casting(bool use) {
+void GeneratorCircleShape3D::set_use_casting(bool use) {
 	use_casting = use;
 }
 
-void CGeneratorCircleShape3D::set_cast_collision_mask(int mask) {
+void GeneratorCircleShape3D::set_cast_collision_mask(int mask) {
 	cast_collision_mask = mask;
 }
 
-void CGeneratorCircleShape3D::set_use_vertical_projection(bool use) {
+void GeneratorCircleShape3D::set_use_vertical_projection(bool use) {
 	use_vertical_projection = use;
 }
 
-void CGeneratorCircleShape3D::set_project_down(double project) {
+void GeneratorCircleShape3D::set_project_down(double project) {
 	project_down = project;
 }
 
-void CGeneratorCircleShape3D::set_project_up(double project) {
+void GeneratorCircleShape3D::set_project_up(double project) {
 	project_up = project;
 }
 
-void CGeneratorCircleShape3D::set_post_projection_vertical_offset(double offset) {
+void GeneratorCircleShape3D::set_post_projection_vertical_offset(double offset) {
 	post_projection_vertical_offset = offset;
 }
 
-void CGeneratorCircleShape3D::set_projection_collision_mask(int mask) {
+void GeneratorCircleShape3D::set_projection_collision_mask(int mask) {
 	projection_collision_mask = mask;
 }
 
-void CGeneratorCircleShape3D::perform_generation(std::vector<CQueryItem> &query_item_list) {
+void GeneratorCircleShape3D::perform_generation(std::vector<QueryItem> &query_item_list) {
 	if (circle_center == nullptr) {
 		print_error("CircleShape circle_center context not found.");
 		return;
@@ -84,7 +84,7 @@ void CGeneratorCircleShape3D::perform_generation(std::vector<CQueryItem> &query_
 			}
 
 			if (!use_vertical_projection) {
-				query_item_list.push_back(CQueryItem(final_pos));
+				query_item_list.push_back(QueryItem(final_pos));
 				continue;
 			}
 
@@ -100,48 +100,48 @@ void CGeneratorCircleShape3D::perform_generation(std::vector<CQueryItem> &query_
 				Vector3 pos_result = ray_result.get("position", Vector3());
 				pos_result += Vector3(0, post_projection_vertical_offset, 0);
 				Node *collider = Object::cast_to<Node>(ray_result.get("collider", nullptr));
-				query_item_list.push_back(CQueryItem(pos_result, collider));
+				query_item_list.push_back(QueryItem(pos_result, collider));
 			}
 		}
 	}
 }
 
-void CGeneratorCircleShape3D::_bind_methods() {
-	ClassDB::bind_method(D_METHOD("set_circle_center", "context"), &CGeneratorCircleShape3D::set_circle_center);
-	ClassDB::bind_method(D_METHOD("get_circle_center"), &CGeneratorCircleShape3D::get_circle_center);
+void GeneratorCircleShape3D::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("set_circle_center", "context"), &GeneratorCircleShape3D::set_circle_center);
+	ClassDB::bind_method(D_METHOD("get_circle_center"), &GeneratorCircleShape3D::get_circle_center);
 
-	ClassDB::bind_method(D_METHOD("set_circle_radius", "radius"), &CGeneratorCircleShape3D::set_circle_radius);
-	ClassDB::bind_method(D_METHOD("get_circle_radius"), &CGeneratorCircleShape3D::get_circle_radius);
+	ClassDB::bind_method(D_METHOD("set_circle_radius", "radius"), &GeneratorCircleShape3D::set_circle_radius);
+	ClassDB::bind_method(D_METHOD("get_circle_radius"), &GeneratorCircleShape3D::get_circle_radius);
 
-	ClassDB::bind_method(D_METHOD("set_space_between", "space"), &CGeneratorCircleShape3D::set_space_between);
-	ClassDB::bind_method(D_METHOD("get_space_between"), &CGeneratorCircleShape3D::get_space_between);
+	ClassDB::bind_method(D_METHOD("set_space_between", "space"), &GeneratorCircleShape3D::set_space_between);
+	ClassDB::bind_method(D_METHOD("get_space_between"), &GeneratorCircleShape3D::get_space_between);
 
-	ClassDB::bind_method(D_METHOD("set_arc_angle", "angle"), &CGeneratorCircleShape3D::set_arc_angle);
-	ClassDB::bind_method(D_METHOD("get_arc_angle"), &CGeneratorCircleShape3D::get_arc_angle);
+	ClassDB::bind_method(D_METHOD("set_arc_angle", "angle"), &GeneratorCircleShape3D::set_arc_angle);
+	ClassDB::bind_method(D_METHOD("get_arc_angle"), &GeneratorCircleShape3D::get_arc_angle);
 
-	ClassDB::bind_method(D_METHOD("set_use_casting", "use"), &CGeneratorCircleShape3D::set_use_casting);
-	ClassDB::bind_method(D_METHOD("get_use_casting"), &CGeneratorCircleShape3D::get_use_casting);
+	ClassDB::bind_method(D_METHOD("set_use_casting", "use"), &GeneratorCircleShape3D::set_use_casting);
+	ClassDB::bind_method(D_METHOD("get_use_casting"), &GeneratorCircleShape3D::get_use_casting);
 
-	ClassDB::bind_method(D_METHOD("set_cast_collision_mask", "mask"), &CGeneratorCircleShape3D::set_cast_collision_mask);
-	ClassDB::bind_method(D_METHOD("get_cast_collision_mask"), &CGeneratorCircleShape3D::get_cast_collision_mask);
+	ClassDB::bind_method(D_METHOD("set_cast_collision_mask", "mask"), &GeneratorCircleShape3D::set_cast_collision_mask);
+	ClassDB::bind_method(D_METHOD("get_cast_collision_mask"), &GeneratorCircleShape3D::get_cast_collision_mask);
 
-	ClassDB::bind_method(D_METHOD("set_use_vertical_projection", "use"), &CGeneratorCircleShape3D::set_use_vertical_projection);
-	ClassDB::bind_method(D_METHOD("get_use_vertical_projection"), &CGeneratorCircleShape3D::get_use_vertical_projection);
+	ClassDB::bind_method(D_METHOD("set_use_vertical_projection", "use"), &GeneratorCircleShape3D::set_use_vertical_projection);
+	ClassDB::bind_method(D_METHOD("get_use_vertical_projection"), &GeneratorCircleShape3D::get_use_vertical_projection);
 
-	ClassDB::bind_method(D_METHOD("set_project_down", "project"), &CGeneratorCircleShape3D::set_project_down);
-	ClassDB::bind_method(D_METHOD("get_project_down"), &CGeneratorCircleShape3D::get_project_down);
+	ClassDB::bind_method(D_METHOD("set_project_down", "project"), &GeneratorCircleShape3D::set_project_down);
+	ClassDB::bind_method(D_METHOD("get_project_down"), &GeneratorCircleShape3D::get_project_down);
 
-	ClassDB::bind_method(D_METHOD("set_project_up", "project"), &CGeneratorCircleShape3D::set_project_up);
-	ClassDB::bind_method(D_METHOD("get_project_up"), &CGeneratorCircleShape3D::get_project_up);
+	ClassDB::bind_method(D_METHOD("set_project_up", "project"), &GeneratorCircleShape3D::set_project_up);
+	ClassDB::bind_method(D_METHOD("get_project_up"), &GeneratorCircleShape3D::get_project_up);
 
-	ClassDB::bind_method(D_METHOD("set_post_projection_vertical_offset", "offset"), &CGeneratorCircleShape3D::set_post_projection_vertical_offset);
-	ClassDB::bind_method(D_METHOD("get_post_projection_vertical_offset"), &CGeneratorCircleShape3D::get_post_projection_vertical_offset);
+	ClassDB::bind_method(D_METHOD("set_post_projection_vertical_offset", "offset"), &GeneratorCircleShape3D::set_post_projection_vertical_offset);
+	ClassDB::bind_method(D_METHOD("get_post_projection_vertical_offset"), &GeneratorCircleShape3D::get_post_projection_vertical_offset);
 
-	ClassDB::bind_method(D_METHOD("set_projection_collision_mask", "mask"), &CGeneratorCircleShape3D::set_projection_collision_mask);
-	ClassDB::bind_method(D_METHOD("get_projection_collision_mask"), &CGeneratorCircleShape3D::get_projection_collision_mask);
+	ClassDB::bind_method(D_METHOD("set_projection_collision_mask", "mask"), &GeneratorCircleShape3D::set_projection_collision_mask);
+	ClassDB::bind_method(D_METHOD("get_projection_collision_mask"), &GeneratorCircleShape3D::get_projection_collision_mask);
 
 	ADD_GROUP("Generator", "");
-	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "circle_center", PROPERTY_HINT_NODE_TYPE, "CQueryContext3D"), "set_circle_center", "get_circle_center");
+	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "circle_center", PROPERTY_HINT_NODE_TYPE, "QueryContext3D"), "set_circle_center", "get_circle_center");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "circle_radius"), "set_circle_radius", "get_circle_radius");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "space_between"), "set_space_between", "get_space_between");
 

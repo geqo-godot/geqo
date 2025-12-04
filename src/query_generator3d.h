@@ -7,8 +7,8 @@
 #include <vector>
 using namespace godot;
 
-class CQueryGenerator3D : public Node3D {
-	GDCLASS(CQueryGenerator3D, Node3D)
+class QueryGenerator3D : public Node3D {
+	GDCLASS(QueryGenerator3D, Node3D)
 
 public:
 	enum RaycastMode {
@@ -25,8 +25,8 @@ private:
 	int rays_per_tick = 1000;
 
 public:
-	CQueryGenerator3D() {}
-	~CQueryGenerator3D() {}
+	QueryGenerator3D() {}
+	~QueryGenerator3D() {}
 
 	void add_ray_tick();
 	int get_rays_per_tick() { return rays_per_tick; };
@@ -34,13 +34,13 @@ public:
 	void set_raycast_mode(RaycastMode mode);
 	RaycastMode get_raycast_mode() const { return raycast_mode; }
 
-	virtual void perform_generation(std::vector<CQueryItem> &query_item_list) = 0;
-	void perform_tests(std::vector<CQueryItem> &query_item_list);
+	virtual void perform_generation(std::vector<QueryItem> &query_item_list) = 0;
+	void perform_tests(std::vector<QueryItem> &query_item_list);
 	Dictionary cast_ray_projection(Vector3 start_pos, Vector3 end_pos, Array exclusions, int col_mask = 1);
 
 protected:
 	static void _bind_methods();
 };
 
-VARIANT_ENUM_CAST(CQueryGenerator3D::RaycastMode);
+VARIANT_ENUM_CAST(QueryGenerator3D::RaycastMode);
 #endif

@@ -5,27 +5,27 @@
 #include <godot_cpp/classes/world3d.hpp>
 #define MAKE_OBJECT_TYPE_HINT(m_type) vformat("%s/%s:%s", Variant::NODE_PATH, PROPERTY_HINT_NODE_PATH_VALID_TYPES, m_type)
 
-void CTestRaycastTo3D::set_context(CQueryContext3D *context_node) {
+void TestRaycastTo3D::set_context(QueryContext3D *context_node) {
 	context = context_node;
 }
 
-void CTestRaycastTo3D::set_hitting_is_true(bool hitting) {
+void TestRaycastTo3D::set_hitting_is_true(bool hitting) {
 	hitting_is_true = hitting;
 }
 
-void CTestRaycastTo3D::set_cast_from_context(bool cast) {
+void TestRaycastTo3D::set_cast_from_context(bool cast) {
 	cast_from_context = cast;
 }
 
-void CTestRaycastTo3D::set_exclusions(TypedArray<NodePath> exclusion) {
+void TestRaycastTo3D::set_exclusions(TypedArray<NodePath> exclusion) {
 	exclusions = exclusion;
 }
 
-void CTestRaycastTo3D::set_collision_mask(int mask) {
+void TestRaycastTo3D::set_collision_mask(int mask) {
 	collision_mask = mask;
 }
 
-void CTestRaycastTo3D::perform_test(CQueryItem &projection) {
+void TestRaycastTo3D::perform_test(QueryItem &projection) {
 	if (!context) {
 		print_error("Test RaycastTo has no context");
 		return;
@@ -113,23 +113,23 @@ void CTestRaycastTo3D::perform_test(CQueryItem &projection) {
 	}
 }
 
-void CTestRaycastTo3D::_bind_methods() {
-	ClassDB::bind_method(D_METHOD("get_context"), &CTestRaycastTo3D::get_context);
-	ClassDB::bind_method(D_METHOD("set_context", "context_node"), &CTestRaycastTo3D::set_context);
+void TestRaycastTo3D::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("get_context"), &TestRaycastTo3D::get_context);
+	ClassDB::bind_method(D_METHOD("set_context", "context_node"), &TestRaycastTo3D::set_context);
 
-	ClassDB::bind_method(D_METHOD("get_hitting_is_true"), &CTestRaycastTo3D::get_hitting_is_true);
-	ClassDB::bind_method(D_METHOD("set_hitting_is_true", "hitting"), &CTestRaycastTo3D::set_hitting_is_true);
+	ClassDB::bind_method(D_METHOD("get_hitting_is_true"), &TestRaycastTo3D::get_hitting_is_true);
+	ClassDB::bind_method(D_METHOD("set_hitting_is_true", "hitting"), &TestRaycastTo3D::set_hitting_is_true);
 
-	ClassDB::bind_method(D_METHOD("get_cast_from_context"), &CTestRaycastTo3D::get_cast_from_context);
-	ClassDB::bind_method(D_METHOD("set_cast_from_context", "cast"), &CTestRaycastTo3D::set_cast_from_context);
+	ClassDB::bind_method(D_METHOD("get_cast_from_context"), &TestRaycastTo3D::get_cast_from_context);
+	ClassDB::bind_method(D_METHOD("set_cast_from_context", "cast"), &TestRaycastTo3D::set_cast_from_context);
 
-	ClassDB::bind_method(D_METHOD("get_exclusions"), &CTestRaycastTo3D::get_exclusions);
-	ClassDB::bind_method(D_METHOD("set_exclusions", "exclusion"), &CTestRaycastTo3D::set_exclusions);
+	ClassDB::bind_method(D_METHOD("get_exclusions"), &TestRaycastTo3D::get_exclusions);
+	ClassDB::bind_method(D_METHOD("set_exclusions", "exclusion"), &TestRaycastTo3D::set_exclusions);
 
-	ClassDB::bind_method(D_METHOD("get_collision_mask"), &CTestRaycastTo3D::get_collision_mask);
-	ClassDB::bind_method(D_METHOD("set_collision_mask", "mask"), &CTestRaycastTo3D::set_collision_mask);
+	ClassDB::bind_method(D_METHOD("get_collision_mask"), &TestRaycastTo3D::get_collision_mask);
+	ClassDB::bind_method(D_METHOD("set_collision_mask", "mask"), &TestRaycastTo3D::set_collision_mask);
 
-	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "context", PROPERTY_HINT_NODE_TYPE, "CQueryContext3D"), "set_context", "get_context");
+	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "context", PROPERTY_HINT_NODE_TYPE, "QueryContext3D"), "set_context", "get_context");
 	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "hitting_is_true"), "set_hitting_is_true", "get_hitting_is_true");
 	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "cast_from_context"), "set_cast_from_context", "get_cast_from_context");
 	ADD_PROPERTY(PropertyInfo(Variant::ARRAY, "exclusions", PROPERTY_HINT_ARRAY_TYPE, MAKE_OBJECT_TYPE_HINT("CollisionObject3D"), (PROPERTY_USAGE_DEFAULT | PROPERTY_USAGE_SCRIPT_VARIABLE)), "set_exclusions", "get_exclusions");

@@ -6,19 +6,19 @@
 
 #include "query_result.h"
 
-Vector3 CGEQODebugSpheres::_sphere_point(double radius, double phi, double theta) {
+Vector3 GEQODebugSpheres::_sphere_point(double radius, double phi, double theta) {
 	return Vector3(
 			radius * sin(phi) * cos(theta),
 			radius * cos(phi),
 			radius * sin(phi) * sin(theta));
 }
 
-void CGEQODebugSpheres::draw_items(vector<CQueryItem> &query_items_list, double time_to_destroy) {
+void GEQODebugSpheres::draw_items(vector<QueryItem> &query_items_list, double time_to_destroy) {
 	// TODO: MAX_MESH_SURFACES prevents drawing more circles
 	immediate_mesh->clear_surfaces();
 	remove_labels();
 
-	for (CQueryItem query_item : query_items_list) {
+	for (QueryItem query_item : query_items_list) {
 		Label3D *text_label = memnew(Label3D);
 		text_labels.append(text_label);
 		add_child(text_label);
@@ -41,7 +41,7 @@ void CGEQODebugSpheres::draw_items(vector<CQueryItem> &query_items_list, double 
 	}
 }
 
-void CGEQODebugSpheres::remove_labels() {
+void GEQODebugSpheres::remove_labels() {
 	for (Variant label : text_labels) {
 		Label3D *label_ref = Object::cast_to<Label3D>(label);
 		if (label_ref == nullptr) {
@@ -53,7 +53,7 @@ void CGEQODebugSpheres::remove_labels() {
 	text_labels.clear();
 }
 
-void CGEQODebugSpheres::draw_debug_sphere(Vector3 pos, double radius, Color color, int rings, int segments) {
+void GEQODebugSpheres::draw_debug_sphere(Vector3 pos, double radius, Color color, int rings, int segments) {
 	immediate_mesh->surface_begin(Mesh::PRIMITIVE_LINES);
 
 	for (int ring = 0; ring < rings; ring++) {
@@ -92,7 +92,7 @@ void CGEQODebugSpheres::draw_debug_sphere(Vector3 pos, double radius, Color colo
 	immediate_mesh->surface_end();
 }
 
-void CGEQODebugSpheres::_ready() {
+void GEQODebugSpheres::_ready() {
 	mesh_instance = memnew(MeshInstance3D);
 	immediate_mesh = Ref<ImmediateMesh>();
 	immediate_mesh.instantiate();
@@ -131,5 +131,5 @@ void CGEQODebugSpheres::_ready() {
 	debug_color->set_interpolation_mode(Gradient::GRADIENT_INTERPOLATE_CUBIC);
 }
 
-void CGEQODebugSpheres::_bind_methods() {
+void GEQODebugSpheres::_bind_methods() {
 }

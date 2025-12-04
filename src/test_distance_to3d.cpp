@@ -4,23 +4,23 @@
 #include <numeric>
 using namespace godot;
 
-void CTestDistanceTo3D::set_scoring_curve(Ref<Curve> curve) {
+void TestDistanceTo3D::set_scoring_curve(Ref<Curve> curve) {
 	scoring_curve = curve;
 }
 
-void CTestDistanceTo3D::set_distance_to(CQueryContext3D *context_node) {
+void TestDistanceTo3D::set_distance_to(QueryContext3D *context_node) {
 	distance_to = context_node;
 }
 
-void CTestDistanceTo3D::set_min_distance(double dist) {
+void TestDistanceTo3D::set_min_distance(double dist) {
 	min_distance = dist;
 }
 
-void CTestDistanceTo3D::set_max_distance(double dist) {
+void TestDistanceTo3D::set_max_distance(double dist) {
 	max_distance = dist;
 }
 
-void CTestDistanceTo3D::perform_test(CQueryItem &projection) {
+void TestDistanceTo3D::perform_test(QueryItem &projection) {
 	// UtilityFunctions::print_rich("Testing the tested test to test");
 	if (distance_to == nullptr) {
 		UtilityFunctions::print_rich("Test has no context");
@@ -84,7 +84,7 @@ void CTestDistanceTo3D::perform_test(CQueryItem &projection) {
 	}
 }
 
-void CTestDistanceTo3D::_ready() {
+void TestDistanceTo3D::_ready() {
 	if (Engine::get_singleton()->is_editor_hint()) {
 		return;
 	}
@@ -97,20 +97,20 @@ void CTestDistanceTo3D::_ready() {
 	scoring_curve->bake();
 }
 
-void CTestDistanceTo3D::_bind_methods() {
-	ClassDB::bind_method(D_METHOD("get_scoring_curve"), &CTestDistanceTo3D::get_scoring_curve);
-	ClassDB::bind_method(D_METHOD("set_scoring_curve", "curve"), &CTestDistanceTo3D::set_scoring_curve);
+void TestDistanceTo3D::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("get_scoring_curve"), &TestDistanceTo3D::get_scoring_curve);
+	ClassDB::bind_method(D_METHOD("set_scoring_curve", "curve"), &TestDistanceTo3D::set_scoring_curve);
 
-	ClassDB::bind_method(D_METHOD("get_distance_to"), &CTestDistanceTo3D::get_distance_to);
-	ClassDB::bind_method(D_METHOD("set_distance_to", "context_node"), &CTestDistanceTo3D::set_distance_to);
+	ClassDB::bind_method(D_METHOD("get_distance_to"), &TestDistanceTo3D::get_distance_to);
+	ClassDB::bind_method(D_METHOD("set_distance_to", "context_node"), &TestDistanceTo3D::set_distance_to);
 
-	ClassDB::bind_method(D_METHOD("get_min_distance"), &CTestDistanceTo3D::get_min_distance);
-	ClassDB::bind_method(D_METHOD("set_min_distance", "dist"), &CTestDistanceTo3D::set_min_distance);
+	ClassDB::bind_method(D_METHOD("get_min_distance"), &TestDistanceTo3D::get_min_distance);
+	ClassDB::bind_method(D_METHOD("set_min_distance", "dist"), &TestDistanceTo3D::set_min_distance);
 
-	ClassDB::bind_method(D_METHOD("get_max_distance"), &CTestDistanceTo3D::get_max_distance);
-	ClassDB::bind_method(D_METHOD("set_max_distance", "dist"), &CTestDistanceTo3D::set_max_distance);
+	ClassDB::bind_method(D_METHOD("get_max_distance"), &TestDistanceTo3D::get_max_distance);
+	ClassDB::bind_method(D_METHOD("set_max_distance", "dist"), &TestDistanceTo3D::set_max_distance);
 
-	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "distance_to", PROPERTY_HINT_NODE_TYPE, "CQueryContext3D"), "set_distance_to", "get_distance_to");
+	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "distance_to", PROPERTY_HINT_NODE_TYPE, "QueryContext3D"), "set_distance_to", "get_distance_to");
 
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "min_distance"), "set_min_distance", "get_min_distance");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "max_distance"), "set_max_distance", "get_max_distance");

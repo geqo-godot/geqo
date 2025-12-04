@@ -12,8 +12,8 @@
 using std::vector;
 using namespace godot;
 
-class CGEQODebugSpheres : public Node {
-	GDCLASS(CGEQODebugSpheres, Node)
+class GEQODebugSpheres : public Node {
+	GDCLASS(GEQODebugSpheres, Node)
 
 private:
 	Ref<ImmediateMesh> immediate_mesh;
@@ -23,10 +23,10 @@ private:
 	Vector3 _sphere_point(double radius, double phi, double theta);
 
 public:
-	CGEQODebugSpheres() {}
-	~CGEQODebugSpheres() {}
+	GEQODebugSpheres() {}
+	~GEQODebugSpheres() {}
 
-	void draw_items(vector<CQueryItem> &query_items_list, double time_to_destroy = 2.0);
+	void draw_items(vector<QueryItem> &query_items_list, double time_to_destroy = 2.0);
 	void remove_labels();
 	void draw_debug_sphere(Vector3 pos, double radius, Color color, int rings = 4, int segments = 8);
 

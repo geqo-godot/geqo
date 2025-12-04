@@ -31,25 +31,25 @@ void initialize_geqo_module(ModuleInitializationLevel p_level) {
 		return;
 	}
 
-	ClassDB::register_class<CGEQODebugSpheres>();
-	ClassDB::register_class<CQueryResult>();
-	ClassDB::register_class<CEnvironmentQuery>();
-	ClassDB::register_abstract_class<CQueryContext3D>();
-	ClassDB::register_abstract_class<CQueryGenerator3D>();
-	ClassDB::register_abstract_class<CQueryTest3D>();
+	ClassDB::register_class<GEQODebugSpheres>();
+	ClassDB::register_class<QueryResult>();
+	ClassDB::register_class<EnvironmentQuery>();
+	ClassDB::register_abstract_class<QueryContext3D>();
+	ClassDB::register_abstract_class<QueryGenerator3D>();
+	ClassDB::register_abstract_class<QueryTest3D>();
 
 	// Generators
-	ClassDB::register_class<CGeneratorGridShape3D>();
-	ClassDB::register_class<CGeneratorCircleShape3D>();
+	ClassDB::register_class<GeneratorGridShape3D>();
+	ClassDB::register_class<GeneratorCircleShape3D>();
 
 	// Contexts
-	ClassDB::register_class<CContextTargetNode3D>();
-	ClassDB::register_class<CContextInGroup3D>();
+	ClassDB::register_class<ContextTargetNode3D>();
+	ClassDB::register_class<ContextInGroup3D>();
 
 	// Tests
-	ClassDB::register_class<CTestDistanceTo3D>();
-	ClassDB::register_class<CTestRaycastTo3D>();
-	ClassDB::register_class<CTestDotProduct3D>();
+	ClassDB::register_class<TestDistanceTo3D>();
+	ClassDB::register_class<TestRaycastTo3D>();
+	ClassDB::register_class<TestDotProduct3D>();
 }
 
 void uninitialize_geqo_module(ModuleInitializationLevel p_level) {
