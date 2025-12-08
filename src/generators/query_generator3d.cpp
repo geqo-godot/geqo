@@ -1,4 +1,5 @@
 #include "generators/query_generator3d.h"
+#include "query_generator3d.h"
 #include "tests/query_test3d.h"
 #include <godot_cpp/classes/collision_object3d.hpp>
 #include <godot_cpp/classes/node3d.hpp>
@@ -9,14 +10,15 @@
 
 using namespace godot;
 
-void QueryGenerator3D::add_ray_tick() {
-	casted_rays += 1;
-	if (casted_rays >= rays_per_tick)
-		casted_rays = 0;
+void QueryGenerator3D::_notification(int p_what) {
 }
 
 void QueryGenerator3D::set_raycast_mode(RaycastMode mode) {
 	raycast_mode = mode;
+}
+
+bool QueryGenerator3D::_process_generation(uint64_t initial_time, int time_budget) {
+	return false;
 }
 
 void QueryGenerator3D::perform_tests(std::vector<QueryItem> &query_item_list) {

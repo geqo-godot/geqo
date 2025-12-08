@@ -35,11 +35,13 @@ public:
 	RaycastMode get_raycast_mode() const { return raycast_mode; }
 
 	virtual void perform_generation(std::vector<QueryItem> &query_item_list) = 0;
+	bool _process_generation(uint64_t initial_time, int time_budget);
 	void perform_tests(std::vector<QueryItem> &query_item_list);
 	Dictionary cast_ray_projection(Vector3 start_pos, Vector3 end_pos, Array exclusions, int col_mask = 1);
 
 protected:
 	static void _bind_methods();
+	void _notification(int p_what);
 };
 
 VARIANT_ENUM_CAST(QueryGenerator3D::RaycastMode);
