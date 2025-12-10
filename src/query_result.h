@@ -42,17 +42,20 @@ class QueryResult : public RefCounted {
 	GDCLASS(QueryResult, RefCounted)
 
 private:
+	// Query Items of result, EnvironmentQuery should tranfer ownership to it
 	std::vector<QueryItem> query_items;
+	mutable bool is_cache_built = false;
+	mutable std::vector<size_t> sorted_indices;
 
 public:
 	QueryResult() {}
 	~QueryResult() {}
 
-	void set_items(const std::vector<QueryItem> &items) { query_items = items; }
+	void set_items(const std::vector<QueryItem> &&items) { query_items = items; }
+	void _build_cache() const;
 
 	Vector3 get_highest_score_position() const;
 	Node *get_highest_score_node() const;
-	std::vector<QueryItem> &get_query_items() { return query_items; }
 
 protected:
 	static void _bind_methods();

@@ -34,12 +34,14 @@ group = "player"
 [node name="ContextSelf" type="ContextTargetNode3D" parent="Contexts" node_paths=PackedStringArray("target_node")]
 target_node = NodePath("../..")
 
+[node name="ContextInGroup3D" type="ContextInGroup3D" parent="Contexts"]
+group = "enemies"
+
 [node name="EnvironmentQuery" type="EnvironmentQuery" parent="."]
 
 [node name="GeneratorGridShape3D" type="GeneratorGridShape3D" parent="EnvironmentQuery" node_paths=PackedStringArray("generate_around")]
-generate_around = NodePath("../../Contexts/ContextSelf")
-grid_half_size = 30.0
-space_between = 1.0
+generate_around = NodePath("../../Contexts/ContextInGroup3D")
+space_between = 0.25
 post_projection_vertical_offset = 1.5
 
 [node name="TestDistanceTo3D" type="TestDistanceTo3D" parent="EnvironmentQuery/GeneratorGridShape3D" node_paths=PackedStringArray("distance_to")]
