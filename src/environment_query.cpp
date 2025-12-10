@@ -66,13 +66,12 @@ void EnvironmentQuery::_start_query() {
 	_current_generator = 0;
 	// UtilityFunctions::print(vformat("Previous vector size: %s", query_items.size()));
 	query_items.clear();
-
-	_initial_time_usec = Time::get_singleton()->get_ticks_usec();
 	is_querying = true;
 	_process_query();
 }
 
 void EnvironmentQuery::_process_query() {
+	uint64_t _initial_time_usec = Time::get_singleton()->get_ticks_usec();
 	generators[_current_generator]->perform_generation(_initial_time_usec, time_budget_ms);
 }
 
@@ -81,14 +80,18 @@ void EnvironmentQuery::_on_generator_finished() {
 	if (_current_generator >= generators.size()) {
 		Ref<QueryResult> result;
 		result.instantiate();
-		result->set_items(query_items);
 		stored_result = result;
-		emit_signal("query_finished", result);
 		if (debug_spheres) {
 			debug_spheres->draw_items(query_items);
 		}
+		// Give query_items to result for caching
+		stored_result->set_items(std::move(query_items));
+
 		UtilityFunctions::print("Finished Query.");
 		is_querying = false;
+		//emit_signal("query_finished", stored_result);
+		// Fast queries might miss the signal before it's caught, so defer it
+		call_deferred("emit_signal", "query_finished", stored_result);
 		return;
 	}
 

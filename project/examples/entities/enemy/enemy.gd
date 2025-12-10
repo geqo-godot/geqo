@@ -12,18 +12,19 @@ var current_target
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var env_query: EnvironmentQuery = $EnvironmentQuery
 
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("request_query"):
 		var time_start: float = Time.get_ticks_usec()
 		env_query.request_query()
 		await env_query.query_finished
-		print(env_query.has_method("get_result"))
 		var query_result: QueryResult = env_query.get_result()
 		var time_end: float = Time.get_ticks_usec()
 		print("C++ Query ended in : " + str(((time_end - time_start) / 1000)) + " ms")
 		final_target = query_result.get_highest_score_position()
 		if !final_target:
 			return
+		print("Best result: ", query_result.get_highest_score_position())
 		nav_agent.target_position = final_target
 		current_target = nav_agent.get_next_path_position()
 

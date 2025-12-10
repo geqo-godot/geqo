@@ -108,11 +108,15 @@ void GeneratorCircleShape3D::perform_generation(uint64_t initial_time_usec, int 
 			uint64_t current_time_usec = Time::get_singleton()->get_ticks_usec();
 
 			if (!has_time_left(initial_time_usec, current_time_usec, time_budget_ms)) {
+				_current_state.prev_point = point + 1;
+				_current_state.prev_context = context;
 				// Stop and wait until next frame
 				get_tree()->connect("process_frame", callable_mp(this, &GeneratorCircleShape3D::perform_generation), CONNECT_ONE_SHOT);
 				return;
 			}
 		}
+		// Start over on new context
+		_current_state.prev_point = 0;
 	}
 	// Finished the generation, continue on, and reset the state
 	emit_signal("generator_finished");

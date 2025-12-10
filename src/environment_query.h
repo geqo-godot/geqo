@@ -10,7 +10,7 @@ class EnvironmentQuery : public Node {
 	GDCLASS(EnvironmentQuery, Node)
 
 private:
-	//bool use_debug_shapes = false;
+	//Current query items of the query.
 	std::vector<QueryItem> query_items;
 	std::vector<QueryGenerator3D *> generators;
 	GEQODebugSpheres *debug_spheres = nullptr;
@@ -20,7 +20,6 @@ private:
 	bool is_querying = false;
 
 	int _current_generator = 0;
-	uint64_t _initial_time_usec = 0;
 	Ref<QueryResult> stored_result;
 
 public:
