@@ -1,4 +1,4 @@
-#include "debug/geqo_debug_spheres.h"
+#include "debug/geqo_debug_spheres3d.h"
 #include <godot_cpp/classes/label3d.hpp>
 #include <godot_cpp/classes/standard_material3d.hpp>
 #include <godot_cpp/variant/color_names.inc.hpp>
@@ -6,14 +6,14 @@
 
 #include "query_result.h"
 
-Vector3 GEQODebugSpheres::_sphere_point(double radius, double phi, double theta) {
+Vector3 GEQODebugSpheres3D::_sphere_point(double radius, double phi, double theta) {
 	return Vector3(
 			radius * sin(phi) * cos(theta),
 			radius * cos(phi),
 			radius * sin(phi) * sin(theta));
 }
 
-void GEQODebugSpheres::draw_items(vector<QueryItem<Vector3>> &query_items_list, double time_to_destroy) {
+void GEQODebugSpheres3D::draw_items(vector<QueryItem<Vector3>> &query_items_list, double time_to_destroy) {
 	// TODO: MAX_MESH_SURFACES prevents drawing more circles
 	if (immediate_mesh == nullptr)
 		return;
@@ -43,19 +43,7 @@ void GEQODebugSpheres::draw_items(vector<QueryItem<Vector3>> &query_items_list, 
 	}
 }
 
-void GEQODebugSpheres::remove_labels() {
-	for (Variant label : text_labels) {
-		Label3D *label_ref = Object::cast_to<Label3D>(label);
-		if (label_ref == nullptr) {
-			print_error("Not a label");
-			continue;
-		}
-		label_ref->queue_free();
-	}
-	text_labels.clear();
-}
-
-void GEQODebugSpheres::draw_debug_sphere(Vector3 pos, double radius, Color color, int rings, int segments) {
+void GEQODebugSpheres3D::draw_debug_sphere(Vector3 pos, double radius, Color color, int rings, int segments) {
 	immediate_mesh->surface_begin(Mesh::PRIMITIVE_LINES);
 
 	for (int ring = 0; ring < rings; ring++) {
@@ -94,7 +82,7 @@ void GEQODebugSpheres::draw_debug_sphere(Vector3 pos, double radius, Color color
 	immediate_mesh->surface_end();
 }
 
-void GEQODebugSpheres::_ready() {
+void GEQODebugSpheres3D::_ready() {
 	mesh_instance = memnew(MeshInstance3D);
 	immediate_mesh = Ref<ImmediateMesh>();
 	immediate_mesh.instantiate();
@@ -133,5 +121,5 @@ void GEQODebugSpheres::_ready() {
 	debug_color->set_interpolation_mode(Gradient::GRADIENT_INTERPOLATE_CUBIC);
 }
 
-void GEQODebugSpheres::_bind_methods() {
+void GEQODebugSpheres3D::_bind_methods() {
 }
