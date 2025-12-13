@@ -1,5 +1,5 @@
 #pragma once
-#include "debug/geqo_debug_spheres.h"
+#include "debug/geqo_debug_spheres3d.h"
 #include "environment_query.h"
 #include "generators/query_generator3d.h"
 #include "query_result.h"
@@ -7,7 +7,7 @@
 #include <godot_cpp/classes/ref.hpp>
 #include <vector>
 using namespace godot;
-class EnvironmentQuery3D : public Node3D, public EnvironmentQueryBase<Vector3, QueryResult3D, QueryGenerator3D, GEQODebugSpheres> {
+class EnvironmentQuery3D : public Node3D, public EnvironmentQueryBase<Vector3, QueryResult3D, QueryGenerator3D, GEQODebugSpheres3D> {
 	GDCLASS(EnvironmentQuery3D, Node3D)
 
 public:

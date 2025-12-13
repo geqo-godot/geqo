@@ -7,7 +7,7 @@
 #include "query_result.h"
 #include "tests/query_test3d.h"
 
-#include "debug/geqo_debug_spheres.h"
+#include "debug/geqo_debug_spheres3d.h"
 #include "environment_query3d.h"
 // Contexts
 #include "contexts/context_in_group3d.h"
@@ -31,7 +31,7 @@ void initialize_geqo_module(ModuleInitializationLevel p_level) {
 		return;
 	}
 
-	ClassDB::register_class<GEQODebugSpheres>();
+	ClassDB::register_class<GEQODebugSpheres3D>();
 	ClassDB::register_class<QueryResult3D>();
 	ClassDB::register_class<EnvironmentQuery3D>();
 	ClassDB::register_abstract_class<QueryContext3D>();

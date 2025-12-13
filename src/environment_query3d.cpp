@@ -18,7 +18,7 @@ void EnvironmentQuery3D::_notification(int p_what) {
 			if (!is_inside_tree())
 				return;
 			if (get_tree()->is_debugging_navigation_hint()) {
-				debug_spheres = memnew(GEQODebugSpheres);
+				debug_spheres = memnew(GEQODebugSpheres3D);
 				call_deferred("add_sibling", debug_spheres);
 			}
 			init_generators();
