@@ -10,7 +10,7 @@ var final_target: Vector3
 var current_target
 
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
-@onready var env_query: EnvironmentQuery = $EnvironmentQuery
+@onready var env_query: EnvironmentQuery3D = $EnvironmentQuery3D
 
 
 func _input(event: InputEvent) -> void:
@@ -18,7 +18,7 @@ func _input(event: InputEvent) -> void:
 		var time_start: float = Time.get_ticks_usec()
 		env_query.request_query()
 		await env_query.query_finished
-		var query_result: QueryResult = env_query.get_result()
+		var query_result: QueryResult3D = env_query.get_result()
 		var time_end: float = Time.get_ticks_usec()
 		print("C++ Query ended in : " + str(((time_end - time_start) / 1000)) + " ms")
 		final_target = query_result.get_highest_score_position()

@@ -20,7 +20,7 @@ void TestDistanceTo3D::set_max_distance(double dist) {
 	max_distance = dist;
 }
 
-void TestDistanceTo3D::perform_test(QueryItem &projection) {
+void TestDistanceTo3D::perform_test(QueryItem<Vector3> &projection) {
 	// UtilityFunctions::print_rich("Testing the tested test to test");
 	if (distance_to == nullptr) {
 		UtilityFunctions::print_rich("Test has no context");

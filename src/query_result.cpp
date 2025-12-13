@@ -5,9 +5,10 @@
 
 using namespace godot;
 
-Vector3 QueryResult::get_highest_score_position() const {
+template <typename VectorT>
+VectorT QueryResultBase<VectorT>::_get_highest_score_position() const {
 	if (query_items.empty())
-		return Vector3();
+		return VectorT();
 
 	_build_cache();
 
@@ -15,7 +16,8 @@ Vector3 QueryResult::get_highest_score_position() const {
 	return query_items[sorted_indices[0]].projection_position;
 }
 
-Node *QueryResult::get_highest_score_node() const {
+template <typename VectorT>
+Node *QueryResultBase<VectorT>::_get_highest_score_node() const {
 	if (query_items.empty())
 		return nullptr;
 
@@ -24,7 +26,8 @@ Node *QueryResult::get_highest_score_node() const {
 }
 
 // Sort indices and store them for future calls
-void QueryResult::_build_cache() const {
+template <typename VectorT>
+void QueryResultBase<VectorT>::_build_cache() const {
 	if (is_cache_built) {
 		return;
 	}
@@ -44,7 +47,7 @@ void QueryResult::_build_cache() const {
 	is_cache_built = true;
 }
 
-void QueryResult::_bind_methods() {
-	ClassDB::bind_method(D_METHOD("get_highest_score_position"), &QueryResult::get_highest_score_position);
-	ClassDB::bind_method(D_METHOD("get_highest_score_node"), &QueryResult::get_highest_score_node);
+void QueryResult3D::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("get_highest_score_position"), &QueryResult3D::get_highest_score_position);
+	ClassDB::bind_method(D_METHOD("get_highest_score_node"), &QueryResult3D::get_highest_score_node);
 }

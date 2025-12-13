@@ -5,14 +5,15 @@
 #include <vector>
 using namespace godot;
 
+template <typename VectorT>
 struct QueryItem {
 	double score = 0.0;
 	bool is_filtered = false;
 	bool has_score = false;
-	Vector3 projection_position = Vector3(0.0, 0.0, 0.0);
+	VectorT projection_position = VectorT();
 	Node *collided_with = nullptr;
 
-	QueryItem(Vector3 pos, Node *collider = nullptr) {
+	QueryItem(VectorT pos, Node *collider = nullptr) {
 		projection_position = pos;
 		collided_with = collider;
 	}
@@ -38,25 +39,31 @@ struct QueryItem {
 		return score > item.score;
 	}
 };
-class QueryResult : public RefCounted {
-	GDCLASS(QueryResult, RefCounted)
-
+template <typename VectorT>
+class QueryResultBase {
 private:
 	// Query Items of result, EnvironmentQuery should tranfer ownership to it
-	std::vector<QueryItem> query_items;
+	std::vector<QueryItem<VectorT>> query_items;
 	mutable bool is_cache_built = false;
 	mutable std::vector<size_t> sorted_indices;
 
 public:
-	QueryResult() {}
-	~QueryResult() {}
+	~QueryResultBase() = default;
 
-	void set_items(const std::vector<QueryItem> &&items) { query_items = items; }
+	void set_items(const std::vector<QueryItem<VectorT>> &&items) { query_items = items; }
 	void _build_cache() const;
 
-	Vector3 get_highest_score_position() const;
-	Node *get_highest_score_node() const;
+	VectorT _get_highest_score_position() const;
+	Node *_get_highest_score_node() const;
+};
+
+class QueryResult3D : public RefCounted, public QueryResultBase<Vector3> {
+	GDCLASS(QueryResult3D, RefCounted)
 
 protected:
 	static void _bind_methods();
+
+public:
+	Vector3 get_highest_score_position() const { return _get_highest_score_position(); };
+	Node *get_highest_score_node() const { return _get_highest_score_node(); };
 };
