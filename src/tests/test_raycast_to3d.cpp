@@ -26,7 +26,7 @@ void TestRaycastTo3D::set_collision_mask(int mask) {
 	collision_mask = mask;
 }
 
-void TestRaycastTo3D::perform_test(QueryItem &projection) {
+void TestRaycastTo3D::perform_test(QueryItem<Vector3> &projection) {
 	if (!context) {
 		print_error("Test RaycastTo has no context");
 		return;

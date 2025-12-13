@@ -2,9 +2,9 @@
 #include "query_result.h"
 #include <godot_cpp/classes/node3d.hpp>
 using namespace godot;
-class QueryTest : public Node {
-	GDCLASS(QueryTest, Node)
 
+template <typename VectorT>
+class QueryTestBase {
 public:
 	enum TestPurpose {
 		FILTER_SCORE,
@@ -22,20 +22,15 @@ private:
 	ScoreOperator multiple_context_operator = AVERAGE_SCORE;
 
 public:
-	QueryTest() {}
-	~QueryTest() {}
+	~QueryTestBase() = default;
 
-	void set_test_purpose(const TestPurpose purpose);
-	TestPurpose get_test_purpose() const { return test_purpose; }
+	void _set_test_purpose(const TestPurpose purpose) {
+		test_purpose = purpose;
+	}
+	TestPurpose _get_test_purpose() const { return test_purpose; }
 
-	void set_context_operator(const ScoreOperator score_op);
-	ScoreOperator get_context_operator() const { return multiple_context_operator; }
-
-	virtual void perform_test(QueryItem &projection) = 0;
-
-protected:
-	static void _bind_methods();
+	void _set_context_operator(const ScoreOperator score_op) {
+			multiple_context_operator = score_op;
+	}
+	ScoreOperator _get_context_operator() const { return multiple_context_operator; }
 };
-
-VARIANT_ENUM_CAST(QueryTest::TestPurpose);
-VARIANT_ENUM_CAST(QueryTest::ScoreOperator);

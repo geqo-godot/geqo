@@ -35,7 +35,7 @@ public:
 	void set_collision_mask(int mask);
 	int get_collision_mask() const { return collision_mask; }
 
-	void perform_test(QueryItem &projection) override;
+	void perform_test(QueryItem<Vector3> &projection) override;
 
 protected:
 	static void _bind_methods();

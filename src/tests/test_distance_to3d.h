@@ -31,7 +31,7 @@ public:
 	void set_max_distance(double dist);
 	double get_max_distance() const { return max_distance; }
 
-	void perform_test(QueryItem &projection) override;
+	void perform_test(QueryItem<Vector3> &projection) override;
 	void _ready() override;
 
 protected:

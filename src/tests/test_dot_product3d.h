@@ -28,7 +28,7 @@ public:
 	void set_to_target(QueryContext3D *context);
 	QueryContext3D *get_to_target() { return to_target; }
 
-	void perform_test(QueryItem &projection) override;
+	void perform_test(QueryItem<Vector3> &projection) override;
 
 protected:
 	static void _bind_methods();

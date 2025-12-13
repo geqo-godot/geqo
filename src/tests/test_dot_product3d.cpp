@@ -16,7 +16,7 @@ void TestDotProduct3D::set_to_target(QueryContext3D *context) {
 	to_target = context;
 }
 
-void TestDotProduct3D::perform_test(QueryItem &projection) {
+void TestDotProduct3D::perform_test(QueryItem<Vector3> &projection) {
 	Node3D *context1 = Object::cast_to<Node3D>(from_place->get_context()[0]);
 	Node3D *context2 = Object::cast_to<Node3D>(to_target->get_context()[0]);
 

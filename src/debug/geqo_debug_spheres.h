@@ -26,7 +26,7 @@ public:
 	GEQODebugSpheres() {}
 	~GEQODebugSpheres() {}
 
-	void draw_items(vector<QueryItem> &query_items_list, double time_to_destroy = 2.0);
+	void draw_items(vector<QueryItem<Vector3>> &query_items_list, double time_to_destroy = 2.0);
 	void remove_labels();
 	void draw_debug_sphere(Vector3 pos, double radius, Color color, int rings = 4, int segments = 8);
 

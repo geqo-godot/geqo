@@ -13,14 +13,14 @@ Vector3 GEQODebugSpheres::_sphere_point(double radius, double phi, double theta)
 			radius * sin(phi) * sin(theta));
 }
 
-void GEQODebugSpheres::draw_items(vector<QueryItem> &query_items_list, double time_to_destroy) {
+void GEQODebugSpheres::draw_items(vector<QueryItem<Vector3>> &query_items_list, double time_to_destroy) {
 	// TODO: MAX_MESH_SURFACES prevents drawing more circles
 	if (immediate_mesh == nullptr)
 		return;
 	immediate_mesh->clear_surfaces();
 	remove_labels();
 
-	for (QueryItem query_item : query_items_list) {
+	for (QueryItem<Vector3> &query_item : query_items_list) {
 		Label3D *text_label = memnew(Label3D);
 		text_labels.append(text_label);
 		add_child(text_label);

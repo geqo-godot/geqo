@@ -1,13 +1,5 @@
 #include "tests/query_test3d.h"
 
-void QueryTest3D::set_test_purpose(const TestPurpose purpose) {
-	test_purpose = purpose;
-}
-
-void QueryTest3D::set_context_operator(const ScoreOperator score_op) {
-	multiple_context_operator = score_op;
-}
-
 void QueryTest3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_context_operator"), &QueryTest3D::get_context_operator);
 	ClassDB::bind_method(D_METHOD("set_context_operator", "score_op"), &QueryTest3D::set_context_operator);
