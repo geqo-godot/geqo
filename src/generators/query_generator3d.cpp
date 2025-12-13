@@ -10,13 +10,6 @@
 
 using namespace godot;
 
-void QueryGenerator3D::_notification(int p_what) {
-}
-
-void QueryGenerator3D::set_raycast_mode(RaycastMode mode) {
-	raycast_mode = mode;
-}
-
 void QueryGenerator3D::perform_tests(int current_item) {
 	for (Variant test : get_children()) {
 		QueryTest3D *current_test = Object::cast_to<QueryTest3D>(test);
@@ -48,14 +41,6 @@ Dictionary QueryGenerator3D::cast_ray_projection(Vector3 start_pos, Vector3 end_
 	query->set_exclude(exclusion_rids);
 
 	return space_state->intersect_ray(query);
-}
-
-bool QueryGenerator3D::has_time_left(uint64_t initial_time_usec, uint64_t current_time_usec, int time_budget_ms) {
-	double time_spent_ms = (current_time_usec - initial_time_usec) / 1000;
-	if (time_spent_ms < time_budget_ms)
-		return true;
-	else
-		return false;
 }
 
 void QueryGenerator3D::_bind_methods() {
