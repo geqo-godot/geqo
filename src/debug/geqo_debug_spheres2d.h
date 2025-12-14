@@ -3,7 +3,7 @@
 #include "debug/geqo_debug_spheres.h"
 #include "query_result.h"
 #include <godot_cpp/classes/gradient.hpp>
-#include <godot_cpp/classes/node2D.hpp>
+#include <godot_cpp/classes/node2d.hpp>
 #include <godot_cpp/classes/ref.hpp>
 #include <godot_cpp/variant/array.hpp>
 #include <vector>
