@@ -14,7 +14,7 @@ public:
 	QueryGenerator2D() {}
 	~QueryGenerator2D() {}
 
-	void perform_tests(int current_item);
+	void perform_tests(int current_item) override;
 	Dictionary cast_ray_projection(Vector2 start_pos, Vector2 end_pos, Array exclusions, int col_mask = 1);
 	// TODO: Replace this atrocity after working around Godot's binding restrictions
 	void set_raycast_mode(RaycastMode mode) { return _set_raycast_mode(mode); }

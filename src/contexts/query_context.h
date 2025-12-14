@@ -17,7 +17,6 @@ public:
 		owner = p_owner;
 	}
 
-	virtual Array get_context() = 0;
 	PackedTArray _get_context_positions() {
 		Array contexts;
 		// Pass in owner, since has_method and call are Godot Object functions only
