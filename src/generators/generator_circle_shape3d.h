@@ -3,7 +3,7 @@
 #include "generators/query_generator3d.h"
 #include <vector>
 using namespace godot;
-struct CircleShapeState {
+struct CircleShapeState3D {
 	int prev_point = 0;
 	int prev_context = 0;
 
@@ -34,7 +34,7 @@ private:
 	double post_projection_vertical_offset = 0.0;
 	int projection_collision_mask = 1;
 
-	CircleShapeState _current_state = CircleShapeState();
+	CircleShapeState3D _current_state = CircleShapeState3D();
 
 public:
 	GeneratorCircleShape3D() {}

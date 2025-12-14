@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://c2ih13se78qrg"]
 
-[ext_resource type="Script" uid="uid://bd1sfbmbnph3x" path="res://examples/entities/test_player.gd" id="1_ib1tq"]
+[ext_resource type="Script" uid="uid://bd1sfbmbnph3x" path="res://examples/3d/entities/test_player.gd" id="1_ib1tq"]
 
 [sub_resource type="Compositor" id="Compositor_ib1tq"]
 

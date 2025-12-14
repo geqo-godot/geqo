@@ -50,7 +50,7 @@ private:
 public:
 	~QueryResultBase() = default;
 
-	void set_items(const std::vector<QueryItem<VectorT>> &&items) { query_items = items; }
+	void set_items(const std::vector<QueryItem<VectorT>> &items) { query_items = items; }
 	void _build_cache() const;
 
 	VectorT _get_highest_score_position() const;

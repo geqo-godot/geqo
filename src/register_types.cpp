@@ -19,16 +19,26 @@
 #include "environment_query2d.h"
 #include "environment_query3d.h"
 // Contexts
+#include "contexts/context_in_group2d.h"
 #include "contexts/context_in_group3d.h"
+
+#include "contexts/context_target_node2d.h"
 #include "contexts/context_target_node3d.h"
 
 // Generators
+#include "generators/generator_circle_shape2d.h"
 #include "generators/generator_circle_shape3d.h"
+#include "generators/generator_grid_shape2d.h"
 #include "generators/generator_grid_shape3d.h"
 
 // Tests
+#include "tests/test_distance_to2d.h"
 #include "tests/test_distance_to3d.h"
+
+#include "tests/test_dot_product2d.h"
 #include "tests/test_dot_product3d.h"
+
+#include "tests/test_raycast_to2d.h"
 #include "tests/test_raycast_to3d.h"
 
 #include "register_types.h"
@@ -40,6 +50,7 @@ void initialize_geqo_module(ModuleInitializationLevel p_level) {
 		return;
 	}
 
+	ClassDB::register_class<GEQODebugDraw2D>();
 	ClassDB::register_class<GEQODebugSpheres2D>();
 	ClassDB::register_class<GEQODebugSpheres3D>();
 
@@ -59,16 +70,25 @@ void initialize_geqo_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_abstract_class<QueryTest3D>();
 
 	// Generators
+	ClassDB::register_class<GeneratorGridShape2D>();
 	ClassDB::register_class<GeneratorGridShape3D>();
+
+	ClassDB::register_class<GeneratorCircleShape2D>();
 	ClassDB::register_class<GeneratorCircleShape3D>();
 
 	// Contexts
+	ClassDB::register_class<ContextTargetNode2D>();
 	ClassDB::register_class<ContextTargetNode3D>();
+	ClassDB::register_class<ContextInGroup2D>();
 	ClassDB::register_class<ContextInGroup3D>();
 
 	// Tests
+	ClassDB::register_class<TestDistanceTo2D>();
 	ClassDB::register_class<TestDistanceTo3D>();
+
+	ClassDB::register_class<TestRaycastTo2D>();
 	ClassDB::register_class<TestRaycastTo3D>();
+	ClassDB::register_class<TestDotProduct2D>();
 	ClassDB::register_class<TestDotProduct3D>();
 }
 

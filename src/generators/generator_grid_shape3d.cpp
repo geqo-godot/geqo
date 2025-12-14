@@ -78,6 +78,7 @@ void GeneratorGridShape3D::perform_generation(uint64_t initial_time_usec, int ti
 					}
 				} else {
 					get_query_items_ref().push_back(QueryItem(Vector3(pos_x, starting_pos.y, pos_z)));
+					perform_tests(get_query_items_ref().size() - 1);
 				}
 
 				// Check the time for stopping

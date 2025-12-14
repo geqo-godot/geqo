@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://bep8vp2474roh"]
 
-[ext_resource type="Material" uid="uid://dvpbk4gvh28og" path="res://examples/world/materials/placeholder_texture.material" id="1_dgp1c"]
-[ext_resource type="PackedScene" uid="uid://c2ih13se78qrg" path="res://examples/entities/test_player.tscn" id="2_loppk"]
-[ext_resource type="PackedScene" uid="uid://nvso64245ltb" path="res://examples/entities/enemy/enemy.tscn" id="3_8f04b"]
+[ext_resource type="Material" uid="uid://dvpbk4gvh28og" path="res://examples/3d/world/materials/placeholder_texture.material" id="1_dgp1c"]
+[ext_resource type="PackedScene" uid="uid://c2ih13se78qrg" path="res://examples/3d/entities/test_player.tscn" id="2_loppk"]
+[ext_resource type="PackedScene" uid="uid://nvso64245ltb" path="res://examples/3d/entities/enemy/enemy.tscn" id="3_8f04b"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_dgp1c"]
 vertices = PackedVector3Array(-17.75, 0, 0.75, -13.75, 0, 0.75, -13.75, 0, -1.25, -13.25, 0, -2.25, -17.75, 0, -17.75, -8, 0, 3.25, -3.5, 0, 3.25, -3, 0, 1, -8, 0, -1.25, -11.75, 0, -3.25, -10, 0, -3.25, -1.5, 0, 0, -9, 0, -2.75, 11, 0, -3.25, 11, 0, -10, 9.25, 0, -10.5, 8.75, 0, -2.25, 8.25, 0, -12, 8.25, 0, 0, 8.5, 0, -17.75, 13.5, 0, -2.25, 14, 0, 0.25, 17.75, 0, 0, 12, 0, -3.25, 17.75, 0, -17.75, 14, 0, -12, 13, 0, -10.5, 13.75, 0, -17.75, 14, 0, 9.75, 17.75, 0, 10, -17.75, 0, 9.5, -13.75, 0, 9.5, -3.5, 0, 4.75, -9.25, 0, 13, -11, 0, 13.5, -11, 0, 17.75, -2.5, 0, 6.25, -8, 0, 11.25, 0.5, 0, 17.75, 0.5, 0, 6.75, -1.5, 0, 6.75, 11, 0, 17.75, 11, 0, 13.5, 9.25, 0, 13, 8.25, 0, 11.5, 8.25, 0, 6.75, -13.75, 0, 11.5, -13.25, 0, 12.5, -17.75, 0, 17.75, 12.25, 0, 13.25, 13.5, 0, 12.25, 17.75, 0, 17.75)

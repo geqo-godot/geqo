@@ -3,7 +3,7 @@
 #include "generators/query_generator3d.h"
 #include <vector>
 using namespace godot;
-struct GridShapeState {
+struct GridShapeState3D {
 	int time_budget_ms = 0;
 	int prev_z = 0;
 	int prev_x = 0;
@@ -30,7 +30,7 @@ private:
 	double project_up = 100.0;
 	double post_projection_vertical_offset = 0.0;
 	int projection_collision_mask = 1;
-	GridShapeState _current_state = GridShapeState();
+	GridShapeState3D _current_state = GridShapeState3D();
 
 public:
 	GeneratorGridShape3D() {}

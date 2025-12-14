@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfn8vyxb0emok"]
+
+[ext_resource type="Script" uid="uid://c7euo0tjfaedf" path="res://examples/2d/entities/enemy/enemy.gd" id="1_eq6a5"]
+[ext_resource type="Texture2D" uid="uid://cmbwk6eqeysum" path="res://icon.svg" id="2_5lhqg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_24wi7"]
+radius = 64.0
+
+[sub_resource type="Curve" id="Curve_eq6a5"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
+script = ExtResource("1_eq6a5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_5lhqg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_24wi7")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 32.0
+target_desired_distance = 32.0
+
+[node name="EnvironmentQuery2D" type="EnvironmentQuery2D" parent="."]
+
+[node name="GeneratorCircleShape2D" type="GeneratorCircleShape2D" parent="EnvironmentQuery2D" node_paths=PackedStringArray("circle_center")]
+circle_center = NodePath("../../Node2D/ContextSelf")
+space_between = 10.0
+
+[node name="TestDistanceTo2D" type="TestDistanceTo2D" parent="EnvironmentQuery2D/GeneratorCircleShape2D" node_paths=PackedStringArray("distance_to")]
+distance_to = NodePath("../../../Node2D/ContextPlayer")
+max_distance = 400.0
+scoring_curve = SubResource("Curve_eq6a5")
+test_purpose = 2
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="ContextSelf" type="ContextTargetNode2D" parent="Node2D" node_paths=PackedStringArray("target_node")]
+target_node = NodePath("../..")
+
+[node name="ContextPlayer" type="ContextInGroup2D" parent="Node2D"]
+group = "player"
+
+[connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]
