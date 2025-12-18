@@ -49,6 +49,10 @@ public:
 			// print_error("EnvironmentQuery3D::request_query(): Requested another query while processing.");
 			return;
 		}
+		if (generators.empty()) {
+			print_error("EnvironmentQuery: No Generators in query.");
+			return;
+		}
 		_start_query();
 	} // Can't be binded from here so must be binded on inherited
 

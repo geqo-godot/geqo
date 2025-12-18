@@ -6,7 +6,7 @@ reloadable = true
 
 [icons]
 
-EnvironmentQuery = "res://addons/geqo/icons/environment_query.svg"
+EnvironmentQuery3D = "res://addons/geqo/icons/environment_query.svg"
 QueryTest3D = "res://addons/geqo/icons/query_test3d.svg"
 QueryGenerator3D = "res://addons/geqo/icons/generator3d.svg"
 
