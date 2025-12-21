@@ -6,7 +6,8 @@ reloadable = true
 
 [icons]
 
-EnvironmentQuery3D = "res://addons/geqo/icons/environment_query.svg"
+QueryContext3D = "res://addons/geqo/icons/context3d.svg"
+EnvironmentQuery3D = "res://addons/geqo/icons/environment_query3d.svg"
 QueryTest3D = "res://addons/geqo/icons/query_test3d.svg"
 QueryGenerator3D = "res://addons/geqo/icons/generator3d.svg"
 
@@ -16,6 +17,26 @@ TestDotProduct3D = "res://addons/geqo/icons/dot_product_test3d.svg"
 
 GeneratorGridShape3D = "res://addons/geqo/icons/generator3d.svg"
 GeneratorCircleShape3D = "res://addons/geqo/icons/generator3d.svg"
+GeneratorInGroup3D = "res://addons/geqo/icons/generator3d.svg"
+
+ContextInGroup3D = "res://addons/geqo/icons/context3d.svg"
+ContextTargetNode3D = "res://addons/geqo/icons/context3d.svg"
+
+QueryContext2D = "res://addons/geqo/icons/context2d.svg"
+EnvironmentQuery2D = "res://addons/geqo/icons/environment_query2d.svg"
+QueryTest2D = "res://addons/geqo/icons/query_test2d.svg"
+QueryGenerator2D = "res://addons/geqo/icons/generator2d.svg"
+
+TestDistanceTo2D = "res://addons/geqo/icons/distance_test2d.svg"
+TestRaycastTo2D = "res://addons/geqo/icons/raycast_test2d.svg"
+TestDotProduct2D = "res://addons/geqo/icons/dot_product_test2d.svg"
+
+GeneratorGridShape2D = "res://addons/geqo/icons/generator2d.svg"
+GeneratorCircleShape2D = "res://addons/geqo/icons/generator2d.svg"
+GeneratorInGroup2D = "res://addons/geqo/icons/generator2d.svg"
+
+ContextInGroup2D = "res://addons/geqo/icons/context2d.svg"
+ContextTargetNode2D = "res://addons/geqo/icons/context2d.svg"
 
 [libraries]
 
