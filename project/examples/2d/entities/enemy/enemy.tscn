@@ -23,13 +23,13 @@ shape = SubResource("CircleShape2D_24wi7")
 path_desired_distance = 32.0
 target_desired_distance = 32.0
 
-[node name="EnvironmentQuery2D" type="EnvironmentQuery2D" parent="."]
+[node name="EnvironmentQuery2DOld" type="EnvironmentQuery2D" parent="."]
 
-[node name="GeneratorCircleShape2D" type="GeneratorCircleShape2D" parent="EnvironmentQuery2D" node_paths=PackedStringArray("circle_center")]
+[node name="GeneratorCircleShape2D" type="GeneratorCircleShape2D" parent="EnvironmentQuery2DOld" node_paths=PackedStringArray("circle_center")]
 circle_center = NodePath("../../Node2D/ContextSelf")
 space_between = 10.0
 
-[node name="TestDistanceTo2D" type="TestDistanceTo2D" parent="EnvironmentQuery2D/GeneratorCircleShape2D" node_paths=PackedStringArray("distance_to")]
+[node name="TestDistanceTo2D" type="TestDistanceTo2D" parent="EnvironmentQuery2DOld/GeneratorCircleShape2D" node_paths=PackedStringArray("distance_to")]
 distance_to = NodePath("../../../Node2D/ContextPlayer")
 max_distance = 400.0
 scoring_curve = SubResource("Curve_eq6a5")
@@ -42,5 +42,16 @@ target_node = NodePath("../..")
 
 [node name="ContextPlayer" type="ContextInGroup2D" parent="Node2D"]
 group = "player"
+
+[node name="EnvironmentQuery2D" type="EnvironmentQuery2D" parent="."]
+
+[node name="GeneratorInGroup2D" type="GeneratorInGroup2D" parent="EnvironmentQuery2D" node_paths=PackedStringArray("generate_around")]
+generate_around = NodePath("../../Node2D/ContextSelf")
+group = "player"
+collision_mask = 1.0
+
+[node name="TestDistanceTo2D" type="TestDistanceTo2D" parent="EnvironmentQuery2D/GeneratorInGroup2D" node_paths=PackedStringArray("distance_to")]
+distance_to = NodePath("../../../Node2D/ContextSelf")
+test_purpose = 2
 
 [connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]

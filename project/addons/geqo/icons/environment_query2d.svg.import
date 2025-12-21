@@ -2,17 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b04wfgnxbqh3s"
-path="res://.godot/imported/environment_query.svg-05765850a6033c3a9fff79a0c53d2299.ctex"
+uid="uid://8itruvy78bse"
+path="res://.godot/imported/environment_query2d.svg-53421484c7bc1e08c6b6a901b81823a1.ctex"
 metadata={
-"has_editor_variant": true,
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/geqo/icons/environment_query.svg"
-dest_files=["res://.godot/imported/environment_query.svg-05765850a6033c3a9fff79a0c53d2299.ctex"]
+source_file="res://addons/geqo/icons/environment_query2d.svg"
+dest_files=["res://.godot/imported/environment_query2d.svg-53421484c7bc1e08c6b6a901b81823a1.ctex"]
 
 [params]
 
@@ -40,5 +39,5 @@ process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
 svg/scale=1.0
-editor/scale_with_editor_scale=true
-editor/convert_colors_with_editor_theme=true
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false
