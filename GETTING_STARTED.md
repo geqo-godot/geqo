@@ -22,22 +22,22 @@ Every query starts with EnvironmentQuery node as its root.
 
 ### Core nodes:
 
-1. Context
+- Context
 
-- ContextInGroup
-- ContextTargetNode
+  - ContextInGroup
+  - ContextTargetNode
 
-2. Generator
+- Generator
 
-- GeneratorCircleShape
-- GeneratorGridShape
-- GeneratorInGroup
+  - GeneratorCircleShape
+  - GeneratorGridShape
+  - GeneratorInGroup
 
-3. Test
+- Test
 
-- TestDistanceTo
-- TestRaycastTo
-- TestDotProduct
+  - TestDistanceTo
+  - TestRaycastTo
+  - TestDotProduct
 
 ## Setting Up Contexts
 
