@@ -12,7 +12,32 @@
 
 ## Installation
 
+1. Grab the latest release compatible with your Godot version.
+2. Unpack the `addons/geqo` folder into your `/addons` folder in your Godot project.
+3. Enable the addon within the Godot settings: `Project > Project Settings > Plguins`
+
 ## GEQO Nodes Overview
+
+Every query starts with EnvironmentQuery node as its root.
+
+### Core nodes:
+
+1. Context
+
+- ContextInGroup
+- ContextTargetNode
+
+2. Generator
+
+- GeneratorCircleShape
+- GeneratorGridShape
+- GeneratorInGroup
+
+3. Test
+
+- TestDistanceTo
+- TestRaycastTo
+- TestDotProduct
 
 ## Setting Up Contexts
 
