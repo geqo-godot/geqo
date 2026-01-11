@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://nvso64245ltb"]
 
 [ext_resource type="Script" uid="uid://cyqo7rh6dj286" path="res://examples/3d/entities/enemy/enemy.gd" id="1_3fvr7"]
-[ext_resource type="PackedScene" uid="uid://judqoux6m6d1" path="res://context_target_array.tscn" id="2_gmutw"]
+[ext_resource type="Script" uid="uid://g1ieakwul0us" path="res://context_target_array.gd" id="2_gmutw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fj7yv"]
 
@@ -38,12 +38,15 @@ target_node = NodePath("../..")
 [node name="ContextInGroup3D" type="ContextInGroup3D" parent="Contexts"]
 group = "enemies"
 
-[node name="ContextTargetArray" parent="Contexts" node_paths=PackedStringArray("targets") instance=ExtResource("2_gmutw")]
+[node name="ContextTargetArray" type="QueryContext3D" parent="Contexts" node_paths=PackedStringArray("targets")]
+script = ExtResource("2_gmutw")
 targets = [NodePath("../..")]
+metadata/_custom_type_script = "uid://g1ieakwul0us"
 
 [node name="EnvironmentQuery3D" type="EnvironmentQuery3D" parent="."]
 
-[node name="GeneratorGridShape3D" type="GeneratorGridShape3D" parent="EnvironmentQuery3D"]
+[node name="GeneratorGridShape3D" type="GeneratorGridShape3D" parent="EnvironmentQuery3D" node_paths=PackedStringArray("generate_around")]
+generate_around = NodePath("../../Contexts/ContextTargetArray")
 post_projection_vertical_offset = 1.5
 
 [node name="TestDistanceTo3D" type="TestDistanceTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("distance_to")]
