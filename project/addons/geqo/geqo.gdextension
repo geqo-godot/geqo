@@ -21,6 +21,7 @@ GeneratorInGroup3D = "res://addons/geqo/icons/generator3d.svg"
 
 ContextInGroup3D = "res://addons/geqo/icons/context3d.svg"
 ContextTargetNode3D = "res://addons/geqo/icons/context3d.svg"
+ContextTargetArray3D = "res://addons/geqo/icons/context3d.svg"
 
 QueryContext2D = "res://addons/geqo/icons/context2d.svg"
 EnvironmentQuery2D = "res://addons/geqo/icons/environment_query2d.svg"
@@ -37,6 +38,7 @@ GeneratorInGroup2D = "res://addons/geqo/icons/generator2d.svg"
 
 ContextInGroup2D = "res://addons/geqo/icons/context2d.svg"
 ContextTargetNode2D = "res://addons/geqo/icons/context2d.svg"
+ContextTargetArray2D = "res://addons/geqo/icons/context2d.svg"
 
 [libraries]
 

@@ -22,6 +22,9 @@
 #include "contexts/context_in_group2d.h"
 #include "contexts/context_in_group3d.h"
 
+#include "contexts/context_target_array2d.h"
+#include "contexts/context_target_array3d.h"
+
 #include "contexts/context_target_node2d.h"
 #include "contexts/context_target_node3d.h"
 
@@ -84,6 +87,8 @@ void initialize_geqo_module(ModuleInitializationLevel p_level) {
 	// Contexts
 	ClassDB::register_class<ContextTargetNode2D>();
 	ClassDB::register_class<ContextTargetNode3D>();
+	ClassDB::register_class<ContextTargetArray2D>();
+	ClassDB::register_class<ContextTargetArray3D>();
 	ClassDB::register_class<ContextInGroup2D>();
 	ClassDB::register_class<ContextInGroup3D>();
 
