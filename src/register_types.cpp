@@ -62,8 +62,8 @@ void initialize_geqo_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<EnvironmentQuery2D>();
 	ClassDB::register_class<EnvironmentQuery3D>();
 
-	ClassDB::register_abstract_class<QueryContext2D>();
-	ClassDB::register_abstract_class<QueryContext3D>();
+	ClassDB::register_class<QueryContext2D>();
+	ClassDB::register_class<QueryContext3D>();
 
 	ClassDB::register_abstract_class<QueryGenerator2D>();
 	ClassDB::register_abstract_class<QueryGenerator3D>();
