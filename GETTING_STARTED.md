@@ -2,6 +2,7 @@
 
 ## What is an Environment Query?
 
+
 ## Key Concepts
 
 **Context** - This is a reference point to any Generator or Test, which can be a single Node, or entire groups of nodes. For example, Generators will generate points around each node in the context. Contexts can be Nodes or just positions.

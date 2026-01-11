@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://judqoux6m6d1"]
+
+[ext_resource type="Script" uid="uid://g1ieakwul0us" path="res://context_target_array.gd" id="1_s0e64"]
+
+[node name="ContextTargetArray" type="Node3D" node_paths=PackedStringArray("targets")]
+script = ExtResource("1_s0e64")
+targets = [null]
