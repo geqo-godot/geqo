@@ -41,4 +41,8 @@ var best_node: Node = query_result.get_highest_score_node()
 
 ## Download
 
+1. Grab the latest release compatible with your Godot version.
+2. Unpack the `addons/geqo` folder into your `/addons` folder in your Godot project.
+3. Enable the addon within the Godot settings: `Project > Project Settings > Plguins`
+
 ## Credits
