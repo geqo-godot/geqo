@@ -16,8 +16,8 @@ public:
 
 	void init_generators();
 
-	//void set_use_debug_shapes(const bool use_debug);
-	//bool get_use_debug_shapes() const { return use_debug_shapes; }
+	void set_use_debug_shapes(const bool use_debug) { return _set_use_debug_shapes(use_debug); }
+	bool get_use_debug_shapes() const { return _get_use_debug_shapes(); }
 
 	// TODO: Change this when I figure out how to bind them to Godot without forwarding them
 	void set_time_budget_ms(const double budget) { return _set_time_budget_ms(budget); }
