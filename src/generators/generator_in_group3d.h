@@ -40,7 +40,7 @@ public:
 	void set_collision_mask(int mask);
 	double get_collision_mask() { return collision_mask; }
 
-	void perform_generation(uint64_t initial_time_usec, int time_budget_ms) override;
+	void perform_generation(uint64_t initial_time_usec, double time_budget_ms) override;
 	void _on_next_process_frame();
 
 protected:

@@ -29,7 +29,7 @@ public:
 	}
 
 	virtual void perform_tests(int current_item) = 0;
-	virtual void perform_generation(uint64_t initial_time_usec, int time_budget_ms) = 0;
+	virtual void perform_generation(uint64_t initial_time_usec, double time_budget_ms) = 0;
 	bool has_time_left(uint64_t initial_time_usec, uint64_t current_time_usec, double time_budget_ms) {
 		double time_spent_ms = (current_time_usec - initial_time_usec) / 1000;
 		if (time_spent_ms < time_budget_ms)

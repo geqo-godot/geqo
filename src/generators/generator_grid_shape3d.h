@@ -4,7 +4,7 @@
 #include <vector>
 using namespace godot;
 struct GridShapeState3D {
-	int time_budget_ms = 0;
+	double time_budget_ms = 0;
 	int prev_z = 0;
 	int prev_x = 0;
 	int prev_context = 0;
@@ -60,7 +60,7 @@ public:
 	void set_projection_collision_mask(int mask);
 	int get_projection_collision_mask() const { return projection_collision_mask; }
 
-	void perform_generation(uint64_t initial_time_usec, int time_budget_ms) override;
+	void perform_generation(uint64_t initial_time_usec, double time_budget_ms) override;
 	void _on_next_process_frame();
 
 protected:

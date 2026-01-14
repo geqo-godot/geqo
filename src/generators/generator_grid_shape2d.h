@@ -4,7 +4,7 @@
 #include <vector>
 using namespace godot;
 struct GridShapeState2D {
-	int time_budget_ms = 0;
+	double time_budget_ms = 0;
 	int prev_y = 0;
 	int prev_x = 0;
 	int prev_context = 0;
@@ -39,7 +39,7 @@ public:
 	void set_generate_around(QueryContext2D *context);
 	QueryContext2D *get_generate_around() { return generate_around; }
 
-	void perform_generation(uint64_t initial_time_usec, int time_budget_ms) override;
+	void perform_generation(uint64_t initial_time_usec, double time_budget_ms) override;
 	void _on_next_process_frame();
 
 protected:

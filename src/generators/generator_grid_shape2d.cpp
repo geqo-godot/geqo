@@ -14,7 +14,7 @@ void GeneratorGridShape2D::set_generate_around(QueryContext2D *context) {
 	generate_around = context;
 }
 
-void GeneratorGridShape2D::perform_generation(uint64_t initial_time_usec, int time_budget_ms) {
+void GeneratorGridShape2D::perform_generation(uint64_t initial_time_usec, double time_budget_ms) {
 	if (generate_around == nullptr) {
 		print_error("Generator couldn't find Context");
 		return;

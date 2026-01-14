@@ -34,7 +34,7 @@ void GeneratorGridShape3D::set_projection_collision_mask(int mask) {
 	projection_collision_mask = mask;
 }
 
-void GeneratorGridShape3D::perform_generation(uint64_t initial_time_usec, int time_budget_ms) {
+void GeneratorGridShape3D::perform_generation(uint64_t initial_time_usec, double time_budget_ms) {
 	if (generate_around == nullptr) {
 		print_error("Generator couldn't find Context");
 		return;

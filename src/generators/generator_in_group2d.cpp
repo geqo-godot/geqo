@@ -25,7 +25,7 @@ void GeneratorInGroup2D::set_collision_mask(int mask) {
 	collision_mask = mask;
 }
 
-void GeneratorInGroup2D::perform_generation(uint64_t initial_time_usec, int time_budget_ms) {
+void GeneratorInGroup2D::perform_generation(uint64_t initial_time_usec, double time_budget_ms) {
 	if (generate_around == nullptr) {
 		print_error("Generator couldn't find Context");
 		return;

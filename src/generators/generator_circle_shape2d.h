@@ -51,7 +51,7 @@ public:
 	void set_cast_collision_mask(int mask);
 	int get_cast_collision_mask() const { return cast_collision_mask; }
 
-	void perform_generation(uint64_t initial_time_usec, int time_budget_ms) override;
+	void perform_generation(uint64_t initial_time_usec, double time_budget_ms) override;
 
 protected:
 	static void _bind_methods();
