@@ -18,6 +18,7 @@ protected:
 	double time_budget_ms = 1.0;
 
 	bool is_querying = false;
+	bool use_debug_shapes = false;
 
 	int _current_generator = 0;
 	Ref<ResultT> stored_result;
@@ -27,8 +28,8 @@ public:
 
 	virtual void init_generators() = 0;
 
-	//void set_use_debug_shapes(const bool use_debug);
-	//bool get_use_debug_shapes() const { return use_debug_shapes; }
+	void _set_use_debug_shapes(const bool use_debug) { use_debug_shapes = use_debug; }
+	bool _get_use_debug_shapes() const { return use_debug_shapes; }
 	Ref<ResultT> _get_result() {
 		return stored_result;
 	}
@@ -82,7 +83,7 @@ public:
 			// Give query_items to result for caching
 			stored_result->set_items(std::move(query_items));
 
-			UtilityFunctions::print("Finished Query.");
+			// UtilityFunctions::print("Finished Query.");
 			is_querying = false;
 			//emit_signal("query_finished", stored_result);
 			return true;

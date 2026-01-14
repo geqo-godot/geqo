@@ -17,7 +17,7 @@ void EnvironmentQuery3D::_notification(int p_what) {
 				return;
 			if (!is_inside_tree())
 				return;
-			if (get_tree()->is_debugging_navigation_hint()) {
+			if (get_use_debug_shapes()) {
 				debug_spheres = memnew(GEQODebugSpheres3D);
 				call_deferred("add_sibling", debug_spheres);
 			}
@@ -41,8 +41,8 @@ void EnvironmentQuery3D::init_generators() {
 }
 
 void EnvironmentQuery3D::_bind_methods() {
-	//ClassDB::bind_method(D_METHOD("get_use_debug_shapes"), &EnvironmentQuery3D::get_use_debug_shapes);
-	//ClassDB::bind_method(D_METHOD("set_use_debug_shapes", "use_debug"), &EnvironmentQuery3D::set_use_debug_shapes);
+	ClassDB::bind_method(D_METHOD("get_use_debug_shapes"), &EnvironmentQuery3D::get_use_debug_shapes);
+	ClassDB::bind_method(D_METHOD("set_use_debug_shapes", "use_debug"), &EnvironmentQuery3D::set_use_debug_shapes);
 
 	ClassDB::bind_method(D_METHOD("request_query"), &EnvironmentQuery3D::request_query);
 	ClassDB::bind_method(D_METHOD("get_result"), &EnvironmentQuery3D::get_result);
@@ -50,7 +50,7 @@ void EnvironmentQuery3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_time_budget_ms"), &EnvironmentQuery3D::get_time_budget_ms);
 
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "time_budget_ms"), "set_time_budget_ms", "get_time_budget_ms");
-	//ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_debug_shapes"), "set_use_debug_shapes", "get_use_debug_shapes");
-	//
+	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_debug_shapes"), "set_use_debug_shapes", "get_use_debug_shapes");
+
 	ADD_SIGNAL(MethodInfo("query_finished", PropertyInfo(Variant::OBJECT, "result", PROPERTY_HINT_RESOURCE_TYPE, "QueryResult")));
 }
