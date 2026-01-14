@@ -46,7 +46,7 @@ void GeneratorCircleShape3D::set_projection_collision_mask(int mask) {
 	projection_collision_mask = mask;
 }
 
-void GeneratorCircleShape3D::perform_generation(uint64_t initial_time_usec, int time_budget_ms) {
+void GeneratorCircleShape3D::perform_generation(uint64_t initial_time_usec, double time_budget_ms) {
 	if (circle_center == nullptr) {
 		print_error("CircleShape circle_center context not found.");
 		return;

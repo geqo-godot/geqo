@@ -20,10 +20,10 @@ public:
 	//bool get_use_debug_shapes() const { return use_debug_shapes; }
 
 	// TODO: Change this when I figure out how to bind them to Godot without forwarding them
-	void set_time_budget_ms(const double budget) { return set_time_budget_ms(budget); }
+	void set_time_budget_ms(const double budget) { return _set_time_budget_ms(budget); }
 	double get_time_budget_ms() const { return _get_time_budget_ms(); }
 
-	void set_is_querying(const bool querying) { return set_is_querying(querying); }
+	void set_is_querying(const bool querying) { return _set_is_querying(querying); }
 	bool get_is_querying() const { return _get_is_querying(); }
 
 	void request_query() { return _request_query(); }

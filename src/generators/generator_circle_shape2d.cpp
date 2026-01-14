@@ -26,7 +26,7 @@ void GeneratorCircleShape2D::set_cast_collision_mask(int mask) {
 	cast_collision_mask = mask;
 }
 
-void GeneratorCircleShape2D::perform_generation(uint64_t initial_time_usec, int time_budget_ms) {
+void GeneratorCircleShape2D::perform_generation(uint64_t initial_time_usec, double time_budget_ms) {
 	if (circle_center == nullptr) {
 		print_error("CircleShape circle_center context not found.");
 		return;

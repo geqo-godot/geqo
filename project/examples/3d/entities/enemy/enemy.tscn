@@ -41,6 +41,7 @@ group = "enemies"
 
 [node name="GeneratorGridShape3D" type="GeneratorGridShape3D" parent="EnvironmentQuery3D" node_paths=PackedStringArray("generate_around")]
 generate_around = NodePath("../../Contexts/ContextSelf")
+grid_half_size = 1000.0
 post_projection_vertical_offset = 1.5
 
 [node name="TestDistanceTo3D" type="TestDistanceTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("distance_to")]
