@@ -27,7 +27,7 @@ void EnvironmentQuery3D::_notification(int p_what) {
 }
 
 void EnvironmentQuery3D::init_generators() {
-	UtilityFunctions::print("Initializing generators.");
+	//UtilityFunctions::print("Initializing generators.");
 	for (Variant child : get_children()) {
 		QueryGenerator3D *generator = cast_to<QueryGenerator3D>(child);
 		if (!generator) {

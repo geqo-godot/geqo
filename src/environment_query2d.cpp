@@ -27,7 +27,7 @@ void EnvironmentQuery2D::_notification(int p_what) {
 }
 
 void EnvironmentQuery2D::init_generators() {
-	UtilityFunctions::print("Initializing generators.");
+	//UtilityFunctions::print("Initializing generators.");
 	for (Variant child : get_children()) {
 		QueryGenerator2D *generator = cast_to<QueryGenerator2D>(child);
 		if (!generator) {
