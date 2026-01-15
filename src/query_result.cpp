@@ -12,8 +12,29 @@ VectorT QueryResultBase<VectorT>::_get_highest_score_position() const {
 
 	_build_cache();
 
-	//UtilityFunctions::print("Array size: ", query_items.size());
 	return query_items[sorted_indices[0]].projection_position;
+}
+
+template <typename VectorT>
+VectorT QueryResultBase<VectorT>::_get_top_random_position(double percent) const {
+	if (query_items.empty())
+		return VectorT();
+
+	_build_cache();
+
+	percent = std::clamp(percent, 0.0, 1.0);
+
+	int unfiltered_count = highest_unfiltered_index + 1;
+	// If there are no results
+	if (unfiltered_count <= 0)
+		return VectorT();
+
+	// Get the top percentage
+	int top_count = static_cast<int>(std::ceil(unfiltered_count * percent));
+	top_count = std::max(top_count, 1);
+
+	int random_i = UtilityFunctions::randi_range(0, top_count - 1);
+	return query_items[sorted_indices[random_i]].projection_position;
 }
 
 template <typename VectorT>
@@ -23,6 +44,27 @@ Node *QueryResultBase<VectorT>::_get_highest_score_node() const {
 
 	_build_cache();
 	return query_items[sorted_indices[0]].collided_with;
+}
+template <typename VectorT>
+Node *QueryResultBase<VectorT>::_get_top_random_node(double percent) const {
+	if (query_items.empty())
+		return nullptr;
+
+	_build_cache();
+
+	percent = std::clamp(percent, 0.0, 1.0);
+
+	int unfiltered_count = highest_unfiltered_index + 1;
+	// If there are no results
+	if (unfiltered_count <= 0)
+		return nullptr;
+
+	// Get the top percentage
+	int top_count = static_cast<int>(std::ceil(unfiltered_count * percent));
+	top_count = std::max(top_count, 1);
+
+	int random_i = UtilityFunctions::randi_range(0, top_count - 1);
+	return query_items[sorted_indices[random_i]].collided_with;
 }
 
 // Sort indices and store them for future calls
@@ -43,16 +85,26 @@ void QueryResultBase<VectorT>::_build_cache() const {
 			[&](size_t lhs, size_t rhs) {
 				return query_items[lhs] > query_items[rhs];
 			});
+	for (size_t i = 0; i < sorted_indices.size(); i++) {
+		if (query_items[sorted_indices[i]].is_filtered)
+			break;
+		else
+			highest_unfiltered_index = i;
+	}
 
 	is_cache_built = true;
 }
 
 void QueryResult2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_highest_score_position"), &QueryResult2D::get_highest_score_position);
+	ClassDB::bind_method(D_METHOD("get_top_random_position", "percent"), &QueryResult2D::get_top_random_position, DEFVAL(0.1));
 	ClassDB::bind_method(D_METHOD("get_highest_score_node"), &QueryResult2D::get_highest_score_node);
+	ClassDB::bind_method(D_METHOD("get_top_random_node", "percent"), &QueryResult2D::get_top_random_node, DEFVAL(0.1));
 }
 
 void QueryResult3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_highest_score_position"), &QueryResult3D::get_highest_score_position);
+	ClassDB::bind_method(D_METHOD("get_top_random_position", "percent"), &QueryResult3D::get_top_random_position, DEFVAL(0.1));
 	ClassDB::bind_method(D_METHOD("get_highest_score_node"), &QueryResult3D::get_highest_score_node);
+	ClassDB::bind_method(D_METHOD("get_top_random_node", "percent"), &QueryResult3D::get_top_random_node, DEFVAL(0.1));
 }

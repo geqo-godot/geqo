@@ -21,7 +21,7 @@ func _input(event: InputEvent) -> void:
 		var query_result: QueryResult3D = env_query.get_result()
 		var time_end: float = Time.get_ticks_usec()
 		print("C++ Query ended in : " + str(((time_end - time_start) / 1000)) + " ms")
-		final_target = query_result.get_highest_score_position()
+		final_target = query_result.get_top_random_position(.1)
 		if !final_target:
 			return
 		print("Best result: ", query_result.get_highest_score_position())
