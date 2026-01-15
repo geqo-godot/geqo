@@ -46,6 +46,7 @@ private:
 	std::vector<QueryItem<VectorT>> query_items;
 	mutable bool is_cache_built = false;
 	mutable std::vector<size_t> sorted_indices;
+	mutable int highest_unfiltered_index = -1;
 
 public:
 	~QueryResultBase() = default;
@@ -54,7 +55,9 @@ public:
 	void _build_cache() const;
 
 	VectorT _get_highest_score_position() const;
+	VectorT _get_top_random_position(double percent = 0.1) const;
 	Node *_get_highest_score_node() const;
+	Node *_get_top_random_node(double percent = 0.1) const;
 };
 
 class QueryResult2D : public RefCounted, public QueryResultBase<Vector2> {
@@ -65,7 +68,9 @@ protected:
 
 public:
 	Vector2 get_highest_score_position() const { return _get_highest_score_position(); };
+	Vector2 get_top_random_position(double percent = 0.05) const { return _get_top_random_position(percent); }
 	Node *get_highest_score_node() const { return _get_highest_score_node(); };
+	Node *get_top_random_node(double percent = 0.05) const { return _get_top_random_node(percent); }
 };
 
 class QueryResult3D : public RefCounted, public QueryResultBase<Vector3> {
@@ -76,5 +81,7 @@ protected:
 
 public:
 	Vector3 get_highest_score_position() const { return _get_highest_score_position(); };
+	Vector3 get_top_random_position(double percent = 0.1) const { return _get_top_random_position(percent); }
 	Node *get_highest_score_node() const { return _get_highest_score_node(); };
+	Node *get_top_random_node(double percent = 0.1) const { return _get_top_random_node(percent); }
 };
