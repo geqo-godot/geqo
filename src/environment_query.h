@@ -12,7 +12,7 @@ class EnvironmentQueryBase {
 protected:
 	//Current query items of the query.
 	std::vector<QueryItem<VectorT>> query_items;
-	std::vector<GeneratorT *> generators;
+	GeneratorT *generator;
 	SpheresT *debug_spheres = nullptr;
 
 	double time_budget_ms = 1.0;
@@ -20,13 +20,12 @@ protected:
 	bool is_querying = false;
 	bool use_debug_shapes = false;
 
-	int _current_generator = 0;
 	Ref<ResultT> stored_result;
 
 public:
 	~EnvironmentQueryBase() = default;
 
-	virtual void init_generators() = 0;
+	virtual void init_generator() = 0;
 
 	void _set_use_debug_shapes(const bool use_debug) { use_debug_shapes = use_debug; }
 	bool _get_use_debug_shapes() const { return use_debug_shapes; }
@@ -50,16 +49,14 @@ public:
 			// print_error("EnvironmentQuery3D::request_query(): Requested another query while processing.");
 			return;
 		}
-		if (generators.empty()) {
-			print_error("EnvironmentQuery: No Generators in query.");
+		if (!generator) {
+			print_error("EnvironmentQuery: No Generator in EnvironmentQuery.");
 			return;
 		}
 		_start_query();
 	} // Can't be binded from here so must be binded on inherited
 
 	void _start_query() {
-		// Reset all values before processing the query
-		_current_generator = 0;
 		// UtilityFunctions::print(vformat("Previous vector size: %s", query_items.size()));
 		query_items.clear();
 		is_querying = true;
@@ -68,29 +65,21 @@ public:
 
 	void _process_query() {
 		uint64_t _initial_time_usec = Time::get_singleton()->get_ticks_usec();
-		generators[_current_generator]->perform_generation(_initial_time_usec, time_budget_ms);
+		generator->perform_generation(_initial_time_usec, time_budget_ms);
 	}
 
 	bool _on_generator_finished() {
-		_current_generator++;
-		if (_current_generator >= generators.size()) {
-			Ref<ResultT> result;
-			result.instantiate();
-			stored_result = result;
-			if (debug_spheres) {
-				debug_spheres->draw_items(query_items);
-			}
-			// Give query_items to result for caching
-			stored_result->set_items(std::move(query_items));
-
-			// UtilityFunctions::print("Finished Query.");
-			is_querying = false;
-			//emit_signal("query_finished", stored_result);
-			return true;
+		// Process the results
+		Ref<ResultT> result;
+		result.instantiate();
+		stored_result = result;
+		if (debug_spheres) {
+			debug_spheres->draw_items(query_items);
 		}
+		// Give query_items to result for caching
+		stored_result->set_items(std::move(query_items));
 
-		// Continue to the next generator/tests
-		_process_query();
-		return false;
+		is_querying = false;
+		return true;
 	}
 };
