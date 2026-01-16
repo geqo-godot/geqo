@@ -14,7 +14,7 @@ public:
 	EnvironmentQuery3D() {}
 	~EnvironmentQuery3D() {}
 
-	void init_generators();
+	void init_generator();
 
 	void set_use_debug_shapes(const bool use_debug) { return _set_use_debug_shapes(use_debug); }
 	bool get_use_debug_shapes() const { return _get_use_debug_shapes(); }
@@ -34,6 +34,7 @@ public:
 		if (result)
 			call_deferred("emit_signal", "query_finished", stored_result);
 	}
+	PackedStringArray _get_configuration_warnings() const override;
 
 protected:
 	static void _bind_methods();
