@@ -46,6 +46,7 @@ post_projection_vertical_offset = 1.5
 
 [node name="TestPathFindToSelf" type="TestPathFindTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("path_to")]
 path_to = NodePath("../../../Contexts/ContextSelf")
+test_purpose = 1
 
 [node name="TestDistanceToPlayer" type="TestDistanceTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("distance_to")]
 distance_to = NodePath("../../../Contexts/ContextPlayer")
