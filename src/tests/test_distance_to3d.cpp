@@ -84,6 +84,7 @@ void TestDistanceTo3D::perform_test(QueryItem<Vector3> &projection) {
 	}
 }
 
+// TODO: Change to NOTIFICATION_READY
 void TestDistanceTo3D::_ready() {
 	if (Engine::get_singleton()->is_editor_hint()) {
 		return;

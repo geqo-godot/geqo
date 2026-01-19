@@ -11,6 +11,7 @@ EnvironmentQuery3D = "res://addons/geqo/icons/environment_query3d.svg"
 QueryTest3D = "res://addons/geqo/icons/query_test3d.svg"
 QueryGenerator3D = "res://addons/geqo/icons/generator3d.svg"
 
+TestPathFindTo3D = "res://addons/geqo/icons/query_test3d.svg"
 TestDistanceTo3D = "res://addons/geqo/icons/distance_test3d.svg"
 TestRaycastTo3D = "res://addons/geqo/icons/raycast_test3d.svg"
 TestDotProduct3D = "res://addons/geqo/icons/dot_product_test3d.svg"

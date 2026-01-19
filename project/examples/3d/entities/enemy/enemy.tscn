@@ -44,6 +44,9 @@ use_debug_shapes = true
 generate_around = NodePath("../../Contexts/ContextSelf")
 post_projection_vertical_offset = 1.5
 
+[node name="TestPathFindToSelf" type="TestPathFindTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("path_to")]
+path_to = NodePath("../../../Contexts/ContextSelf")
+
 [node name="TestDistanceToPlayer" type="TestDistanceTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("distance_to")]
 distance_to = NodePath("../../../Contexts/ContextPlayer")
 scoring_curve = SubResource("Curve_5peh2")
