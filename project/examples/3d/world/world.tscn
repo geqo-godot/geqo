@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://nvso64245ltb" path="res://examples/3d/entities/enemy/enemy.tscn" id="3_8f04b"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_dgp1c"]
-vertices = PackedVector3Array(-17.75, 0, 4, -13.75, 0, 4, -13.75, 0, 2, -8, 0, 2, -8, 0, 4.5, -3.5, 0, 4.5, -3.5, 0, 2, -17.75, 0, -17.75, -13.25, 0, 1, -11.75, 0, 0, -3, 0, 1, -9, 0, 0.5, -1.5, 0, 0, 0, 0, 0, -0.25, 0, -17.75, -10, 0, 0, 11, 0, -3.25, 11, 0, -10, 9.25, 0, -10.5, 8.75, 0, -2.25, 8.25, 0, -12, 8.5, 0, -17.75, 8.25, 0, 0, 13.5, 0, -2.25, 14, 0, 0.25, 17.75, 0, 0, 12, 0, -3.25, 17.75, 0, -17.75, 14, 0, -12, 13, 0, -10.5, 13.75, 0, -17.75, 14, 0, 9.75, 17.75, 0, 10, -17.75, 0, 17.75, -14.25, 0, 17.75, -14.75, 0, 16.75, -14.75, 0, 14, -13.75, 0, 12.75, 11.75, 0, 13.5, 9.75, 0, 13.25, 9.75, 0, 16.75, 14, 0, 11.25, 12.75, 0, 13, 9.25, 0, 17.75, 17.75, 0, 17.75, -8, 0, 11.25, -8, 0, 12, 2.75, 0, 12, 2.75, 0, 11.25)
-polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(6, 5, 3), PackedInt32Array(3, 5, 4), PackedInt32Array(9, 8, 7), PackedInt32Array(6, 3, 10), PackedInt32Array(10, 3, 11), PackedInt32Array(2, 0, 8), PackedInt32Array(8, 0, 7), PackedInt32Array(14, 13, 12), PackedInt32Array(11, 15, 10), PackedInt32Array(10, 15, 12), PackedInt32Array(12, 15, 14), PackedInt32Array(14, 15, 7), PackedInt32Array(15, 9, 7), PackedInt32Array(17, 16, 18), PackedInt32Array(18, 16, 19), PackedInt32Array(14, 21, 20), PackedInt32Array(22, 13, 19), PackedInt32Array(19, 13, 18), PackedInt32Array(18, 13, 20), PackedInt32Array(20, 13, 14), PackedInt32Array(25, 24, 23), PackedInt32Array(23, 26, 25), PackedInt32Array(25, 26, 28), PackedInt32Array(25, 28, 27), PackedInt32Array(16, 17, 26), PackedInt32Array(26, 17, 29), PackedInt32Array(28, 30, 27), PackedInt32Array(28, 26, 29), PackedInt32Array(24, 25, 31), PackedInt32Array(31, 25, 32), PackedInt32Array(35, 34, 33), PackedInt32Array(35, 33, 36), PackedInt32Array(36, 33, 0), PackedInt32Array(37, 36, 1), PackedInt32Array(1, 36, 0), PackedInt32Array(40, 39, 38), PackedInt32Array(41, 31, 32), PackedInt32Array(40, 38, 42), PackedInt32Array(42, 41, 32), PackedInt32Array(40, 42, 43), PackedInt32Array(43, 42, 44), PackedInt32Array(44, 42, 32), PackedInt32Array(48, 47, 45), PackedInt32Array(45, 47, 46)]
+vertices = PackedVector3Array(-8, 0, 3.5, -3.5, 0, 3.25, -3.5, 0, 2, -8.5, 0, 1, -2.5, 0, 0.5, -17.75, 0, 2.25, -13.75, 0, 2.25, -12.75, 0, 0.5, -17.75, 0, -17.75, -10, 0, 0, 0, 0, 0, -0.25, 0, -17.75, 11, 0, -3.25, 11, 0, -10, 9.25, 0, -10.5, 8.75, 0, -2.25, 8.25, 0, -12, 8.5, 0, -17.75, 8.25, 0, 0, 13.5, 0, -2.25, 14, 0, 0.25, 17.75, 0, 0, 12, 0, -3.25, 17.75, 0, -17.75, 14, 0, -12, 13, 0, -10.5, 13.75, 0, -17.75, 14, 0, 9.75, 17.75, 0, 10, -10.75, 0, 17.75, -10.75, 0, 16.75, -12.75, 0, 16.25, -17.75, 0, 17.75, -13.75, 0, 14.75, -9, 0, 16.25, 11, 0, 17.75, 11, 0, 13.5, 9.25, 0, 13, -3, 0, 5.75, 8.25, 0, 11.5, -1.5, 0, 6.75, -8, 0, 14.75, 8.25, 0, 6.75, 12.25, 0, 13.25, 13.5, 0, 12.25, 17.75, 0, 17.75)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(0, 3, 2), PackedInt32Array(2, 3, 4), PackedInt32Array(6, 5, 7), PackedInt32Array(7, 5, 8), PackedInt32Array(9, 7, 8), PackedInt32Array(3, 9, 4), PackedInt32Array(4, 9, 10), PackedInt32Array(10, 9, 11), PackedInt32Array(11, 9, 8), PackedInt32Array(13, 12, 14), PackedInt32Array(14, 12, 15), PackedInt32Array(11, 17, 16), PackedInt32Array(18, 10, 15), PackedInt32Array(15, 10, 14), PackedInt32Array(14, 10, 16), PackedInt32Array(16, 10, 11), PackedInt32Array(21, 20, 19), PackedInt32Array(19, 22, 21), PackedInt32Array(21, 22, 24), PackedInt32Array(21, 24, 23), PackedInt32Array(12, 13, 22), PackedInt32Array(22, 13, 25), PackedInt32Array(24, 26, 23), PackedInt32Array(24, 22, 25), PackedInt32Array(20, 21, 27), PackedInt32Array(27, 21, 28), PackedInt32Array(30, 29, 31), PackedInt32Array(31, 29, 32), PackedInt32Array(6, 33, 5), PackedInt32Array(5, 33, 32), PackedInt32Array(33, 31, 32), PackedInt32Array(30, 34, 29), PackedInt32Array(29, 34, 35), PackedInt32Array(37, 36, 35), PackedInt32Array(0, 1, 38), PackedInt32Array(37, 35, 39), PackedInt32Array(39, 35, 40), PackedInt32Array(40, 35, 41), PackedInt32Array(41, 35, 34), PackedInt32Array(38, 40, 0), PackedInt32Array(0, 40, 41), PackedInt32Array(40, 42, 39), PackedInt32Array(35, 36, 43), PackedInt32Array(44, 27, 28), PackedInt32Array(43, 44, 35), PackedInt32Array(35, 44, 45), PackedInt32Array(45, 44, 28)]
 agent_radius = 2.25
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_fj7yv"]
@@ -95,24 +95,6 @@ use_collision = true
 size = Vector3(11.8046875, 1.656868, 2.0493774)
 material = ExtResource("1_dgp1c")
 
-[node name="Cover3" type="CSGBox3D" parent="NavigationRegion3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8319659, 3.2152424, 7.8558245)
-use_collision = true
-size = Vector3(18.533203, 7.430485, 2.0493774)
-material = ExtResource("1_dgp1c")
-
-[node name="Cover5" type="CSGBox3D" parent="NavigationRegion3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.2887006, 3.2472858, 10.681241)
-use_collision = true
-size = Vector3(2.29187, 7.4945717, 7.7002106)
-material = ExtResource("1_dgp1c")
-
-[node name="Cover4" type="CSGBox3D" parent="NavigationRegion3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.408382, 3.2495046, 15.374679)
-use_collision = true
-size = Vector3(19.686035, 7.499009, 2.0493774)
-material = ExtResource("1_dgp1c")
-
 [node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D"]
 
 [node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/StaticBody3D"]
@@ -127,7 +109,10 @@ shadow_enabled = true
 environment = SubResource("Environment_tlwt5")
 
 [node name="TestPlayer" parent="." instance=ExtResource("2_loppk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.609722, 0, 18.086906)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.609722, 0, 11.556929)
+
+[node name="TestPlayer2" parent="." instance=ExtResource("2_loppk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.609722, 0, 13.943366)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

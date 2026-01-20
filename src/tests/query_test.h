@@ -16,10 +16,15 @@ public:
 		MAX_SCORE,
 		MIN_SCORE,
 	};
+	enum FilterOperator {
+		ANY_PASS,
+		ALL_PASS,
+	};
 
 private:
 	TestPurpose test_purpose = FILTER_SCORE;
-	ScoreOperator multiple_context_operator = AVERAGE_SCORE;
+	ScoreOperator multiple_context_score_operator = AVERAGE_SCORE;
+	FilterOperator multiple_context_filter_operator = ANY_PASS;
 
 public:
 	~QueryTestBase() = default;
@@ -29,8 +34,13 @@ public:
 	}
 	TestPurpose _get_test_purpose() const { return test_purpose; }
 
-	void _set_context_operator(const ScoreOperator score_op) {
-			multiple_context_operator = score_op;
+	void _set_context_score_operator(const ScoreOperator score_op) {
+		multiple_context_score_operator = score_op;
 	}
-	ScoreOperator _get_context_operator() const { return multiple_context_operator; }
+	ScoreOperator _get_context_score_operator() const { return multiple_context_score_operator; }
+
+	void _set_context_filter_operator(const FilterOperator filter_op) {
+		multiple_context_filter_operator = filter_op;
+	}
+	FilterOperator _get_context_filter_operator() const { return multiple_context_filter_operator; }
 };
