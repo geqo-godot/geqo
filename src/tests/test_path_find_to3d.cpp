@@ -10,6 +10,10 @@
 #include <numeric>
 using namespace godot;
 
+void TestPathFindTo3D::set_use_debug(bool debug) {
+	use_debug = debug;
+}
+
 void TestPathFindTo3D::set_scoring_curve(Ref<Curve> curve) {
 	scoring_curve = curve;
 }
@@ -36,9 +40,11 @@ void TestPathFindTo3D::perform_test(QueryItem<Vector3> &projection) {
 			continue;
 
 		PackedVector3Array path = get_navigation_path(projection.projection_position, context_pos);
-		draw_path(path, Color(1, 0, 0));
-		UtilityFunctions::print("Projection Pos: ", projection.projection_position, " Context Pos: ", context_pos);
-		UtilityFunctions::print("Generated Path: ", path);
+		if (use_debug) {
+			draw_path(path, Color(1, 0, 0));
+		}
+		//UtilityFunctions::print("Projection Pos: ", projection.projection_position, " Context Pos: ", context_pos);
+		//UtilityFunctions::print("Generated Path: ", path);
 
 		RID default_map_rid = get_world_3d()->get_navigation_map();
 		Vector3 nav_context =
@@ -46,17 +52,17 @@ void TestPathFindTo3D::perform_test(QueryItem<Vector3> &projection) {
 						default_map_rid,
 						context_pos);
 		if (path.is_empty()) {
-			UtilityFunctions::print("Path was empty.");
+			//UtilityFunctions::print("Path was empty.");
 			scores.push_back(0.0);
 		} else {
-			UtilityFunctions::print("size - 1 path point: ", path[path.size() - 1], " Context Pos: ", nav_context);
-			UtilityFunctions::print("Threshold: ", found_path_threshold);
-			UtilityFunctions::print("Distance to: ", path[path.size() - 1].distance_to(nav_context));
+			//UtilityFunctions::print("size - 1 path point: ", path[path.size() - 1], " Context Pos: ", nav_context);
+			//UtilityFunctions::print("Threshold: ", found_path_threshold);
+			//UtilityFunctions::print("Distance to: ", path[path.size() - 1].distance_to(nav_context));
 			if (path[path.size() - 1].distance_to(nav_context) <= found_path_threshold) {
-				UtilityFunctions::print("Final point on path did reach context.");
+				//UtilityFunctions::print("Final point on path did reach context.");
 				scores.push_back(1.0);
 			} else {
-				UtilityFunctions::print("Final point on path did not reach context.");
+				//UtilityFunctions::print("Final point on path did not reach context.");
 				scores.push_back(0.0);
 			}
 		}
@@ -157,6 +163,9 @@ void TestPathFindTo3D::_ready() {
 }
 
 void TestPathFindTo3D::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("set_use_debug", "debug"), &TestPathFindTo3D::set_use_debug);
+	ClassDB::bind_method(D_METHOD("get_use_debug"), &TestPathFindTo3D::get_use_debug);
+
 	ClassDB::bind_method(D_METHOD("set_scoring_curve", "curve"), &TestPathFindTo3D::set_scoring_curve);
 	ClassDB::bind_method(D_METHOD("get_scoring_curve"), &TestPathFindTo3D::get_scoring_curve);
 
@@ -166,6 +175,7 @@ void TestPathFindTo3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_path_to", "context_node"), &TestPathFindTo3D::set_path_to);
 	ClassDB::bind_method(D_METHOD("get_path_to"), &TestPathFindTo3D::get_path_to);
 
+	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_debug"), "set_use_debug", "get_use_debug");
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "path_to", PROPERTY_HINT_NODE_TYPE, "QueryContext3D"), "set_path_to", "get_path_to");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "found_path_threshold"), "set_found_path_threshold", "get_found_path_threshold");
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "scoring_curve", PROPERTY_HINT_RESOURCE_TYPE, "Curve"), "set_scoring_curve", "get_scoring_curve");
