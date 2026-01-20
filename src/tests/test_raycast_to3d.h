@@ -8,7 +8,6 @@
 using namespace godot;
 class TestRaycastTo3D : public QueryTest3D {
 	GDCLASS(TestRaycastTo3D, QueryTest3D)
-
 private:
 	QueryContext3D *context = nullptr;
 	bool hitting_is_true = true;

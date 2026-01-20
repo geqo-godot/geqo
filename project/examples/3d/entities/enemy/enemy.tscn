@@ -56,6 +56,7 @@ test_purpose = 2
 [node name="TestRaycastToPlayer" type="TestRaycastTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("context")]
 context = NodePath("../../../Contexts/ContextPlayer")
 hitting_is_true = false
+multiple_context_filter_operator = 1
 exclusions = Array[NodePath]([NodePath("../../..")])
 collision_mask = 3
 test_purpose = 1

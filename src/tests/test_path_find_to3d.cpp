@@ -65,7 +65,7 @@ void TestPathFindTo3D::perform_test(QueryItem<Vector3> &projection) {
 	double result = 0.0;
 
 	// Choose score for the result
-	switch (get_context_operator()) {
+	switch (get_context_score_operator()) {
 		case AVERAGE_SCORE: {
 			double total_score = std::accumulate(scores.begin(), scores.end(), 0.0);
 			result = total_score / scores.size();
