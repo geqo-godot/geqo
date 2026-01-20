@@ -18,6 +18,7 @@ public:
 	};
 
 private:
+	bool use_debug = false;
 	Ref<Curve> scoring_curve;
 	PathTestType path_test_type = PATH_EXISTS;
 	QueryContext3D *path_to = nullptr;
@@ -26,6 +27,9 @@ private:
 public:
 	TestPathFindTo3D() {}
 	~TestPathFindTo3D() {}
+
+	void set_use_debug(bool debug);
+	bool get_use_debug() const { return use_debug; }
 
 	void set_scoring_curve(Ref<Curve> curve);
 	Ref<Curve> get_scoring_curve() const { return scoring_curve; }

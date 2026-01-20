@@ -45,6 +45,7 @@ generate_around = NodePath("../../Contexts/ContextSelf")
 post_projection_vertical_offset = 1.5
 
 [node name="TestPathFindToSelf" type="TestPathFindTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("path_to")]
+use_debug = true
 path_to = NodePath("../../../Contexts/ContextSelf")
 test_purpose = 1
 
