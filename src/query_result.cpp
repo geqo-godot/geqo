@@ -11,8 +11,8 @@ TypedArray<VectorT> QueryResultBase<VectorT>::_get_all_position() const {
 
 	_build_cache();
 
-	for (int index : sorted_indices) {
-		result.append(query_items[index].projection_position);
+	for (int i = 0; i <= highest_unfiltered_index; i++) {
+		result.append(query_items[sorted_indices[i]].projection_position);
 	}
 	return result;
 }
@@ -23,8 +23,8 @@ TypedArray<Node> QueryResultBase<VectorT>::_get_all_node() const {
 
 	_build_cache();
 
-	for (int index : sorted_indices) {
-		result.append(query_items[index].collided_with);
+	for (int i = 0; i <= highest_unfiltered_index; i++) {
+		result.append(query_items[sorted_indices[i]].collided_with);
 	}
 	return result;
 }

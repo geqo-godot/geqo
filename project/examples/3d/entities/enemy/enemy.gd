@@ -27,6 +27,7 @@ func _input(event: InputEvent) -> void:
 		print("Best result: ", query_result.get_highest_score_position())
 		nav_agent.target_position = final_target
 		current_target = nav_agent.get_next_path_position()
+		print("All results: ", query_result.get_all_position())
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
