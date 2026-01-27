@@ -28,7 +28,6 @@ func _input(event: InputEvent) -> void:
 		nav_agent.target_position = final_target
 		current_target = nav_agent.get_next_path_position()
 
-
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta

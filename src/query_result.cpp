@@ -6,6 +6,30 @@
 using namespace godot;
 
 template <typename VectorT>
+TypedArray<VectorT> QueryResultBase<VectorT>::_get_all_position() const {
+	TypedArray<VectorT> result;
+
+	_build_cache();
+
+	for (int index : sorted_indices) {
+		result.append(query_items[index].projection_position);
+	}
+	return result;
+}
+
+template <typename VectorT>
+TypedArray<Node> QueryResultBase<VectorT>::_get_all_node() const {
+	TypedArray<Node> result;
+
+	_build_cache();
+
+	for (int index : sorted_indices) {
+		result.append(query_items[index].collided_with);
+	}
+	return result;
+}
+
+template <typename VectorT>
 VectorT QueryResultBase<VectorT>::_get_highest_score_position() const {
 	if (query_items.empty())
 		return VectorT();
@@ -96,6 +120,8 @@ void QueryResultBase<VectorT>::_build_cache() const {
 }
 
 void QueryResult2D::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("get_all_position"), &QueryResult2D::get_all_position);
+	ClassDB::bind_method(D_METHOD("get_all_node"), &QueryResult2D::get_all_node);
 	ClassDB::bind_method(D_METHOD("get_highest_score_position"), &QueryResult2D::get_highest_score_position);
 	ClassDB::bind_method(D_METHOD("get_top_random_position", "percent"), &QueryResult2D::get_top_random_position, DEFVAL(0.1));
 	ClassDB::bind_method(D_METHOD("get_highest_score_node"), &QueryResult2D::get_highest_score_node);
@@ -103,6 +129,8 @@ void QueryResult2D::_bind_methods() {
 }
 
 void QueryResult3D::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("get_all_position"), &QueryResult3D::get_all_position);
+	ClassDB::bind_method(D_METHOD("get_all_node"), &QueryResult3D::get_all_node);
 	ClassDB::bind_method(D_METHOD("get_highest_score_position"), &QueryResult3D::get_highest_score_position);
 	ClassDB::bind_method(D_METHOD("get_top_random_position", "percent"), &QueryResult3D::get_top_random_position, DEFVAL(0.1));
 	ClassDB::bind_method(D_METHOD("get_highest_score_node"), &QueryResult3D::get_highest_score_node);
