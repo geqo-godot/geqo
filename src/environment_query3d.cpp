@@ -34,7 +34,7 @@ PackedStringArray EnvironmentQuery3D::_get_configuration_warnings() const {
 	PackedStringArray warnings;
 
 	if (get_children().is_empty())
-		warnings.append("Must have one QueryGenerator child.");
+		warnings.append("Must have one QueryGenerator3D child.");
 	else if (get_children().size() > 1)
 		warnings.append("EnvironmentQuery should have only one child.");
 	else {

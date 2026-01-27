@@ -20,7 +20,7 @@ void TestDotProduct2D::perform_test(QueryItem<Vector2> &projection) {
 	Node2D *context1 = Object::cast_to<Node2D>(from_place->get_context()[0]);
 	Node2D *context2 = Object::cast_to<Node2D>(to_target->get_context()[0]);
 
-	if (context1 == nullptr || context2 == nullptr) {
+	if (!context1 || !context2) {
 		print_error("TestDotProduct2D missing a context");
 		return;
 	}

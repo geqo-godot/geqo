@@ -7,7 +7,7 @@ void ContextTargetNode3D::set_target_node(Node3D *target) {
 Array ContextTargetNode3D::get_context() {
 	Array result = Array();
 	if (target_node == nullptr) {
-		print_error("No target node what the hecc");
+		print_error("ContextTargetNode3D: No target node.");
 		return Array();
 	}
 	result.append(target_node);
