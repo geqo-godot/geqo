@@ -8,6 +8,12 @@
 using namespace godot;
 class TestRaycastTo2D : public QueryTest2D {
 	GDCLASS(TestRaycastTo2D, QueryTest2D)
+public:
+	enum RaycastMode {
+		BODY,
+		AREA,
+		BODY_AREA
+	};
 
 private:
 	QueryContext2D *context = nullptr;
@@ -15,6 +21,7 @@ private:
 	bool cast_from_context = false;
 	TypedArray<NodePath> exclusions;
 	int collision_mask = 1;
+	RaycastMode raycast_mode = BODY;
 
 public:
 	TestRaycastTo2D() {}
@@ -35,8 +42,13 @@ public:
 	void set_collision_mask(int mask);
 	int get_collision_mask() const { return collision_mask; }
 
+	void set_raycast_mode(RaycastMode mode);
+	RaycastMode get_raycast_mode() const { return raycast_mode; }
+
 	void perform_test(QueryItem<Vector2> &projection) override;
 
 protected:
 	static void _bind_methods();
 };
+
+VARIANT_ENUM_CAST(TestRaycastTo2D::RaycastMode);

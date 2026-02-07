@@ -3,6 +3,7 @@
 #include <godot_cpp/classes/physics_ray_query_parameters2d.hpp>
 #include <godot_cpp/classes/world2d.hpp>
 
+#include "test_raycast_to2d.h"
 #include "tests/test_raycast_to2d.h"
 #define MAKE_OBJECT_TYPE_HINT(m_type) vformat("%s/%s:%s", Variant::NODE_PATH, PROPERTY_HINT_NODE_PATH_VALID_TYPES, m_type)
 
@@ -26,6 +27,9 @@ void TestRaycastTo2D::set_collision_mask(int mask) {
 	collision_mask = mask;
 }
 
+void TestRaycastTo2D::set_raycast_mode(RaycastMode mode) {
+	raycast_mode = mode;
+}
 void TestRaycastTo2D::perform_test(QueryItem<Vector2> &projection) {
 	if (!context) {
 		print_error("Test RaycastTo has no context");
@@ -56,6 +60,10 @@ void TestRaycastTo2D::perform_test(QueryItem<Vector2> &projection) {
 		Ref<PhysicsRayQueryParameters2D> query = PhysicsRayQueryParameters2D::create(start_pos, end_pos);
 		query->set_collision_mask(collision_mask);
 
+		if (raycast_mode == AREA)
+			query->set_collide_with_bodies(false);
+		if (raycast_mode == AREA || raycast_mode == BODY_AREA)
+			query->set_collide_with_areas(true);
 		Array exclusion_rids = Array();
 
 		for (NodePath exclusion : exclusions) {
@@ -136,10 +144,14 @@ void TestRaycastTo2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_collision_mask"), &TestRaycastTo2D::get_collision_mask);
 	ClassDB::bind_method(D_METHOD("set_collision_mask", "mask"), &TestRaycastTo2D::set_collision_mask);
 
+	ClassDB::bind_method(D_METHOD("set_raycast_mode", "mode"), &TestRaycastTo2D::set_raycast_mode);
+	ClassDB::bind_method(D_METHOD("get_raycast_mode"), &TestRaycastTo2D::get_raycast_mode);
+
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "context", PROPERTY_HINT_NODE_TYPE, "QueryContext2D"), "set_context", "get_context");
 	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "hitting_is_true"), "set_hitting_is_true", "get_hitting_is_true");
 	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "cast_from_context"), "set_cast_from_context", "get_cast_from_context");
 	ADD_PROPERTY(PropertyInfo(Variant::INT, "multiple_context_filter_operator", PROPERTY_HINT_ENUM, "Any Pass,All Pass"), "set_context_filter_operator", "get_context_filter_operator");
 	ADD_PROPERTY(PropertyInfo(Variant::ARRAY, "exclusions", PROPERTY_HINT_ARRAY_TYPE, MAKE_OBJECT_TYPE_HINT("CollisionObject2D"), (PROPERTY_USAGE_DEFAULT | PROPERTY_USAGE_SCRIPT_VARIABLE)), "set_exclusions", "get_exclusions");
 	ADD_PROPERTY(PropertyInfo(Variant::INT, "collision_mask", PROPERTY_HINT_LAYERS_2D_PHYSICS), "set_collision_mask", "get_collision_mask");
+	ADD_PROPERTY(PropertyInfo(Variant::INT, "raycast_mode", PROPERTY_HINT_ENUM, "Body, Area, Body Area"), "set_raycast_mode", "get_raycast_mode");
 }
