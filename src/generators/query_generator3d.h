@@ -3,6 +3,7 @@
 #include "generators/query_generator.h"
 #include "query_result.h"
 #include <godot_cpp/classes/node3d.hpp>
+#include <godot_cpp/classes/shape3d.hpp>
 #include <godot_cpp/variant/array.hpp>
 #include <vector>
 using namespace godot;
@@ -16,6 +17,7 @@ public:
 
 	void perform_tests(int current_item) override;
 	Dictionary cast_ray_projection(Vector3 start_pos, Vector3 end_pos, Array exclusions, int col_mask = 1);
+	TypedArray<Dictionary> cast_shape_projection(Vector3 start_pos, Vector3 end_pos, Array exclusions, Ref<Shape3D> shape, int col_mask = 1);
 	// TODO: Replace this atrocity after working around Godot's binding restrictions
 	void set_raycast_mode(RaycastMode mode) { return _set_raycast_mode(mode); }
 	RaycastMode get_raycast_mode() const { return _get_raycast_mode(); }

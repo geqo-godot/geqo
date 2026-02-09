@@ -5,6 +5,7 @@
 #include <godot_cpp/classes/node3d.hpp>
 #include <godot_cpp/classes/physics_direct_space_state3d.hpp>
 #include <godot_cpp/classes/physics_ray_query_parameters3d.hpp>
+#include <godot_cpp/classes/physics_shape_query_parameters3d.hpp>
 #include <godot_cpp/classes/world3d.hpp>
 #include <godot_cpp/core/class_db.hpp>
 
@@ -43,6 +44,31 @@ Dictionary QueryGenerator3D::cast_ray_projection(Vector3 start_pos, Vector3 end_
 	query->set_exclude(exclusion_rids);
 
 	return space_state->intersect_ray(query);
+}
+
+TypedArray<Dictionary> QueryGenerator3D::cast_shape_projection(Vector3 start_pos, Vector3 end_pos, Array exclusions, Ref<Shape3D> shape, int col_mask) {
+	PhysicsDirectSpaceState3D *space_state = get_world_3d()->get_direct_space_state();
+	Ref<PhysicsShapeQueryParameters3D> query;
+	query.instantiate();
+
+	query->set_shape(shape);
+
+	if (get_raycast_mode() == AREA)
+		query->set_collide_with_bodies(false);
+	if (get_raycast_mode() == AREA || get_raycast_mode() == BODY_AREA)
+		query->set_collide_with_areas(true);
+
+	Array exclusion_rids = Array();
+
+	for (Variant exclusion : exclusions) {
+		CollisionObject3D *node = Object::cast_to<CollisionObject3D>(exclusion.operator Object *());
+		if (node == nullptr)
+			continue;
+		exclusion_rids.append(node->get_rid());
+	}
+	query->set_exclude(exclusion_rids);
+
+	return space_state->intersect_shape(query);
 }
 
 void QueryGenerator3D::_bind_methods() {
