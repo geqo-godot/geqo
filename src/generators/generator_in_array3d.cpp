@@ -17,17 +17,16 @@ void GeneratorInArray3D::perform_generation(uint64_t initial_time_usec, double t
 	for (int context = _current_state.prev_context; context < contexts.size(); context++) {
 		if (contexts[context].get_type() == Variant::VECTOR3) {
 			Vector3 pos = contexts[context];
-            get_query_items_ref().push_back(QueryItem(pos));
-        }
-		else {
+			get_query_items_ref().push_back(QueryItem(pos));
+		} else {
 			Node3D *current_context = Object::cast_to<Node3D>(contexts[context]);
 			if (current_context == nullptr) {
 				print_error("Context is invalid, must be Node3D or Vector3");
 				continue;
 			}
-            get_query_items_ref().push_back(QueryItem(current_context->get_global_position(), current_context));
+			get_query_items_ref().push_back(QueryItem(current_context->get_global_position(), current_context));
 		}
-        perform_tests(get_query_items_ref().size() - 1);
+		perform_tests(get_query_items_ref().size() - 1);
 
 		// Check the time for stopping
 		uint64_t current_time_usec = Time::get_singleton()->get_ticks_usec();
