@@ -1,7 +1,9 @@
 #pragma once
 #include "contexts/query_context3d.h"
 #include "generators/query_generator3d.h"
+#include <godot_cpp/classes/shape3d.hpp>
 #include <vector>
+
 using namespace godot;
 struct GridShapeState3D {
 	double time_budget_ms = 0;
@@ -30,6 +32,9 @@ private:
 	double project_up = 100.0;
 	double post_projection_vertical_offset = 0.0;
 	int projection_collision_mask = 1;
+	bool use_shape_cast = false;
+	Ref<Shape3D> shape;
+
 	GridShapeState3D _current_state = GridShapeState3D();
 
 public:
@@ -59,6 +64,12 @@ public:
 
 	void set_projection_collision_mask(int mask);
 	int get_projection_collision_mask() const { return projection_collision_mask; }
+
+	void set_use_shape_cast(bool use);
+	bool get_use_shape_cast() const { return use_shape_cast; }
+
+	void set_shape(Ref<Shape3D> new_shape);
+	Ref<Shape3D> get_shape() const { return shape; }
 
 	void perform_generation(uint64_t initial_time_usec, double time_budget_ms) override;
 	void _on_next_process_frame();

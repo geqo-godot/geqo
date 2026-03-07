@@ -35,6 +35,7 @@
 #include "generators/generator_grid_shape3d.h"
 #include "generators/generator_in_group2d.h"
 #include "generators/generator_in_group3d.h"
+#include "generators/generator_in_array3d.h"
 
 // Tests
 #include "tests/test_distance_to2d.h"
@@ -85,6 +86,8 @@ void initialize_geqo_module(ModuleInitializationLevel p_level) {
 
 	ClassDB::register_class<GeneratorInGroup2D>();
 	ClassDB::register_class<GeneratorInGroup3D>();
+	
+	ClassDB::register_class<GeneratorInArray3D>();
 
 	// Contexts
 	ClassDB::register_class<ContextTargetNode2D>();

@@ -52,6 +52,13 @@ TypedArray<Dictionary> QueryGenerator3D::cast_shape_projection(Vector3 start_pos
 	query.instantiate();
 
 	query->set_shape(shape);
+	query->set_collision_mask(col_mask);
+
+	Transform3D transform = Transform3D();
+	transform.set_origin(start_pos);
+	query->set_transform(transform);
+
+	query->set_motion(end_pos - start_pos);
 
 	if (get_raycast_mode() == AREA)
 		query->set_collide_with_bodies(false);
@@ -67,8 +74,10 @@ TypedArray<Dictionary> QueryGenerator3D::cast_shape_projection(Vector3 start_pos
 		exclusion_rids.append(node->get_rid());
 	}
 	query->set_exclude(exclusion_rids);
+	TypedArray<Dictionary> result = space_state->intersect_shape(query);
+	UtilityFunctions::print("Results: ", result);
 
-	return space_state->intersect_shape(query);
+	return result;
 }
 
 void QueryGenerator3D::_bind_methods() {
