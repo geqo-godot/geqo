@@ -28,7 +28,7 @@ public:
 	void set_to_target(QueryContext2D *context);
 	QueryContext2D *get_to_target() { return to_target; }
 
-	void perform_test(Ref<QueryItem2D> &projection) override;
+	void perform_test(Ref<QueryItem2D> projection) override;
 
 protected:
 	static void _bind_methods();

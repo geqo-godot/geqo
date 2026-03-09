@@ -13,7 +13,7 @@ void GEQODebugSpheres2D::draw_items(std::vector<Ref<QueryItem2D>> &query_items_l
 	debug_draw->set_query_items(query_items_list);
 	debug_draw->set_destroy_time(time_to_destroy);
 
-	for (Ref<QueryItem2D> &query_item : query_items_list) {
+	for (Ref<QueryItem2D> query_item : query_items_list) {
 		Label *text_label = memnew(Label);
 		text_labels.append(text_label);
 		add_child(text_label);

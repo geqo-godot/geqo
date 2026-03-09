@@ -31,7 +31,7 @@ void TestRaycastTo3D::set_raycast_mode(RaycastMode mode) {
 	raycast_mode = mode;
 }
 
-void TestRaycastTo3D::perform_test(Ref<QueryItem3D> &projection) {
+void TestRaycastTo3D::perform_test(Ref<QueryItem3D> projection) {
 	if (!context) {
 		print_error("Test RaycastTo has no context");
 		return;

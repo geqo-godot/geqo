@@ -26,7 +26,7 @@ void TestPathFindTo3D::set_found_path_threshold(double threshold) {
 	found_path_threshold = threshold;
 }
 
-void TestPathFindTo3D::perform_test(Ref<QueryItem3D> &projection) {
+void TestPathFindTo3D::perform_test(Ref<QueryItem3D> projection) {
 	if (path_to == nullptr) {
 		print_error("TestPathFindTo3D has no context");
 		return;

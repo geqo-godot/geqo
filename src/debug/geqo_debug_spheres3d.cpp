@@ -20,7 +20,7 @@ void GEQODebugSpheres3D::draw_items(std::vector<Ref<QueryItem3D>> &query_items_l
 	immediate_mesh->clear_surfaces();
 	remove_labels();
 
-	for (Ref<QueryItem3D> &query_item : query_items_list) {
+	for (Ref<QueryItem3D> query_item : query_items_list) {
 		Label3D *text_label = memnew(Label3D);
 		text_labels.append(text_label);
 		add_child(text_label);

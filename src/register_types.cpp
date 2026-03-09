@@ -76,8 +76,8 @@ void initialize_geqo_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_abstract_class<QueryGenerator2D>();
 	ClassDB::register_abstract_class<QueryGenerator3D>();
 
-	ClassDB::register_abstract_class<QueryTest2D>();
-	ClassDB::register_abstract_class<QueryTest3D>();
+	ClassDB::register_class<QueryTest2D>();
+	ClassDB::register_class<QueryTest3D>();
 
 	// Generators
 	ClassDB::register_class<GeneratorGridShape2D>();

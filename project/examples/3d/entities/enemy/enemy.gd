@@ -12,7 +12,6 @@ var current_target
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var env_query: EnvironmentQuery3D = $EnvironmentQuery3D
 
-
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("request_query"):
 		var time_start: float = Time.get_ticks_usec()
@@ -40,12 +39,10 @@ func _physics_process(delta: float) -> void:
 			walking(delta)
 	move_and_slide()
 
-
 func move_to_target(delta: float, target: Vector3):
 	var direction: Vector3 = (self.global_position.direction_to(target))
 	velocity.x = direction.x * SPEED * delta
 	velocity.z = direction.z * SPEED * delta
-
 
 func idle():
 	velocity.x = lerp(velocity.x, 0.0, 0.25)
@@ -53,14 +50,12 @@ func idle():
 	if current_target:
 		current_state = State.WALKING
 
-
 func walking(delta: float):
 	if !current_target:
 		current_state = State.IDLE
 		return
 	current_target = nav_agent.get_next_path_position()
 	move_to_target(delta, current_target)
-
 
 func _on_navigation_agent_3d_target_reached() -> void:
 	current_target = null

@@ -45,7 +45,7 @@ public:
 	void set_raycast_mode(RaycastMode mode);
 	RaycastMode get_raycast_mode() const { return raycast_mode; }
 
-	void perform_test(Ref<QueryItem2D> &projection) override;
+	void perform_test(Ref<QueryItem2D> projection) override;
 
 protected:
 	static void _bind_methods();

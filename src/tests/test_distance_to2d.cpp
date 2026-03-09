@@ -21,7 +21,7 @@ void TestDistanceTo2D::set_max_distance(double dist) {
 	max_distance = dist;
 }
 
-void TestDistanceTo2D::perform_test(Ref<QueryItem2D> &projection) {
+void TestDistanceTo2D::perform_test(Ref<QueryItem2D> projection) {
 	// UtilityFunctions::print_rich("Testing the tested test to test");
 	if (distance_to == nullptr) {
 		UtilityFunctions::print_rich("Test has no context");
