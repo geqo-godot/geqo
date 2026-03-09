@@ -31,7 +31,7 @@ void TestRaycastTo3D::set_raycast_mode(RaycastMode mode) {
 	raycast_mode = mode;
 }
 
-void TestRaycastTo3D::perform_test(QueryItem3D &projection) {
+void TestRaycastTo3D::perform_test(Ref<QueryItem3D> &projection) {
 	if (!context) {
 		print_error("Test RaycastTo has no context");
 		return;
@@ -52,9 +52,9 @@ void TestRaycastTo3D::perform_test(QueryItem3D &projection) {
 
 		if (cast_from_context) {
 			start_pos = context_node->get_global_position();
-			end_pos = projection.get_projection_position();
+			end_pos = projection->get_projection_position();
 		} else {
-			start_pos = projection.get_projection_position();
+			start_pos = projection->get_projection_position();
 			end_pos = context_node->get_global_position();
 		}
 
@@ -117,14 +117,14 @@ void TestRaycastTo3D::perform_test(QueryItem3D &projection) {
 
 	switch (get_context_score_operator()) {
 		case FILTER_SCORE: {
-			projection.set_is_filtered(filter);
-			projection.add_score(final_score);
+			projection->set_is_filtered(filter);
+			projection->add_score(final_score);
 		} break;
 		case FILTER_ONLY: {
-			projection.set_is_filtered(filter);
+			projection->set_is_filtered(filter);
 		} break;
 		case SCORE_ONLY: {
-			projection.add_score(final_score);
+			projection->add_score(final_score);
 		} break;
 	}
 }

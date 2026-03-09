@@ -86,7 +86,7 @@ void GeneratorCircleShape3D::perform_generation(uint64_t initial_time_usec, doub
 			}
 
 			if (!use_vertical_projection) {
-				QueryItem3D::create(final_pos);
+				add_query_item(QueryItem3D::create(final_pos));
 				continue;
 			}
 
@@ -102,7 +102,7 @@ void GeneratorCircleShape3D::perform_generation(uint64_t initial_time_usec, doub
 				Vector3 pos_result = ray_result.get("position", Vector3());
 				pos_result += Vector3(0, post_projection_vertical_offset, 0);
 				Node3D *collider = Object::cast_to<Node3D>(ray_result.get("collider", nullptr));
-				QueryItem3D::create(pos_result, collider);
+				add_query_item(QueryItem3D::create(pos_result, collider));
 			}
 			// Check the time for stopping
 			uint64_t current_time_usec = Time::get_singleton()->get_ticks_usec();

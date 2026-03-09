@@ -72,7 +72,7 @@ void GeneratorInGroup2D::perform_generation(uint64_t initial_time_usec, double t
 			if (!node)
 				continue;
 			if (node->is_in_group(group)) {
-				QueryItem2D::create(node->get_global_position(), node);
+				add_query_item(QueryItem2D::create(node->get_global_position(), node));
 			} else
 				continue;
 		}

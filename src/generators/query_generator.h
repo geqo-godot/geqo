@@ -18,14 +18,14 @@ protected:
 public:
 	virtual ~QueryGeneratorBase() = default;
 
+	std::vector<Ref<QueryItemT>> &get_query_items_ref() { return *query_items_ref; }
 	void _set_query_items_ref(std::vector<Ref<QueryItemT>> &query_items) {
 		query_items_ref = &query_items;
 	}
 	void _add_query_item(Ref<QueryItemT> query_item) {
-		get_query_items_ref().push_back(query_item);
-		perform_tests(get_query_items_ref()->size() - 1);
+		query_items_ref->push_back(query_item);
+		perform_tests(query_items_ref->size() - 1);
 	}
-	std::vector<QueryItemT> &get_query_items_ref() { return *query_items_ref; }
 
 	RaycastMode _get_raycast_mode() const { return raycast_mode; }
 	void _set_raycast_mode(RaycastMode mode) {

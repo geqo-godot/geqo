@@ -65,7 +65,7 @@ void GeneratorCircleShape2D::perform_generation(uint64_t initial_time_usec, doub
 					final_pos = casted_ray.get("position", Vector2());
 			}
 
-			QueryItem2D::create(final_pos);
+			add_query_item(QueryItem2D::create(final_pos));
 
 			// Check the time for stopping
 			uint64_t current_time_usec = Time::get_singleton()->get_ticks_usec();

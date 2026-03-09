@@ -26,7 +26,7 @@ void TestPathFindTo3D::set_found_path_threshold(double threshold) {
 	found_path_threshold = threshold;
 }
 
-void TestPathFindTo3D::perform_test(QueryItem3D &projection) {
+void TestPathFindTo3D::perform_test(Ref<QueryItem3D> &projection) {
 	if (path_to == nullptr) {
 		print_error("TestPathFindTo3D has no context");
 		return;
@@ -39,11 +39,11 @@ void TestPathFindTo3D::perform_test(QueryItem3D &projection) {
 		if (context_pos.get_type() != Variant::VECTOR3)
 			continue;
 
-		PackedVector3Array path = get_navigation_path(projection.get_projection_position(), context_pos);
+		PackedVector3Array path = get_navigation_path(projection->get_projection_position(), context_pos);
 		if (use_debug) {
 			draw_path(path, Color(1, 0, 0));
 		}
-		//UtilityFunctions::print("Projection Pos: ", projection.projection_position, " Context Pos: ", context_pos);
+		//UtilityFunctions::print("Projection Pos: ", projection->projection_position, " Context Pos: ", context_pos);
 		//UtilityFunctions::print("Generated Path: ", path);
 
 		RID default_map_rid = get_world_3d()->get_navigation_map();
@@ -88,17 +88,17 @@ void TestPathFindTo3D::perform_test(QueryItem3D &projection) {
 	switch (get_test_purpose()) {
 		case FILTER_SCORE: {
 			if (result == 0.0)
-				projection.set_is_filtered(true);
+				projection->set_is_filtered(true);
 			else
-				projection.add_score(result);
+				projection->add_score(result);
 			break;
 		}
 		case FILTER_ONLY:
 			if (result == 0.0)
-				projection.set_is_filtered(true);
+				projection->set_is_filtered(true);
 			break;
 		case SCORE_ONLY:
-			projection.add_score(result);
+			projection->add_score(result);
 			break;
 	}
 }

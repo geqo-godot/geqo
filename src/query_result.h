@@ -1,5 +1,6 @@
 #pragma once
-#include <godot_cpp/classes/node.hpp>
+#include <godot_cpp/classes/node2d.hpp>
+#include <godot_cpp/classes/node3d.hpp>
 #include <godot_cpp/classes/ref_counted.hpp>
 #include <godot_cpp/variant/vector3.hpp>
 #include <vector>
@@ -15,6 +16,7 @@ protected:
 	NodeT *collided_with = nullptr;
 
 public:
+	QueryItemBase() = default;
 	QueryItemBase(VectorT pos, NodeT *collider = nullptr) {
 		projection_position = pos;
 		collided_with = collider;
@@ -73,7 +75,7 @@ public:
 	Vector2 get_projection_position() { return _get_projection_position(); }
 	void set_projection_position(Vector2 position) { return _set_projection_position(position); }
 
-	Node2D *get_collided_with() { return get_collided_with(); }
+	Node2D *get_collided_with() { return _get_collided_with(); }
 	void set_collided_with(Node2D *node) { return _set_collided_with(node); }
 
 	void add_score(double amount) { return _add_score(amount); }
@@ -107,7 +109,7 @@ public:
 	Vector3 get_projection_position() { return _get_projection_position(); }
 	void set_projection_position(Vector3 position) { return _set_projection_position(position); }
 
-	Node3D *get_collided_with() { return get_collided_with(); }
+	Node3D *get_collided_with() { return _get_collided_with(); }
 	void set_collided_with(Node3D *node) { return _set_collided_with(node); }
 
 	void add_score(double amount) { return _add_score(amount); }

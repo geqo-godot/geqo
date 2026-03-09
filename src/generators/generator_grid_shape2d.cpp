@@ -43,7 +43,7 @@ void GeneratorGridShape2D::perform_generation(uint64_t initial_time_usec, double
 				double pos_x = starting_pos.x + (x * space_between);
 				double pos_y = starting_pos.y + (y * space_between);
 
-				QueryItem2D::create(Vector2(pos_x, pos_y));
+				add_query_item(QueryItem2D::create(Vector2(pos_x, pos_y)));
 
 				// Check the time for stopping
 				uint64_t current_time_usec = Time::get_singleton()->get_ticks_usec();

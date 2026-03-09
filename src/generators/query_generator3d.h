@@ -14,7 +14,6 @@ class QueryGenerator3D : public Node3D, public QueryGeneratorBase<Vector3, Query
 public:
 	QueryGenerator3D() {}
 	~QueryGenerator3D() {}
-
 	void set_query_items_ref(std::vector<Ref<QueryItem3D>> &query_items) { return _set_query_items_ref(query_items); }
 	void add_query_item(Ref<QueryItem3D> query_item) { return _add_query_item(query_item); }
 	void perform_tests(int current_item) override;

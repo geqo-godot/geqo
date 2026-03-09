@@ -17,8 +17,8 @@ void QueryGenerator2D::perform_tests(int current_item) {
 			print_error("Invalid test, is this a QueryTest node?");
 			continue;
 		}
-		QueryItem2D &item = get_query_items_ref()[current_item];
-		if (!item.get_is_filtered())
+		Ref<QueryItem2D> item = get_query_items_ref()[current_item];
+		if (!item->get_is_filtered())
 			current_test->perform_test(item);
 	}
 }

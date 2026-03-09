@@ -17,14 +17,14 @@ void GeneratorInArray3D::perform_generation(uint64_t initial_time_usec, double t
 	for (int context = _current_state.prev_context; context < contexts.size(); context++) {
 		if (contexts[context].get_type() == Variant::VECTOR3) {
 			Vector3 pos = contexts[context];
-			QueryItem3D::create(pos);
+			add_query_item(QueryItem3D::create(pos));
 		} else {
 			Node3D *current_context = Object::cast_to<Node3D>(contexts[context]);
 			if (current_context == nullptr) {
 				print_error("Context is invalid, must be Node3D or Vector3");
 				continue;
 			}
-			QueryItem3D::create(current_context->get_global_position(), current_context);
+			add_query_item(QueryItem3D::create(current_context->get_global_position(), current_context));
 		}
 
 		// Check the time for stopping

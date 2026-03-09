@@ -5,42 +5,42 @@
 
 using namespace godot;
 
-template <typename VectorT, typename QueryItemT>
-TypedArray<VectorT> QueryResultBase<VectorT, QueryItemT>::_get_all_position() const {
+template <typename VectorT, typename QueryItemT, typename NodeT>
+TypedArray<VectorT> QueryResultBase<VectorT, QueryItemT, NodeT>::_get_all_position() const {
 	TypedArray<VectorT> result;
 
 	_build_cache();
 
 	for (int i = 0; i <= highest_unfiltered_index; i++) {
-		result.append(query_items[sorted_indices[i]].projection_position);
+		result.append(query_items[sorted_indices[i]]->get_projection_position());
 	}
 	return result;
 }
 
-template <typename VectorT, typename QueryItemT>
-TypedArray<Node> QueryResultBase<VectorT, QueryItemT>::_get_all_node() const {
-	TypedArray<Node> result;
+template <typename VectorT, typename QueryItemT, typename NodeT>
+TypedArray<NodeT> QueryResultBase<VectorT, QueryItemT, NodeT>::_get_all_node() const {
+	TypedArray<NodeT> result;
 
 	_build_cache();
 
 	for (int i = 0; i <= highest_unfiltered_index; i++) {
-		result.append(query_items[sorted_indices[i]].collided_with);
+		result.append(query_items[sorted_indices[i]]->get_collided_with());
 	}
 	return result;
 }
 
-template <typename VectorT, typename QueryItemT>
-VectorT QueryResultBase<VectorT, QueryItemT>::_get_highest_score_position() const {
+template <typename VectorT, typename QueryItemT, typename NodeT>
+VectorT QueryResultBase<VectorT, QueryItemT, NodeT>::_get_highest_score_position() const {
 	if (query_items.empty())
 		return VectorT();
 
 	_build_cache();
 
-	return query_items[sorted_indices[0]].projection_position;
+	return query_items[sorted_indices[0]]->get_projection_position();
 }
 
-template <typename VectorT, typename QueryItemT>
-VectorT QueryResultBase<VectorT, QueryItemT>::_get_top_random_position(double percent) const {
+template <typename VectorT, typename QueryItemT, typename NodeT>
+VectorT QueryResultBase<VectorT, QueryItemT, NodeT>::_get_top_random_position(double percent) const {
 	if (query_items.empty())
 		return VectorT();
 
@@ -58,19 +58,19 @@ VectorT QueryResultBase<VectorT, QueryItemT>::_get_top_random_position(double pe
 	top_count = std::max(top_count, 1);
 
 	int random_i = UtilityFunctions::randi_range(0, top_count - 1);
-	return query_items[sorted_indices[random_i]].projection_position;
+	return query_items[sorted_indices[random_i]]->get_projection_position();
 }
 
-template <typename VectorT, typename QueryItemT>
-Node *QueryResultBase<VectorT, QueryItemT>::_get_highest_score_node() const {
+template <typename VectorT, typename QueryItemT, typename NodeT>
+NodeT *QueryResultBase<VectorT, QueryItemT, NodeT>::_get_highest_score_node() const {
 	if (query_items.empty())
 		return nullptr;
 
 	_build_cache();
-	return query_items[sorted_indices[0]].collided_with;
+	return query_items[sorted_indices[0]]->get_collided_with();
 }
-template <typename VectorT, typename QueryItemT>
-Node *QueryResultBase<VectorT, QueryItemT>::_get_top_random_node(double percent) const {
+template <typename VectorT, typename QueryItemT, typename NodeT>
+NodeT *QueryResultBase<VectorT, QueryItemT, NodeT>::_get_top_random_node(double percent) const {
 	if (query_items.empty())
 		return nullptr;
 
@@ -88,12 +88,12 @@ Node *QueryResultBase<VectorT, QueryItemT>::_get_top_random_node(double percent)
 	top_count = std::max(top_count, 1);
 
 	int random_i = UtilityFunctions::randi_range(0, top_count - 1);
-	return query_items[sorted_indices[random_i]].collided_with;
+	return query_items[sorted_indices[random_i]]->get_collided_with();
 }
 
 // Sort indices and store them for future calls
-template <typename VectorT, typename QueryItemT>
-void QueryResultBase<VectorT, QueryItemT>::_build_cache() const {
+template <typename VectorT, typename QueryItemT, typename NodeT>
+void QueryResultBase<VectorT, QueryItemT, NodeT>::_build_cache() const {
 	if (is_cache_built) {
 		return;
 	}
@@ -107,10 +107,10 @@ void QueryResultBase<VectorT, QueryItemT>::_build_cache() const {
 			sorted_indices.begin(),
 			sorted_indices.end(),
 			[&](size_t lhs, size_t rhs) {
-				return query_items[lhs] > query_items[rhs];
+				return *query_items[lhs] > *query_items[rhs];
 			});
 	for (size_t i = 0; i < sorted_indices.size(); i++) {
-		if (query_items[sorted_indices[i]].is_filtered)
+		if (query_items[sorted_indices[i]]->get_is_filtered())
 			break;
 		else
 			highest_unfiltered_index = i;
