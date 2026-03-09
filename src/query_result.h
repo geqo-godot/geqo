@@ -6,24 +6,36 @@
 using namespace godot;
 
 template <typename VectorT>
-struct QueryItem {
+class QueryItemBase {
+protected:
 	double score = 0.0;
 	bool is_filtered = false;
 	bool has_score = false;
 	VectorT projection_position = VectorT();
 	Node *collided_with = nullptr;
 
-	QueryItem(VectorT pos, Node *collider = nullptr) {
+public:
+	QueryItemBase(VectorT pos, Node *collider = nullptr) {
 		projection_position = pos;
 		collided_with = collider;
 	}
 
-	void add_score(double amount) {
+	double _get_score() { return score; }
+	void _set_score(double new_score) { score = new_score; }
+
+	bool _get_is_filtered() { return is_filtered; }
+	void _set_is_filtered(bool filtered) { is_filtered = filtered; }
+
+	VectorT _get_projection_position() { return projection_position; }
+	void _set_projection_position(VectorT position) { projection_position = position; }
+
+	void _add_score(double amount) {
 		score += amount;
 		has_score = true;
 	}
 
-	bool operator>(const QueryItem &item) const {
+protected:
+	bool operator>(const QueryItemBase &item) const {
 		// Non filtered items come before filtered items
 		if (is_filtered != item.is_filtered)
 			return !is_filtered;
@@ -39,11 +51,48 @@ struct QueryItem {
 		return score > item.score;
 	}
 };
-template <typename VectorT>
+
+class QueryItem2D : public RefCounted, public QueryItemBase<Vector2> {
+	GDCLASS(QueryItem2D, RefCounted)
+public:
+	double get_score() { return _get_score(); }
+	void set_score(double new_score) { return _set_score(new_score); }
+
+	bool get_is_filtered() { return _get_is_filtered(); }
+	void set_is_filtered(bool filtered) { return _set_is_filtered(filtered); }
+
+	Vector2 get_projection_position() { return _get_projection_position(); }
+	void set_projection_position(Vector2 position) { return _set_projection_position(position); }
+
+	void add_score(double amount) { return _add_score(amount); }
+
+protected:
+	static void _bind_methods();
+};
+
+class QueryItem3D : public RefCounted, public QueryItemBase<Vector3> {
+	GDCLASS(QueryItem3D, RefCounted)
+
+public:
+	double get_score() { return _get_score(); }
+	void set_score(double new_score) { return _set_score(new_score); }
+
+	bool get_is_filtered() { return _get_is_filtered(); }
+	void set_is_filtered(bool filtered) { return _set_is_filtered(filtered); }
+
+	Vector3 get_projection_position() { return _get_projection_position(); }
+	void set_projection_position(Vector3 position) { return _set_projection_position(position); }
+
+	void add_score(double amount) { return _add_score(amount); }
+
+protected:
+	static void _bind_methods();
+};
+template <typename VectorT, typename QueryItemT>
 class QueryResultBase {
 private:
 	// Query Items of result, EnvironmentQuery should tranfer ownership to it
-	std::vector<QueryItem<VectorT>> query_items;
+	std::vector<QueryItemT> query_items;
 	mutable bool is_cache_built = false;
 	mutable std::vector<size_t> sorted_indices;
 	mutable int highest_unfiltered_index = -1;
@@ -51,7 +100,7 @@ private:
 public:
 	~QueryResultBase() = default;
 
-	void set_items(const std::vector<QueryItem<VectorT>> &items) { query_items = items; }
+	void set_items(const std::vector<QueryItemT> &items) { query_items = items; }
 	void _build_cache() const;
 
 	TypedArray<VectorT> _get_all_position() const;
@@ -63,7 +112,7 @@ public:
 	Node *_get_top_random_node(double percent = 0.1) const;
 };
 
-class QueryResult2D : public RefCounted, public QueryResultBase<Vector2> {
+class QueryResult2D : public RefCounted, public QueryResultBase<Vector2, QueryItem2D> {
 	GDCLASS(QueryResult2D, RefCounted)
 
 protected:
@@ -78,7 +127,7 @@ public:
 	Node *get_top_random_node(double percent = 0.05) const { return _get_top_random_node(percent); }
 };
 
-class QueryResult3D : public RefCounted, public QueryResultBase<Vector3> {
+class QueryResult3D : public RefCounted, public QueryResultBase<Vector3, QueryItem3D> {
 	GDCLASS(QueryResult3D, RefCounted)
 
 protected:

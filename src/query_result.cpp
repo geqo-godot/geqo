@@ -5,8 +5,8 @@
 
 using namespace godot;
 
-template <typename VectorT>
-TypedArray<VectorT> QueryResultBase<VectorT>::_get_all_position() const {
+template <typename VectorT, typename QueryItemT>
+TypedArray<VectorT> QueryResultBase<VectorT, QueryItemT>::_get_all_position() const {
 	TypedArray<VectorT> result;
 
 	_build_cache();
@@ -17,8 +17,8 @@ TypedArray<VectorT> QueryResultBase<VectorT>::_get_all_position() const {
 	return result;
 }
 
-template <typename VectorT>
-TypedArray<Node> QueryResultBase<VectorT>::_get_all_node() const {
+template <typename VectorT, typename QueryItemT>
+TypedArray<Node> QueryResultBase<VectorT, QueryItemT>::_get_all_node() const {
 	TypedArray<Node> result;
 
 	_build_cache();
@@ -29,8 +29,8 @@ TypedArray<Node> QueryResultBase<VectorT>::_get_all_node() const {
 	return result;
 }
 
-template <typename VectorT>
-VectorT QueryResultBase<VectorT>::_get_highest_score_position() const {
+template <typename VectorT, typename QueryItemT>
+VectorT QueryResultBase<VectorT, QueryItemT>::_get_highest_score_position() const {
 	if (query_items.empty())
 		return VectorT();
 
@@ -39,8 +39,8 @@ VectorT QueryResultBase<VectorT>::_get_highest_score_position() const {
 	return query_items[sorted_indices[0]].projection_position;
 }
 
-template <typename VectorT>
-VectorT QueryResultBase<VectorT>::_get_top_random_position(double percent) const {
+template <typename VectorT, typename QueryItemT>
+VectorT QueryResultBase<VectorT, QueryItemT>::_get_top_random_position(double percent) const {
 	if (query_items.empty())
 		return VectorT();
 
@@ -61,16 +61,16 @@ VectorT QueryResultBase<VectorT>::_get_top_random_position(double percent) const
 	return query_items[sorted_indices[random_i]].projection_position;
 }
 
-template <typename VectorT>
-Node *QueryResultBase<VectorT>::_get_highest_score_node() const {
+template <typename VectorT, typename QueryItemT>
+Node *QueryResultBase<VectorT, QueryItemT>::_get_highest_score_node() const {
 	if (query_items.empty())
 		return nullptr;
 
 	_build_cache();
 	return query_items[sorted_indices[0]].collided_with;
 }
-template <typename VectorT>
-Node *QueryResultBase<VectorT>::_get_top_random_node(double percent) const {
+template <typename VectorT, typename QueryItemT>
+Node *QueryResultBase<VectorT, QueryItemT>::_get_top_random_node(double percent) const {
 	if (query_items.empty())
 		return nullptr;
 
@@ -92,8 +92,8 @@ Node *QueryResultBase<VectorT>::_get_top_random_node(double percent) const {
 }
 
 // Sort indices and store them for future calls
-template <typename VectorT>
-void QueryResultBase<VectorT>::_build_cache() const {
+template <typename VectorT, typename QueryItemT>
+void QueryResultBase<VectorT, QueryItemT>::_build_cache() const {
 	if (is_cache_built) {
 		return;
 	}
@@ -117,6 +117,26 @@ void QueryResultBase<VectorT>::_build_cache() const {
 	}
 
 	is_cache_built = true;
+}
+
+void QueryItem2D::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("get_score"), &QueryItem2D::get_score);
+	ClassDB::bind_method(D_METHOD("set_score"), &QueryItem2D::set_score);
+	ClassDB::bind_method(D_METHOD("get_is_filtered"), &QueryItem2D::get_is_filtered);
+	ClassDB::bind_method(D_METHOD("set_is_filtered"), &QueryItem2D::set_is_filtered);
+	ClassDB::bind_method(D_METHOD("get_projection_position"), &QueryItem2D::get_projection_position);
+	ClassDB::bind_method(D_METHOD("set_projection_position"), &QueryItem2D::set_projection_position);
+	ClassDB::bind_method(D_METHOD("add_score"), &QueryItem2D::add_score);
+}
+
+void QueryItem3D::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("get_score"), &QueryItem3D::get_score);
+	ClassDB::bind_method(D_METHOD("set_score"), &QueryItem3D::set_score);
+	ClassDB::bind_method(D_METHOD("get_is_filtered"), &QueryItem3D::get_is_filtered);
+	ClassDB::bind_method(D_METHOD("set_is_filtered"), &QueryItem3D::set_is_filtered);
+	ClassDB::bind_method(D_METHOD("get_projection_position"), &QueryItem3D::get_projection_position);
+	ClassDB::bind_method(D_METHOD("set_projection_position"), &QueryItem3D::set_projection_position);
+	ClassDB::bind_method(D_METHOD("add_score"), &QueryItem3D::add_score);
 }
 
 void QueryResult2D::_bind_methods() {
