@@ -93,13 +93,10 @@ void GeneratorGridShape3D::perform_generation(uint64_t initial_time_usec, double
 							casted_position = collider->get_global_position();
 						else
 							casted_position = ray_result.get("position", Vector3());
-						get_query_items_ref().push_back(
-								QueryItem(casted_position + Vector3(0, post_projection_vertical_offset, 0), collider));
-						perform_tests(get_query_items_ref().size() - 1);
+						QueryItem3D::create(casted_position + Vector3(0, post_projection_vertical_offset, 0), collider);
 					}
 				} else {
-					get_query_items_ref().push_back(QueryItem(Vector3(pos_x, starting_pos.y, pos_z)));
-					perform_tests(get_query_items_ref().size() - 1);
+					QueryItem3D::create(Vector3(pos_x, starting_pos.y, pos_z));
 				}
 
 				// Check the time for stopping
