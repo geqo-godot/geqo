@@ -12,6 +12,7 @@ struct QueryTraits2D {
 	using ResultT = QueryResult2D;
 	using GeneratorT = QueryGenerator2D;
 	using SpheresT = GEQODebugSpheres2D;
+	using QueryItemT = QueryItem2D;
 };
 
 class EnvironmentQuery2D : public Node2D, public EnvironmentQueryBase<QueryTraits2D> {

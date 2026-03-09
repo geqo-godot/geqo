@@ -12,6 +12,7 @@ struct QueryTraits3D {
 	using ResultT = QueryResult3D;
 	using GeneratorT = QueryGenerator3D;
 	using SpheresT = GEQODebugSpheres3D;
+	using QueryItemT = QueryItem3D;
 };
 
 class EnvironmentQuery3D : public Node3D, public EnvironmentQueryBase<QueryTraits3D> {
@@ -42,6 +43,7 @@ public:
 			call_deferred("emit_signal", "query_finished", stored_result);
 	}
 	PackedStringArray _get_configuration_warnings() const override;
+
 
 protected:
 	static void _bind_methods();

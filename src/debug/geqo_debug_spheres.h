@@ -11,7 +11,7 @@
 using std::vector;
 using namespace godot;
 
-template <typename VectorT>
+template <typename VectorT, typename QueryItemT>
 class GEQODebugSpheresBase {
 protected:
 	Array text_labels;
@@ -20,7 +20,7 @@ protected:
 public:
 	~GEQODebugSpheresBase() = default;
 
-	virtual void draw_items(vector<QueryItem<VectorT>> &query_items_list, double time_to_destroy = 2.0) = 0;
+	virtual void draw_items(std::vector<Ref<QueryItemT>> &query_items_list, double time_to_destroy = 2.0) = 0;
 	void remove_labels() {
 		for (const Variant &label : text_labels) {
 			Node *label_ref = Object::cast_to<Node>(label);

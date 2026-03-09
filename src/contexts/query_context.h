@@ -7,7 +7,7 @@ using namespace godot;
 template <typename NodeT, typename PackedTArray, int VectorVariantT>
 class QueryContextBase {
 protected:
-	// The father, aka the node that is inheriting this class
+	// The father, aka the nodethat is inheriting this class
 	Object *owner = nullptr;
 
 public:

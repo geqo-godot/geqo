@@ -18,7 +18,7 @@ void QueryGenerator2D::perform_tests(int current_item) {
 			continue;
 		}
 		QueryItem2D &item = get_query_items_ref()[current_item];
-		if (!item.is_filtered)
+		if (!item.get_is_filtered())
 			current_test->perform_test(item);
 	}
 }
