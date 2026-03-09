@@ -155,11 +155,11 @@ void GeneratorGridShape3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_projection_collision_mask", "mask"), &GeneratorGridShape3D::set_projection_collision_mask);
 	ClassDB::bind_method(D_METHOD("get_projection_collision_mask"), &GeneratorGridShape3D::get_projection_collision_mask);
 
-	ClassDB::bind_method(D_METHOD("set_use_shape_cast", "use"), &GeneratorGridShape3D::set_use_shape_cast);
-	ClassDB::bind_method(D_METHOD("get_use_shape_cast"), &GeneratorGridShape3D::get_use_shape_cast);
+	//ClassDB::bind_method(D_METHOD("set_use_shape_cast", "use"), &GeneratorGridShape3D::set_use_shape_cast);
+	//ClassDB::bind_method(D_METHOD("get_use_shape_cast"), &GeneratorGridShape3D::get_use_shape_cast);
 
-	ClassDB::bind_method(D_METHOD("set_shape", "new_shape"), &GeneratorGridShape3D::set_shape);
-	ClassDB::bind_method(D_METHOD("get_shape"), &GeneratorGridShape3D::get_shape);
+	//ClassDB::bind_method(D_METHOD("set_shape", "new_shape"), &GeneratorGridShape3D::set_shape);
+	//ClassDB::bind_method(D_METHOD("get_shape"), &GeneratorGridShape3D::get_shape);
 
 	ADD_GROUP("Generator", "");
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "generate_around", PROPERTY_HINT_NODE_TYPE, "QueryContext3D"), "set_generate_around", "get_generate_around");
@@ -178,6 +178,6 @@ void GeneratorGridShape3D::_bind_methods() {
 					PROPERTY_HINT_LAYERS_3D_PHYSICS),
 			"set_projection_collision_mask",
 			"get_projection_collision_mask");
-	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_shape_cast"), "set_use_shape_cast", "get_use_shape_cast");
-	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "shape", PROPERTY_HINT_RESOURCE_TYPE, "Shape3D"), "set_shape", "get_shape");
+	//ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_shape_cast"), "set_use_shape_cast", "get_use_shape_cast");
+	//ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "shape", PROPERTY_HINT_RESOURCE_TYPE, "Shape3D"), "set_shape", "get_shape");
 }
