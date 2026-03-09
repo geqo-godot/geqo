@@ -7,13 +7,15 @@
 #include <vector>
 using namespace godot;
 
-class QueryGenerator2D : public Node2D, public QueryGeneratorBase<Vector2> {
+class QueryGenerator2D : public Node2D, public QueryGeneratorBase<Vector2, QueryItem2D> {
 	GDCLASS(QueryGenerator2D, Node2D)
 
 public:
 	QueryGenerator2D() {}
 	~QueryGenerator2D() {}
 
+	void set_query_items_ref(std::vector<Ref<QueryItem2D>> &query_items) { return _set_query_items_ref(query_items); }
+	void add_query_item(Ref<QueryItem2D> query_item) { return _add_query_item(query_item); }
 	void perform_tests(int current_item) override;
 	Dictionary cast_ray_projection(Vector2 start_pos, Vector2 end_pos, Array exclusions, int col_mask = 1);
 	// TODO: Replace this atrocity after working around Godot's binding restrictions

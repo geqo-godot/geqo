@@ -9,7 +9,6 @@ Array QueryContext3D::get_context() {
 
 void QueryContext3D::_bind_methods() {
 	GDVIRTUAL_BIND(_get_context);
-
 	ClassDB::bind_method(D_METHOD("get_context"), &QueryContext3D::get_context);
 	ClassDB::bind_method(D_METHOD("get_context_positions"), &QueryContext3D::get_context_positions);
 }

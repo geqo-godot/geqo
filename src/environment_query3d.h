@@ -7,7 +7,15 @@
 #include <godot_cpp/classes/ref.hpp>
 #include <vector>
 using namespace godot;
-class EnvironmentQuery3D : public Node3D, public EnvironmentQueryBase<Vector3, QueryResult3D, QueryGenerator3D, GEQODebugSpheres3D> {
+struct QueryTraits3D {
+	using VectorT = Vector3;
+	using ResultT = QueryResult3D;
+	using GeneratorT = QueryGenerator3D;
+	using SpheresT = GEQODebugSpheres3D;
+	using QueryItemT = QueryItem3D;
+};
+
+class EnvironmentQuery3D : public Node3D, public EnvironmentQueryBase<QueryTraits3D> {
 	GDCLASS(EnvironmentQuery3D, Node3D)
 
 public:
@@ -35,6 +43,7 @@ public:
 			call_deferred("emit_signal", "query_finished", stored_result);
 	}
 	PackedStringArray _get_configuration_warnings() const override;
+
 
 protected:
 	static void _bind_methods();

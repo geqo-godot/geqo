@@ -2,7 +2,7 @@
 #include "query_result.h"
 #include <vector>
 
-template <typename VectorT>
+template <typename VectorT, typename QueryItemT>
 class QueryGeneratorBase {
 public:
 	enum RaycastMode {
@@ -13,15 +13,19 @@ public:
 
 protected:
 	RaycastMode raycast_mode = BODY;
-	std::vector<QueryItem<VectorT>> *query_items_ref = nullptr;
+	std::vector<Ref<QueryItemT>> *query_items_ref = nullptr;
 
 public:
 	virtual ~QueryGeneratorBase() = default;
 
-	void set_query_items_ref(std::vector<QueryItem<VectorT>> &query_items) {
+	std::vector<Ref<QueryItemT>> &get_query_items_ref() { return *query_items_ref; }
+	void _set_query_items_ref(std::vector<Ref<QueryItemT>> &query_items) {
 		query_items_ref = &query_items;
 	}
-	std::vector<QueryItem<VectorT>> &get_query_items_ref() { return *query_items_ref; }
+	void _add_query_item(Ref<QueryItemT> query_item) {
+		query_items_ref->push_back(query_item);
+		perform_tests(query_items_ref->size() - 1);
+	}
 
 	RaycastMode _get_raycast_mode() const { return raycast_mode; }
 	void _set_raycast_mode(RaycastMode mode) {

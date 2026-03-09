@@ -7,24 +7,24 @@
 #include "geqo_debug_spheres2d.h"
 #include "query_result.h"
 
-void GEQODebugSpheres2D::draw_items(vector<QueryItem<Vector2>> &query_items_list, double time_to_destroy) {
+void GEQODebugSpheres2D::draw_items(std::vector<Ref<QueryItem2D>> &query_items_list, double time_to_destroy) {
 	remove_labels();
 
 	debug_draw->set_query_items(query_items_list);
 	debug_draw->set_destroy_time(time_to_destroy);
 
-	for (QueryItem<Vector2> &query_item : query_items_list) {
+	for (Ref<QueryItem2D> query_item : query_items_list) {
 		Label *text_label = memnew(Label);
 		text_labels.append(text_label);
 		add_child(text_label);
 
-		if (query_item.is_filtered) {
+		if (query_item->get_is_filtered()) {
 			text_label->set_deferred("text", "Filtered");
-		} else if (query_item.has_score) {
-			text_label->set_deferred("text", String::num(query_item.score, 2));
+		} else if (query_item->get_has_score()) {
+			text_label->set_deferred("text", String::num(query_item->get_score(), 2));
 		}
 
-		text_label->set_deferred("global_position", query_item.projection_position);
+		text_label->set_deferred("global_position", query_item->get_projection_position());
 	}
 
 	if (debug_draw) {
@@ -61,7 +61,7 @@ void GEQODebugDraw2D::set_destroy_time(double time) {
 	destroy_time = time;
 }
 
-void GEQODebugDraw2D::set_query_items(vector<QueryItem<Vector2>> &items) {
+void GEQODebugDraw2D::set_query_items(std::vector<Ref<QueryItem2D>> &items) {
 	saved_query_items = items;
 	queue_redraw();
 }
@@ -72,28 +72,28 @@ void GEQODebugDraw2D::set_debug_color(const Ref<Gradient> &gradient) {
 void GEQODebugDraw2D::_draw() {
 	Ref<Font> font = ThemeDB::get_singleton()->get_fallback_font();
 	int32_t font_size = ThemeDB::get_singleton()->get_fallback_font_size();
-	for (QueryItem<Vector2> &query_item : saved_query_items) {
+	for (Ref<QueryItem2D> query_item : saved_query_items) {
 		Color color;
-		if (query_item.is_filtered) {
+		if (query_item->get_is_filtered()) {
 			color = Color(0, 0, 1);
-		} else if (query_item.has_score) {
-			color = debug_color->sample(query_item.score);
+		} else if (query_item->get_has_score()) {
+			color = debug_color->sample(query_item->get_score());
 		} else {
 			color = Color(0, 1, 1);
 		}
 
 		draw_rect(
 				Rect2(
-						query_item.projection_position - Vector2(16, 16),
+						query_item->get_projection_position() - Vector2(16, 16),
 						Vector2(32, 32)),
 				color);
 
-		if (query_item.is_filtered) {
-			draw_string(font, query_item.projection_position, "Filtered", HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, color);
-		} else if (query_item.has_score) {
-			draw_string(font, query_item.projection_position, String::num(query_item.score), HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, Color(1, 1, 1, 0.8));
+		if (query_item->get_is_filtered()) {
+			draw_string(font, query_item->get_projection_position(), "Filtered", HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, color);
+		} else if (query_item->get_has_score()) {
+			draw_string(font, query_item->get_projection_position(), String::num(query_item->get_score()), HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, Color(1, 1, 1, 0.8));
 		} else {
-			draw_string(font, query_item.projection_position, "Dolor", HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, Color(1, 0, 0, 0.8));
+			draw_string(font, query_item->get_projection_position(), "Dolor", HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, Color(1, 0, 0, 0.8));
 		}
 	}
 }

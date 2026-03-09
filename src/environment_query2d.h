@@ -7,7 +7,15 @@
 #include <godot_cpp/classes/ref.hpp>
 #include <vector>
 using namespace godot;
-class EnvironmentQuery2D : public Node2D, public EnvironmentQueryBase<Vector2, QueryResult2D, QueryGenerator2D, GEQODebugSpheres2D> {
+struct QueryTraits2D {
+	using VectorT = Vector2;
+	using ResultT = QueryResult2D;
+	using GeneratorT = QueryGenerator2D;
+	using SpheresT = GEQODebugSpheres2D;
+	using QueryItemT = QueryItem2D;
+};
+
+class EnvironmentQuery2D : public Node2D, public EnvironmentQueryBase<QueryTraits2D> {
 	GDCLASS(EnvironmentQuery2D, Node2D)
 
 public:

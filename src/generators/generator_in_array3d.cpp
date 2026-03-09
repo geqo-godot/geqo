@@ -1,0 +1,59 @@
+#include <godot_cpp/classes/scene_tree.hpp>
+#include <godot_cpp/classes/time.hpp>
+
+#include "generator_in_array3d.h"
+
+void GeneratorInArray3D::set_context_array(QueryContext3D *context) {
+	context_array = context;
+}
+
+void GeneratorInArray3D::perform_generation(uint64_t initial_time_usec, double time_budget_ms) {
+	if (context_array == nullptr) {
+		print_error("Generator couldn't find Context");
+		return;
+	}
+	Array contexts = context_array->get_context();
+
+	for (int context = _current_state.prev_context; context < contexts.size(); context++) {
+		if (contexts[context].get_type() == Variant::VECTOR3) {
+			Vector3 pos = contexts[context];
+			add_query_item(QueryItem3D::create(pos));
+		} else {
+			Node3D *current_context = Object::cast_to<Node3D>(contexts[context]);
+			if (current_context == nullptr) {
+				print_error("Context is invalid, must be Node3D or Vector3");
+				continue;
+			}
+			add_query_item(QueryItem3D::create(current_context->get_global_position(), current_context));
+		}
+
+		// Check the time for stopping
+		uint64_t current_time_usec = Time::get_singleton()->get_ticks_usec();
+
+		if (!has_time_left(initial_time_usec, current_time_usec, time_budget_ms)) {
+			// UtilityFunctions::print("No time left, continue to next frame.");
+			// Stop and wait until next frame
+			_current_state.prev_context = context;
+			_current_state.time_budget_ms = time_budget_ms;
+			get_tree()->connect("process_frame", callable_mp(this, &GeneratorInArray3D::_on_next_process_frame), CONNECT_ONE_SHOT);
+			return;
+		}
+	}
+
+	// Finished the generation, continue on, and reset the state
+	emit_signal("generator_finished");
+	_current_state.reset();
+}
+
+void GeneratorInArray3D::_on_next_process_frame() {
+	uint64_t initial_time_usec = Time::get_singleton()->get_ticks_usec();
+	perform_generation(initial_time_usec, _current_state.time_budget_ms);
+}
+
+void GeneratorInArray3D::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("set_context_array", "context"), &GeneratorInArray3D::set_context_array);
+	ClassDB::bind_method(D_METHOD("get_context_array"), &GeneratorInArray3D::get_context_array);
+
+	ADD_GROUP("Generator", "");
+	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "context_array", PROPERTY_HINT_NODE_TYPE, "QueryContext3D"), "set_context_array", "get_context_array");
+}

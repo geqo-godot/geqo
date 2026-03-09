@@ -7,11 +7,16 @@
 #include <godot_cpp/classes/time.hpp>
 #include <vector>
 using namespace godot;
-template <typename VectorT, typename ResultT, typename GeneratorT, typename SpheresT>
+template <typename Traits>
 class EnvironmentQueryBase {
 protected:
+	using VectorT = typename Traits::VectorT;
+	using ResultT = typename Traits::ResultT;
+	using GeneratorT = typename Traits::GeneratorT;
+	using SpheresT = typename Traits::SpheresT;
+	using QueryItemT = typename Traits::QueryItemT;
 	//Current query items of the query.
-	std::vector<QueryItem<VectorT>> query_items;
+	std::vector<Ref<QueryItemT>> query_items;
 	GeneratorT *generator;
 	SpheresT *debug_spheres = nullptr;
 

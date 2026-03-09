@@ -16,11 +16,11 @@ void TestDotProduct2D::set_to_target(QueryContext2D *context) {
 	to_target = context;
 }
 
-void TestDotProduct2D::perform_test(QueryItem<Vector2> &projection) {
+void TestDotProduct2D::perform_test(Ref<QueryItem2D> projection) {
 	Node2D *context1 = Object::cast_to<Node2D>(from_place->get_context()[0]);
 	Node2D *context2 = Object::cast_to<Node2D>(to_target->get_context()[0]);
 
-	if (context1 == nullptr || context2 == nullptr) {
+	if (!context1 || !context2) {
 		print_error("TestDotProduct2D missing a context");
 		return;
 	}
@@ -39,17 +39,17 @@ void TestDotProduct2D::perform_test(QueryItem<Vector2> &projection) {
 	switch (get_test_purpose()) {
 		case FILTER_SCORE: {
 			if (score > 0.0)
-				projection.add_score(score);
+				projection->add_score(score);
 			else
-				projection.is_filtered = true;
+				projection->set_is_filtered(true);
 			break;
 		}
 		case FILTER_ONLY:
 			if (score <= 0.0)
-				projection.is_filtered = true;
+				projection->set_is_filtered(true);
 			break;
 		case SCORE_ONLY:
-			projection.add_score(score);
+			projection->add_score(score);
 			break;
 	}
 }

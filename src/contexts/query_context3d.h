@@ -16,7 +16,7 @@ public:
 	~QueryContext3D() {}
 
 	virtual Array get_context();
-	GDVIRTUAL0RC(Array, _get_context)
+	GDVIRTUAL0RC_REQUIRED(Array, _get_context)
 
 	PackedVector3Array get_context_positions() { return _get_context_positions(); }
 

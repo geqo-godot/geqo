@@ -16,11 +16,11 @@ void TestDotProduct3D::set_to_target(QueryContext3D *context) {
 	to_target = context;
 }
 
-void TestDotProduct3D::perform_test(QueryItem<Vector3> &projection) {
+void TestDotProduct3D::perform_test(Ref<QueryItem3D> projection) {
 	Node3D *context1 = Object::cast_to<Node3D>(from_place->get_context()[0]);
 	Node3D *context2 = Object::cast_to<Node3D>(to_target->get_context()[0]);
 
-	if (context1 == nullptr || context2 == nullptr) {
+	if (!context1 || !context2) {
 		print_error("TestDotProduct3D missing a context");
 		return;
 	}
@@ -39,17 +39,17 @@ void TestDotProduct3D::perform_test(QueryItem<Vector3> &projection) {
 	switch (get_test_purpose()) {
 		case FILTER_SCORE: {
 			if (score > 0.0)
-				projection.add_score(score);
+				projection->add_score(score);
 			else
-				projection.is_filtered = true;
+				projection->set_is_filtered(true);
 			break;
 		}
 		case FILTER_ONLY:
 			if (score <= 0.0)
-				projection.is_filtered = true;
+				projection->set_is_filtered(true);
 			break;
 		case SCORE_ONLY:
-			projection.add_score(score);
+			projection->add_score(score);
 			break;
 	}
 }

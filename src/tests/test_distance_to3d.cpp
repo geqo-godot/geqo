@@ -20,7 +20,7 @@ void TestDistanceTo3D::set_max_distance(double dist) {
 	max_distance = dist;
 }
 
-void TestDistanceTo3D::perform_test(QueryItem<Vector3> &projection) {
+void TestDistanceTo3D::perform_test(Ref<QueryItem3D> projection) {
 	// UtilityFunctions::print_rich("Testing the tested test to test");
 	if (distance_to == nullptr) {
 		UtilityFunctions::print_rich("Test has no context");
@@ -34,7 +34,7 @@ void TestDistanceTo3D::perform_test(QueryItem<Vector3> &projection) {
 		if (context_pos.get_type() != Variant::VECTOR3)
 			continue;
 
-		double distance = projection.projection_position.distance_to(context_pos);
+		double distance = projection->get_projection_position().distance_to(context_pos);
 
 		if (get_test_purpose() == FILTER_SCORE || get_test_purpose() == FILTER_ONLY) {
 			if (distance < min_distance || distance > max_distance) {
@@ -69,17 +69,17 @@ void TestDistanceTo3D::perform_test(QueryItem<Vector3> &projection) {
 	switch (get_test_purpose()) {
 		case FILTER_SCORE: {
 			if (result == 0.0)
-				projection.is_filtered = true;
+				projection->set_is_filtered(true);
 			else
-				projection.add_score(result);
+				projection->add_score(result);
 			break;
 		}
 		case FILTER_ONLY:
 			if (result == 0.0)
-				projection.is_filtered = true;
+				projection->set_is_filtered(true);
 			break;
 		case SCORE_ONLY:
-			projection.add_score(result);
+			projection->add_score(result);
 			break;
 	}
 }

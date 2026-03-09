@@ -7,7 +7,7 @@ using namespace godot;
 template <typename NodeT, typename PackedTArray, int VectorVariantT>
 class QueryContextBase {
 protected:
-	// The father, aka the node that is inheriting this class
+	// The parent, aka the node that is inheriting this class
 	Object *owner = nullptr;
 
 public:
@@ -20,7 +20,9 @@ public:
 	PackedTArray _get_context_positions() {
 		Array contexts;
 		// Pass in owner, since has_method and call are Godot Object functions only
-		if (!owner || !owner->has_method("get_context"))
+		if (!owner)
+			return PackedTArray();
+		if (!owner->has_method("get_context"))
 			return PackedTArray();
 
 		contexts = owner->call("get_context");

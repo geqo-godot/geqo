@@ -1,4 +1,5 @@
 #include "generators/generator_grid_shape3d.h"
+#include "generator_grid_shape3d.h"
 #include "godot_cpp/classes/scene_tree.hpp"
 #include "godot_cpp/classes/time.hpp"
 
@@ -34,6 +35,12 @@ void GeneratorGridShape3D::set_projection_collision_mask(int mask) {
 	projection_collision_mask = mask;
 }
 
+void GeneratorGridShape3D::set_use_shape_cast(bool use) {
+	use_shape_cast = use;
+}
+void GeneratorGridShape3D::set_shape(Ref<Shape3D> new_shape) {
+	shape = new_shape;
+}
 void GeneratorGridShape3D::perform_generation(uint64_t initial_time_usec, double time_budget_ms) {
 	if (generate_around == nullptr) {
 		print_error("Generator couldn't find Context");
@@ -65,20 +72,31 @@ void GeneratorGridShape3D::perform_generation(uint64_t initial_time_usec, double
 
 				if (use_vertical_projection) {
 					Vector3 ray_pos = Vector3(pos_x, starting_pos.y, pos_z);
-					Dictionary ray_result = cast_ray_projection(
-							ray_pos + (Vector3(0, project_up, 0)),
-							ray_pos + (Vector3(0, -project_down, 0)), contexts, projection_collision_mask);
+					Dictionary ray_result;
+					// TODO: Get the best result, in this case, the closest to the center of the shape. For now, just the first one.
+					if (use_shape_cast) {
+						TypedArray<Dictionary> dicts = cast_shape_projection(
+								ray_pos + (Vector3(0, project_up, 0)),
+								ray_pos + (Vector3(0, -project_down, 0)), contexts, shape, projection_collision_mask);
+						if (!dicts.is_empty())
+							ray_result = dicts[0];
+					} else {
+						ray_result = cast_ray_projection(
+								ray_pos + (Vector3(0, project_up, 0)),
+								ray_pos + (Vector3(0, -project_down, 0)), contexts, projection_collision_mask);
+					}
 
 					if (!ray_result.is_empty()) {
-						Vector3 casted_position = (Vector3)ray_result.get("position", Vector3());
 						Node3D *collider = Object::cast_to<Node3D>(ray_result.get("collider", nullptr));
-						get_query_items_ref().push_back(
-								QueryItem(casted_position + Vector3(0, post_projection_vertical_offset, 0), collider));
-						perform_tests(get_query_items_ref().size() - 1);
+						Vector3 casted_position;
+						if (use_shape_cast && collider)
+							casted_position = collider->get_global_position();
+						else
+							casted_position = ray_result.get("position", Vector3());
+						add_query_item(QueryItem3D::create(casted_position + Vector3(0, post_projection_vertical_offset, 0), collider));
 					}
 				} else {
-					get_query_items_ref().push_back(QueryItem(Vector3(pos_x, starting_pos.y, pos_z)));
-					perform_tests(get_query_items_ref().size() - 1);
+					add_query_item(QueryItem3D::create(Vector3(pos_x, starting_pos.y, pos_z)));
 				}
 
 				// Check the time for stopping
@@ -113,29 +131,35 @@ void GeneratorGridShape3D::_on_next_process_frame() {
 }
 
 void GeneratorGridShape3D::_bind_methods() {
-	ClassDB::bind_method(D_METHOD("get_grid_half_size"), &GeneratorGridShape3D::get_grid_half_size);
 	ClassDB::bind_method(D_METHOD("set_grid_half_size", "size"), &GeneratorGridShape3D::set_grid_half_size);
+	ClassDB::bind_method(D_METHOD("get_grid_half_size"), &GeneratorGridShape3D::get_grid_half_size);
 
-	ClassDB::bind_method(D_METHOD("get_space_between"), &GeneratorGridShape3D::get_space_between);
 	ClassDB::bind_method(D_METHOD("set_space_between", "space"), &GeneratorGridShape3D::set_space_between);
+	ClassDB::bind_method(D_METHOD("get_space_between"), &GeneratorGridShape3D::get_space_between);
 
-	ClassDB::bind_method(D_METHOD("get_generate_around"), &GeneratorGridShape3D::get_generate_around);
 	ClassDB::bind_method(D_METHOD("set_generate_around", "context"), &GeneratorGridShape3D::set_generate_around);
+	ClassDB::bind_method(D_METHOD("get_generate_around"), &GeneratorGridShape3D::get_generate_around);
 
-	ClassDB::bind_method(D_METHOD("get_use_vertical_projection"), &GeneratorGridShape3D::get_use_vertical_projection);
 	ClassDB::bind_method(D_METHOD("set_use_vertical_projection", "use"), &GeneratorGridShape3D::set_use_vertical_projection);
+	ClassDB::bind_method(D_METHOD("get_use_vertical_projection"), &GeneratorGridShape3D::get_use_vertical_projection);
 
-	ClassDB::bind_method(D_METHOD("get_project_down"), &GeneratorGridShape3D::get_project_down);
 	ClassDB::bind_method(D_METHOD("set_project_down", "project"), &GeneratorGridShape3D::set_project_down);
+	ClassDB::bind_method(D_METHOD("get_project_down"), &GeneratorGridShape3D::get_project_down);
 
-	ClassDB::bind_method(D_METHOD("get_project_up"), &GeneratorGridShape3D::get_project_up);
 	ClassDB::bind_method(D_METHOD("set_project_up", "project"), &GeneratorGridShape3D::set_project_up);
+	ClassDB::bind_method(D_METHOD("get_project_up"), &GeneratorGridShape3D::get_project_up);
 
-	ClassDB::bind_method(D_METHOD("get_post_projection_vertical_offset"), &GeneratorGridShape3D::get_post_projection_vertical_offset);
 	ClassDB::bind_method(D_METHOD("set_post_projection_vertical_offset", "offset"), &GeneratorGridShape3D::set_post_projection_vertical_offset);
+	ClassDB::bind_method(D_METHOD("get_post_projection_vertical_offset"), &GeneratorGridShape3D::get_post_projection_vertical_offset);
 
-	ClassDB::bind_method(D_METHOD("get_projection_collision_mask"), &GeneratorGridShape3D::get_projection_collision_mask);
 	ClassDB::bind_method(D_METHOD("set_projection_collision_mask", "mask"), &GeneratorGridShape3D::set_projection_collision_mask);
+	ClassDB::bind_method(D_METHOD("get_projection_collision_mask"), &GeneratorGridShape3D::get_projection_collision_mask);
+
+	//ClassDB::bind_method(D_METHOD("set_use_shape_cast", "use"), &GeneratorGridShape3D::set_use_shape_cast);
+	//ClassDB::bind_method(D_METHOD("get_use_shape_cast"), &GeneratorGridShape3D::get_use_shape_cast);
+
+	//ClassDB::bind_method(D_METHOD("set_shape", "new_shape"), &GeneratorGridShape3D::set_shape);
+	//ClassDB::bind_method(D_METHOD("get_shape"), &GeneratorGridShape3D::get_shape);
 
 	ADD_GROUP("Generator", "");
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "generate_around", PROPERTY_HINT_NODE_TYPE, "QueryContext3D"), "set_generate_around", "get_generate_around");
@@ -154,4 +178,6 @@ void GeneratorGridShape3D::_bind_methods() {
 					PROPERTY_HINT_LAYERS_3D_PHYSICS),
 			"set_projection_collision_mask",
 			"get_projection_collision_mask");
+	//ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_shape_cast"), "set_use_shape_cast", "get_use_shape_cast");
+	//ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "shape", PROPERTY_HINT_RESOURCE_TYPE, "Shape3D"), "set_shape", "get_shape");
 }
