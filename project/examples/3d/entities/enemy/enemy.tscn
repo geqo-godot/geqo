@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://nvso64245ltb"]
+[gd_scene load_steps=8 format=3 uid="uid://nvso64245ltb"]
 
 [ext_resource type="Script" uid="uid://cyqo7rh6dj286" path="res://examples/3d/entities/enemy/enemy.gd" id="1_3fvr7"]
 [ext_resource type="Script" uid="uid://55v77romqu4f" path="res://example_custom_scripts/custom_test3d.gd" id="2_gmutw"]
@@ -6,8 +6,6 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fj7yv"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_036b0"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_77jyu"]
 
 [sub_resource type="Curve" id="Curve_5peh2"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -50,12 +48,6 @@ use_debug_shapes = true
 [node name="GeneratorGridShape3D" type="GeneratorGridShape3D" parent="EnvironmentQuery3D" node_paths=PackedStringArray("generate_around")]
 generate_around = NodePath("../../Contexts/ContextSelf")
 post_projection_vertical_offset = 1.0
-shape = SubResource("SphereShape3D_77jyu")
-
-[node name="TestPathFindToSelf" type="TestPathFindTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("path_to")]
-use_debug = true
-path_to = NodePath("../../../Contexts/ContextSelf")
-test_purpose = 1
 
 [node name="TestPathFindToSelf" type="TestPathFindTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("path_to")]
 use_debug = true
