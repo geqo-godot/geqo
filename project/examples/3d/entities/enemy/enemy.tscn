@@ -44,6 +44,7 @@ use_debug_shapes = true
 
 [node name="GeneratorGridShape3D" type="GeneratorGridShape3D" parent="EnvironmentQuery3D" node_paths=PackedStringArray("generate_around")]
 generate_around = NodePath("../../Contexts/ContextSelf")
+post_projection_vertical_offset = 1.0
 shape = SubResource("SphereShape3D_77jyu")
 
 [node name="TestPathFindToSelf" type="TestPathFindTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("path_to")]

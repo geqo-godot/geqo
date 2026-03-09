@@ -127,6 +127,7 @@ void QueryItem2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_projection_position"), &QueryItem2D::get_projection_position);
 	ClassDB::bind_method(D_METHOD("set_projection_position"), &QueryItem2D::set_projection_position);
 	ClassDB::bind_method(D_METHOD("add_score"), &QueryItem2D::add_score);
+	ClassDB::bind_static_method("QueryItem2D", D_METHOD("create", "position", "collider"), &QueryItem2D::create);
 }
 
 void QueryItem3D::_bind_methods() {
@@ -137,6 +138,7 @@ void QueryItem3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_projection_position"), &QueryItem3D::get_projection_position);
 	ClassDB::bind_method(D_METHOD("set_projection_position"), &QueryItem3D::set_projection_position);
 	ClassDB::bind_method(D_METHOD("add_score"), &QueryItem3D::add_score);
+	ClassDB::bind_static_method("QueryItem3D", D_METHOD("create", "position", "collider"), &QueryItem3D::create);
 }
 
 void QueryResult2D::_bind_methods() {
