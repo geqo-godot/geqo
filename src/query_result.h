@@ -26,6 +26,9 @@ public:
 	bool _get_is_filtered() { return is_filtered; }
 	void _set_is_filtered(bool filtered) { is_filtered = filtered; }
 
+	bool _get_has_score() { return has_score; }
+	void _set_has_score(bool has) { has_score = has; }
+
 	VectorT _get_projection_position() { return projection_position; }
 	void _set_projection_position(VectorT position) { projection_position = position; }
 
@@ -61,6 +64,9 @@ public:
 	bool get_is_filtered() { return _get_is_filtered(); }
 	void set_is_filtered(bool filtered) { return _set_is_filtered(filtered); }
 
+	bool get_has_score() { return _get_has_score(); }
+	void set_has_score(bool has) { return _set_has_score(has); }
+
 	Vector2 get_projection_position() { return _get_projection_position(); }
 	void set_projection_position(Vector2 position) { return _set_projection_position(position); }
 
@@ -79,6 +85,9 @@ public:
 
 	bool get_is_filtered() { return _get_is_filtered(); }
 	void set_is_filtered(bool filtered) { return _set_is_filtered(filtered); }
+
+	bool get_has_score() { return _get_has_score(); }
+	void set_has_score(bool has) { return _set_has_score(has); }
 
 	Vector3 get_projection_position() { return _get_projection_position(); }
 	void set_projection_position(Vector3 position) { return _set_projection_position(position); }

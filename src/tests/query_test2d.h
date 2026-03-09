@@ -19,7 +19,7 @@ public:
 	void set_context_filter_operator(const FilterOperator filter_op) { return _set_context_filter_operator(filter_op); };
 	FilterOperator get_context_filter_operator() const { return _get_context_filter_operator(); }
 
-	virtual void perform_test(QueryItem<Vector2> &projection) = 0;
+	virtual void perform_test(QueryItem2D &projection) = 0;
 
 protected:
 	static void _bind_methods();

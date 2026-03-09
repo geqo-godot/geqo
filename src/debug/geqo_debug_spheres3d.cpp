@@ -13,33 +13,33 @@ Vector3 GEQODebugSpheres3D::_sphere_point(double radius, double phi, double thet
 			radius * sin(phi) * sin(theta));
 }
 
-void GEQODebugSpheres3D::draw_items(vector<QueryItem<Vector3>> &query_items_list, double time_to_destroy) {
+void GEQODebugSpheres3D::draw_items(vector<QueryItem3D> &query_items_list, double time_to_destroy) {
 	// TODO: MAX_MESH_SURFACES prevents drawing more circles
 	if (immediate_mesh == nullptr)
 		return;
 	immediate_mesh->clear_surfaces();
 	remove_labels();
 
-	for (QueryItem<Vector3> &query_item : query_items_list) {
+	for (QueryItem3D &query_item : query_items_list) {
 		Label3D *text_label = memnew(Label3D);
 		text_labels.append(text_label);
 		add_child(text_label);
 		text_label->set_deferred("billboard", BaseMaterial3D::BILLBOARD_ENABLED);
 		text_label->set_deferred("position", Vector3(0, 1, 0) * 0.75);
 
-		if (query_item.is_filtered) {
+		if (query_item.get_is_filtered()) {
 			text_label->set_deferred("text", "Filtered");
-			draw_debug_sphere(query_item.projection_position, 0.5, Color(0, 0, 1));
+			draw_debug_sphere(query_item.get_projection_position(), 0.5, Color(0, 0, 1));
 		} else {
-			if (query_item.has_score) {
+			if (query_item.get_has_score()) {
 				// TODO: Set the precision to 2 decimals
-				text_label->set_deferred("text", query_item.score);
-				draw_debug_sphere(query_item.projection_position, 0.5, debug_color->sample(query_item.score));
+				text_label->set_deferred("text", query_item.get_score());
+				draw_debug_sphere(query_item.get_projection_position(), 0.5, debug_color->sample(query_item.get_score()));
 			} else {
-				draw_debug_sphere(query_item.projection_position, 0.5, Color(0, 1, 1));
+				draw_debug_sphere(query_item.get_projection_position(), 0.5, Color(0, 1, 1));
 			}
 		}
-		text_label->set_deferred("global_position", query_item.projection_position + Vector3(0, 0.6, 0));
+		text_label->set_deferred("global_position", query_item.get_projection_position() + Vector3(0, 0.6, 0));
 	}
 }
 
