@@ -42,7 +42,7 @@ public:
 		has_score = true;
 	}
 
-	bool _is_higher_than(Ref<QueryItemT> item) {
+	bool is_higher_than(Ref<QueryItemT> item) {
 		// Non filtered items come before filtered items
 		if (is_filtered != item->is_filtered)
 			return !is_filtered;
@@ -79,8 +79,6 @@ public:
 
 	void add_score(double amount) { return _add_score(amount); }
 
-	bool is_higher_than(Ref<QueryItem2D> item) { return _is_higher_than(item); }
-
 	// Factory thingy
 	static Ref<QueryItem2D> create(Vector2 pos, Node2D *collider = nullptr) {
 		Ref<QueryItem2D> item;
@@ -114,8 +112,6 @@ public:
 	void set_collided_with(Node3D *node) { return _set_collided_with(node); }
 
 	void add_score(double amount) { return _add_score(amount); }
-
-	bool is_higher_than(Ref<QueryItem3D> item) { return _is_higher_than(item); }
 
 	// Factory thingy
 	static Ref<QueryItem3D> create(Vector3 pos, Node3D *collider = nullptr) {
