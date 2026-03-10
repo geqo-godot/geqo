@@ -6,7 +6,7 @@
 #include <vector>
 using namespace godot;
 
-template <typename VectorT, typename NodeT>
+template <typename QueryItemT, typename VectorT, typename NodeT>
 class QueryItemBase {
 protected:
 	double score = 0.0;
@@ -42,25 +42,24 @@ public:
 		has_score = true;
 	}
 
-protected:
-	bool operator>(const QueryItemBase &item) const {
+	bool _is_higher_than(Ref<QueryItemT> item) {
 		// Non filtered items come before filtered items
-		if (is_filtered != item.is_filtered)
+		if (is_filtered != item->is_filtered)
 			return !is_filtered;
 
 		// Items with score also come first
-		if (has_score != item.has_score)
+		if (has_score != item->has_score)
 			return has_score;
 
 		// Both have no score so do nothing
 		if (!has_score)
 			return false;
 
-		return score > item.score;
+		return score > item->score;
 	}
 };
 
-class QueryItem2D : public RefCounted, public QueryItemBase<Vector2, Node2D> {
+class QueryItem2D : public RefCounted, public QueryItemBase<QueryItem2D, Vector2, Node2D> {
 	GDCLASS(QueryItem2D, RefCounted)
 public:
 	double get_score() { return _get_score(); }
@@ -80,6 +79,8 @@ public:
 
 	void add_score(double amount) { return _add_score(amount); }
 
+	bool is_higher_than(Ref<QueryItem2D> item) { return _is_higher_than(item); }
+
 	// Factory thingy
 	static Ref<QueryItem2D> create(Vector2 pos, Node2D *collider = nullptr) {
 		Ref<QueryItem2D> item;
@@ -93,7 +94,7 @@ protected:
 	static void _bind_methods();
 };
 
-class QueryItem3D : public RefCounted, public QueryItemBase<Vector3, Node3D> {
+class QueryItem3D : public RefCounted, public QueryItemBase<QueryItem3D, Vector3, Node3D> {
 	GDCLASS(QueryItem3D, RefCounted)
 
 public:
@@ -113,6 +114,8 @@ public:
 	void set_collided_with(Node3D *node) { return _set_collided_with(node); }
 
 	void add_score(double amount) { return _add_score(amount); }
+
+	bool is_higher_than(Ref<QueryItem3D> item) { return _is_higher_than(item); }
 
 	// Factory thingy
 	static Ref<QueryItem3D> create(Vector3 pos, Node3D *collider = nullptr) {

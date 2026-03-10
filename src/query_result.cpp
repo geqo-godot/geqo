@@ -107,7 +107,7 @@ void QueryResultBase<VectorT, QueryItemT, NodeT>::_build_cache() const {
 			sorted_indices.begin(),
 			sorted_indices.end(),
 			[&](size_t lhs, size_t rhs) {
-				return *query_items[lhs] > *query_items[rhs];
+				return query_items[lhs]->is_higher_than(query_items[rhs]);
 			});
 	for (size_t i = 0; i < sorted_indices.size(); i++) {
 		if (query_items[sorted_indices[i]]->get_is_filtered())
@@ -152,7 +152,7 @@ void QueryItem3D::_bind_methods() {
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "score"), "set_score", "get_score");
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "collided_with", PROPERTY_HINT_NODE_TYPE, "Node3D"), "set_collided_with", "get_collided_with");
 	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "is_filtered"), "set_is_filtered", "get_is_filtered");
-	ADD_PROPERTY(PropertyInfo(Variant::VECTOR2, "projection_position"), "set_projection_position", "get_projection_position");
+	ADD_PROPERTY(PropertyInfo(Variant::VECTOR3, "projection_position"), "set_projection_position", "get_projection_position");
 
 	ClassDB::bind_static_method("QueryItem3D", D_METHOD("create", "position", "collider"), &QueryItem3D::create);
 }
