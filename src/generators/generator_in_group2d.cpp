@@ -113,7 +113,6 @@ void GeneratorInGroup2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_collision_mask", "mask"), &GeneratorInGroup2D::set_collision_mask);
 	ClassDB::bind_method(D_METHOD("get_collision_mask"), &GeneratorInGroup2D::get_collision_mask);
 
-	ADD_GROUP("Generator", "");
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "generate_around", PROPERTY_HINT_NODE_TYPE, "QueryContext2D"), "set_generate_around", "get_generate_around");
 	ADD_PROPERTY(PropertyInfo(Variant::STRING, "group"), "set_group", "get_group");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "radius"), "set_range_radius", "get_range_radius");

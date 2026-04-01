@@ -105,7 +105,6 @@ void GeneratorCircleShape2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_cast_collision_mask", "mask"), &GeneratorCircleShape2D::set_cast_collision_mask);
 	ClassDB::bind_method(D_METHOD("get_cast_collision_mask"), &GeneratorCircleShape2D::get_cast_collision_mask);
 
-	ADD_GROUP("Generator", "");
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "circle_center", PROPERTY_HINT_NODE_TYPE, "QueryContext2D"), "set_circle_center", "get_circle_center");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "circle_radius"), "set_circle_radius", "get_circle_radius");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "space_between"), "set_space_between", "get_space_between");

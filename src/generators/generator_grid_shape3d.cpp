@@ -17,6 +17,7 @@ void GeneratorGridShape3D::set_generate_around(QueryContext3D *context) {
 
 void GeneratorGridShape3D::set_use_vertical_projection(bool use) {
 	use_vertical_projection = use;
+	notify_property_list_changed();
 }
 
 void GeneratorGridShape3D::set_project_down(double project) {
@@ -37,6 +38,7 @@ void GeneratorGridShape3D::set_projection_collision_mask(int mask) {
 
 void GeneratorGridShape3D::set_use_shape_cast(bool use) {
 	use_shape_cast = use;
+	notify_property_list_changed();
 }
 void GeneratorGridShape3D::set_shape(Ref<Shape3D> new_shape) {
 	shape = new_shape;
@@ -158,7 +160,6 @@ void GeneratorGridShape3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_shape", "new_shape"), &GeneratorGridShape3D::set_shape);
 	ClassDB::bind_method(D_METHOD("get_shape"), &GeneratorGridShape3D::get_shape);
 
-	ADD_GROUP("Generator", "");
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "generate_around", PROPERTY_HINT_NODE_TYPE, "QueryContext3D"), "set_generate_around", "get_generate_around");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "grid_half_size"), "set_grid_half_size", "get_grid_half_size");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "space_between"), "set_space_between", "get_space_between");
@@ -177,4 +178,15 @@ void GeneratorGridShape3D::_bind_methods() {
 			"get_projection_collision_mask");
 	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_shape_cast"), "set_use_shape_cast", "get_use_shape_cast");
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "shape", PROPERTY_HINT_RESOURCE_TYPE, "Shape3D"), "set_shape", "get_shape");
+}
+
+void GeneratorGridShape3D::_validate_property(PropertyInfo &property) const {
+	if (property.name == StringName("shape"))
+		if (!use_shape_cast)
+			property.usage &= ~PROPERTY_USAGE_EDITOR;
+
+	TypedArray<StringName> projection_vars = { "project_up", "project_down", "post_projection_vertical_offset", "projection_collision_mask", "use_shape_cast", "shape" };
+	if (projection_vars.has(property.name))
+		if (!use_vertical_projection)
+			property.usage &= ~PROPERTY_USAGE_EDITOR;
 }
