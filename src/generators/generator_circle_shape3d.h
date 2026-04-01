@@ -26,6 +26,8 @@ private:
 	// Cast Data
 	bool use_casting = true;
 	int cast_collision_mask = 1;
+	bool use_cast_shape = false;
+	Ref<Shape3D> cast_shape;
 
 	// Projection Data
 	bool use_vertical_projection = false;
@@ -33,7 +35,7 @@ private:
 	double project_up = 100.0;
 	double post_projection_vertical_offset = 0.0;
 	int projection_collision_mask = 1;
-	bool use_shape_cast = false;
+	bool use_shape = false;
 	Ref<Shape3D> shape;
 
 	CircleShapeState3D _current_state = CircleShapeState3D();
@@ -60,6 +62,12 @@ public:
 	void set_cast_collision_mask(int mask);
 	int get_cast_collision_mask() const { return cast_collision_mask; }
 
+	void set_use_cast_shape(bool use);
+	bool get_use_cast_shape() const { return use_cast_shape; }
+
+	void set_cast_shape(Ref<Shape3D> new_shape);
+	Ref<Shape3D> get_cast_shape() const { return cast_shape; }
+
 	void set_use_vertical_projection(bool use);
 	bool get_use_vertical_projection() const { return use_vertical_projection; }
 
@@ -75,8 +83,8 @@ public:
 	void set_projection_collision_mask(int mask);
 	int get_projection_collision_mask() const { return projection_collision_mask; }
 
-	void set_use_shape_cast(bool use);
-	bool get_use_shape_cast() const { return use_shape_cast; }
+	void set_use_shape(bool use);
+	bool get_use_shape() const { return use_shape; }
 
 	void set_shape(Ref<Shape3D> new_shape);
 	Ref<Shape3D> get_shape() const { return shape; }

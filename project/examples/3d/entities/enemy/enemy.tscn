@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://nvso64245ltb"]
+[gd_scene load_steps=9 format=3 uid="uid://nvso64245ltb"]
 
 [ext_resource type="Script" uid="uid://cyqo7rh6dj286" path="res://examples/3d/entities/enemy/enemy.gd" id="1_3fvr7"]
 
@@ -17,6 +17,9 @@ point_count = 2
 [sub_resource type="Curve" id="Curve_5bnyk"]
 _data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
 point_count = 2
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_py6ki"]
+radius = 4.0
 
 [node name="Enemy" type="CharacterBody3D" groups=["enemies"]]
 collision_layer = 4
@@ -80,5 +83,6 @@ use_debug_shapes = true
 [node name="GeneratorCircleShape3D" type="GeneratorCircleShape3D" parent="EnvironmentQuery3D" node_paths=PackedStringArray("circle_center")]
 circle_center = NodePath("../../Contexts/ContextPlayer")
 use_vertical_projection = true
+shape = SubResource("SphereShape3D_py6ki")
 
 [connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]
