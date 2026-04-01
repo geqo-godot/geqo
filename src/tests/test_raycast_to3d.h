@@ -61,6 +61,7 @@ public:
 
 protected:
 	static void _bind_methods();
+	void _validate_property(PropertyInfo &property) const;
 };
 
 VARIANT_ENUM_CAST(TestRaycastTo3D::RaycastMode);

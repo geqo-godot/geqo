@@ -37,6 +37,7 @@ void TestRaycastTo3D::set_raycast_mode(RaycastMode mode) {
 
 void TestRaycastTo3D::set_use_shape_cast(bool use) {
 	use_shape_cast = use;
+	notify_property_list_changed();
 }
 
 void TestRaycastTo3D::set_shape(Ref<Shape3D> new_shape) {
@@ -261,4 +262,10 @@ void TestRaycastTo3D::_bind_methods() {
 	ADD_PROPERTY(PropertyInfo(Variant::INT, "raycast_mode", PROPERTY_HINT_ENUM, "Body, Area, Body Area"), "set_raycast_mode", "get_raycast_mode");
 	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_shape_cast"), "set_use_shape_cast", "get_use_shape_cast");
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "shape", PROPERTY_HINT_RESOURCE_TYPE, "Shape3D"), "set_shape", "get_shape");
+}
+
+void TestRaycastTo3D::_validate_property(PropertyInfo &property) const {
+	if (property.name == StringName("shape"))
+		if (!use_shape_cast)
+			property.usage &= ~PROPERTY_USAGE_EDITOR;
 }

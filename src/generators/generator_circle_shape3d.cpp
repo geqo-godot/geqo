@@ -28,6 +28,15 @@ void GeneratorCircleShape3D::set_cast_collision_mask(int mask) {
 	cast_collision_mask = mask;
 }
 
+void GeneratorCircleShape3D::set_use_cast_shape(bool use) {
+	use_cast_shape = use;
+	notify_property_list_changed();
+}
+
+void GeneratorCircleShape3D::set_cast_shape(Ref<Shape3D> new_shape) {
+	cast_shape = new_shape;
+}
+
 void GeneratorCircleShape3D::set_use_vertical_projection(bool use) {
 	use_vertical_projection = use;
 	notify_property_list_changed();
@@ -49,8 +58,8 @@ void GeneratorCircleShape3D::set_projection_collision_mask(int mask) {
 	projection_collision_mask = mask;
 }
 
-void GeneratorCircleShape3D::set_use_shape_cast(bool use) {
-	use_shape_cast = use;
+void GeneratorCircleShape3D::set_use_shape(bool use) {
+	use_shape = use;
 	notify_property_list_changed();
 }
 void GeneratorCircleShape3D::set_shape(Ref<Shape3D> new_shape) {
@@ -108,7 +117,7 @@ void GeneratorCircleShape3D::perform_generation(uint64_t initial_time_usec, doub
 					contexts,
 					projection_collision_mask);
 
-			if (use_shape_cast) {
+			if (use_shape) {
 				TypedArray<Dictionary> dicts = cast_shape_projection(
 						ray_pos + (Vector3(0, project_up, 0)),
 						ray_pos + (Vector3(0, -project_down, 0)), contexts, shape, projection_collision_mask);
@@ -163,6 +172,12 @@ void GeneratorCircleShape3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_cast_collision_mask", "mask"), &GeneratorCircleShape3D::set_cast_collision_mask);
 	ClassDB::bind_method(D_METHOD("get_cast_collision_mask"), &GeneratorCircleShape3D::get_cast_collision_mask);
 
+	ClassDB::bind_method(D_METHOD("set_use_cast_shape", "use"), &GeneratorCircleShape3D::set_use_cast_shape);
+	ClassDB::bind_method(D_METHOD("get_use_cast_shape"), &GeneratorCircleShape3D::get_use_cast_shape);
+
+	ClassDB::bind_method(D_METHOD("set_cast_shape", "new_cast_shape"), &GeneratorCircleShape3D::set_cast_shape);
+	ClassDB::bind_method(D_METHOD("get_cast_shape"), &GeneratorCircleShape3D::get_cast_shape);
+
 	ClassDB::bind_method(D_METHOD("set_use_vertical_projection", "use"), &GeneratorCircleShape3D::set_use_vertical_projection);
 	ClassDB::bind_method(D_METHOD("get_use_vertical_projection"), &GeneratorCircleShape3D::get_use_vertical_projection);
 
@@ -178,8 +193,8 @@ void GeneratorCircleShape3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_projection_collision_mask", "mask"), &GeneratorCircleShape3D::set_projection_collision_mask);
 	ClassDB::bind_method(D_METHOD("get_projection_collision_mask"), &GeneratorCircleShape3D::get_projection_collision_mask);
 
-	ClassDB::bind_method(D_METHOD("set_use_shape_cast", "use"), &GeneratorCircleShape3D::set_use_shape_cast);
-	ClassDB::bind_method(D_METHOD("get_use_shape_cast"), &GeneratorCircleShape3D::get_use_shape_cast);
+	ClassDB::bind_method(D_METHOD("set_use_shape", "use"), &GeneratorCircleShape3D::set_use_shape);
+	ClassDB::bind_method(D_METHOD("get_use_shape"), &GeneratorCircleShape3D::get_use_shape);
 
 	ClassDB::bind_method(D_METHOD("set_shape", "new_shape"), &GeneratorCircleShape3D::set_shape);
 	ClassDB::bind_method(D_METHOD("get_shape"), &GeneratorCircleShape3D::get_shape);
@@ -199,6 +214,8 @@ void GeneratorCircleShape3D::_bind_methods() {
 					PROPERTY_HINT_LAYERS_3D_PHYSICS),
 			"set_cast_collision_mask",
 			"get_cast_collision_mask");
+	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_cast_shape"), "set_use_cast_shape", "get_use_cast_shape");
+	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "cast_shape", PROPERTY_HINT_RESOURCE_TYPE, "Shape3D"), "set_cast_shape", "get_cast_shape");
 
 	ADD_GROUP("Projection Data", "");
 	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_vertical_projection"), "set_use_vertical_projection", "get_use_vertical_projection");
@@ -212,21 +229,25 @@ void GeneratorCircleShape3D::_bind_methods() {
 					PROPERTY_HINT_LAYERS_3D_PHYSICS),
 			"set_projection_collision_mask",
 			"get_projection_collision_mask");
-	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_shape_cast"), "set_use_shape_cast", "get_use_shape_cast");
+	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_shape"), "set_use_shape", "get_use_shape");
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "shape", PROPERTY_HINT_RESOURCE_TYPE, "Shape3D"), "set_shape", "get_shape");
 }
 
 void GeneratorCircleShape3D::_validate_property(PropertyInfo &property) const {
-	if (property.name == StringName("shape"))
-		if (!use_shape_cast)
+	if (property.name == StringName("cast_shape"))
+		if (!use_cast_shape)
 			property.usage &= ~PROPERTY_USAGE_EDITOR;
 
-	TypedArray<StringName> cast_vars = { "cast_collision_mask" };
+	if (property.name == StringName("shape"))
+		if (!use_shape)
+			property.usage &= ~PROPERTY_USAGE_EDITOR;
+
+	TypedArray<StringName> cast_vars = { "cast_collision_mask", "use_cast_shape", "cast_shape" };
 	if (cast_vars.has(property.name))
 		if (!use_casting)
 			property.usage &= ~PROPERTY_USAGE_EDITOR;
 
-	TypedArray<StringName> projection_vars = { "project_up", "project_down", "post_projection_vertical_offset", "projection_collision_mask", "use_shape_cast", "shape" };
+	TypedArray<StringName> projection_vars = { "project_up", "project_down", "post_projection_vertical_offset", "projection_collision_mask", "use_shape", "shape" };
 	if (projection_vars.has(property.name))
 		if (!use_vertical_projection)
 			property.usage &= ~PROPERTY_USAGE_EDITOR;
