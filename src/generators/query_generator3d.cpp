@@ -74,9 +74,28 @@ TypedArray<Dictionary> QueryGenerator3D::cast_shape_projection(Vector3 start_pos
 		exclusion_rids.append(node->get_rid());
 	}
 	query->set_exclude(exclusion_rids);
-	TypedArray<Dictionary> result = space_state->intersect_shape(query);
-	UtilityFunctions::print("Results: ", result);
+	// Get safe motion proportion
+	PackedFloat32Array motion_array = space_state->cast_motion(query);
+	TypedArray<Dictionary> result;
 
+	// Check for collision
+	if (motion_array.size() >= 2 && motion_array[1] < 1.0) {
+		// Calculate collision position
+		Vector3 motion = end_pos - start_pos;
+		Vector3 collision_pos = start_pos + (motion * motion_array[1]);
+
+		// Update query tranfrom to collision pos
+		transform.set_origin(collision_pos);
+		query->set_transform(transform);
+		query->set_motion(Vector3(0, 0, 0));
+
+		Dictionary rest_info = space_state->get_rest_info(query);
+
+		if (!rest_info.is_empty()) {
+			rest_info["position"] = collision_pos; // Store center of shape
+			result.append(rest_info);
+		}
+	}
 	return result;
 }
 
