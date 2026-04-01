@@ -3,6 +3,7 @@
 #include "tests/query_test3d.h"
 #include <godot_cpp/classes/collision_object3d.hpp>
 #include <godot_cpp/classes/curve.hpp>
+#include <godot_cpp/classes/shape3d.hpp>
 #include <godot_cpp/variant/node_path.hpp>
 #include <godot_cpp/variant/typed_array.hpp>
 using namespace godot;
@@ -22,6 +23,8 @@ private:
 	TypedArray<NodePath> exclusions;
 	int collision_mask = 1;
 	RaycastMode raycast_mode = BODY;
+	bool use_shape_cast = false;
+	Ref<Shape3D> shape;
 
 public:
 	TestRaycastTo3D() {}
@@ -44,6 +47,15 @@ public:
 
 	void set_raycast_mode(RaycastMode mode);
 	RaycastMode get_raycast_mode() const { return raycast_mode; }
+
+	void set_use_shape_cast(bool use);
+	bool get_use_shape_cast() const { return use_shape_cast; }
+
+	void set_shape(Ref<Shape3D> new_shape);
+	Ref<Shape3D> get_shape() const { return shape; }
+
+	Dictionary cast_ray_projection(Vector3 start_pos, Vector3 end_pos, Array exclusions, int col_mask = 1);
+	TypedArray<Dictionary> cast_shape_projection(Vector3 start_pos, Vector3 end_pos, Array exclusions, Ref<Shape3D> shape, int col_mask = 1);
 
 	void perform_test(Ref<QueryItem3D> projection) override;
 
