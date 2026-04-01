@@ -49,6 +49,8 @@
 
 #include "tests/test_path_find_to3d.h"
 
+#include "tests/test_intersects_area3d.h"
+
 #include "register_types.h"
 
 using namespace godot;
@@ -108,6 +110,7 @@ void initialize_geqo_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<TestDotProduct2D>();
 	ClassDB::register_class<TestDotProduct3D>();
 	ClassDB::register_class<TestPathFindTo3D>();
+	ClassDB::register_class<TestIntersectsArea3D>();
 }
 
 void uninitialize_geqo_module(ModuleInitializationLevel p_level) {

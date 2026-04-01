@@ -114,7 +114,7 @@ void TestRaycastTo2D::perform_test(Ref<QueryItem2D> projection) {
 		} break;
 	}
 
-	switch (get_context_score_operator()) {
+	switch (get_test_purpose()) {
 		case FILTER_SCORE: {
 			projection->set_is_filtered(filter);
 			projection->add_score(final_score);
