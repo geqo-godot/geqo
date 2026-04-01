@@ -99,7 +99,13 @@ void GeneratorCircleShape3D::perform_generation(uint64_t initial_time_usec, doub
 			Vector3 final_pos = Vector3(pos_x, starting_pos.y, pos_z);
 
 			if (use_casting) {
-				Dictionary casted_ray = cast_ray_projection(starting_pos, final_pos, contexts, cast_collision_mask);
+				Dictionary casted_ray;
+				if (use_cast_shape) {
+					TypedArray<Dictionary> dicts = cast_shape_projection(starting_pos, final_pos, contexts, cast_shape, cast_collision_mask);
+					if (!dicts.is_empty())
+						casted_ray = dicts[0];
+				} else
+					casted_ray = cast_ray_projection(starting_pos, final_pos, contexts, cast_collision_mask);
 				if (!casted_ray.is_empty())
 					final_pos = casted_ray.get("position", Vector3());
 			}
@@ -111,11 +117,7 @@ void GeneratorCircleShape3D::perform_generation(uint64_t initial_time_usec, doub
 
 			Vector3 ray_pos = final_pos;
 
-			Dictionary ray_result = cast_ray_projection(
-					ray_pos + Vector3(0, project_up, 0),
-					ray_pos + Vector3(0, -project_down, 0),
-					contexts,
-					projection_collision_mask);
+			Dictionary ray_result;
 
 			if (use_shape) {
 				TypedArray<Dictionary> dicts = cast_shape_projection(
