@@ -76,4 +76,5 @@ public:
 
 protected:
 	static void _bind_methods();
+	void _validate_property(PropertyInfo &property) const;
 };

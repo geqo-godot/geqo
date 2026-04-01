@@ -1,4 +1,5 @@
 #include "generators/generator_circle_shape3d.h"
+#include "generator_circle_shape3d.h"
 #include "godot_cpp/classes/scene_tree.hpp"
 #include "godot_cpp/classes/time.hpp"
 
@@ -20,6 +21,7 @@ void GeneratorCircleShape3D::set_arc_angle(double angle) {
 
 void GeneratorCircleShape3D::set_use_casting(bool use) {
 	use_casting = use;
+	notify_property_list_changed();
 }
 
 void GeneratorCircleShape3D::set_cast_collision_mask(int mask) {
@@ -28,6 +30,7 @@ void GeneratorCircleShape3D::set_cast_collision_mask(int mask) {
 
 void GeneratorCircleShape3D::set_use_vertical_projection(bool use) {
 	use_vertical_projection = use;
+	notify_property_list_changed();
 }
 
 void GeneratorCircleShape3D::set_project_down(double project) {
@@ -46,6 +49,13 @@ void GeneratorCircleShape3D::set_projection_collision_mask(int mask) {
 	projection_collision_mask = mask;
 }
 
+void GeneratorCircleShape3D::set_use_shape_cast(bool use) {
+	use_shape_cast = use;
+	notify_property_list_changed();
+}
+void GeneratorCircleShape3D::set_shape(Ref<Shape3D> new_shape) {
+	shape = new_shape;
+}
 void GeneratorCircleShape3D::perform_generation(uint64_t initial_time_usec, double time_budget_ms) {
 	if (circle_center == nullptr) {
 		print_error("CircleShape circle_center context not found.");
@@ -98,6 +108,17 @@ void GeneratorCircleShape3D::perform_generation(uint64_t initial_time_usec, doub
 					contexts,
 					projection_collision_mask);
 
+			if (use_shape_cast) {
+				TypedArray<Dictionary> dicts = cast_shape_projection(
+						ray_pos + (Vector3(0, project_up, 0)),
+						ray_pos + (Vector3(0, -project_down, 0)), contexts, shape, projection_collision_mask);
+				if (!dicts.is_empty())
+					ray_result = dicts[0];
+			} else {
+				ray_result = cast_ray_projection(
+						ray_pos + (Vector3(0, project_up, 0)),
+						ray_pos + (Vector3(0, -project_down, 0)), contexts, projection_collision_mask);
+			}
 			if (!ray_result.is_empty()) {
 				Vector3 pos_result = ray_result.get("position", Vector3());
 				pos_result += Vector3(0, post_projection_vertical_offset, 0);
@@ -157,7 +178,12 @@ void GeneratorCircleShape3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_projection_collision_mask", "mask"), &GeneratorCircleShape3D::set_projection_collision_mask);
 	ClassDB::bind_method(D_METHOD("get_projection_collision_mask"), &GeneratorCircleShape3D::get_projection_collision_mask);
 
-	ADD_GROUP("Generator", "");
+	ClassDB::bind_method(D_METHOD("set_use_shape_cast", "use"), &GeneratorCircleShape3D::set_use_shape_cast);
+	ClassDB::bind_method(D_METHOD("get_use_shape_cast"), &GeneratorCircleShape3D::get_use_shape_cast);
+
+	ClassDB::bind_method(D_METHOD("set_shape", "new_shape"), &GeneratorCircleShape3D::set_shape);
+	ClassDB::bind_method(D_METHOD("get_shape"), &GeneratorCircleShape3D::get_shape);
+
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "circle_center", PROPERTY_HINT_NODE_TYPE, "QueryContext3D"), "set_circle_center", "get_circle_center");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "circle_radius"), "set_circle_radius", "get_circle_radius");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "space_between"), "set_space_between", "get_space_between");
@@ -186,4 +212,22 @@ void GeneratorCircleShape3D::_bind_methods() {
 					PROPERTY_HINT_LAYERS_3D_PHYSICS),
 			"set_projection_collision_mask",
 			"get_projection_collision_mask");
+	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_shape_cast"), "set_use_shape_cast", "get_use_shape_cast");
+	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "shape", PROPERTY_HINT_RESOURCE_TYPE, "Shape3D"), "set_shape", "get_shape");
+}
+
+void GeneratorCircleShape3D::_validate_property(PropertyInfo &property) const {
+	if (property.name == StringName("shape"))
+		if (!use_shape_cast)
+			property.usage &= ~PROPERTY_USAGE_EDITOR;
+
+	TypedArray<StringName> cast_vars = { "cast_collision_mask" };
+	if (cast_vars.has(property.name))
+		if (!use_casting)
+			property.usage &= ~PROPERTY_USAGE_EDITOR;
+
+	TypedArray<StringName> projection_vars = { "project_up", "project_down", "post_projection_vertical_offset", "projection_collision_mask", "use_shape_cast", "shape" };
+	if (projection_vars.has(property.name))
+		if (!use_vertical_projection)
+			property.usage &= ~PROPERTY_USAGE_EDITOR;
 }

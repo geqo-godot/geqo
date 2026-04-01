@@ -54,6 +54,5 @@ void GeneratorInArray3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_context_array", "context"), &GeneratorInArray3D::set_context_array);
 	ClassDB::bind_method(D_METHOD("get_context_array"), &GeneratorInArray3D::get_context_array);
 
-	ADD_GROUP("Generator", "");
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "context_array", PROPERTY_HINT_NODE_TYPE, "QueryContext3D"), "set_context_array", "get_context_array");
 }

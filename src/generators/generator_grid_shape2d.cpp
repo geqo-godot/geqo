@@ -86,7 +86,6 @@ void GeneratorGridShape2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_generate_around"), &GeneratorGridShape2D::get_generate_around);
 	ClassDB::bind_method(D_METHOD("set_generate_around", "context"), &GeneratorGridShape2D::set_generate_around);
 
-	ADD_GROUP("Generator", "");
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "generate_around", PROPERTY_HINT_NODE_TYPE, "QueryContext2D"), "set_generate_around", "get_generate_around");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "grid_half_size"), "set_grid_half_size", "get_grid_half_size");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "space_between"), "set_space_between", "get_space_between");
