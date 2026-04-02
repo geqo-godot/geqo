@@ -1,5 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<class name="EnvironmentQuery2D" inherits="Node2D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<class name="EnvironmentQuery2D" inherits="Node2D"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
 	</brief_description>
 	<description>
@@ -10,24 +12,29 @@
 		<method name="get_result">
 			<return type="QueryResult2D" />
 			<description>
+                After requesting a query, the [QueryResult3D] is cached and can be called with this function.
 			</description>
 		</method>
 		<method name="request_query">
 			<return type="void" />
 			<description>
+                Request a query, processing it in the background, emitting [signal EnvironmentQuery3D.query_finished] when done.
 			</description>
 		</method>
 	</methods>
 	<members>
-		<member name="time_budget_ms" type="float" setter="set_time_budget_ms" getter="get_time_budget_ms" default="1.0">
+		<member name="time_budget_ms" type="float" setter="set_time_budget_ms"
+			getter="get_time_budget_ms" default="1.0">
 		</member>
-		<member name="use_debug_shapes" type="bool" setter="set_use_debug_shapes" getter="get_use_debug_shapes" default="false">
+		<member name="use_debug_shapes" type="bool" setter="set_use_debug_shapes"
+			getter="get_use_debug_shapes" default="false">
 		</member>
 	</members>
 	<signals>
 		<signal name="query_finished">
 			<param index="0" name="result" type="QueryResult2D" />
 			<description>
+                Emitted when the query finishes processing.
 			</description>
 		</signal>
 	</signals>

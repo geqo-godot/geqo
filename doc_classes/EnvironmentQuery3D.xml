@@ -1,34 +1,45 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<class name="EnvironmentQuery3D" inherits="Node3D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
-	<brief_description>
+<?xml version="1.0" encoding="UTF-8"?>
+<class name="EnvironmentQuery3D" inherits="Node3D"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+    <brief_description>
+        A node used to create an environment query, using a [QueryGenerator3D] as it's child.
 	</brief_description>
-	<description>
+    <description>
+        
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
-		<method name="get_result">
-			<return type="QueryResult3D" />
-			<description>
+    <tutorials>
+    </tutorials>
+    <methods>
+        <method name="get_result">
+            <return type="QueryResult3D" />
+            <description>
+                After requesting a query, the [QueryResult3D] is cached and can be called with this function.
 			</description>
-		</method>
-		<method name="request_query">
-			<return type="void" />
-			<description>
+        </method>
+        <method name="request_query">
+            <return type="void" />
+            <description>
+                Request a query, processing it in the background, emitting [signal EnvironmentQuery3D.query_finished] when done.
 			</description>
-		</method>
-	</methods>
-	<members>
-		<member name="time_budget_ms" type="float" setter="set_time_budget_ms" getter="get_time_budget_ms" default="1.0">
+        </method>
+    </methods>
+    <members>
+        <member name="time_budget_ms" type="float" setter="set_time_budget_ms"
+            getter="get_time_budget_ms" default="1.0">
+            Amount of time in milliseconds the query has each frame for processing. When budget is reached, the query pauses until the next [signal SceneTree.process_frame].
 		</member>
-		<member name="use_debug_shapes" type="bool" setter="set_use_debug_shapes" getter="get_use_debug_shapes" default="false">
+        <member name="use_debug_shapes" type="bool" setter="set_use_debug_shapes"
+            getter="get_use_debug_shapes" default="false">
+           If [param true] creates debug visuals in the environment, showing each [QueryItem3D].
 		</member>
-	</members>
-	<signals>
-		<signal name="query_finished">
-			<param index="0" name="result" type="QueryResult3D" />
-			<description>
+    </members>
+    <signals>
+        <signal name="query_finished">
+            <param index="0" name="result" type="QueryResult3D" />
+            <description>
+                Emitted when the query finishes processing.
 			</description>
-		</signal>
-	</signals>
+        </signal>
+    </signals>
 </class>

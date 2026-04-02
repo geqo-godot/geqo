@@ -1,6 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<class name="ContextTargetNode3D" inherits="QueryContext3D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<class name="ContextTargetNode3D" inherits="QueryContext3D"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
+		A query context that returns a [Node3D].
 	</brief_description>
 	<description>
 	</description>
@@ -8,6 +11,7 @@
 	</tutorials>
 	<members>
 		<member name="target_node" type="Node3D" setter="set_target_node" getter="get_target_node">
+			The target node to be returned.
 		</member>
 	</members>
 </class>

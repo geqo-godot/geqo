@@ -1,5 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<class name="QueryResult3D" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<class name="QueryResult3D" inherits="RefCounted"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
 	</brief_description>
 	<description>
@@ -10,11 +12,19 @@
 		<method name="get_all_node" qualifiers="const">
 			<return type="Node[]" />
 			<description>
+				Returns all result [Node3D] within each [QueryItem3D] in ascending order.
 			</description>
 		</method>
 		<method name="get_all_position" qualifiers="const">
 			<return type="Vector3[]" />
 			<description>
+				Returns result [Vector3] position within each [QueryItem3D] in ascending order.
+			</description>
+		</method>
+		<method name="get_all_results" qualifiers="const">
+			<return type="QueryItem3D[]" />
+			<description>
+				Returns all [QueryItem3D].
 			</description>
 		</method>
 		<method name="get_highest_score_node" qualifiers="const">
@@ -37,6 +47,7 @@
 			<return type="Vector3" />
 			<param index="0" name="percent" type="float" default="0.1" />
 			<description>
+				Returns a random position from the top [param percent] from a range of 0-1.
 			</description>
 		</method>
 	</methods>
