@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="QueryItem3D" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+	</brief_description>
+	<description>
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="add_score">
+			<return type="void" />
+			<param index="0" name="_unnamed_arg0" type="float" />
+			<description>
+			</description>
+		</method>
+		<method name="create" qualifiers="static">
+			<return type="QueryItem3D" />
+			<param index="0" name="position" type="Vector3" />
+			<param index="1" name="collider" type="Node3D" />
+			<description>
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="collided_with" type="Node3D" setter="set_collided_with" getter="get_collided_with">
+		</member>
+		<member name="is_filtered" type="bool" setter="set_is_filtered" getter="get_is_filtered" default="false">
+		</member>
+		<member name="projection_position" type="Vector3" setter="set_projection_position" getter="get_projection_position" default="Vector3(0, 0, 0)">
+		</member>
+		<member name="score" type="float" setter="set_score" getter="get_score" default="0.0">
+		</member>
+	</members>
+</class>
