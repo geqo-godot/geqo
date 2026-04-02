@@ -1,21 +1,29 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<class name="TestIntersectsArea3D" inherits="QueryTest3D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<class name="TestIntersectsArea3D" inherits="QueryTest3D"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
+		A query test that checks if [QueryContext3D] is intersecting an area using [Shape3D].
 	</brief_description>
 	<description>
 	</description>
 	<tutorials>
 	</tutorials>
 	<members>
-		<member name="collision_mask" type="int" setter="set_collision_mask" getter="get_collision_mask" default="1">
+		<member name="collision_mask" type="int" setter="set_collision_mask"
+			getter="get_collision_mask" default="1">
 		</member>
 		<member name="context" type="QueryContext3D" setter="set_context" getter="get_context">
 		</member>
-		<member name="multiple_context_filter_operator" type="int" setter="set_context_filter_operator" getter="get_context_filter_operator" enum="QueryTest3D.FilterOperator" default="0">
+		<member name="multiple_context_filter_operator" type="int"
+			setter="set_context_filter_operator" getter="get_context_filter_operator"
+			enum="QueryTest3D.FilterOperator" default="0">
 		</member>
 		<member name="shape" type="Shape3D" setter="set_shape" getter="get_shape">
+			The actual shape that will be used in the [PhysicsShapeQueryParameters3D].
 		</member>
-		<member name="shape_cast_mode" type="int" setter="set_shape_cast_mode" getter="get_shape_cast_mode" enum="TestIntersectsArea3D.ShapeCastMode" default="0">
+		<member name="shape_cast_mode" type="int" setter="set_shape_cast_mode"
+			getter="get_shape_cast_mode" enum="TestIntersectsArea3D.ShapeCastMode" default="0">
 		</member>
 	</members>
 </class>

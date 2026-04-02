@@ -1,13 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<class name="ContextInGroup3D" inherits="QueryContext3D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<class name="ContextInGroup3D" inherits="QueryContext3D"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
+		A query context that returns a group of nodes based on the [param group] name.
 	</brief_description>
 	<description>
 	</description>
 	<tutorials>
 	</tutorials>
 	<members>
-		<member name="group" type="String" setter="set_group" getter="get_group" default="&quot;&quot;">
+		<member name="group" type="String" setter="set_group" getter="get_group"
+			default="&quot;&quot;">
+			Name of the group.
 		</member>
 	</members>
 </class>
