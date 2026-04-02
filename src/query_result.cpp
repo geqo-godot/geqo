@@ -18,6 +18,19 @@ TypedArray<VectorT> QueryResultBase<VectorT, QueryItemT, NodeT>::_get_all_positi
 }
 
 template <typename VectorT, typename QueryItemT, typename NodeT>
+TypedArray<Ref<QueryItemT>> QueryResultBase<VectorT, QueryItemT, NodeT>::_get_all_results() const {
+	TypedArray<QueryItemT> result;
+
+	_build_cache();
+
+	// Has to be turned into type array for godot
+	for (int i = 0; i <= highest_unfiltered_index; i++) {
+		result.append(query_items[sorted_indices[i]]);
+	}
+	return result;
+}
+
+template <typename VectorT, typename QueryItemT, typename NodeT>
 TypedArray<NodeT> QueryResultBase<VectorT, QueryItemT, NodeT>::_get_all_node() const {
 	TypedArray<NodeT> result;
 
@@ -158,6 +171,7 @@ void QueryItem3D::_bind_methods() {
 }
 
 void QueryResult2D::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("get_all_results"), &QueryResult2D::get_all_results);
 	ClassDB::bind_method(D_METHOD("get_all_position"), &QueryResult2D::get_all_position);
 	ClassDB::bind_method(D_METHOD("get_all_node"), &QueryResult2D::get_all_node);
 	ClassDB::bind_method(D_METHOD("get_highest_score_position"), &QueryResult2D::get_highest_score_position);
@@ -167,6 +181,7 @@ void QueryResult2D::_bind_methods() {
 }
 
 void QueryResult3D::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("get_all_results"), &QueryResult3D::get_all_results);
 	ClassDB::bind_method(D_METHOD("get_all_position"), &QueryResult3D::get_all_position);
 	ClassDB::bind_method(D_METHOD("get_all_node"), &QueryResult3D::get_all_node);
 	ClassDB::bind_method(D_METHOD("get_highest_score_position"), &QueryResult3D::get_highest_score_position);

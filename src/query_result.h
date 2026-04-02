@@ -140,6 +140,7 @@ public:
 	void set_items(const std::vector<Ref<QueryItemT>> &items) { query_items = items; }
 	void _build_cache() const;
 
+	TypedArray<Ref<QueryItemT>> _get_all_results() const;
 	TypedArray<VectorT> _get_all_position() const;
 	TypedArray<NodeT> _get_all_node() const;
 
@@ -156,6 +157,7 @@ protected:
 	static void _bind_methods();
 
 public:
+	TypedArray<Ref<QueryItem2D>> get_all_results() const { return _get_all_results(); }
 	TypedArray<Vector2> get_all_position() const { return _get_all_position(); }
 	TypedArray<Node> get_all_node() const { return _get_all_node(); }
 	Vector2 get_highest_score_position() const { return _get_highest_score_position(); };
@@ -171,6 +173,7 @@ protected:
 	static void _bind_methods();
 
 public:
+	TypedArray<Ref<QueryItem3D>> get_all_results() const { return _get_all_results(); }
 	TypedArray<Vector3> get_all_position() const { return _get_all_position(); }
 	TypedArray<Node> get_all_node() const { return _get_all_node(); }
 	Vector3 get_highest_score_position() const { return _get_highest_score_position(); };
