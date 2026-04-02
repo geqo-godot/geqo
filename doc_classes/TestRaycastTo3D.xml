@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="TestRaycastTo3D" inherits="QueryTest3D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+	</brief_description>
+	<description>
+	</description>
+	<tutorials>
+	</tutorials>
+	<members>
+		<member name="cast_from_context" type="bool" setter="set_cast_from_context" getter="get_cast_from_context" default="false">
+		</member>
+		<member name="collision_mask" type="int" setter="set_collision_mask" getter="get_collision_mask" default="1">
+		</member>
+		<member name="context" type="QueryContext3D" setter="set_context" getter="get_context">
+		</member>
+		<member name="exclusions" type="NodePath[]" setter="set_exclusions" getter="get_exclusions" default="[]">
+		</member>
+		<member name="hitting_is_true" type="bool" setter="set_hitting_is_true" getter="get_hitting_is_true" default="true">
+		</member>
+		<member name="multiple_context_filter_operator" type="int" setter="set_context_filter_operator" getter="get_context_filter_operator" enum="QueryTest3D.FilterOperator" default="0">
+		</member>
+		<member name="raycast_mode" type="int" setter="set_raycast_mode" getter="get_raycast_mode" enum="TestRaycastTo3D.RaycastMode" default="0">
+		</member>
+		<member name="shape" type="Shape3D" setter="set_shape" getter="get_shape">
+		</member>
+		<member name="use_shape_cast" type="bool" setter="set_use_shape_cast" getter="get_use_shape_cast" default="false">
+		</member>
+	</members>
+</class>

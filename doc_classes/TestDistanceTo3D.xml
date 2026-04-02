@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="TestDistanceTo3D" inherits="QueryTest3D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+	</brief_description>
+	<description>
+	</description>
+	<tutorials>
+	</tutorials>
+	<members>
+		<member name="distance_to" type="QueryContext3D" setter="set_distance_to" getter="get_distance_to">
+		</member>
+		<member name="max_distance" type="float" setter="set_max_distance" getter="get_max_distance" default="10.0">
+		</member>
+		<member name="min_distance" type="float" setter="set_min_distance" getter="get_min_distance" default="0.0">
+		</member>
+		<member name="scoring_curve" type="Curve" setter="set_scoring_curve" getter="get_scoring_curve">
+		</member>
+	</members>
+</class>

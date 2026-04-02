@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="EnvironmentQuery3D" inherits="Node3D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+	</brief_description>
+	<description>
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="get_result">
+			<return type="QueryResult3D" />
+			<description>
+			</description>
+		</method>
+		<method name="request_query">
+			<return type="void" />
+			<description>
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="time_budget_ms" type="float" setter="set_time_budget_ms" getter="get_time_budget_ms" default="1.0">
+		</member>
+		<member name="use_debug_shapes" type="bool" setter="set_use_debug_shapes" getter="get_use_debug_shapes" default="false">
+		</member>
+	</members>
+	<signals>
+		<signal name="query_finished">
+			<param index="0" name="result" type="QueryResult3D" />
+			<description>
+			</description>
+		</signal>
+	</signals>
+</class>

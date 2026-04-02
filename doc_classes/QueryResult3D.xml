@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="QueryResult3D" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+	</brief_description>
+	<description>
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="get_all_node" qualifiers="const">
+			<return type="Node[]" />
+			<description>
+			</description>
+		</method>
+		<method name="get_all_position" qualifiers="const">
+			<return type="Vector3[]" />
+			<description>
+			</description>
+		</method>
+		<method name="get_highest_score_node" qualifiers="const">
+			<return type="Node3D" />
+			<description>
+			</description>
+		</method>
+		<method name="get_highest_score_position" qualifiers="const">
+			<return type="Vector3" />
+			<description>
+			</description>
+		</method>
+		<method name="get_top_random_node" qualifiers="const">
+			<return type="Node3D" />
+			<param index="0" name="percent" type="float" default="0.1" />
+			<description>
+			</description>
+		</method>
+		<method name="get_top_random_position" qualifiers="const">
+			<return type="Vector3" />
+			<param index="0" name="percent" type="float" default="0.1" />
+			<description>
+			</description>
+		</method>
+	</methods>
+</class>

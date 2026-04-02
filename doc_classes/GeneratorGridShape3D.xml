@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GeneratorGridShape3D" inherits="QueryGenerator3D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+	</brief_description>
+	<description>
+	</description>
+	<tutorials>
+	</tutorials>
+	<members>
+		<member name="generate_around" type="QueryContext3D" setter="set_generate_around" getter="get_generate_around">
+		</member>
+		<member name="grid_half_size" type="float" setter="set_grid_half_size" getter="get_grid_half_size" default="20.0">
+		</member>
+		<member name="post_projection_vertical_offset" type="float" setter="set_post_projection_vertical_offset" getter="get_post_projection_vertical_offset" default="0.0">
+		</member>
+		<member name="project_down" type="float" setter="set_project_down" getter="get_project_down" default="100.0">
+		</member>
+		<member name="project_up" type="float" setter="set_project_up" getter="get_project_up" default="100.0">
+		</member>
+		<member name="projection_collision_mask" type="int" setter="set_projection_collision_mask" getter="get_projection_collision_mask" default="1">
+		</member>
+		<member name="shape" type="Shape3D" setter="set_shape" getter="get_shape">
+		</member>
+		<member name="space_between" type="float" setter="set_space_between" getter="get_space_between" default="5.0">
+		</member>
+		<member name="use_shape_cast" type="bool" setter="set_use_shape_cast" getter="get_use_shape_cast" default="false">
+		</member>
+		<member name="use_vertical_projection" type="bool" setter="set_use_vertical_projection" getter="get_use_vertical_projection" default="true">
+		</member>
+	</members>
+</class>

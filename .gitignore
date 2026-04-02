@@ -47,3 +47,4 @@ vc140.pdb
 # Cmake
 cmake-build*
 CMakeUserPresets.json
+src/gen/

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="QueryGenerator2D" inherits="Node2D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+	</brief_description>
+	<description>
+	</description>
+	<tutorials>
+	</tutorials>
+	<members>
+		<member name="raycast_mode" type="int" setter="set_raycast_mode" getter="get_raycast_mode" enum="QueryGenerator2D.RaycastMode" default="0">
+		</member>
+	</members>
+	<signals>
+		<signal name="generator_finished">
+			<description>
+			</description>
+		</signal>
+	</signals>
+</class>
