@@ -1,6 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<class name="QueryResult2D" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<class name="QueryResult2D" inherits="RefCounted"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
+		Provides the query results with helper functions to get the best positions.
 	</brief_description>
 	<description>
 	</description>
@@ -10,35 +13,38 @@
 		<method name="get_all_node" qualifiers="const">
 			<return type="Node[]" />
 			<description>
-				Returns result [Node2D] within each [QueryItem2D] in ascending order.
+				Returns all result [Node2D]s within each [QueryItem2D] in ascending order based on score.
 			</description>
 		</method>
 		<method name="get_all_position" qualifiers="const">
 			<return type="Vector2[]" />
 			<description>
-				Returns result [Vector2] position within each [QueryItem2D] in ascending order.
+				Returns result [Vector2] position within each [QueryItem2D] in ascending order based on score.
 			</description>
 		</method>
 		<method name="get_all_results" qualifiers="const">
 			<return type="QueryItem2D[]" />
 			<description>
-				Returns all [QueryItem2D].
+				Returns all [QueryItem2D]s.
 			</description>
 		</method>
 		<method name="get_highest_score_node" qualifiers="const">
 			<return type="Node2D" />
 			<description>
+				Returns the highest scoring node.
 			</description>
 		</method>
 		<method name="get_highest_score_position" qualifiers="const">
 			<return type="Vector2" />
 			<description>
+				Returns the highest scoring position.
 			</description>
 		</method>
 		<method name="get_top_random_node" qualifiers="const">
 			<return type="Node2D" />
 			<param index="0" name="percent" type="float" default="0.1" />
 			<description>
+				Returns a random node from the top [param percent] from a range of 0-1.
 			</description>
 		</method>
 		<method name="get_top_random_position" qualifiers="const">

@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <class name="ContextTargetNode2D" inherits="QueryContext2D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
+		A query context that returns a [Node2D].
 	</brief_description>
 	<description>
+		A query context that returns a [Node2D].
 	</description>
 	<tutorials>
 	</tutorials>
 	<members>
 		<member name="target_node" type="Node2D" setter="set_target_node" getter="get_target_node">
+			The target node to be returned.
 		</member>
 	</members>
 </class>
