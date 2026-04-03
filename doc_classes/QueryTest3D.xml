@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <class name="QueryTest3D" inherits="Node3D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
+		Tests each [QueryItem3D] from a [QueryGenerator3D] to determine which is the best option.
 	</brief_description>
 	<description>
 	</description>
@@ -22,6 +23,7 @@
 			<return type="void" />
 			<param index="0" name="score_op" type="int" enum="QueryTest3D.FilterOperator" />
 			<description>
+				Decides what f
 			</description>
 		</method>
 	</methods>

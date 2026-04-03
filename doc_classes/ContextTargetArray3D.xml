@@ -1,17 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<class name="ContextTargetArray3D" inherits="QueryContext3D"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="ContextTargetArray3D" inherits="QueryContext3D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
 		A query context that returns a node [Array].
 	</brief_description>
 	<description>
+		A query context that returns a node [Array].
 	</description>
 	<tutorials>
 	</tutorials>
 	<members>
-		<member name="target_nodes" type="Node3D[]" setter="set_target_nodes"
-			getter="get_target_nodes" default="[]">
+		<member name="target_nodes" type="Node3D[]" setter="set_target_nodes" getter="get_target_nodes" default="[]">
 			Sets the target nodes. Can be set from another script to dynamically change this array.
 		</member>
 	</members>
