@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<class name="TestPathFindTo3D" inherits="QueryTest3D"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="TestPathFindTo3D" inherits="QueryTest3D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
 		A query test that checks if there is a navigation path from the [QueryItem3D] to a [QueryContext3D].
 	</brief_description>
@@ -10,16 +8,13 @@
 	<tutorials>
 	</tutorials>
 	<members>
-		<member name="found_path_threshold" type="float" setter="set_found_path_threshold"
-			getter="get_found_path_threshold" default="0.1">
+		<member name="found_path_threshold" type="float" setter="set_found_path_threshold" getter="get_found_path_threshold" default="0.1">
 		</member>
 		<member name="path_to" type="QueryContext3D" setter="set_path_to" getter="get_path_to">
 		</member>
-		<member name="scoring_curve" type="Curve" setter="set_scoring_curve"
-			getter="get_scoring_curve">
+		<member name="scoring_curve" type="Curve" setter="set_scoring_curve" getter="get_scoring_curve">
 		</member>
-		<member name="use_debug" type="bool" setter="set_use_debug" getter="get_use_debug"
-			default="false">
+		<member name="use_debug" type="bool" setter="set_use_debug" getter="get_use_debug" default="false">
 		</member>
 	</members>
 </class>

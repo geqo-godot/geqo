@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <class name="QueryGenerator3D" inherits="Node3D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
+		Generates potential positions or nodes which are then stored as [QueryItem3D]s for testing.
 	</brief_description>
 	<description>
 	</description>
@@ -8,12 +9,25 @@
 	</tutorials>
 	<members>
 		<member name="raycast_mode" type="int" setter="set_raycast_mode" getter="get_raycast_mode" enum="QueryGenerator3D.RaycastMode" default="0">
+			Determines what type of collisions the raycast will detect, usually used by projections.
 		</member>
 	</members>
 	<signals>
 		<signal name="generator_finished">
 			<description>
+				Emitted when the generator has finished generating and testing all [QueryItem3D]s. This notifies the [EnvironmentQuery3D] that it should return the results.
 			</description>
 		</signal>
 	</signals>
+	<constants>
+		<constant name="BODY" value="0" enum="RaycastMode">
+			Detects bodies, such as [CharacterBody3D] and [RigidBody3D].
+		</constant>
+		<constant name="AREA" value="1" enum="RaycastMode">
+			Detects areas, such as [Area3D].
+		</constant>
+		<constant name="BODY_AREA" value="2" enum="RaycastMode">
+			Detects both.
+		</constant>
+	</constants>
 </class>

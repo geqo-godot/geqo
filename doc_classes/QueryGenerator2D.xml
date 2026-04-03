@@ -16,4 +16,12 @@
 			</description>
 		</signal>
 	</signals>
+	<constants>
+		<constant name="BODY" value="0" enum="RaycastMode">
+		</constant>
+		<constant name="AREA" value="1" enum="RaycastMode">
+		</constant>
+		<constant name="BODY_AREA" value="2" enum="RaycastMode">
+		</constant>
+	</constants>
 </class>

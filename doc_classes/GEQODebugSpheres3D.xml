@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <class name="GEQODebugSpheres3D" inherits="Node" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
+		Used by [EnvironmentQuery3D] to visualize [QueryItem3D]s.
 	</brief_description>
 	<description>
+		Used by [EnvironmentQuery3D] to visualize [QueryItem3D]s.
 	</description>
 	<tutorials>
 	</tutorials>
