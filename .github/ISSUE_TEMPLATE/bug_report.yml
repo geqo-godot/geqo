@@ -1,0 +1,44 @@
+name: Bug report
+description: Report a bug with the godot-cpp template
+body:
+
+- type: markdown
+  attributes:
+    value: |
+      - Write a descriptive issue title above.
+      - Search [open](https://github.com/geqo-godot/geqo/issues) and [closed](https://github.com/geqo-godot/geqo/issues?q=is%3Aissue%20state%3Aclosed) issues to ensure it has not already been reported.
+- type: input
+  attributes:
+    label: Godot version
+    description: >
+      Specify your Godot version.
+    placeholder: v4.5.0-stable
+  validations:
+    required: true
+
+- type: input
+  attributes:
+    label: GEQO version
+    description: >
+      Specify the your GEQO version.
+    placeholder: v0.4.0-alpha
+  validations:
+    required: true
+
+- type: input
+  attributes:
+    label: System information
+    description: |
+      Specify the OS version.
+    placeholder: Windows 10
+  validations:
+    required: true
+
+- type: textarea
+  attributes:
+    label: Issue description
+    description: |
+      Describe your issue briefly. What doesn't work, and how do you expect it to work instead?
+      You can include images or videos with drag and drop, and format code blocks or logs with <code>```</code> tags.
+  validations:
+    required: true
