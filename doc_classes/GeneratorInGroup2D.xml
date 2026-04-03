@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<class name="GeneratorInGroup2D" inherits="QueryGenerator2D"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GeneratorInGroup2D" inherits="QueryGenerator2D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
 		A query generator that generates [QueryItem2D]s in each node within a [param group]
 	</brief_description>
@@ -11,17 +9,13 @@
 	<tutorials>
 	</tutorials>
 	<members>
-		<member name="collision_mask" type="float" setter="set_collision_mask"
-			getter="get_collision_mask" default="0.0">
+		<member name="collision_mask" type="float" setter="set_collision_mask" getter="get_collision_mask" default="0.0">
 		</member>
-		<member name="generate_around" type="QueryContext2D" setter="set_generate_around"
-			getter="get_generate_around">
+		<member name="generate_around" type="QueryContext2D" setter="set_generate_around" getter="get_generate_around">
 		</member>
-		<member name="group" type="String" setter="set_group" getter="get_group"
-			default="&quot;&quot;">
+		<member name="group" type="String" setter="set_group" getter="get_group" default="&quot;&quot;">
 		</member>
-		<member name="radius" type="float" setter="set_range_radius" getter="get_range_radius"
-			default="500.0">
+		<member name="radius" type="float" setter="set_range_radius" getter="get_range_radius" default="500.0">
 		</member>
 	</members>
 </class>
