@@ -1,8 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<class name="EnvironmentQuery2D" inherits="Node2D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<class name="EnvironmentQuery2D" inherits="Node2D"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
+		A node used to gather environment data using a [QueryGenerator2D] and evaluating them using [QueryTest2D]s.
 	</brief_description>
 	<description>
+		[b]EnvironmentQuery3D[/b] provides a flexible, node-based system for AI agents to ask spatial questions about the environment. Queries are composed by adding one [QueryGenerator3D] as child of the environment query and assigning [QueryTest3D]s as children of the [QueryGenerator3D].
+		Queries are time sliced in the background to maintain performance.
 	</description>
 	<tutorials>
 	</tutorials>
@@ -10,20 +15,24 @@
 		<method name="get_result">
 			<return type="QueryResult2D" />
 			<description>
-				After requesting a query, the [QueryResult3D] is cached and can be called with this function.
+				After requesting a query, the [QueryResult2D] is cached and can be called with this function.
 			</description>
 		</method>
 		<method name="request_query">
 			<return type="void" />
 			<description>
-				Request a query, processing it in the background, emitting [signal EnvironmentQuery3D.query_finished] when done.
+				Request a query, processing it in the background, emitting [signal EnvironmentQuery2D.query_finished] when done.
 			</description>
 		</method>
 	</methods>
 	<members>
-		<member name="time_budget_ms" type="float" setter="set_time_budget_ms" getter="get_time_budget_ms" default="1.0">
+		<member name="time_budget_ms" type="float" setter="set_time_budget_ms"
+			getter="get_time_budget_ms" default="1.0">
+			Amount of time in milliseconds the query has each frame for processing. When budget is reached, the query pauses until the next [signal SceneTree.process_frame].
 		</member>
-		<member name="use_debug_shapes" type="bool" setter="set_use_debug_shapes" getter="get_use_debug_shapes" default="false">
+		<member name="use_debug_shapes" type="bool" setter="set_use_debug_shapes"
+			getter="get_use_debug_shapes" default="false">
+			If [code]true[/code] creates debug visuals in the environment, showing each [QueryItem2D].
 		</member>
 	</members>
 	<signals>

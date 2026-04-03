@@ -1,6 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<class name="QueryContext2D" inherits="Node2D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<class name="QueryContext2D" inherits="Node2D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
+		Acts as a reference for [QueryGenerator2D]s and [QueryTest2D]s, providing [Node2D]s and/or [Vector2]s in an [Array].
 	</brief_description>
 	<description>
 	</description>
@@ -10,16 +12,20 @@
 		<method name="_get_context" qualifiers="virtual required const">
 			<return type="Array" />
 			<description>
+				Called on [QueryGenerator2D]s and [QueryTest2Ds] to get a list of [Node2Ds] and/or [Vector2]s.
+				[b]Note:[/b] Must be overrwritten.
 			</description>
 		</method>
 		<method name="get_context">
 			<return type="Array" />
 			<description>
+				Called on [QueryGenerator2D]s and [QueryTest2Ds] to get a list of [Node2Ds] and/or [Vector2]s.
 			</description>
 		</method>
 		<method name="get_context_positions">
 			<return type="PackedVector2Array" />
 			<description>
+				Returns only the positions of each context. Used in some [QueryTest2D]s where collisions aren't needed.
 			</description>
 		</method>
 	</methods>
