@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<class name="GeneratorCircleShape2D" inherits="QueryGenerator2D"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GeneratorCircleShape2D" inherits="QueryGenerator2D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
 		A query generator that generates a circle around each [QueryContext2D].
 	</brief_description>
@@ -11,26 +9,20 @@
 	<tutorials>
 	</tutorials>
 	<members>
-		<member name="arc_angle" type="float" setter="set_arc_angle" getter="get_arc_angle"
-			default="360.0">
+		<member name="arc_angle" type="float" setter="set_arc_angle" getter="get_arc_angle" default="360.0">
 		</member>
-		<member name="cast_collision_mask" type="int" setter="set_cast_collision_mask"
-			getter="get_cast_collision_mask" default="1">
+		<member name="cast_collision_mask" type="int" setter="set_cast_collision_mask" getter="get_cast_collision_mask" default="1">
 			The physics layers the hotizontal casting [b]scans[/b]
 		</member>
-		<member name="circle_center" type="QueryContext2D" setter="set_circle_center"
-			getter="get_circle_center">
+		<member name="circle_center" type="QueryContext2D" setter="set_circle_center" getter="get_circle_center">
 			Reference [QueryContext2D], where a circle will generate on each of these positions.
 		</member>
-		<member name="circle_radius" type="float" setter="set_circle_radius"
-			getter="get_circle_radius" default="200.0">
+		<member name="circle_radius" type="float" setter="set_circle_radius" getter="get_circle_radius" default="200.0">
 			Radius of the circle that expands from [member circle_center].
 		</member>
-		<member name="space_between" type="float" setter="set_space_between"
-			getter="get_space_between" default="20.0">
+		<member name="space_between" type="float" setter="set_space_between" getter="get_space_between" default="20.0">
 		</member>
-		<member name="use_casting" type="bool" setter="set_use_casting" getter="get_use_casting"
-			default="true">
+		<member name="use_casting" type="bool" setter="set_use_casting" getter="get_use_casting" default="true">
 			Cast rays or shapes outwards from each context and align the [QueryItem2D] on it. Useful for detecting walls.
 		</member>
 	</members>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<class name="QueryContext2D" inherits="Node2D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="QueryContext2D" inherits="Node2D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
 		Acts as a reference for [QueryGenerator2D]s and [QueryTest2D]s, providing [Node2D]s and/or [Vector2]s in an [Array].
 	</brief_description>

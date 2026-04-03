@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<class name="GeneratorGridShape2D" inherits="QueryGenerator2D"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GeneratorGridShape2D" inherits="QueryGenerator2D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
 		A query generator that generates a horizontal grid around each [QueryContext2D].
 	</brief_description>
@@ -11,14 +9,11 @@
 	<tutorials>
 	</tutorials>
 	<members>
-		<member name="generate_around" type="QueryContext2D" setter="set_generate_around"
-			getter="get_generate_around">
+		<member name="generate_around" type="QueryContext2D" setter="set_generate_around" getter="get_generate_around">
 		</member>
-		<member name="grid_half_size" type="float" setter="set_grid_half_size"
-			getter="get_grid_half_size" default="200.0">
+		<member name="grid_half_size" type="float" setter="set_grid_half_size" getter="get_grid_half_size" default="200.0">
 		</member>
-		<member name="space_between" type="float" setter="set_space_between"
-			getter="get_space_between" default="50.0">
+		<member name="space_between" type="float" setter="set_space_between" getter="get_space_between" default="50.0">
 		</member>
 	</members>
 </class>
