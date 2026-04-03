@@ -14,6 +14,7 @@
 		</member>
 		<member name="context" type="QueryContext3D" setter="set_context" getter="get_context">
 		</member>
+		<member name="cost" type="float" setter="set_cost" getter="get_cost" overrides="QueryTest3D" default="1.42" />
 		<member name="exclusions" type="NodePath[]" setter="set_exclusions" getter="get_exclusions" default="[]">
 		</member>
 		<member name="hitting_is_true" type="bool" setter="set_hitting_is_true" getter="get_hitting_is_true" default="true">

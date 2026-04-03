@@ -12,6 +12,7 @@
 		</member>
 		<member name="context" type="QueryContext3D" setter="set_context" getter="get_context">
 		</member>
+		<member name="cost" type="float" setter="set_cost" getter="get_cost" overrides="QueryTest3D" default="0.98" />
 		<member name="multiple_context_filter_operator" type="int" setter="set_context_filter_operator" getter="get_context_filter_operator" enum="QueryTest3D.FilterOperator" default="0">
 		</member>
 		<member name="shape" type="Shape3D" setter="set_shape" getter="get_shape">

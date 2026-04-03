@@ -13,7 +13,9 @@ private:
 	QueryContext3D *to_target = nullptr;
 
 public:
-	TestDotProduct3D() {}
+	TestDotProduct3D() : QueryTest3D() {
+		set_cost(0.78);
+	}
 	~TestDotProduct3D() {}
 
 	void set_min_value(double value);

@@ -25,7 +25,9 @@ private:
 	double found_path_threshold = 0.1;
 
 public:
-	TestPathFindTo3D() {}
+	TestPathFindTo3D() : QueryTest3D() {
+		set_cost(0.98);
+	}
 	~TestPathFindTo3D() {}
 
 	void set_use_debug(bool debug);

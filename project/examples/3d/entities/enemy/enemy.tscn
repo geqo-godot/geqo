@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://nvso64245ltb"]
+[gd_scene load_steps=8 format=3 uid="uid://nvso64245ltb"]
 
 [ext_resource type="Script" uid="uid://cyqo7rh6dj286" path="res://examples/3d/entities/enemy/enemy.gd" id="1_3fvr7"]
 
@@ -17,12 +17,6 @@ point_count = 2
 [sub_resource type="Curve" id="Curve_5bnyk"]
 _data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
 point_count = 2
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_uy82w"]
-radius = 10.0
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_py6ki"]
-radius = 4.0
 
 [node name="Enemy" type="CharacterBody3D" groups=["enemies"]]
 collision_layer = 4
@@ -47,24 +41,24 @@ target_node = NodePath("../..")
 [node name="ContextInGroup3D" type="ContextInGroup3D" parent="Contexts"]
 group = "enemies"
 
-[node name="EnvironmentQuery3DOld" type="EnvironmentQuery3D" parent="."]
+[node name="EnvironmentQuery3D" type="EnvironmentQuery3D" parent="."]
 use_debug_shapes = true
 
-[node name="GeneratorGridShape3D" type="GeneratorGridShape3D" parent="EnvironmentQuery3DOld" node_paths=PackedStringArray("generate_around")]
+[node name="GeneratorGridShape3D" type="GeneratorGridShape3D" parent="EnvironmentQuery3D" node_paths=PackedStringArray("generate_around")]
 generate_around = NodePath("../../Contexts/ContextSelf")
+post_projection_vertical_offset = 0.5
 use_shape_cast = true
 shape = SubResource("SphereShape3D_gmutw")
 
-[node name="TestPathFindToSelf" type="TestPathFindTo3D" parent="EnvironmentQuery3DOld/GeneratorGridShape3D" node_paths=PackedStringArray("path_to")]
+[node name="TestPathFindToSelf" type="TestPathFindTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("path_to")]
 path_to = NodePath("../../../Contexts/ContextSelf")
-test_purpose = 1
 
-[node name="TestDistanceToPlayer" type="TestDistanceTo3D" parent="EnvironmentQuery3DOld/GeneratorGridShape3D" node_paths=PackedStringArray("distance_to")]
+[node name="TestDistanceToPlayer" type="TestDistanceTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("distance_to")]
 distance_to = NodePath("../../../Contexts/ContextPlayer")
 scoring_curve = SubResource("Curve_5peh2")
 test_purpose = 2
 
-[node name="TestRaycastToPlayer" type="TestRaycastTo3D" parent="EnvironmentQuery3DOld/GeneratorGridShape3D" node_paths=PackedStringArray("context")]
+[node name="TestRaycastToPlayer" type="TestRaycastTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("context")]
 context = NodePath("../../../Contexts/ContextPlayer")
 hitting_is_true = false
 multiple_context_filter_operator = 1
@@ -72,21 +66,11 @@ exclusions = Array[NodePath]([NodePath("../../..")])
 collision_mask = 3
 use_shape_cast = true
 shape = SubResource("SphereShape3D_77jyu")
-test_purpose = 1
 
-[node name="TestDistanceToSelf" type="TestDistanceTo3D" parent="EnvironmentQuery3DOld/GeneratorGridShape3D" node_paths=PackedStringArray("distance_to")]
+[node name="TestDistanceToSelf" type="TestDistanceTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("distance_to")]
 distance_to = NodePath("../../../Contexts/ContextSelf")
 max_distance = 15.0
 scoring_curve = SubResource("Curve_5bnyk")
 test_purpose = 2
-
-[node name="EnvironmentQuery3D" type="EnvironmentQuery3D" parent="."]
-use_debug_shapes = true
-
-[node name="GeneratorCircleShape3D" type="GeneratorCircleShape3D" parent="EnvironmentQuery3D" node_paths=PackedStringArray("circle_center")]
-circle_center = NodePath("../../Contexts/ContextPlayer")
-use_cast_shape = true
-cast_shape = SubResource("SphereShape3D_uy82w")
-shape = SubResource("SphereShape3D_py6ki")
 
 [connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]

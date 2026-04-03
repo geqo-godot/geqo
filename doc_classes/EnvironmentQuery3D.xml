@@ -38,5 +38,9 @@
 				Emitted when the query finishes processing.
 			</description>
 		</signal>
+		<signal name="tests_finished">
+			<description>
+			</description>
+		</signal>
 	</signals>
 </class>

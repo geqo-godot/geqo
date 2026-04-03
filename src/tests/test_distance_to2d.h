@@ -16,7 +16,9 @@ private:
 	double max_distance = 200.0;
 
 public:
-	TestDistanceTo2D() {}
+	TestDistanceTo2D() : QueryTest2D() {
+		set_cost(1.39);
+	}
 	~TestDistanceTo2D() {}
 
 	void set_scoring_curve(Ref<Curve> curve);

@@ -27,7 +27,9 @@ private:
 	Ref<Shape3D> shape;
 
 public:
-	TestRaycastTo3D() {}
+	TestRaycastTo3D() : QueryTest3D() {
+			set_cost(1.42);
+	}
 	~TestRaycastTo3D() {}
 
 	void set_context(QueryContext3D *context_node);

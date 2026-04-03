@@ -16,7 +16,9 @@ private:
 	double max_distance = 10.0;
 
 public:
-	TestDistanceTo3D() {}
+	TestDistanceTo3D() : QueryTest3D() {
+		set_cost(1.39);
+	}
 	~TestDistanceTo3D() {}
 
 	void set_scoring_curve(Ref<Curve> curve);

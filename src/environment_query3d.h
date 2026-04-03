@@ -3,6 +3,7 @@
 #include "environment_query.h"
 #include "generators/query_generator3d.h"
 #include "query_result.h"
+#include "tests/query_test3d.h"
 #include <godot_cpp/classes/node.hpp>
 #include <godot_cpp/classes/ref.hpp>
 #include <vector>
@@ -13,6 +14,7 @@ struct QueryTraits3D {
 	using GeneratorT = QueryGenerator3D;
 	using SpheresT = GEQODebugSpheres3D;
 	using QueryItemT = QueryItem3D;
+	using QueryTestT = QueryTest3D;
 };
 
 class EnvironmentQuery3D : public Node3D, public EnvironmentQueryBase<QueryTraits3D> {
@@ -36,14 +38,20 @@ public:
 
 	void request_query() { return _request_query(); }
 	Ref<QueryResult3D> get_result() { return _get_result(); }
-	void on_generator_finished() {
-		bool result = _on_generator_finished();
+
+	void perform_tests() override {
+		_perform_tests();
+		emit_signal("tests_finished");
+	}
+
+	void on_generator_finished() { return _on_generator_finished(); }
+	void on_tests_finished() {
+		bool result = _on_tests_finished();
 		// Fast queries might miss the signal before it's caught, so defer it
 		if (result)
 			call_deferred("emit_signal", "query_finished", stored_result);
 	}
 	PackedStringArray _get_configuration_warnings() const override;
-
 
 protected:
 	static void _bind_methods();
