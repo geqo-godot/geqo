@@ -115,6 +115,7 @@ public:
 					  return a->get_cost() < b->get_cost();
 				  });
 
+		// TODO: Normalize values from -1 to 1
 		for (Variant test : tests) {
 			QueryTestT *current_test = Object::cast_to<QueryTestT>(test);
 			for (Ref<QueryItemT> item : query_items) {
