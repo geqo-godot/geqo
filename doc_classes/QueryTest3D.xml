@@ -27,15 +27,17 @@
 		</method>
 	</methods>
 	<members>
+		<member name="cost" type="float" setter="set_cost" getter="get_cost" default="0.0">
+		</member>
 		<member name="multiple_context_score_operator" type="int" setter="set_context_score_operator" getter="get_context_score_operator" enum="QueryTest3D.ScoreOperator" default="0">
 		</member>
-		<member name="test_purpose" type="int" setter="set_test_purpose" getter="get_test_purpose" enum="QueryTest3D.TestPurpose" default="0">
+		<member name="test_purpose" type="int" setter="set_test_purpose" getter="get_test_purpose" enum="QueryTest3D.TestPurpose" default="1">
 		</member>
 	</members>
 	<constants>
-		<constant name="FILTER_SCORE" value="0" enum="TestPurpose">
+		<constant name="FILTER_SCORE" value="1" enum="TestPurpose">
 		</constant>
-		<constant name="FILTER_ONLY" value="1" enum="TestPurpose">
+		<constant name="FILTER_ONLY" value="0" enum="TestPurpose">
 		</constant>
 		<constant name="SCORE_ONLY" value="2" enum="TestPurpose">
 		</constant>

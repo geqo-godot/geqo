@@ -8,6 +8,7 @@
 	<tutorials>
 	</tutorials>
 	<members>
+		<member name="cost" type="float" setter="set_cost" getter="get_cost" overrides="QueryTest2D" default="0.78" />
 		<member name="from_place" type="QueryContext2D" setter="set_from_place" getter="get_from_place">
 		</member>
 		<member name="max_value" type="float" setter="set_max_value" getter="get_max_value" default="1.0">

@@ -12,21 +12,37 @@ var current_target
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var env_query: EnvironmentQuery3D = $EnvironmentQuery3D
 
+
+var query_count: int = 0
+var query_times: Array[float]
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("request_query"):
+		var frame_start: int = Engine.get_process_frames()
+		print("Started on frame: ", frame_start)
 		var time_start: float = Time.get_ticks_usec()
 		env_query.request_query()
 		await env_query.query_finished
 		var query_result: QueryResult3D = env_query.get_result()
 		var time_end: float = Time.get_ticks_usec()
-		print("C++ Query ended in : " + str(((time_end - time_start) / 1000)) + " ms")
+		query_count += 1
+		var total_time: float = (time_end - time_start) / 1000
+		print("C++ Query ended in : " + str(((total_time))) + " ms")
+		query_times.append(total_time)
 		final_target = query_result.get_highest_score_position()
 		if !final_target:
 			return
-		print("Best result: ", query_result.get_highest_score_position())
+		#print("Best result: ", query_result.get_highest_score_position())
 		nav_agent.target_position = final_target
 		current_target = nav_agent.get_next_path_position()
-		print("All results: ", query_result.get_all_position())
+		#print("All results: ", query_result.get_all_position())
+		var average_time: float = query_times.reduce(func(accum, number): return accum + number, 0) / query_count
+		var total_frames: int = Engine.get_process_frames() - frame_start + 1
+		var ms_per_frame: float = total_time / total_frames
+		print("Average time: ", average_time, " ms")
+		print("Frames: ", total_frames)
+		print("Average ms per frame: ", ms_per_frame, " ms")
+
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():

@@ -8,6 +8,7 @@
 	<tutorials>
 	</tutorials>
 	<members>
+		<member name="cost" type="float" setter="set_cost" getter="get_cost" overrides="QueryTest3D" default="1.39" />
 		<member name="distance_to" type="QueryContext3D" setter="set_distance_to" getter="get_distance_to">
 		</member>
 		<member name="max_distance" type="float" setter="set_max_distance" getter="get_max_distance" default="10.0">

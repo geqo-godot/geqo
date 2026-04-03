@@ -13,7 +13,9 @@ private:
 	QueryContext2D *to_target = nullptr;
 
 public:
-	TestDotProduct2D() {}
+	TestDotProduct2D() : QueryTest2D() {
+		set_cost(0.78);
+	}
 	~TestDotProduct2D() {}
 
 	void set_min_value(double value);

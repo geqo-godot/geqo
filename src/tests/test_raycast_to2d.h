@@ -24,7 +24,9 @@ private:
 	RaycastMode raycast_mode = BODY;
 
 public:
-	TestRaycastTo2D() {}
+	TestRaycastTo2D() : QueryTest2D() {
+		set_cost(1.42);
+	}
 	~TestRaycastTo2D() {}
 
 	void set_context(QueryContext2D *context_node);

@@ -20,6 +20,7 @@ void EnvironmentQuery3D::_notification(int p_what) {
 				debug_spheres = memnew(GEQODebugSpheres3D);
 				call_deferred("add_sibling", debug_spheres);
 			}
+			connect("tests_finished", callable_mp(this, &EnvironmentQuery3D::on_tests_finished));
 			init_generator();
 		} break;
 		case NOTIFICATION_CHILD_ORDER_CHANGED: {
@@ -73,5 +74,6 @@ void EnvironmentQuery3D::_bind_methods() {
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "time_budget_ms"), "set_time_budget_ms", "get_time_budget_ms");
 	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_debug_shapes"), "set_use_debug_shapes", "get_use_debug_shapes");
 
+	ADD_SIGNAL(MethodInfo("tests_finished"));
 	ADD_SIGNAL(MethodInfo("query_finished", PropertyInfo(Variant::OBJECT, "result", PROPERTY_HINT_RESOURCE_TYPE, "QueryResult3D")));
 }

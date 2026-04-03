@@ -24,7 +24,6 @@ public:
 	}
 	void _add_query_item(Ref<QueryItemT> query_item) {
 		query_items_ref->push_back(query_item);
-		perform_tests(query_items_ref->size() - 1);
 	}
 
 	RaycastMode _get_raycast_mode() const { return raycast_mode; }

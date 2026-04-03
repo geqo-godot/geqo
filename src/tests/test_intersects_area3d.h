@@ -20,7 +20,9 @@ private:
 	Ref<Shape3D> shape;
 
 public:
-	TestIntersectsArea3D() {}
+	TestIntersectsArea3D() : QueryTest3D() {
+		set_cost(0.98);
+	}
 	~TestIntersectsArea3D() {}
 
 	void set_context(QueryContext3D *new_context);

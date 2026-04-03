@@ -7,8 +7,8 @@ template <typename VectorT>
 class QueryTestBase {
 public:
 	enum TestPurpose {
-		FILTER_SCORE,
 		FILTER_ONLY,
+		FILTER_SCORE,
 		SCORE_ONLY,
 	};
 	enum ScoreOperator {
@@ -25,6 +25,7 @@ private:
 	TestPurpose test_purpose = FILTER_SCORE;
 	ScoreOperator multiple_context_score_operator = AVERAGE_SCORE;
 	FilterOperator multiple_context_filter_operator = ANY_PASS;
+	float cost = 0.0;
 
 public:
 	~QueryTestBase() = default;
@@ -43,4 +44,11 @@ public:
 		multiple_context_filter_operator = filter_op;
 	}
 	FilterOperator _get_context_filter_operator() const { return multiple_context_filter_operator; }
+
+	void _set_cost(const float new_cost) {
+		cost = new_cost;
+	}
+	float _get_cost() const {
+		return cost;
+	}
 };
