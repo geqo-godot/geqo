@@ -49,6 +49,10 @@ void QueryGenerator2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_raycast_mode"), &QueryGenerator2D::get_raycast_mode);
 	ClassDB::bind_method(D_METHOD("set_raycast_mode", "mode"), &QueryGenerator2D::set_raycast_mode);
 
+	BIND_ENUM_CONSTANT(BODY);
+	BIND_ENUM_CONSTANT(AREA);
+	BIND_ENUM_CONSTANT(BODY_AREA);
+
 	ADD_PROPERTY(PropertyInfo(Variant::INT, "raycast_mode", PROPERTY_HINT_ENUM, "Body, Area, Body Area"), "set_raycast_mode", "get_raycast_mode");
 
 	ADD_SIGNAL(MethodInfo("generator_finished"));
