@@ -33,7 +33,7 @@ void GEQODebugSpheres3D::draw_items(std::vector<Ref<QueryItem3D>> &query_items_l
 		} else {
 			if (query_item->get_has_score()) {
 				// TODO: Set the precision to 2 decimals
-				text_label->set_deferred("text", query_item->get_score());
+				text_label->set_deferred("text", String::num(query_item->get_score()).pad_decimals(2));
 				draw_debug_sphere(query_item->get_projection_position(), 0.5, debug_color->sample(query_item->get_score()));
 			} else {
 				draw_debug_sphere(query_item->get_projection_position(), 0.5, Color(0, 1, 1));

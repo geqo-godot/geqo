@@ -8,24 +8,7 @@
 #include "query_result.h"
 
 void GEQODebugSpheres2D::draw_items(std::vector<Ref<QueryItem2D>> &query_items_list, double time_to_destroy) {
-	remove_labels();
-
 	debug_draw->set_query_items(query_items_list);
-	debug_draw->set_destroy_time(time_to_destroy);
-
-	for (Ref<QueryItem2D> query_item : query_items_list) {
-		Label *text_label = memnew(Label);
-		text_labels.append(text_label);
-		add_child(text_label);
-
-		if (query_item->get_is_filtered()) {
-			text_label->set_deferred("text", "Filtered");
-		} else if (query_item->get_has_score()) {
-			text_label->set_deferred("text", String::num(query_item->get_score(), 2));
-		}
-
-		text_label->set_deferred("global_position", query_item->get_projection_position());
-	}
 
 	if (debug_draw) {
 		debug_draw->set_query_items(query_items_list);
@@ -55,10 +38,6 @@ void GEQODebugSpheres2D::_ready() {
 	debug_draw = memnew(GEQODebugDraw2D);
 	add_child(debug_draw);
 	debug_draw->set_debug_color(debug_color);
-}
-
-void GEQODebugDraw2D::set_destroy_time(double time) {
-	destroy_time = time;
 }
 
 void GEQODebugDraw2D::set_query_items(std::vector<Ref<QueryItem2D>> &items) {
@@ -91,9 +70,7 @@ void GEQODebugDraw2D::_draw() {
 		if (query_item->get_is_filtered()) {
 			draw_string(font, query_item->get_projection_position(), "Filtered", HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, color);
 		} else if (query_item->get_has_score()) {
-			draw_string(font, query_item->get_projection_position(), String::num(query_item->get_score()), HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, Color(1, 1, 1, 0.8));
-		} else {
-			draw_string(font, query_item->get_projection_position(), "Dolor", HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, Color(1, 0, 0, 0.8));
+			draw_string(font, query_item->get_projection_position(), String::num(query_item->get_score()).pad_decimals(2), HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, Color(1, 1, 1, 0.8));
 		}
 	}
 }

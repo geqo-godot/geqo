@@ -11,6 +11,9 @@ TypedArray<VectorT> QueryResultBase<VectorT, QueryItemT, NodeT>::_get_all_positi
 
 	_build_cache();
 
+	if (highest_unfiltered_index == -1)
+		return result; // Return empty
+
 	for (int i = 0; i <= highest_unfiltered_index; i++) {
 		result.append(query_items[sorted_indices[i]]->get_projection_position());
 	}
@@ -22,6 +25,9 @@ TypedArray<Ref<QueryItemT>> QueryResultBase<VectorT, QueryItemT, NodeT>::_get_al
 	TypedArray<QueryItemT> result;
 
 	_build_cache();
+
+	if (highest_unfiltered_index == -1)
+		return result; // Return empty
 
 	// Has to be turned into type array for godot
 	for (int i = 0; i <= highest_unfiltered_index; i++) {
@@ -36,6 +42,9 @@ TypedArray<NodeT> QueryResultBase<VectorT, QueryItemT, NodeT>::_get_all_node() c
 
 	_build_cache();
 
+	if (highest_unfiltered_index == -1)
+		return result; // Return empty
+
 	for (int i = 0; i <= highest_unfiltered_index; i++) {
 		result.append(query_items[sorted_indices[i]]->get_collided_with());
 	}
@@ -49,6 +58,9 @@ VectorT QueryResultBase<VectorT, QueryItemT, NodeT>::_get_highest_score_position
 
 	_build_cache();
 
+	if (highest_unfiltered_index == -1)
+		return VectorT(); // Return empty
+
 	return query_items[sorted_indices[0]]->get_projection_position();
 }
 
@@ -59,12 +71,12 @@ VectorT QueryResultBase<VectorT, QueryItemT, NodeT>::_get_top_random_position(do
 
 	_build_cache();
 
-	percent = std::clamp(percent, 0.0, 1.0);
+	// If there are no results
+	if (highest_unfiltered_index == -1)
+		return VectorT(); // Return empty
 
 	int unfiltered_count = highest_unfiltered_index + 1;
-	// If there are no results
-	if (unfiltered_count <= 0)
-		return VectorT();
+	percent = std::clamp(percent, 0.0, 1.0);
 
 	// Get the top percentage
 	int top_count = static_cast<int>(std::ceil(unfiltered_count * percent));
@@ -80,6 +92,10 @@ NodeT *QueryResultBase<VectorT, QueryItemT, NodeT>::_get_highest_score_node() co
 		return nullptr;
 
 	_build_cache();
+
+	if (highest_unfiltered_index == -1)
+		return nullptr; // Return empty
+
 	return query_items[sorted_indices[0]]->get_collided_with();
 }
 template <typename VectorT, typename QueryItemT, typename NodeT>
@@ -89,12 +105,12 @@ NodeT *QueryResultBase<VectorT, QueryItemT, NodeT>::_get_top_random_node(double 
 
 	_build_cache();
 
+	if (highest_unfiltered_index == -1)
+		return nullptr; // Return empty
+
 	percent = std::clamp(percent, 0.0, 1.0);
 
 	int unfiltered_count = highest_unfiltered_index + 1;
-	// If there are no results
-	if (unfiltered_count <= 0)
-		return nullptr;
 
 	// Get the top percentage
 	int top_count = static_cast<int>(std::ceil(unfiltered_count * percent));
