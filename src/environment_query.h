@@ -115,13 +115,40 @@ public:
 					  return a->get_cost() < b->get_cost();
 				  });
 
-		// TODO: Normalize values from -1 to 1
-		for (Variant test : tests) {
-			QueryTestT *current_test = Object::cast_to<QueryTestT>(test);
+		// TODO: Let user switch normalization mode
+		if (query_items.empty())
+			return;
+
+		float highest_score = -std::numeric_limits<float>::infinity();
+		float lowest_score = std::numeric_limits<float>::infinity();
+		for (int i = 0; i < query_items.size(); i++) {
+			for (Variant test : tests) {
+				QueryTestT *current_test = Object::cast_to<QueryTestT>(test);
+				current_test->perform_test(query_items[i]);
+				if (query_items[i]->get_is_filtered())
+					break;
+			}
+			if (!query_items[i]->get_is_filtered()) {
+				float score = query_items[i]->get_score();
+				if (score > highest_score)
+					highest_score = score;
+				if (score < lowest_score)
+					lowest_score = score;
+			}
+		}
+
+		// Normalize the values
+		if (highest_score == lowest_score) {
+			// All scores are the same, just put them in the middle
+			for (Ref<QueryItemT> item : query_items) {
+				if (!item->get_is_filtered())
+					item->set_score(0.5);
+			}
+		} else {
 			for (Ref<QueryItemT> item : query_items) {
 				if (item->get_is_filtered())
 					continue;
-				current_test->perform_test(item);
+				item->set_score(UtilityFunctions::remap(item->get_score(), lowest_score, highest_score, 0.0, 1.0));
 			}
 		}
 	}

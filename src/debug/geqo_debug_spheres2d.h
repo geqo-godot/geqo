@@ -20,7 +20,6 @@ public:
 	GEQODebugDraw2D() {}
 	~GEQODebugDraw2D() {}
 
-	void set_destroy_time(double time);
 	void set_query_items(std::vector<Ref<QueryItem2D>> &items);
 	void set_debug_color(const Ref<Gradient> &gradient);
 	void _draw() override;
