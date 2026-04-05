@@ -40,10 +40,15 @@ PackedStringArray EnvironmentQuery3D::_get_configuration_warnings() const {
 	else {
 		bool has_generator = false;
 		bool has_context = false;
+		int generator_amount = 0;
 		for (Variant child : get_children()) {
 			QueryGenerator3D *casted_generator = cast_to<QueryGenerator3D>(child);
 			if (casted_generator) {
 				has_generator = true;
+				generator_amount++;
+				if (generator_amount == 2) {
+					warnings.append("EnvironmentQuery should have one QueryGenerator child, subsequent generators are ignored.");
+				}
 				continue;
 			}
 			QueryContext3D *casted_context = cast_to<QueryContext3D>(child);

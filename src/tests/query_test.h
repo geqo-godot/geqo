@@ -7,8 +7,8 @@ template <typename VectorT>
 class QueryTestBase {
 public:
 	enum TestPurpose {
-		FILTER_ONLY,
 		FILTER_SCORE,
+		FILTER_ONLY,
 		SCORE_ONLY,
 	};
 	enum ScoreOperator {

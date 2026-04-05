@@ -14,7 +14,10 @@ public:
 	QueryTest2D() {}
 	~QueryTest2D() {}
 
-	void set_test_purpose(const TestPurpose purpose) { return _set_test_purpose(purpose); };
+	void set_test_purpose(const TestPurpose purpose) {
+		notify_property_list_changed();
+		return _set_test_purpose(purpose);
+	};
 	TestPurpose get_test_purpose() const { return _get_test_purpose(); }
 
 	void set_context_score_operator(const ScoreOperator score_op) { return _set_context_score_operator(score_op); };
@@ -31,6 +34,7 @@ public:
 
 protected:
 	static void _bind_methods();
+	void _validate_property(PropertyInfo &property) const;
 };
 
 VARIANT_ENUM_CAST(QueryTest2D::TestPurpose);

@@ -43,10 +43,15 @@ PackedStringArray EnvironmentQuery2D::_get_configuration_warnings() const {
 	else {
 		bool has_generator = false;
 		bool has_context = false;
+		int generator_amount = 0;
 		for (Variant child : get_children()) {
-			QueryGenerator2D *casted_generator = cast_to<QueryGenerator2D>(child);
+			QueryGenerator3D *casted_generator = cast_to<QueryGenerator3D>(child);
 			if (casted_generator) {
 				has_generator = true;
+				generator_amount++;
+				if (generator_amount == 2) {
+					warnings.append("EnvironmentQuery should have one QueryGenerator child, subsequent generators are ignored.");
+				}
 				continue;
 			}
 			QueryContext2D *casted_context = cast_to<QueryContext2D>(child);
@@ -54,9 +59,9 @@ PackedStringArray EnvironmentQuery2D::_get_configuration_warnings() const {
 				has_context = true;
 		}
 		if (!has_generator)
-			warnings.append("Missing a QueryGenerator3D.");
+			warnings.append("Missing a QueryGenerator2D.");
 		if (!has_context)
-			warnings.append("This query has no QueryContext3Ds");
+			warnings.append("This query has no QueryContext2Ds");
 	}
 
 	return warnings;
