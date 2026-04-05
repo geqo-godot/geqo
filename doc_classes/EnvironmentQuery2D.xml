@@ -11,8 +11,9 @@
 	</tutorials>
 	<methods>
 		<method name="get_query_items">
-			<return type="Array" />
+			<return type="QueryItem2D[]" />
 			<description>
+				Returns an array of [QueryItem2D]s.
 			</description>
 		</method>
 		<method name="get_result">

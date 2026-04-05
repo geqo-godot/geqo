@@ -36,7 +36,7 @@ public:
 	void set_is_querying(const bool querying) { return _set_is_querying(querying); }
 	bool get_is_querying() const { return _get_is_querying(); }
 
-	Array get_query_items() {
+	TypedArray<Ref<QueryItem2D>> get_query_items() {
 		return _get_query_items();
 	}
 
