@@ -1,4 +1,5 @@
 #include "environment_query2d.h"
+#include "contexts/query_context2d.h"
 #include "generators/query_generator2d.h"
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/scene_tree.hpp>
@@ -38,17 +39,29 @@ PackedStringArray EnvironmentQuery2D::_get_configuration_warnings() const {
 	PackedStringArray warnings;
 
 	if (get_children().is_empty())
-		warnings.append("Must have one QueryGenerator2D child.");
-	else if (get_children().size() > 1)
-		warnings.append("EnvironmentQuery should have only one child.");
+		warnings.append("Must have one QueryGenerator3D child.");
 	else {
-		QueryGenerator2D *casted_generator = Object::cast_to<QueryGenerator2D>(get_children()[0]);
-		if (!casted_generator)
-			warnings.append("Child should be a QueryGenerator2D");
+		bool has_generator = false;
+		bool has_context = false;
+		for (Variant child : get_children()) {
+			QueryGenerator2D *casted_generator = cast_to<QueryGenerator2D>(child);
+			if (casted_generator) {
+				has_generator = true;
+				continue;
+			}
+			QueryContext2D *casted_context = cast_to<QueryContext2D>(child);
+			if (casted_context)
+				has_context = true;
+		}
+		if (!has_generator)
+			warnings.append("Missing a QueryGenerator3D.");
+		if (!has_context)
+			warnings.append("This query has no QueryContext3Ds");
 	}
 
 	return warnings;
 }
+
 void EnvironmentQuery2D::init_generator() {
 	//UtilityFunctions::print("Initializing generators.");
 	for (Variant child : get_children()) {
@@ -72,6 +85,7 @@ void EnvironmentQuery2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_result"), &EnvironmentQuery2D::get_result);
 	ClassDB::bind_method(D_METHOD("set_time_budget_ms"), &EnvironmentQuery2D::set_time_budget_ms);
 	ClassDB::bind_method(D_METHOD("get_time_budget_ms"), &EnvironmentQuery2D::get_time_budget_ms);
+	ClassDB::bind_method(D_METHOD("get_query_items"), &EnvironmentQuery2D::get_query_items);
 
 	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_debug_shapes"), "set_use_debug_shapes", "get_use_debug_shapes");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "time_budget_ms"), "set_time_budget_ms", "get_time_budget_ms");

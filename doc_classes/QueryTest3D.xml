@@ -28,6 +28,7 @@
 	</methods>
 	<members>
 		<member name="cost" type="float" setter="set_cost" getter="get_cost" default="0.0">
+			How expensive this test will be to execute.
 		</member>
 		<member name="multiple_context_score_operator" type="int" setter="set_context_score_operator" getter="get_context_score_operator" enum="QueryTest3D.ScoreOperator" default="0">
 		</member>
