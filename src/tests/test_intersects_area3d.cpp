@@ -110,7 +110,6 @@ void TestIntersectsArea3D::_bind_methods() {
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "context", PROPERTY_HINT_NODE_TYPE, "QueryContext3D"), "set_context", "get_context");
 	ADD_PROPERTY(PropertyInfo(Variant::INT, "shape_cast_mode", PROPERTY_HINT_ENUM, "Body, Area, Body Area"), "set_shape_cast_mode", "get_shape_cast_mode");
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "shape", PROPERTY_HINT_RESOURCE_TYPE, "Shape3D"), "set_shape", "get_shape");
-	ADD_PROPERTY(PropertyInfo(Variant::INT, "multiple_context_filter_operator", PROPERTY_HINT_ENUM, "Any Pass,All Pass"), "set_context_filter_operator", "get_context_filter_operator");
 	ADD_PROPERTY(
 			PropertyInfo(
 					Variant::INT,

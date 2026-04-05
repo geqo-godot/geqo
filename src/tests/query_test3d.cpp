@@ -31,5 +31,16 @@ void QueryTest3D::_bind_methods() {
 
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "cost"), "set_cost", "get_cost");
 	ADD_PROPERTY(PropertyInfo(Variant::INT, "test_purpose", PROPERTY_HINT_ENUM, "Filter Score,Filter Only,Score Only"), "set_test_purpose", "get_test_purpose");
+	ADD_PROPERTY(PropertyInfo(Variant::INT, "multiple_context_filter_operator", PROPERTY_HINT_ENUM, "Any Pass,All Pass"), "set_context_filter_operator", "get_context_filter_operator");
 	ADD_PROPERTY(PropertyInfo(Variant::INT, "multiple_context_score_operator", PROPERTY_HINT_ENUM, "Average Score,Max Score,Min Score"), "set_context_score_operator", "get_context_score_operator");
+}
+
+void QueryTest3D::_validate_property(PropertyInfo &property) const {
+	if (property.name == StringName("multiple_context_filter_operator"))
+		if (get_test_purpose() == SCORE_ONLY)
+			property.usage &= ~PROPERTY_USAGE_EDITOR;
+
+	if (property.name == StringName("multiple_context_score_operator"))
+		if (get_test_purpose() == FILTER_ONLY)
+			property.usage &= ~PROPERTY_USAGE_EDITOR;
 }
