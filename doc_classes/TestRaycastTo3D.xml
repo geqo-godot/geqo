@@ -4,28 +4,38 @@
 		A query test that casts a ray or shape from the [QueryItem3D] to a [QueryContext3D], to check if it hits.
 	</brief_description>
 	<description>
+		A query test that casts a ray or shape from the [QueryItem3D] to a [QueryContext3D], to check if it hits.
 	</description>
 	<tutorials>
 	</tutorials>
 	<members>
 		<member name="cast_from_context" type="bool" setter="set_cast_from_context" getter="get_cast_from_context" default="false">
+			On [param true], invert the casting and start from [member context] into [QueryItem3D].
 		</member>
 		<member name="collision_mask" type="int" setter="set_collision_mask" getter="get_collision_mask" default="1">
+			The physics layers this test will detect.
 		</member>
 		<member name="context" type="QueryContext3D" setter="set_context" getter="get_context">
+			The target [QueryContext3D] that will be detected.
 		</member>
 		<member name="cost" type="float" setter="set_cost" getter="get_cost" overrides="QueryTest3D" default="1.42" />
 		<member name="exclusions" type="NodePath[]" setter="set_exclusions" getter="get_exclusions" default="[]">
+			What collision objects will be excluded from the test. Usually the querier should be excluded.
 		</member>
 		<member name="hitting_is_true" type="bool" setter="set_hitting_is_true" getter="get_hitting_is_true" default="true">
+			If [param false], hitting the target will result in failure.
 		</member>
 		<member name="multiple_context_filter_operator" type="int" setter="set_context_filter_operator" getter="get_context_filter_operator" enum="QueryTest3D.FilterOperator" default="0">
+			How many contexts should pass condition.
 		</member>
 		<member name="raycast_mode" type="int" setter="set_raycast_mode" getter="get_raycast_mode" enum="TestRaycastTo3D.RaycastMode" default="0">
+			What type of collision object this test will detect.
 		</member>
 		<member name="shape" type="Shape3D" setter="set_shape" getter="get_shape">
+			The actual shape used by this test.
 		</member>
 		<member name="use_shape_cast" type="bool" setter="set_use_shape_cast" getter="get_use_shape_cast" default="false">
+			Use a [Shape3D] instead of a raycast.
 		</member>
 	</members>
 </class>

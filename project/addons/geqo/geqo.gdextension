@@ -22,6 +22,7 @@ GeneratorCircleShape3D = "res://addons/geqo/icons/generator3d.svg"
 GeneratorInGroup3D = "res://addons/geqo/icons/generator3d.svg"
 GeneratorInArray3D= "res://addons/geqo/icons/generator3d.svg"
 
+ContextQueryItems3D = "res://addons/geqo/icons/context3d.svg"
 ContextInGroup3D = "res://addons/geqo/icons/context3d.svg"
 ContextTargetNode3D = "res://addons/geqo/icons/context3d.svg"
 ContextTargetArray3D = "res://addons/geqo/icons/context3d.svg"

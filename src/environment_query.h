@@ -51,6 +51,14 @@ public:
 	}
 	bool _get_is_querying() const { return is_querying; }
 
+	Array _get_query_items() {
+		Array items;
+		for (Ref<QueryItemT> item : query_items) {
+			items.append(item);
+		}
+		return items;
+	}
+
 	void _request_query() {
 		// UtilityFunctions::print("EnvironmentQuery3D::request_query(): Requested a new query.");
 		if (is_querying) {

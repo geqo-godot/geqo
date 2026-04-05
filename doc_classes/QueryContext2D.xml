@@ -27,5 +27,10 @@
 				Returns only the positions of each context. Used in some [QueryTest2D]s where collisions aren't needed.
 			</description>
 		</method>
+		<method name="get_query_items">
+			<return type="Array" />
+			<description>
+			</description>
+		</method>
 	</methods>
 </class>

@@ -1,4 +1,5 @@
 #include "environment_query3d.h"
+#include "contexts/query_context3d.h"
 #include "generators/query_generator3d.h"
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/scene_tree.hpp>
@@ -36,12 +37,23 @@ PackedStringArray EnvironmentQuery3D::_get_configuration_warnings() const {
 
 	if (get_children().is_empty())
 		warnings.append("Must have one QueryGenerator3D child.");
-	else if (get_children().size() > 1)
-		warnings.append("EnvironmentQuery should have only one child.");
 	else {
-		QueryGenerator3D *casted_generator = Object::cast_to<QueryGenerator3D>(get_children()[0]);
-		if (!casted_generator)
-			warnings.append("Child should be a QueryGenerator3D");
+		bool has_generator = false;
+		bool has_context = false;
+		for (Variant child : get_children()) {
+			QueryGenerator3D *casted_generator = cast_to<QueryGenerator3D>(child);
+			if (casted_generator) {
+				has_generator = true;
+				continue;
+			}
+			QueryContext3D *casted_context = cast_to<QueryContext3D>(child);
+			if (casted_context)
+				has_context = true;
+		}
+		if (!has_generator)
+			warnings.append("Missing a QueryGenerator3D.");
+		if (!has_context)
+			warnings.append("This query has no QueryContext3Ds");
 	}
 
 	return warnings;
@@ -49,16 +61,15 @@ PackedStringArray EnvironmentQuery3D::_get_configuration_warnings() const {
 
 void EnvironmentQuery3D::init_generator() {
 	//UtilityFunctions::print("Initializing generators.");
+	bool has_generator = true;
 	for (Variant child : get_children()) {
 		QueryGenerator3D *curr_generator = cast_to<QueryGenerator3D>(child);
-		if (!curr_generator) {
-			print_error("EnvironmentQuery::init_generator(): Child is not a Generator");
-			continue;
+		if (curr_generator) {
+			curr_generator->set_query_items_ref(query_items);
+			curr_generator->connect("generator_finished", callable_mp(this, &EnvironmentQuery3D::on_generator_finished));
+			generator = curr_generator;
+			break;
 		}
-		curr_generator->set_query_items_ref(query_items);
-		curr_generator->connect("generator_finished", callable_mp(this, &EnvironmentQuery3D::on_generator_finished));
-		generator = curr_generator;
-		break;
 	}
 }
 
@@ -70,6 +81,7 @@ void EnvironmentQuery3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_result"), &EnvironmentQuery3D::get_result);
 	ClassDB::bind_method(D_METHOD("set_time_budget_ms"), &EnvironmentQuery3D::set_time_budget_ms);
 	ClassDB::bind_method(D_METHOD("get_time_budget_ms"), &EnvironmentQuery3D::get_time_budget_ms);
+	ClassDB::bind_method(D_METHOD("get_query_items"), &EnvironmentQuery3D::get_query_items);
 
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "time_budget_ms"), "set_time_budget_ms", "get_time_budget_ms");
 	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_debug_shapes"), "set_use_debug_shapes", "get_use_debug_shapes");

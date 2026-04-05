@@ -28,6 +28,9 @@
 #include "contexts/context_target_node2d.h"
 #include "contexts/context_target_node3d.h"
 
+#include "contexts/context_query_items2d.h"
+#include "contexts/context_query_items3d.h"
+
 // Generators
 #include "generators/generator_circle_shape2d.h"
 #include "generators/generator_circle_shape3d.h"
@@ -100,6 +103,8 @@ void initialize_geqo_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<ContextTargetArray3D>();
 	ClassDB::register_class<ContextInGroup2D>();
 	ClassDB::register_class<ContextInGroup3D>();
+	ClassDB::register_class<ContextQueryItems2D>();
+	ClassDB::register_class<ContextQueryItems3D>();
 
 	// Tests
 	ClassDB::register_class<TestDistanceTo2D>();

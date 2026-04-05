@@ -10,6 +10,11 @@
 	<tutorials>
 	</tutorials>
 	<methods>
+		<method name="get_query_items">
+			<return type="Array" />
+			<description>
+			</description>
+		</method>
 		<method name="get_result">
 			<return type="QueryResult3D" />
 			<description>

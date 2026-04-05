@@ -1,10 +1,10 @@
 #pragma once
-#include <godot_cpp/classes/node3d.hpp>
+#include <godot_cpp/classes/node.hpp>
 #include <godot_cpp/variant/array.hpp>
 #include <godot_cpp/variant/packed_vector3_array.hpp>
 using namespace godot;
 
-template <typename NodeT, typename PackedTArray, int VectorVariantT>
+template <typename NodeT, typename PackedTArray, int VectorVariantT, typename EnvironmentQueryT>
 class QueryContextBase {
 protected:
 	// The parent, aka the node that is inheriting this class
@@ -15,6 +15,16 @@ public:
 
 	void set_base_owner(Object *p_owner) {
 		owner = p_owner;
+	}
+
+	Array _get_query_items() {
+		Node *myself = Object::cast_to<NodeT>(owner);
+		EnvironmentQueryT *query = Object::cast_to<EnvironmentQueryT>(myself->get_parent());
+		if (!query) {
+			UtilityFunctions::print("No parent query!");
+			return Array();
+		}
+		return query->get_query_items();
 	}
 
 	PackedTArray _get_context_positions() {
