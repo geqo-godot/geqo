@@ -51,7 +51,7 @@ public:
 	}
 	bool _get_is_querying() const { return is_querying; }
 
-	Array _get_query_items() {
+	TypedArray<Ref<QueryItemT>> _get_query_items() {
 		Array items;
 		for (Ref<QueryItemT> item : query_items) {
 			items.append(item);
