@@ -22,7 +22,7 @@ It is implemented in C++ as a GDExtension for higher performance.
 
 ### Various built-in nodes to jump straight into designing.
 
-- 3 contexts
+- 4 contexts
 - 4 generators
 - 5 tests
 
