@@ -16,7 +16,7 @@ collision_layer = 2
 script = ExtResource("1_ib1tq")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.4946246, 0.8691067, 0, -0.8691067, 0.4946246, 0, 29.022266, 9.430636)
+transform = Transform3D(1, 0, 0, 0, 0.70200396, 0.71217304, 0, -0.71217304, 0.70200396, 0, 16.394823, 12.608026)
 compositor = SubResource("Compositor_ib1tq")
 current = true
 fov = 37.849285
