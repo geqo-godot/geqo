@@ -10,6 +10,7 @@
 	<members>
 		<member name="cost" type="float" setter="set_cost" getter="get_cost" overrides="QueryTest3D" default="1.39" />
 		<member name="distance_to" type="QueryContext3D" setter="set_distance_to" getter="get_distance_to">
+			What context the test will use for the checking the distance. If it's more than one location, then the results are averaged.
 		</member>
 		<member name="max_distance" type="float" setter="set_max_distance" getter="get_max_distance" default="10.0">
 		</member>

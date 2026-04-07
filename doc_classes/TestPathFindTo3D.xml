@@ -10,12 +10,15 @@
 	<members>
 		<member name="cost" type="float" setter="set_cost" getter="get_cost" overrides="QueryTest3D" default="0.98" />
 		<member name="found_path_threshold" type="float" setter="set_found_path_threshold" getter="get_found_path_threshold" default="0.1">
+			How far from the destination the [QueryContext3D] or [QueryItem3D] can be to be considered reached by the pathfinding.
 		</member>
 		<member name="path_to" type="QueryContext3D" setter="set_path_to" getter="get_path_to">
+			The context that will be used to find the path.
 		</member>
 		<member name="scoring_curve" type="Curve" setter="set_scoring_curve" getter="get_scoring_curve">
 		</member>
 		<member name="use_debug" type="bool" setter="set_use_debug" getter="get_use_debug" default="false">
+			Visualize the paths.
 		</member>
 	</members>
 </class>

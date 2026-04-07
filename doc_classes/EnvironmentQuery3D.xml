@@ -46,6 +46,7 @@
 		</signal>
 		<signal name="tests_finished">
 			<description>
+				Emitted when the tests are finished, leading to finishing the query.
 			</description>
 		</signal>
 	</signals>
