@@ -4,7 +4,7 @@
 		A node used to gather environment data using a [QueryGenerator2D] and evaluating them using [QueryTest2D]s.
 	</brief_description>
 	<description>
-		[b]EnvironmentQuery3D[/b] provides a flexible, node-based system for AI agents to ask spatial questions about the environment. Queries are composed by adding one [QueryGenerator3D] as child of the environment query and assigning [QueryTest3D]s as children of the [QueryGenerator3D].
+		[b]EnvironmentQuery2D[/b] provides a flexible, node-based system for AI agents to ask spatial questions about the environment. Queries are composed by adding one [QueryGenerator2D] as child of the environment query and assigning [QueryTest2D]s as children of the [QueryGenerator2D].
 		Queries are time sliced in the background to maintain performance.
 	</description>
 	<tutorials>
@@ -46,6 +46,7 @@
 		</signal>
 		<signal name="tests_finished">
 			<description>
+				Emitted when the tests are finished, leading to finishing the query.
 			</description>
 		</signal>
 	</signals>
