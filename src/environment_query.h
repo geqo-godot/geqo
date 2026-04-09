@@ -38,7 +38,7 @@ public:
 	virtual void init_generator() = 0;
 
 	uint64_t get_last_start_time() { return last_start_time_usec; }
-	void set_last_start_time(uint64_t usecs) { last_start_time_usec = usecs };
+	void set_last_start_time(uint64_t usecs) { last_start_time_usec = usecs; }
 
 	void _set_use_debug_shapes(const bool use_debug) { use_debug_shapes = use_debug; }
 	bool _get_use_debug_shapes() const { return use_debug_shapes; }
