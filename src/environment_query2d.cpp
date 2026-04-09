@@ -24,6 +24,7 @@ void EnvironmentQuery2D::_notification(int p_what) {
 				debug_spheres = memnew(GEQODebugSpheres2D);
 				call_deferred("add_sibling", debug_spheres);
 			}
+			connect("query_finished", callable_mp(GEQODebug::get_singleton(), &GEQODebug::_on_query_finished2d));
 			connect("tests_finished", callable_mp(this, &EnvironmentQuery2D::on_tests_finished));
 			init_generator();
 		} break;

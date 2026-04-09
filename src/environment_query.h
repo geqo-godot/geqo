@@ -1,4 +1,5 @@
 #pragma once
+#include "debug/geqo_debug.h"
 #include "debug/geqo_debug_spheres.h"
 #include "generators/query_generator3d.h"
 #include "query_result.h"
@@ -24,6 +25,7 @@ protected:
 	SpheresT *debug_spheres = nullptr;
 
 	double time_budget_ms = 1.0;
+	uint64_t last_start_time_usec = 0;
 
 	bool is_querying = false;
 	bool use_debug_shapes = false;
@@ -34,6 +36,9 @@ public:
 	~EnvironmentQueryBase() = default;
 
 	virtual void init_generator() = 0;
+
+	uint64_t get_last_start_time() { return last_start_time_usec; }
+	void set_last_start_time(uint64_t usecs) { last_start_time_usec = usecs };
 
 	void _set_use_debug_shapes(const bool use_debug) { use_debug_shapes = use_debug; }
 	bool _get_use_debug_shapes() const { return use_debug_shapes; }
@@ -48,6 +53,7 @@ public:
 
 	void _set_is_querying(const bool querying) {
 		is_querying = querying;
+		GEQODebug *geqo_debug = GEQODebug::get_singleton();
 	}
 	bool _get_is_querying() const { return is_querying; }
 
@@ -69,6 +75,7 @@ public:
 			print_error("EnvironmentQuery: No Generator in EnvironmentQuery.");
 			return;
 		}
+		last_start_time_usec = Time::get_singleton()->get_ticks_usec();
 		_start_query();
 	} // Can't be binded from here so must be binded on inherited
 
@@ -94,6 +101,7 @@ public:
 		Ref<ResultT> result;
 		result.instantiate();
 		stored_result = result;
+		stored_result->set_time_it_took(Time::get_singleton()->get_ticks_usec() - last_start_time_usec);
 		if (debug_spheres) {
 			debug_spheres->draw_items(query_items);
 		}

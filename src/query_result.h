@@ -134,6 +134,9 @@ private:
 	mutable std::vector<size_t> sorted_indices;
 	mutable int highest_unfiltered_index = -1;
 
+	// For debugging
+	uint64_t time_it_took_usec = 0;
+
 public:
 	~QueryResultBase() = default;
 
@@ -148,6 +151,8 @@ public:
 	VectorT _get_top_random_position(double percent = 0.1) const;
 	NodeT *_get_highest_score_node() const;
 	NodeT *_get_top_random_node(double percent = 0.1) const;
+	uint64_t get_time_it_took() { return time_it_took_usec; }
+	void set_time_it_took(uint64_t usecs) { time_it_took_usec = usecs; }
 };
 
 class QueryResult2D : public RefCounted, public QueryResultBase<Vector2, QueryItem2D, Node2D> {
