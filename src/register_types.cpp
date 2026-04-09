@@ -1,4 +1,5 @@
 #include <gdextension_interface.h>
+#include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
 
@@ -13,6 +14,7 @@
 #include "tests/query_test2d.h"
 #include "tests/query_test3d.h"
 
+#include "debug/geqo_debug.h"
 #include "debug/geqo_debug_spheres2d.h"
 #include "debug/geqo_debug_spheres3d.h"
 
@@ -58,11 +60,18 @@
 
 using namespace godot;
 
+static GEQODebug *_geqo_debug_singleton;
+
 void initialize_geqo_module(ModuleInitializationLevel p_level) {
 	if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE) {
 		return;
 	}
 
+	// Debugging
+	ClassDB::register_class<GEQODebug>();
+	_geqo_debug_singleton = memnew(GEQODebug);
+	Engine::get_singleton()->register_singleton("GEQODebug", GEQODebug::get_singleton());
+	_geqo_debug_singleton->init();
 	ClassDB::register_class<GEQODebugDraw2D>();
 	ClassDB::register_class<GEQODebugSpheres2D>();
 	ClassDB::register_class<GEQODebugSpheres3D>();
@@ -122,6 +131,8 @@ void uninitialize_geqo_module(ModuleInitializationLevel p_level) {
 	if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE) {
 		return;
 	}
+	Engine::get_singleton()->unregister_singleton("GEQODebug");
+	memdelete(_geqo_debug_singleton);
 }
 
 extern "C" {
