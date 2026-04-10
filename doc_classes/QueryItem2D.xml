@@ -4,14 +4,16 @@
 		Holds item information, such as [member score], [member projection_position] and [member collided_with].
 	</brief_description>
 	<description>
+		Holds item information, such as [member score], [member projection_position] and [member collided_with].
 	</description>
 	<tutorials>
 	</tutorials>
 	<methods>
 		<method name="add_score">
 			<return type="void" />
-			<param index="0" name="_unnamed_arg0" type="float" />
+			<param index="0" name="amount" type="float" />
 			<description>
+				Adds to the current score of this item.
 			</description>
 		</method>
 		<method name="create" qualifiers="static">
@@ -19,17 +21,23 @@
 			<param index="0" name="position" type="Vector2" />
 			<param index="1" name="collider" type="Node2D" />
 			<description>
+				Make a [QueryItem3D] with a [param position] and a [param collider]
 			</description>
 		</method>
 	</methods>
 	<members>
 		<member name="collided_with" type="Node2D" setter="set_collided_with" getter="get_collided_with">
+			The node this query item is attached to. It could be the ground, an enemy, or any node that could be of interest for the testing phase.
+			This is provided by [QueryGenerator3D]s.
 		</member>
 		<member name="is_filtered" type="bool" setter="set_is_filtered" getter="get_is_filtered" default="false">
+			If [code]true[/code], exclude this item from the tests and results.
 		</member>
 		<member name="projection_position" type="Vector2" setter="set_projection_position" getter="get_projection_position" default="Vector2(0, 0)">
+			The point of contact of this item. This is provided by [QueryGenerator3D]s.
 		</member>
 		<member name="score" type="float" setter="set_score" getter="get_score" default="0.0">
+			Current score of this item. These are normalized at the testing phase.
 		</member>
 	</members>
 </class>

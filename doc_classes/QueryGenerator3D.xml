@@ -4,6 +4,7 @@
 		Generates potential positions or nodes which are then stored as [QueryItem3D]s for testing.
 	</brief_description>
 	<description>
+		Generates potential positions or nodes which are then stored as [QueryItem3D]s for testing.
 	</description>
 	<tutorials>
 	</tutorials>

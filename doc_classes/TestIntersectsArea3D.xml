@@ -4,6 +4,7 @@
 		A query test that checks if [QueryContext3D] is intersecting an area using [Shape3D].
 	</brief_description>
 	<description>
+		A query test that checks if [QueryContext3D] is intersecting an area using [Shape3D].
 	</description>
 	<tutorials>
 	</tutorials>

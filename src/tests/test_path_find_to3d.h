@@ -14,12 +14,11 @@ class TestPathFindTo3D : public QueryTest3D {
 public:
 	enum PathTestType {
 		PATH_EXISTS,
-		PATH_COST
+		//PATH_COST
 	};
 
 private:
 	bool use_debug = false;
-	Ref<Curve> scoring_curve;
 	PathTestType path_test_type = PATH_EXISTS;
 	QueryContext3D *path_to = nullptr;
 	double found_path_threshold = 0.1;
@@ -32,9 +31,6 @@ public:
 
 	void set_use_debug(bool debug);
 	bool get_use_debug() const { return use_debug; }
-
-	void set_scoring_curve(Ref<Curve> curve);
-	Ref<Curve> get_scoring_curve() const { return scoring_curve; }
 
 	void set_path_to(QueryContext3D *context_node);
 	QueryContext3D *get_path_to() { return path_to; }

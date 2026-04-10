@@ -25,12 +25,16 @@
 			Height where the raycast search will start.
 		</member>
 		<member name="projection_collision_mask" type="int" setter="set_projection_collision_mask" getter="get_projection_collision_mask" default="1">
+			The physics layers this projection [b]scans[/b].
 		</member>
 		<member name="shape" type="Shape3D" setter="set_shape" getter="get_shape">
+			Shape of the projection.
 		</member>
 		<member name="space_between" type="float" setter="set_space_between" getter="get_space_between" default="5.0">
+			The space between each point in the grid.
 		</member>
 		<member name="use_shape_cast" type="bool" setter="set_use_shape_cast" getter="get_use_shape_cast" default="false">
+			Use a [Shape3D] instead of a raycast.
 		</member>
 		<member name="use_vertical_projection" type="bool" setter="set_use_vertical_projection" getter="get_use_vertical_projection" default="true">
 			If [code]true[/code], casts ray onto the ground to position the [QueryItem3D]s.

@@ -14,10 +14,6 @@ void TestPathFindTo3D::set_use_debug(bool debug) {
 	use_debug = debug;
 }
 
-void TestPathFindTo3D::set_scoring_curve(Ref<Curve> curve) {
-	scoring_curve = curve;
-}
-
 void TestPathFindTo3D::set_path_to(QueryContext3D *context_node) {
 	path_to = context_node;
 }
@@ -153,21 +149,11 @@ void TestPathFindTo3D::_ready() {
 	if (Engine::get_singleton()->is_editor_hint()) {
 		return;
 	}
-	if (scoring_curve.is_null()) {
-		scoring_curve = Ref<Curve>();
-		scoring_curve.instantiate();
-		scoring_curve->add_point(Vector2(0, 0));
-		scoring_curve->add_point(Vector2(1, 1));
-	}
-	scoring_curve->bake();
 }
 
 void TestPathFindTo3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_use_debug", "debug"), &TestPathFindTo3D::set_use_debug);
 	ClassDB::bind_method(D_METHOD("get_use_debug"), &TestPathFindTo3D::get_use_debug);
-
-	ClassDB::bind_method(D_METHOD("set_scoring_curve", "curve"), &TestPathFindTo3D::set_scoring_curve);
-	ClassDB::bind_method(D_METHOD("get_scoring_curve"), &TestPathFindTo3D::get_scoring_curve);
 
 	ClassDB::bind_method(D_METHOD("set_found_path_threshold", "threshold"), &TestPathFindTo3D::set_found_path_threshold);
 	ClassDB::bind_method(D_METHOD("get_found_path_threshold"), &TestPathFindTo3D::get_found_path_threshold);
@@ -178,5 +164,4 @@ void TestPathFindTo3D::_bind_methods() {
 	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_debug"), "set_use_debug", "get_use_debug");
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "path_to", PROPERTY_HINT_NODE_TYPE, "QueryContext3D"), "set_path_to", "get_path_to");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "found_path_threshold"), "set_found_path_threshold", "get_found_path_threshold");
-	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "scoring_curve", PROPERTY_HINT_RESOURCE_TYPE, "Curve"), "set_scoring_curve", "get_scoring_curve");
 }

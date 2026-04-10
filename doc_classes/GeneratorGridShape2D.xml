@@ -10,10 +10,13 @@
 	</tutorials>
 	<members>
 		<member name="generate_around" type="QueryContext2D" setter="set_generate_around" getter="get_generate_around">
+			Reference [QueryContext2D], where a grid will generate on each of these positions.
 		</member>
 		<member name="grid_half_size" type="float" setter="set_grid_half_size" getter="get_grid_half_size" default="200.0">
+			The half the size of the grid, similar to radius.
 		</member>
 		<member name="space_between" type="float" setter="set_space_between" getter="get_space_between" default="50.0">
+			The space between each point in the grid.
 		</member>
 	</members>
 </class>

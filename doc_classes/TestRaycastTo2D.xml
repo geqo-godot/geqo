@@ -4,6 +4,7 @@
 		A query test that casts a ray or shape from the [QueryItem2D] to a [QueryContext2D], to check if it hits.
 	</brief_description>
 	<description>
+		A query test that casts a ray or shape from the [QueryItem2D] to a [QueryContext2D], to check if it hits.
 	</description>
 	<tutorials>
 	</tutorials>

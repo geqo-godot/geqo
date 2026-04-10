@@ -157,7 +157,7 @@ void QueryItem2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_projection_position"), &QueryItem2D::get_projection_position);
 	ClassDB::bind_method(D_METHOD("set_collided_with"), &QueryItem2D::set_collided_with);
 	ClassDB::bind_method(D_METHOD("get_collided_with"), &QueryItem2D::get_collided_with);
-	ClassDB::bind_method(D_METHOD("add_score"), &QueryItem2D::add_score);
+	ClassDB::bind_method(D_METHOD("add_score", "amount"), &QueryItem2D::add_score);
 
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "score"), "set_score", "get_score");
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "collided_with", PROPERTY_HINT_NODE_TYPE, "Node2D"), "set_collided_with", "get_collided_with");
@@ -176,7 +176,7 @@ void QueryItem3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_projection_position"), &QueryItem3D::get_projection_position);
 	ClassDB::bind_method(D_METHOD("set_collided_with"), &QueryItem3D::set_collided_with);
 	ClassDB::bind_method(D_METHOD("get_collided_with"), &QueryItem3D::get_collided_with);
-	ClassDB::bind_method(D_METHOD("add_score"), &QueryItem3D::add_score);
+	ClassDB::bind_method(D_METHOD("add_score", "amount"), &QueryItem3D::add_score);
 
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "score"), "set_score", "get_score");
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "collided_with", PROPERTY_HINT_NODE_TYPE, "Node3D"), "set_collided_with", "get_collided_with");

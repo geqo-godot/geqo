@@ -4,18 +4,23 @@
 		A query test that checks the distance from [QueryItem2D] to a [QueryContext2D].
 	</brief_description>
 	<description>
+		A query test that checks the distance from [QueryItem2D] to a [QueryContext2D].
 	</description>
 	<tutorials>
 	</tutorials>
 	<members>
 		<member name="cost" type="float" setter="set_cost" getter="get_cost" overrides="QueryTest2D" default="1.39" />
 		<member name="distance_to" type="QueryContext2D" setter="set_distance_to" getter="get_distance_to">
+			What context the test will use for the checking the distance. If it's more than one location, then the results are averaged.
 		</member>
 		<member name="max_distance" type="float" setter="set_max_distance" getter="get_max_distance" default="200.0">
+			Maximum distance. If filtering is enabled, this filters it out.
 		</member>
 		<member name="min_distance" type="float" setter="set_min_distance" getter="get_min_distance" default="0.0">
+			Minimum distance. If filtering is enabled, this filters it out.
 		</member>
 		<member name="scoring_curve" type="Curve" setter="set_scoring_curve" getter="get_scoring_curve">
+			Scoring curve from [member min_distance] to [member max_distance]. Decides how much score each context member applies to the [QueryItem3D]
 		</member>
 	</members>
 </class>
