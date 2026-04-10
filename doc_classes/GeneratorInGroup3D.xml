@@ -10,12 +10,16 @@
 	</tutorials>
 	<members>
 		<member name="collision_mask" type="float" setter="set_collision_mask" getter="get_collision_mask" default="0.0">
+			The physics layers this generator [b]scans[/b].
 		</member>
 		<member name="generate_around" type="QueryContext3D" setter="set_generate_around" getter="get_generate_around">
+			Reference [QueryContext3D], where a [Shape3D] will check around each of them in search of the members in [member group].
 		</member>
 		<member name="group" type="String" setter="set_group" getter="get_group" default="&quot;&quot;">
+			The target group.
 		</member>
 		<member name="radius" type="float" setter="set_range_radius" getter="get_range_radius" default="50.0">
+			Radius of each [Shape3D].
 		</member>
 	</members>
 </class>

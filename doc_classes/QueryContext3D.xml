@@ -4,6 +4,7 @@
 		Acts as a reference for [QueryGenerator3D]s and [QueryTest3D]s, providing [Node3D]s and/or [Vector3]s in an [Array].
 	</brief_description>
 	<description>
+		Acts as a reference for [QueryGenerator3D]s and [QueryTest3D]s, providing [Node3D]s and/or [Vector3]s in an [Array].
 	</description>
 	<tutorials>
 	</tutorials>
@@ -25,6 +26,12 @@
 			<return type="PackedVector3Array" />
 			<description>
 				Returns only the positions of each context. Used in some [QueryTest3D]s where collisions aren't needed.
+			</description>
+		</method>
+		<method name="get_query_items">
+			<return type="Array" />
+			<description>
+				Returns the list of current [QueryItem3D]s.
 			</description>
 		</method>
 	</methods>

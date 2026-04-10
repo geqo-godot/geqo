@@ -4,6 +4,7 @@
 		Acts as a reference for [QueryGenerator2D]s and [QueryTest2D]s, providing [Node2D]s and/or [Vector2]s in an [Array].
 	</brief_description>
 	<description>
+		Acts as a reference for [QueryGenerator2D]s and [QueryTest2D]s, providing [Node2D]s and/or [Vector2]s in an [Array].
 	</description>
 	<tutorials>
 	</tutorials>
@@ -30,6 +31,7 @@
 		<method name="get_query_items">
 			<return type="Array" />
 			<description>
+				Returns the list of current [QueryItem2D]s.
 			</description>
 		</method>
 	</methods>

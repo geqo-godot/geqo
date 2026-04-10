@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <class name="GEQODebug" inherits="Object" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
+		Provides performance monitoring for GEQO.
 	</brief_description>
 	<description>
+		Provides performance monitoring for GEQO.
 	</description>
 	<tutorials>
 	</tutorials>
@@ -10,11 +12,13 @@
 		<method name="get_average_query_time_usec">
 			<return type="float" />
 			<description>
+				Returns the average query time of the last 1000 queries.
 			</description>
 		</method>
 		<method name="get_latest_query_time_usec">
 			<return type="float" />
 			<description>
+				Returns the time of the most recent query.
 			</description>
 		</method>
 	</methods>

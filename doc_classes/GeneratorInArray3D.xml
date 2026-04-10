@@ -9,6 +9,7 @@
 	</tutorials>
 	<members>
 		<member name="context_array" type="QueryContext3D" setter="set_context_array" getter="get_context_array">
+			Array that will be returned. Can be [Node3D]s or [Vector3]s.
 		</member>
 	</members>
 </class>
