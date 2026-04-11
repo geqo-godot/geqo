@@ -41,17 +41,11 @@ group = "player"
 [node name="ContextSelf" type="ContextTargetNode3D" parent="EnvironmentQuery3D" node_paths=PackedStringArray("target_node")]
 target_node = NodePath("../..")
 
-[node name="ContextInGroup3D" type="ContextInGroup3D" parent="EnvironmentQuery3D"]
-group = "enemies"
-
 [node name="GeneratorGridShape3D" type="GeneratorGridShape3D" parent="EnvironmentQuery3D" node_paths=PackedStringArray("generate_around")]
 generate_around = NodePath("../ContextSelf")
 post_projection_vertical_offset = 0.5
 use_shape_cast = true
 shape = SubResource("SphereShape3D_gmutw")
-
-[node name="TestPathFindToSelf" type="TestPathFindTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("path_to")]
-path_to = NodePath("../../ContextSelf")
 
 [node name="TestDistanceToPlayer" type="TestDistanceTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("distance_to")]
 distance_to = NodePath("../../ContextPlayer")
