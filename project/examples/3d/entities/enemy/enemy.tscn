@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://nvso64245ltb"]
+[gd_scene load_steps=6 format=3 uid="uid://nvso64245ltb"]
 
 [ext_resource type="Script" uid="uid://cyqo7rh6dj286" path="res://examples/3d/entities/enemy/enemy.gd" id="1_3fvr7"]
 
@@ -10,12 +10,6 @@
 
 [sub_resource type="Curve" id="Curve_5peh2"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_77jyu"]
-
-[sub_resource type="Curve" id="Curve_5bnyk"]
-_data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
 point_count = 2
 
 [node name="Enemy" type="CharacterBody3D" groups=["enemies"]]
@@ -43,6 +37,7 @@ target_node = NodePath("../..")
 
 [node name="GeneratorGridShape3D" type="GeneratorGridShape3D" parent="EnvironmentQuery3D" node_paths=PackedStringArray("generate_around")]
 generate_around = NodePath("../ContextSelf")
+grid_half_size = 25.0
 post_projection_vertical_offset = 0.5
 use_shape_cast = true
 shape = SubResource("SphereShape3D_gmutw")
@@ -51,19 +46,7 @@ shape = SubResource("SphereShape3D_gmutw")
 distance_to = NodePath("../../ContextPlayer")
 scoring_curve = SubResource("Curve_5peh2")
 test_purpose = 2
-
-[node name="TestRaycastToPlayer" type="TestRaycastTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("context")]
-context = NodePath("../../ContextPlayer")
-hitting_is_true = false
-exclusions = Array[NodePath]([NodePath("../../..")])
-collision_mask = 3
-shape = SubResource("SphereShape3D_77jyu")
-multiple_context_filter_operator = 1
-
-[node name="TestDistanceToSelf" type="TestDistanceTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("distance_to")]
-distance_to = NodePath("../../ContextSelf")
-max_distance = 15.0
-scoring_curve = SubResource("Curve_5bnyk")
-test_purpose = 2
+filter_min = 10.0
+filter_max = 15.0
 
 [connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]

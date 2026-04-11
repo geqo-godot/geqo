@@ -1,13 +1,5 @@
 #include "tests/test_dot_product2d.h"
 
-void TestDotProduct2D::set_min_value(double value) {
-	min_value = value;
-}
-
-void TestDotProduct2D::set_max_value(double value) {
-	max_value = value;
-}
-
 void TestDotProduct2D::set_from_place(QueryContext2D *context) {
 	from_place = context;
 }
@@ -33,7 +25,7 @@ void TestDotProduct2D::perform_test(Ref<QueryItem2D> projection) {
 
 	double score = 0.0;
 
-	if (dot_product >= min_value && dot_product <= max_value)
+	if (dot_product >= get_filter_min() && dot_product <= get_filter_max())
 		score = 1.0;
 
 	//	switch (get_test_purpose()) {
@@ -55,20 +47,12 @@ void TestDotProduct2D::perform_test(Ref<QueryItem2D> projection) {
 }
 
 void TestDotProduct2D::_bind_methods() {
-	ClassDB::bind_method(D_METHOD("get_min_value"), &TestDotProduct2D::get_min_value);
-	ClassDB::bind_method(D_METHOD("set_min_value", "value"), &TestDotProduct2D::set_min_value);
-
-	ClassDB::bind_method(D_METHOD("get_max_value"), &TestDotProduct2D::get_max_value);
-	ClassDB::bind_method(D_METHOD("set_max_value", "value"), &TestDotProduct2D::set_max_value);
-
 	ClassDB::bind_method(D_METHOD("get_from_place"), &TestDotProduct2D::get_from_place);
 	ClassDB::bind_method(D_METHOD("set_from_place", "context"), &TestDotProduct2D::set_from_place);
 
 	ClassDB::bind_method(D_METHOD("get_to_target"), &TestDotProduct2D::get_to_target);
 	ClassDB::bind_method(D_METHOD("set_to_target", "context"), &TestDotProduct2D::set_to_target);
 
-	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "min_value", PROPERTY_HINT_RANGE, "-1.0,1.0,0.05"), "set_min_value", "get_min_value");
-	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "max_value", PROPERTY_HINT_RANGE, "-1.0,1.0,0.05"), "set_max_value", "get_max_value");
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "from_place", PROPERTY_HINT_NODE_TYPE, "QueryContext2D"), "set_from_place", "get_from_place");
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "to_target", PROPERTY_HINT_NODE_TYPE, "QueryContext2D"), "set_to_target", "get_to_target");
 }

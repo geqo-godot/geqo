@@ -12,9 +12,6 @@ private:
 	Ref<Curve> scoring_curve;
 	QueryContext3D *distance_to = nullptr;
 
-	double min_distance = 0.0;
-	double max_distance = 10.0;
-
 public:
 	TestDistanceTo3D() : QueryTest3D() {
 		set_cost(1.39);
@@ -27,12 +24,6 @@ public:
 
 	void set_distance_to(QueryContext3D *context_node);
 	QueryContext3D *get_distance_to() { return distance_to; }
-
-	void set_min_distance(double dist);
-	double get_min_distance() const { return min_distance; }
-
-	void set_max_distance(double dist);
-	double get_max_distance() const { return max_distance; }
 
 	void perform_test(Ref<QueryItem3D> projection) override;
 	void _ready() override;

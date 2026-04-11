@@ -59,21 +59,41 @@ public:
 	NodeT *_get_collided_with() { return collided_with; }
 	void _set_collided_with(NodeT *node) { collided_with = node; }
 
-	void _add_score(int test_purpose, int filter_operator, double amount, double min_thershold, double max_threshold) {
-		// Filter out scores that aren't within the thresholds
+	void _add_score_numeric(int test_purpose, int filter_type, double amount, double min_threshold, double max_threshold) {
 		if (test_purpose == 0 || test_purpose == 1) {
-			if (amount < min_thershold || amount > max_threshold) {
+			bool filtered = false;
+			if (filter_type == 0)
+				filtered = amount < min_threshold;
+			else if (filter_type == 1)
+				filtered = amount > max_threshold;
+			else if (filter_type == 2)
+				filtered = amount < min_threshold || amount > max_threshold;
+			if (filtered) {
 				is_filtered = true;
 				return;
 			}
 		}
 
-		// Handle scoring
 		if (test_purpose == 0 || test_purpose == 2) {
-			// Normalize the amount base on the thresholds
-			double range = max_threshold - min_thershold;
-			double normalized_score = (range > 0.0) ? std::clamp((amount - min_thershold) / range, 0.0, 1.0) : 0.0;
-			score += normalized_score;
+			double range = max_threshold - min_threshold;
+			double normalized = (range > 0.0) ? std::clamp((amount - min_threshold) / range, 0.0, 1.0) : 0.0;
+			score += normalized;
+			has_score = true;
+		}
+	}
+
+	void _add_score_boolean(int test_purpose, bool value, bool expected_boolean) {
+		bool passed = (value == expected_boolean);
+
+		if (test_purpose == 0 || test_purpose == 1) {
+			if (!passed) {
+				is_filtered = true;
+				return;
+			}
+		}
+
+		if (test_purpose == 0 || test_purpose == 2) {
+			score += passed ? 1.0 : 0.0;
 			has_score = true;
 		}
 	}
@@ -113,8 +133,11 @@ public:
 	Node2D *get_collided_with() { return _get_collided_with(); }
 	void set_collided_with(Node2D *node) { return _set_collided_with(node); }
 
-	void add_score(int test_purpose, int filter_operator, double amount, double min_thershold, double max_threshold) {
-		return _add_score(test_purpose, filter_operator, amount, min_thershold, max_threshold);
+	void add_score_numeric(int test_purpose, int filter_type, double amount, double min_thershold, double max_threshold) {
+		return _add_score_numeric(test_purpose, filter_type, amount, min_thershold, max_threshold);
+	}
+	void add_score_boolean(int test_purpose, bool value, bool expected_boolean) {
+		return _add_score_boolean(test_purpose, value, expected_boolean);
 	}
 
 	// Factory thingy
@@ -149,8 +172,11 @@ public:
 	Node3D *get_collided_with() { return _get_collided_with(); }
 	void set_collided_with(Node3D *node) { return _set_collided_with(node); }
 
-	void add_score(int test_purpose, int filter_operator, double amount, double min_thershold, double max_threshold) {
-		return _add_score(test_purpose, filter_operator, amount, min_thershold, max_threshold);
+	void add_score_numeric(int test_purpose, int filter_type, double amount, double min_thershold, double max_threshold) {
+		return _add_score_numeric(test_purpose, filter_type, amount, min_thershold, max_threshold);
+	}
+	void add_score_boolean(int test_purpose, bool value, bool expected_boolean) {
+		return _add_score_boolean(test_purpose, value, expected_boolean);
 	}
 
 	// Factory thingy

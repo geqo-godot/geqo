@@ -27,9 +27,9 @@ public:
 
 	// Only used if TestType is numeric
 	enum FilterType {
-		FILTER_TYPE_RANGE,
 		FILTER_TYPE_MIN,
 		FILTER_TYPE_MAX,
+		FILTER_TYPE_RANGE,
 	};
 
 private:
@@ -37,7 +37,7 @@ private:
 	TestType test_type = TEST_TYPE_NUMERIC;
 	MultipleContextScoreOp multiple_context_score_operator = AVERAGE_SCORE;
 	MultipleContextFilterOp multiple_context_filter_operator = ANY_PASS;
-	FilterType filter_type = FILTER_TYPE_RANGE;
+	FilterType filter_type = FILTER_TYPE_MIN;
 	float filter_min = 0.0f;
 	float filter_max = 0.0f;
 	float scoring_factor = 1.0f;

@@ -12,14 +12,6 @@ void TestDistanceTo3D::set_distance_to(QueryContext3D *context_node) {
 	distance_to = context_node;
 }
 
-void TestDistanceTo3D::set_min_distance(double dist) {
-	min_distance = dist;
-}
-
-void TestDistanceTo3D::set_max_distance(double dist) {
-	max_distance = dist;
-}
-
 void TestDistanceTo3D::perform_test(Ref<QueryItem3D> projection) {
 	// UtilityFunctions::print_rich("Testing the tested test to test");
 	if (distance_to == nullptr) {
@@ -38,36 +30,61 @@ void TestDistanceTo3D::perform_test(Ref<QueryItem3D> projection) {
 
 	// Aggregate distances based on operator
 	double final_raw_distance = 0.0;
+	double highest_distance = *std::max_element(distances.begin(), distances.end());
+	double lowest_distance = *std::min_element(distances.begin(), distances.end());
 	switch (get_context_score_operator()) {
 		case AVERAGE_SCORE:
 			final_raw_distance = std::accumulate(distances.begin(), distances.end(), 0.0) / distances.size();
 			break;
 		case MAX_SCORE:
-			final_raw_distance = *std::max_element(distances.begin(), distances.end());
+			final_raw_distance = highest_distance;
 			break;
 		case MIN_SCORE:
-			final_raw_distance = *std::min_element(distances.begin(), distances.end());
+			final_raw_distance = lowest_distance;
 			break;
 	}
 
-	// Normalize the distances and sample the curve score
-	double range = max_distance - min_distance;
-	double normalized = (range > 0.0) ? std::clamp((final_raw_distance - min_distance) / range, 0.0, 1.0) : 0.0;
-	double curve_score = scoring_curve->sample_baked(normalized);
+	// Handle filtering using raw distance against thresholds
+	if (get_test_purpose() == FILTER_ONLY || get_test_purpose() == FILTER_SCORE) {
+		projection->add_score_numeric(
+				FILTER_ONLY,
+				get_filter_type(),
+				final_raw_distance,
+				(get_filter_type() == FILTER_TYPE_MIN || get_filter_type() == FILTER_TYPE_RANGE) ? get_filter_min() : 0.0,
+				(get_filter_type() == FILTER_TYPE_MAX || get_filter_type() == FILTER_TYPE_RANGE) ? get_filter_max() : highest_distance);
+	}
 
-	// Add the score
-	projection->add_score(
-			get_test_purpose(),
-			get_context_filter_operator(),
-			curve_score,
-			0.0,
-			1.0);
+	// If filtered, no point scoring
+	if (projection->get_is_filtered())
+		return;
 
-	// Raw distance was out of bounds so manually filter
-	if (final_raw_distance < min_distance || final_raw_distance > max_distance) {
-		if (get_test_purpose() != SCORE_ONLY) {
-			projection->set_is_filtered(true);
+	// Handle scoring using curve-adjusted value
+	if (get_test_purpose() == SCORE_ONLY || get_test_purpose() == FILTER_SCORE) {
+		double normalized = 0.0;
+		switch (get_filter_type()) {
+			case FILTER_TYPE_MIN: {
+				double range = highest_distance - get_filter_min();
+				normalized = (range > 0.0) ? std::clamp((final_raw_distance - get_filter_min()) / range, 0.0, 1.0) : 0.0;
+				break;
+			}
+			case FILTER_TYPE_MAX: {
+				normalized = (get_filter_max() > 0.0) ? std::clamp(final_raw_distance / get_filter_max(), 0.0, 1.0) : 0.0;
+				break;
+			}
+			case FILTER_TYPE_RANGE: {
+				double range = get_filter_max() - get_filter_min();
+				normalized = (range > 0.0) ? std::clamp((final_raw_distance - get_filter_min()) / range, 0.0, 1.0) : 0.0;
+				break;
+			}
 		}
+
+		double curve_score = scoring_curve->sample_baked(normalized);
+		projection->add_score_numeric(
+				SCORE_ONLY,
+				get_filter_type(),
+				curve_score,
+				0.0,
+				1.0);
 	}
 }
 
@@ -92,15 +109,6 @@ void TestDistanceTo3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_distance_to"), &TestDistanceTo3D::get_distance_to);
 	ClassDB::bind_method(D_METHOD("set_distance_to", "context_node"), &TestDistanceTo3D::set_distance_to);
 
-	ClassDB::bind_method(D_METHOD("get_min_distance"), &TestDistanceTo3D::get_min_distance);
-	ClassDB::bind_method(D_METHOD("set_min_distance", "dist"), &TestDistanceTo3D::set_min_distance);
-
-	ClassDB::bind_method(D_METHOD("get_max_distance"), &TestDistanceTo3D::get_max_distance);
-	ClassDB::bind_method(D_METHOD("set_max_distance", "dist"), &TestDistanceTo3D::set_max_distance);
-
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "distance_to", PROPERTY_HINT_NODE_TYPE, "QueryContext3D"), "set_distance_to", "get_distance_to");
-
-	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "min_distance"), "set_min_distance", "get_min_distance");
-	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "max_distance"), "set_max_distance", "get_max_distance");
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "scoring_curve", PROPERTY_HINT_RESOURCE_TYPE, "Curve"), "set_scoring_curve", "get_scoring_curve");
 }

@@ -1,6 +1,6 @@
 #pragma once
-#include "query_item.h"
 #include "tests/query_test.h"
+#include "query_item.h"
 #include <godot_cpp/classes/node2d.hpp>
 
 #include <godot_cpp/core/binder_common.hpp>

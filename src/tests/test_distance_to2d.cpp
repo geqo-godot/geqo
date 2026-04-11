@@ -13,14 +13,6 @@ void TestDistanceTo2D::set_distance_to(QueryContext2D *context_node) {
 	distance_to = context_node;
 }
 
-void TestDistanceTo2D::set_min_distance(double dist) {
-	min_distance = dist;
-}
-
-void TestDistanceTo2D::set_max_distance(double dist) {
-	max_distance = dist;
-}
-
 void TestDistanceTo2D::perform_test(Ref<QueryItem2D> projection) {
 	// UtilityFunctions::print_rich("Testing the tested test to test");
 	if (distance_to == nullptr) {
@@ -52,12 +44,12 @@ void TestDistanceTo2D::perform_test(Ref<QueryItem2D> projection) {
 	}
 
 	// Normalize the distances and sample the curve score
-	double range = max_distance - min_distance;
-	double normalized = (range > 0.0) ? std::clamp((final_raw_distance - min_distance) / range, 0.0, 1.0) : 0.0;
+	double range = get_filter_max() - get_filter_min();
+	double normalized = (range > 0.0) ? std::clamp((final_raw_distance - get_filter_min()) / range, 0.0, 1.0) : 0.0;
 	double curve_score = scoring_curve->sample_baked(normalized);
 
 	// Add the score
-	projection->add_score(
+	projection->add_score_numeric(
 			get_test_purpose(),
 			get_context_filter_operator(),
 			curve_score,
@@ -65,7 +57,7 @@ void TestDistanceTo2D::perform_test(Ref<QueryItem2D> projection) {
 			1.0);
 
 	// Raw distance was out of bounds so manually filter
-	if (final_raw_distance < min_distance || final_raw_distance > max_distance) {
+	if (final_raw_distance < get_filter_min() || final_raw_distance > get_filter_max()) {
 		if (get_test_purpose() != SCORE_ONLY) {
 			projection->set_is_filtered(true);
 		}
@@ -92,15 +84,6 @@ void TestDistanceTo2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_distance_to"), &TestDistanceTo2D::get_distance_to);
 	ClassDB::bind_method(D_METHOD("set_distance_to", "context_node"), &TestDistanceTo2D::set_distance_to);
 
-	ClassDB::bind_method(D_METHOD("get_min_distance"), &TestDistanceTo2D::get_min_distance);
-	ClassDB::bind_method(D_METHOD("set_min_distance", "dist"), &TestDistanceTo2D::set_min_distance);
-
-	ClassDB::bind_method(D_METHOD("get_max_distance"), &TestDistanceTo2D::get_max_distance);
-	ClassDB::bind_method(D_METHOD("set_max_distance", "dist"), &TestDistanceTo2D::set_max_distance);
-
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "distance_to", PROPERTY_HINT_NODE_TYPE, "QueryContext2D"), "set_distance_to", "get_distance_to");
-
-	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "min_distance"), "set_min_distance", "get_min_distance");
-	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "max_distance"), "set_max_distance", "get_max_distance");
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "scoring_curve", PROPERTY_HINT_RESOURCE_TYPE, "Curve"), "set_scoring_curve", "get_scoring_curve");
 }
