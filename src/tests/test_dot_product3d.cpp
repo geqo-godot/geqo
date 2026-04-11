@@ -36,22 +36,22 @@ void TestDotProduct3D::perform_test(Ref<QueryItem3D> projection) {
 	if (dot_product >= min_value && dot_product <= max_value)
 		score = 1.0;
 
-	switch (get_test_purpose()) {
-		case FILTER_SCORE: {
-			if (score > 0.0)
-				projection->add_score(score);
-			else
-				projection->set_is_filtered(true);
-			break;
-		}
-		case FILTER_ONLY:
-			if (score <= 0.0)
-				projection->set_is_filtered(true);
-			break;
-		case SCORE_ONLY:
-			projection->add_score(score);
-			break;
-	}
+	//	switch (get_test_purpose()) {
+	//		case FILTER_SCORE: {
+	//			if (score > 0.0)
+	//				projection->add_score(score);
+	//			else
+	//				projection->set_is_filtered(true);
+	//			break;
+	//		}
+	//		case FILTER_ONLY:
+	//			if (score <= 0.0)
+	//				projection->set_is_filtered(true);
+	//			break;
+	//		case SCORE_ONLY:
+	//			projection->add_score(score);
+	//			break;
+	//	}
 }
 
 void TestDotProduct3D::_bind_methods() {

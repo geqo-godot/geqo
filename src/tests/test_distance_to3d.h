@@ -18,6 +18,7 @@ private:
 public:
 	TestDistanceTo3D() : QueryTest3D() {
 		set_cost(1.39);
+		set_test_type(TEST_TYPE_NUMERIC);
 	}
 	~TestDistanceTo3D() {}
 

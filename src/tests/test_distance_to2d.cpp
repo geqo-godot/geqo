@@ -29,59 +29,46 @@ void TestDistanceTo2D::perform_test(Ref<QueryItem2D> projection) {
 	}
 
 	Array context_positions = distance_to->get_context_positions();
-	std::vector<double> scores = {};
 
-	for (Variant context_pos : context_positions) {
-		if (context_pos.get_type() != Variant::VECTOR2)
-			continue;
-
-		double distance = projection->get_projection_position().distance_to(context_pos);
-
-		if (get_test_purpose() == FILTER_SCORE || get_test_purpose() == FILTER_ONLY) {
-			if (distance < min_distance || distance > max_distance) {
-				scores.push_back(0.0);
-				continue;
-			}
-		}
-
-		double linear_score = (distance - min_distance) / (max_distance - min_distance);
-		double clamped_score = std::clamp(linear_score, 0.0, 1.0);
-		double curve_score = scoring_curve->sample_baked(clamped_score);
-		scores.push_back(curve_score);
+	// Collect raw distances
+	std::vector<double> distances;
+	for (int i = 0; i < context_positions.size(); i++) {
+		Vector2 pos = context_positions[i];
+		distances.push_back(projection->get_projection_position().distance_to(pos));
 	}
 
-	double result = 0.0;
-
-	// Choose score for the result
+	// Aggregate distances based on operator
+	double final_raw_distance = 0.0;
 	switch (get_context_score_operator()) {
-		case AVERAGE_SCORE: {
-			double total_score = std::accumulate(scores.begin(), scores.end(), 0.0);
-			result = total_score / scores.size();
+		case AVERAGE_SCORE:
+			final_raw_distance = std::accumulate(distances.begin(), distances.end(), 0.0) / distances.size();
 			break;
-		}
 		case MAX_SCORE:
-			result = *std::max(scores.begin(), scores.end());
+			final_raw_distance = *std::max_element(distances.begin(), distances.end());
 			break;
 		case MIN_SCORE:
-			result = *std::min_element(scores.begin(), scores.end());
+			final_raw_distance = *std::min_element(distances.begin(), distances.end());
 			break;
 	}
 
-	switch (get_test_purpose()) {
-		case FILTER_SCORE: {
-			if (result == 0.0)
-				projection->set_is_filtered(true);
-			else
-				projection->add_score(result);
-			break;
+	// Normalize the distances and sample the curve score
+	double range = max_distance - min_distance;
+	double normalized = (range > 0.0) ? std::clamp((final_raw_distance - min_distance) / range, 0.0, 1.0) : 0.0;
+	double curve_score = scoring_curve->sample_baked(normalized);
+
+	// Add the score
+	projection->add_score(
+			get_test_purpose(),
+			get_context_filter_operator(),
+			curve_score,
+			0.0,
+			1.0);
+
+	// Raw distance was out of bounds so manually filter
+	if (final_raw_distance < min_distance || final_raw_distance > max_distance) {
+		if (get_test_purpose() != SCORE_ONLY) {
+			projection->set_is_filtered(true);
 		}
-		case FILTER_ONLY:
-			if (result == 0.0)
-				projection->set_is_filtered(true);
-			break;
-		case SCORE_ONLY:
-			projection->add_score(result);
-			break;
 	}
 }
 

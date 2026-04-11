@@ -81,22 +81,22 @@ void TestPathFindTo3D::perform_test(Ref<QueryItem3D> projection) {
 			break;
 	}
 
-	switch (get_test_purpose()) {
-		case FILTER_SCORE: {
-			if (result == 0.0)
-				projection->set_is_filtered(true);
-			else
-				projection->add_score(result);
-			break;
-		}
-		case FILTER_ONLY:
-			if (result == 0.0)
-				projection->set_is_filtered(true);
-			break;
-		case SCORE_ONLY:
-			projection->add_score(result);
-			break;
-	}
+	//switch (get_test_purpose()) {
+	//	case FILTER_SCORE: {
+	//		if (result == 0.0)
+	//			projection->set_is_filtered(true);
+	//		else
+	//			projection->add_score(result);
+	//		break;
+	//	}
+	//	case FILTER_ONLY:
+	//		if (result == 0.0)
+	//			projection->set_is_filtered(true);
+	//		break;
+	//	case SCORE_ONLY:
+	//		projection->add_score(result);
+	//		break;
+	//}
 }
 PackedVector3Array TestPathFindTo3D::get_navigation_path(Vector3 p_start_position, Vector3 p_target_position) {
 	if (!is_inside_tree())

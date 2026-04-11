@@ -61,7 +61,7 @@ void TestIntersectsArea3D::perform_test(Ref<QueryItem3D> projection) {
 
 	bool filter = false;
 	int final_score = 0;
-	FilterOperator filter_op = get_context_filter_operator();
+	MultipleContextFilterOp filter_op = get_context_filter_operator();
 
 	switch (filter_op) {
 		case ANY_PASS: {
@@ -80,18 +80,18 @@ void TestIntersectsArea3D::perform_test(Ref<QueryItem3D> projection) {
 		} break;
 	}
 
-	switch (get_test_purpose()) {
-		case FILTER_SCORE: {
-			projection->set_is_filtered(filter);
-			projection->add_score(final_score);
-		} break;
-		case FILTER_ONLY: {
-			projection->set_is_filtered(filter);
-		} break;
-		case SCORE_ONLY: {
-			projection->add_score(final_score);
-		} break;
-	}
+	//switch (get_test_purpose()) {
+	//	case FILTER_SCORE: {
+	//		projection->set_is_filtered(filter);
+	//		projection->add_score(final_score);
+	//	} break;
+	//	case FILTER_ONLY: {
+	//		projection->set_is_filtered(filter);
+	//	} break;
+	//	case SCORE_ONLY: {
+	//		projection->add_score(final_score);
+	//	} break;
+	//}
 }
 
 void TestIntersectsArea3D::_bind_methods() {

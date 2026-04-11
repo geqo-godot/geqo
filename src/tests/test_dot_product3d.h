@@ -15,6 +15,7 @@ private:
 public:
 	TestDotProduct3D() : QueryTest3D() {
 		set_cost(0.78);
+		set_test_type(TEST_TYPE_NUMERIC);
 	}
 	~TestDotProduct3D() {}
 
