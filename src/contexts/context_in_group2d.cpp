@@ -1,11 +1,12 @@
 #include "contexts/context_in_group2d.h"
+#include "context_in_group2d.h"
 #include <godot_cpp/classes/scene_tree.hpp>
 
 void ContextInGroup2D::set_group(String new_group) {
 	group = new_group;
 }
 
-Array ContextInGroup2D::get_context() {
+Array ContextInGroup2D::get_context(Ref<QueryInstance2D> query_instance) {
 	if (!is_inside_tree())
 		return Array();
 	Array nodes = get_tree()->get_nodes_in_group(group);

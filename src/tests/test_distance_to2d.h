@@ -25,7 +25,7 @@ public:
 	void set_distance_to(QueryContext2D *context_node);
 	QueryContext2D *get_distance_to() { return distance_to; }
 
-	void perform_test(Ref<QueryItem2D> projection) override;
+	void perform_test(Ref<QueryInstance2D> query_instance) override;
 	void _ready() override;
 
 protected:

@@ -8,7 +8,7 @@ public:
 	ContextQueryItems3D() {}
 	~ContextQueryItems3D() {}
 
-	Array get_context() override;
+	Array get_context(Ref<QueryInstance3D> query_instance) override;
 
 protected:
 	static void _bind_methods();

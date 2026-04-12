@@ -60,7 +60,7 @@ public:
 	Dictionary cast_ray_projection(Vector3 start_pos, Vector3 end_pos, Array exclusions, int col_mask = 1);
 	TypedArray<Dictionary> cast_shape_projection(Vector3 start_pos, Vector3 end_pos, Array exclusions, Ref<Shape3D> shape, int col_mask = 1);
 
-	void perform_test(Ref<QueryItem3D> projection) override;
+	void perform_test(Ref<QueryInstance3D> query_instance) override;
 
 protected:
 	static void _bind_methods();

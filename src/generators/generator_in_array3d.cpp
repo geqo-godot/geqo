@@ -12,7 +12,7 @@ void GeneratorInArray3D::perform_generation(uint64_t initial_time_usec, double t
 		print_error("Generator couldn't find Context");
 		return;
 	}
-	Array contexts = context_array->get_context();
+	Array contexts = context_array->get_context(get_query_instance());
 
 	for (int context = _current_state.prev_context; context < contexts.size(); context++) {
 		if (contexts[context].get_type() == Variant::VECTOR3) {

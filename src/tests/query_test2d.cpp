@@ -2,12 +2,12 @@
 #include "query_test2d.h"
 #include <godot_cpp/core/class_db.hpp>
 
-void QueryTest2D::perform_test(Ref<QueryItem2D> projection) {
-	GDVIRTUAL_CALL(_perform_test, projection);
+void QueryTest2D::perform_test(Ref<QueryInstance2D> query_instance) {
+	GDVIRTUAL_CALL(_perform_test, query_instance);
 }
 
 void QueryTest2D::_bind_methods() {
-	GDVIRTUAL_BIND(_perform_test, "projection");
+	GDVIRTUAL_BIND(_perform_test, "query_instance");
 	ClassDB::bind_method(D_METHOD("set_context_score_operator", "score_op"), &QueryTest2D::set_context_score_operator);
 	ClassDB::bind_method(D_METHOD("get_context_score_operator"), &QueryTest2D::get_context_score_operator);
 

@@ -1,4 +1,5 @@
 #pragma once
+#include "query_instance.h"
 #include "query_item.h"
 #include "tests/query_test.h"
 #include <godot_cpp/classes/node3d.hpp>
@@ -57,8 +58,8 @@ public:
 	void set_cost(float new_cost) { return _set_cost(new_cost); }
 	float get_cost() { return _get_cost(); }
 
-	virtual void perform_test(Ref<QueryItem3D> projection);
-	GDVIRTUAL1_REQUIRED(_perform_test, Ref<QueryItem3D>)
+	virtual void perform_test(Ref<QueryInstance3D> query_instance);
+	GDVIRTUAL1_REQUIRED(_perform_test, Ref<QueryInstance3D>)
 
 protected:
 	static void _bind_methods();

@@ -39,7 +39,7 @@ public:
 	void set_found_path_threshold(double threshold);
 	double get_found_path_threshold() { return found_path_threshold; }
 
-	void perform_test(Ref<QueryItem3D> projection) override;
+	void perform_test(Ref<QueryInstance3D> query_instance) override;
 
 	PackedVector3Array get_navigation_path(Vector3 p_start_position, Vector3 p_target_position);
 	void _ready() override;

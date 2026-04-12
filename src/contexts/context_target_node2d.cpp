@@ -1,17 +1,17 @@
 #include "contexts/context_target_node2d.h"
+#include "context_target_node2d.h"
 
 void ContextTargetNode2D::set_target_node(Node2D *target) {
 	target_node = target;
 }
 
-Array ContextTargetNode2D::get_context() {
+Array ContextTargetNode2D::get_context(Ref<QueryInstance2D> query_instance) {
 	Array result = Array();
 	if (target_node == nullptr) {
 		print_error("ContextTargetNode2D: No target node.");
 		return Array();
 	}
 	result.append(target_node);
-	return result;
 }
 
 void ContextTargetNode2D::_bind_methods() {

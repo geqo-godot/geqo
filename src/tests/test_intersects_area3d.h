@@ -36,7 +36,7 @@ public:
 	void set_shape_cast_mode(ShapeCastMode mode);
 	ShapeCastMode get_shape_cast_mode() const { return shape_cast_mode; }
 
-	void perform_test(Ref<QueryItem3D> projection) override;
+	void perform_test(Ref<QueryInstance3D> query_instance) override;
 
 protected:
 	static void _bind_methods();

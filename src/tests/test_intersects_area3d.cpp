@@ -23,7 +23,7 @@ void TestIntersectsArea3D::set_shape_cast_mode(ShapeCastMode mode) {
 	shape_cast_mode = mode;
 }
 
-void TestIntersectsArea3D::perform_test(Ref<QueryItem3D> projection) {
+void TestIntersectsArea3D::perform_test(Ref<QueryInstance3D> query_instance) {
 	if (!context) {
 		print_error("TestIntersectsArea3D: missing a context");
 		return;

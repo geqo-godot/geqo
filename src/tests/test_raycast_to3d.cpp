@@ -44,7 +44,7 @@ void TestRaycastTo3D::set_shape(Ref<Shape3D> new_shape) {
 	shape = new_shape;
 }
 
-void TestRaycastTo3D::perform_test(Ref<QueryItem3D> projection) {
+void TestRaycastTo3D::perform_test(Ref<QueryInstance3D> query_instance) {
 	if (!context) {
 		print_error("TestRaycastTo3D: Test RaycastTo has no context");
 		return;

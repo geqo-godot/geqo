@@ -30,7 +30,7 @@ void TestRaycastTo2D::set_collision_mask(int mask) {
 void TestRaycastTo2D::set_raycast_mode(RaycastMode mode) {
 	raycast_mode = mode;
 }
-void TestRaycastTo2D::perform_test(Ref<QueryItem2D> projection) {
+void TestRaycastTo2D::perform_test(Ref<QueryInstance2D> query_instance) {
 	if (!context) {
 		print_error("Test RaycastTo has no context");
 		return;

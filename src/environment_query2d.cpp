@@ -14,6 +14,11 @@ using namespace godot;
 void EnvironmentQuery2D::_notification(int p_what) {
 	switch (p_what) {
 		case NOTIFICATION_READY: {
+			if (!get_querier()) {
+				Node2D *new_querier = Object::cast_to<Node2D>(get_owner());
+				if (new_querier)
+					set_querier(new_querier);
+			}
 			if (Engine::get_singleton()->is_editor_hint()) {
 				update_configuration_warnings();
 				return;
@@ -65,6 +70,9 @@ PackedStringArray EnvironmentQuery2D::_get_configuration_warnings() const {
 			warnings.append("This query has no QueryContext2Ds");
 	}
 
+	if (!get_querier()) {
+		warnings.append("EnvironmentQuery has no querier. Assign a Node2D as the owner");
+	}
 	return warnings;
 }
 
@@ -76,7 +84,7 @@ void EnvironmentQuery2D::init_generator() {
 			print_error("EnvironmentQuery::init_generator(): Child is not a Generator");
 			continue;
 		}
-		curr_generator->set_query_items_ref(query_items);
+		curr_generator->set_query_instance(get_query_instance());
 		curr_generator->connect("generator_finished", callable_mp(this, &EnvironmentQuery2D::on_generator_finished));
 		generator = curr_generator;
 		break;
@@ -84,6 +92,9 @@ void EnvironmentQuery2D::init_generator() {
 }
 
 void EnvironmentQuery2D::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("set_querier"), &EnvironmentQuery2D::set_querier);
+	ClassDB::bind_method(D_METHOD("get_querier"), &EnvironmentQuery2D::get_querier);
+
 	ClassDB::bind_method(D_METHOD("get_use_debug_shapes"), &EnvironmentQuery2D::get_use_debug_shapes);
 	ClassDB::bind_method(D_METHOD("set_use_debug_shapes", "use_debug"), &EnvironmentQuery2D::set_use_debug_shapes);
 
@@ -91,8 +102,8 @@ void EnvironmentQuery2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_result"), &EnvironmentQuery2D::get_result);
 	ClassDB::bind_method(D_METHOD("set_time_budget_ms"), &EnvironmentQuery2D::set_time_budget_ms);
 	ClassDB::bind_method(D_METHOD("get_time_budget_ms"), &EnvironmentQuery2D::get_time_budget_ms);
-	ClassDB::bind_method(D_METHOD("get_query_items"), &EnvironmentQuery2D::get_query_items);
 
+	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "querier", PROPERTY_HINT_NODE_TYPE, "Node2D"), "set_querier", "get_querier");
 	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_debug_shapes"), "set_use_debug_shapes", "get_use_debug_shapes");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "time_budget_ms"), "set_time_budget_ms", "get_time_budget_ms");
 

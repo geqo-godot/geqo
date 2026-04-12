@@ -12,7 +12,7 @@ void TestDistanceTo3D::set_distance_to(QueryContext3D *context_node) {
 	distance_to = context_node;
 }
 
-void TestDistanceTo3D::perform_test(Ref<QueryItem3D> projection) {
+void TestDistanceTo3D::perform_test(Ref<QueryInstance3D> query_instance) {
 	// UtilityFunctions::print_rich("Testing the tested test to test");
 	if (distance_to == nullptr) {
 		UtilityFunctions::print_rich("Test has no context");

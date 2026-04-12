@@ -10,19 +10,6 @@
 
 using namespace godot;
 
-void QueryGenerator2D::perform_tests(int current_item) {
-	for (Variant test : get_children()) {
-		QueryTest2D *current_test = Object::cast_to<QueryTest2D>(test);
-		if (current_test == nullptr) {
-			print_error("Invalid test, is this a QueryTest node?");
-			continue;
-		}
-		Ref<QueryItem2D> item = get_query_items_ref()[current_item];
-		if (!item->get_is_filtered())
-			current_test->perform_test(item);
-	}
-}
-
 Dictionary QueryGenerator2D::cast_ray_projection(Vector2 start_pos, Vector2 end_pos, Array exclusions, int col_mask) {
 	PhysicsDirectSpaceState2D *space_state = get_world_2d()->get_direct_space_state();
 	Ref<PhysicsRayQueryParameters2D> query = PhysicsRayQueryParameters2D::create(start_pos, end_pos, col_mask);

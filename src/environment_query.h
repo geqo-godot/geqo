@@ -13,15 +13,18 @@ using namespace godot;
 template <typename Traits>
 class EnvironmentQueryBase {
 protected:
+	using NodeT = typename Traits::NodeT;
 	using VectorT = typename Traits::VectorT;
 	using ResultT = typename Traits::ResultT;
 	using GeneratorT = typename Traits::GeneratorT;
 	using SpheresT = typename Traits::SpheresT;
 	using QueryItemT = typename Traits::QueryItemT;
 	using QueryTestT = typename Traits::QueryTestT;
-	//Current query items of the query.
-	std::vector<Ref<QueryItemT>> query_items;
-	GeneratorT *generator;
+	using QueryInstanceT = typename Traits::QueryInstanceT;
+
+	Ref<QueryInstanceT> instance;
+	NodeT *querier = nullptr;
+	GeneratorT *generator = nullptr;
 	SpheresT *debug_spheres = nullptr;
 
 	double time_budget_ms = 1.0;
@@ -37,8 +40,19 @@ public:
 
 	virtual void init_generator() = 0;
 
+	void _set_querier(NodeT *node) {
+		querier = node;
+	}
+	NodeT *_get_querier() const {
+		return querier;
+	}
+
 	uint64_t get_last_start_time() { return last_start_time_usec; }
 	void set_last_start_time(uint64_t usecs) { last_start_time_usec = usecs; }
+
+	Ref<QueryInstanceT> _get_query_instance() {
+		return instance;
+	}
 
 	void _set_use_debug_shapes(const bool use_debug) { use_debug_shapes = use_debug; }
 	bool _get_use_debug_shapes() const { return use_debug_shapes; }
@@ -57,14 +71,6 @@ public:
 	}
 	bool _get_is_querying() const { return is_querying; }
 
-	TypedArray<Ref<QueryItemT>> _get_query_items() {
-		Array items;
-		for (Ref<QueryItemT> item : query_items) {
-			items.append(item);
-		}
-		return items;
-	}
-
 	void _request_query() {
 		// UtilityFunctions::print("EnvironmentQuery3D::request_query(): Requested a new query.");
 		if (is_querying) {
@@ -81,7 +87,9 @@ public:
 
 	void _start_query() {
 		// UtilityFunctions::print(vformat("Previous vector size: %s", query_items.size()));
-		query_items.clear();
+		instance = Ref<QueryInstanceT>();
+		instance.instantiate();
+		generator->set_query_instance(instance);
 		is_querying = true;
 		_process_query();
 	}
@@ -103,10 +111,10 @@ public:
 		stored_result = result;
 		stored_result->set_time_it_took(Time::get_singleton()->get_ticks_usec() - last_start_time_usec);
 		if (debug_spheres) {
-			debug_spheres->draw_items(query_items);
+			debug_spheres->draw_items(instance->get_items());
 		}
 		// Give query_items to result for caching
-		stored_result->set_items(std::move(query_items));
+		stored_result->set_items(instance->take_items());
 
 		is_querying = false;
 		return true;
@@ -131,41 +139,11 @@ public:
 					  return a->get_cost() < b->get_cost();
 				  });
 
-		// TODO: Let user switch normalization mode
-		if (query_items.empty())
+		if (instance->get_item_count() == 0)
 			return;
 
-		float highest_score = -std::numeric_limits<float>::infinity();
-		float lowest_score = std::numeric_limits<float>::infinity();
-		for (int i = 0; i < query_items.size(); i++) {
-			for (Variant test : tests) {
-				QueryTestT *current_test = Object::cast_to<QueryTestT>(test);
-				current_test->perform_test(query_items[i]);
-				if (query_items[i]->get_is_filtered())
-					break;
-			}
-			if (!query_items[i]->get_is_filtered()) {
-				float score = query_items[i]->get_score();
-				if (score > highest_score)
-					highest_score = score;
-				if (score < lowest_score)
-					lowest_score = score;
-			}
-		}
-
-		// Normalize the values
-		if (highest_score == lowest_score) {
-			// All scores are the same, just put them in the middle
-			for (Ref<QueryItemT> item : query_items) {
-				if (!item->get_is_filtered())
-					item->set_score(0.5);
-			}
-		} else {
-			for (Ref<QueryItemT> item : query_items) {
-				if (item->get_is_filtered())
-					continue;
-				item->set_score(UtilityFunctions::remap(item->get_score(), lowest_score, highest_score, 0.0, 1.0));
-			}
+		for (QueryTestT *test : tests) {
+			test->perform_test(instance);
 		}
 	}
 };

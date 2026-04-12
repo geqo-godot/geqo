@@ -1,6 +1,7 @@
 #pragma once
-#include "tests/query_test.h"
+#include "query_instance.h"
 #include "query_item.h"
+#include "tests/query_test.h"
 #include <godot_cpp/classes/node2d.hpp>
 
 #include <godot_cpp/core/binder_common.hpp>
@@ -57,8 +58,8 @@ public:
 	void set_cost(float new_cost) { return _set_cost(new_cost); }
 	float get_cost() { return _get_cost(); }
 
-	virtual void perform_test(Ref<QueryItem2D> projection);
-	GDVIRTUAL1_REQUIRED(_perform_test, Ref<QueryItem2D>)
+	virtual void perform_test(Ref<QueryInstance2D> query_instance);
+	GDVIRTUAL1_REQUIRED(_perform_test, Ref<QueryInstance2D>)
 
 protected:
 	static void _bind_methods();

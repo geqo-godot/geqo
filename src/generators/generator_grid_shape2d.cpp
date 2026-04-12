@@ -21,7 +21,7 @@ void GeneratorGridShape2D::perform_generation(uint64_t initial_time_usec, double
 	}
 	int grid_size = std::round(grid_half_size * 2 / space_between) + 1;
 	//UtilityFunctions::print("The size of the grid: ", grid_size * grid_size);
-	Array contexts = generate_around->get_context();
+	Array contexts = generate_around->get_context(get_query_instance());
 
 	for (int context = _current_state.prev_context; context < contexts.size(); context++) {
 		Vector2 starting_pos;
