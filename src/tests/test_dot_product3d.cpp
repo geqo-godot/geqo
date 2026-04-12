@@ -17,24 +17,24 @@ void TestDotProduct3D::set_to_target(QueryContext3D *context) {
 }
 
 void TestDotProduct3D::perform_test(Ref<QueryInstance3D> query_instance) {
-	Node3D *context1 = Object::cast_to<Node3D>(from_place->get_context()[0]);
-	Node3D *context2 = Object::cast_to<Node3D>(to_target->get_context()[0]);
+	//Node3D *context1 = Object::cast_to<Node3D>(from_place->get_context()[0]);
+	//Node3D *context2 = Object::cast_to<Node3D>(to_target->get_context()[0]);
 
-	if (!context1 || !context2) {
-		print_error("TestDotProduct3D missing a context");
-		return;
-	}
+	//if (!context1 || !context2) {
+	//	print_error("TestDotProduct3D missing a context");
+	//	return;
+	//}
 
-	Vector3 line_1 = -(context2->get_global_transform().get_basis().get_column(2));
-	Vector3 context2_pos = context2->get_global_position();
+	//Vector3 line_1 = -(context2->get_global_transform().get_basis().get_column(2));
+	//Vector3 context2_pos = context2->get_global_position();
 
-	Vector3 line_2 = context1->get_global_position().direction_to(context2->get_global_position());
-	double dot_product = line_1.dot(line_2);
+	//Vector3 line_2 = context1->get_global_position().direction_to(context2->get_global_position());
+	//double dot_product = line_1.dot(line_2);
 
-	double score = 0.0;
+	//double score = 0.0;
 
-	if (dot_product >= min_value && dot_product <= max_value)
-		score = 1.0;
+	//if (dot_product >= min_value && dot_product <= max_value)
+	//	score = 1.0;
 
 	//	switch (get_test_purpose()) {
 	//		case FILTER_SCORE: {

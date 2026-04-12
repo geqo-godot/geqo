@@ -12,6 +12,7 @@ Array ContextTargetNode2D::get_context(Ref<QueryInstance2D> query_instance) {
 		return Array();
 	}
 	result.append(target_node);
+	return result;
 }
 
 void ContextTargetNode2D::_bind_methods() {

@@ -9,24 +9,24 @@ void TestDotProduct2D::set_to_target(QueryContext2D *context) {
 }
 
 void TestDotProduct2D::perform_test(Ref<QueryInstance2D> query_instance) {
-	Node2D *context1 = Object::cast_to<Node2D>(from_place->get_context()[0]);
-	Node2D *context2 = Object::cast_to<Node2D>(to_target->get_context()[0]);
+	//Node2D *context1 = Object::cast_to<Node2D>(from_place->get_context()[0]);
+	//Node2D *context2 = Object::cast_to<Node2D>(to_target->get_context()[0]);
 
-	if (!context1 || !context2) {
-		print_error("TestDotProduct2D missing a context");
-		return;
-	}
+	//if (!context1 || !context2) {
+	//	print_error("TestDotProduct2D missing a context");
+	//	return;
+	//}
 
-	Vector2 line_1 = Vector2(1, 0).rotated(context1->get_global_rotation());
-	Vector2 context2_pos = context2->get_global_position();
+	//Vector2 line_1 = Vector2(1, 0).rotated(context1->get_global_rotation());
+	//Vector2 context2_pos = context2->get_global_position();
 
-	Vector2 line_2 = Vector2(1, 0).rotated(context2->get_global_rotation());
-	double dot_product = line_1.dot(line_2);
+	//Vector2 line_2 = Vector2(1, 0).rotated(context2->get_global_rotation());
+	//double dot_product = line_1.dot(line_2);
 
-	double score = 0.0;
+	//double score = 0.0;
 
-	if (dot_product >= get_filter_min() && dot_product <= get_filter_max())
-		score = 1.0;
+	//if (dot_product >= get_filter_min() && dot_product <= get_filter_max())
+	//	score = 1.0;
 
 	//	switch (get_test_purpose()) {
 	//		case FILTER_SCORE: {

@@ -11,6 +11,7 @@ Array ContextTargetNode3D::get_context(Ref<QueryInstance3D> query_instance) {
 		return Array();
 	}
 	result.append(target_node);
+	return result;
 }
 void ContextTargetNode3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_target_node"), &ContextTargetNode3D::get_target_node);

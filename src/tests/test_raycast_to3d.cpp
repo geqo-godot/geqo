@@ -45,91 +45,91 @@ void TestRaycastTo3D::set_shape(Ref<Shape3D> new_shape) {
 }
 
 void TestRaycastTo3D::perform_test(Ref<QueryInstance3D> query_instance) {
-	if (!context) {
-		print_error("TestRaycastTo3D: Test RaycastTo has no context");
-		return;
-	}
-	Array context_nodes = context->get_context();
+	//if (!context) {
+	//	print_error("TestRaycastTo3D: Test RaycastTo has no context");
+	//	return;
+	//}
+	//Array context_nodes = context->get_context();
 
-	int current_score = 0;
+	//int current_score = 0;
 
-	for (Variant context : context_nodes) {
-		Node3D *context_node = Object::cast_to<Node3D>(context);
-		if (context_node == nullptr) {
-			print_error("TestRaycastTo3D: RaycastTo context should be PhysicsBody3D");
-			return;
-		}
-		Vector3 start_pos;
-		Vector3 end_pos;
+	//for (Variant context : context_nodes) {
+	//	Node3D *context_node = Object::cast_to<Node3D>(context);
+	//	if (context_node == nullptr) {
+	//		print_error("TestRaycastTo3D: RaycastTo context should be PhysicsBody3D");
+	//		return;
+	//	}
+	//	Vector3 start_pos;
+	//	Vector3 end_pos;
 
-		if (cast_from_context) {
-			start_pos = context_node->get_global_position();
-			end_pos = projection->get_projection_position();
-		} else {
-			start_pos = projection->get_projection_position();
-			end_pos = context_node->get_global_position();
-		}
-		Dictionary result;
+	//	if (cast_from_context) {
+	//		start_pos = context_node->get_global_position();
+	//		end_pos = projection->get_projection_position();
+	//	} else {
+	//		start_pos = projection->get_projection_position();
+	//		end_pos = context_node->get_global_position();
+	//	}
+	//	Dictionary result;
 
-		Array exclusion_nodes = Array();
-		for (NodePath exclusion_path : exclusions) {
-			CollisionObject3D *node = Object::cast_to<CollisionObject3D>(get_node_or_null(exclusion_path));
-			if (node != nullptr)
-				exclusion_nodes.append(node);
-		}
-		if (use_shape_cast) {
-			TypedArray<Dictionary> shape_results = cast_shape_projection(start_pos, end_pos, exclusion_nodes, shape, collision_mask);
-			if (!shape_results.is_empty()) {
-				result = shape_results[0];
-				for (Dictionary shape_result : shape_results) {
-					Node3D *collider = Object::cast_to<Node3D>(shape_result.get("collider", nullptr));
-					if (collider == context_node) {
-						result = shape_result;
-						break;
-					}
-				}
-			}
-		} else {
-			result = cast_ray_projection(start_pos, end_pos, exclusion_nodes, collision_mask);
-		}
-		bool is_hit = false;
+	//	Array exclusion_nodes = Array();
+	//	for (NodePath exclusion_path : exclusions) {
+	//		CollisionObject3D *node = Object::cast_to<CollisionObject3D>(get_node_or_null(exclusion_path));
+	//		if (node != nullptr)
+	//			exclusion_nodes.append(node);
+	//	}
+	//	if (use_shape_cast) {
+	//		TypedArray<Dictionary> shape_results = cast_shape_projection(start_pos, end_pos, exclusion_nodes, shape, collision_mask);
+	//		if (!shape_results.is_empty()) {
+	//			result = shape_results[0];
+	//			for (Dictionary shape_result : shape_results) {
+	//				Node3D *collider = Object::cast_to<Node3D>(shape_result.get("collider", nullptr));
+	//				if (collider == context_node) {
+	//					result = shape_result;
+	//					break;
+	//				}
+	//			}
+	//		}
+	//	} else {
+	//		result = cast_ray_projection(start_pos, end_pos, exclusion_nodes, collision_mask);
+	//	}
+	//	bool is_hit = false;
 
-		Node3D *collider = Object::cast_to<Node3D>(result.get("collider", nullptr));
-		if (collider == context_node)
-			is_hit = true;
+	//	Node3D *collider = Object::cast_to<Node3D>(result.get("collider", nullptr));
+	//	if (collider == context_node)
+	//		is_hit = true;
 
-		// Invert if hitting_is_true = false
-		if (!hitting_is_true) {
-			is_hit = !is_hit;
-		}
+	//	// Invert if hitting_is_true = false
+	//	if (!hitting_is_true) {
+	//		is_hit = !is_hit;
+	//	}
 
-		if (is_hit) {
-			current_score++;
-			if (get_context_filter_operator() == ANY_PASS)
-				break;
-		}
-	}
+	//	if (is_hit) {
+	//		current_score++;
+	//		if (get_context_filter_operator() == ANY_PASS)
+	//			break;
+	//	}
+	//}
 
-	bool filter = false;
-	int final_score = 0;
-	MultipleContextFilterOp filter_op = get_context_filter_operator();
+	//bool filter = false;
+	//int final_score = 0;
+	//MultipleContextFilterOp filter_op = get_context_filter_operator();
 
-	switch (filter_op) {
-		case ANY_PASS: {
-			if (current_score > 0) {
-				final_score = 1;
-			} else {
-				filter = true;
-			}
-		} break;
-		case ALL_PASS: {
-			if (current_score == context_nodes.size()) {
-				final_score = 1;
-			} else {
-				filter = true;
-			}
-		} break;
-	}
+	//switch (filter_op) {
+	//	case ANY_PASS: {
+	//		if (current_score > 0) {
+	//			final_score = 1;
+	//		} else {
+	//			filter = true;
+	//		}
+	//	} break;
+	//	case ALL_PASS: {
+	//		if (current_score == context_nodes.size()) {
+	//			final_score = 1;
+	//		} else {
+	//			filter = true;
+	//		}
+	//	} break;
+	//}
 	//
 	//	switch (get_test_purpose()) {
 	//		case FILTER_SCORE: {

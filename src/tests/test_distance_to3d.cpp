@@ -13,79 +13,79 @@ void TestDistanceTo3D::set_distance_to(QueryContext3D *context_node) {
 }
 
 void TestDistanceTo3D::perform_test(Ref<QueryInstance3D> query_instance) {
-	// UtilityFunctions::print_rich("Testing the tested test to test");
-	if (distance_to == nullptr) {
-		UtilityFunctions::print_rich("Test has no context");
-		return;
-	}
+	//// UtilityFunctions::print_rich("Testing the tested test to test");
+	//if (distance_to == nullptr) {
+	//	UtilityFunctions::print_rich("Test has no context");
+	//	return;
+	//}
 
-	Array context_positions = distance_to->get_context_positions();
+	//Array context_positions = distance_to->get_context_positions();
 
-	// Collect raw distances
-	std::vector<double> distances;
-	for (int i = 0; i < context_positions.size(); i++) {
-		Vector3 pos = context_positions[i];
-		distances.push_back(projection->get_projection_position().distance_to(pos));
-	}
+	//// Collect raw distances
+	//std::vector<double> distances;
+	//for (int i = 0; i < context_positions.size(); i++) {
+	//	Vector3 pos = context_positions[i];
+	//	distances.push_back(projection->get_projection_position().distance_to(pos));
+	//}
 
-	// Aggregate distances based on operator
-	double final_raw_distance = 0.0;
-	double highest_distance = *std::max_element(distances.begin(), distances.end());
-	double lowest_distance = *std::min_element(distances.begin(), distances.end());
-	switch (get_context_score_operator()) {
-		case AVERAGE_SCORE:
-			final_raw_distance = std::accumulate(distances.begin(), distances.end(), 0.0) / distances.size();
-			break;
-		case MAX_SCORE:
-			final_raw_distance = highest_distance;
-			break;
-		case MIN_SCORE:
-			final_raw_distance = lowest_distance;
-			break;
-	}
+	//// Aggregate distances based on operator
+	//double final_raw_distance = 0.0;
+	//double highest_distance = *std::max_element(distances.begin(), distances.end());
+	//double lowest_distance = *std::min_element(distances.begin(), distances.end());
+	//switch (get_context_score_operator()) {
+	//	case AVERAGE_SCORE:
+	//		final_raw_distance = std::accumulate(distances.begin(), distances.end(), 0.0) / distances.size();
+	//		break;
+	//	case MAX_SCORE:
+	//		final_raw_distance = highest_distance;
+	//		break;
+	//	case MIN_SCORE:
+	//		final_raw_distance = lowest_distance;
+	//		break;
+	//}
 
-	// Handle filtering using raw distance against thresholds
-	if (get_test_purpose() == FILTER_ONLY || get_test_purpose() == FILTER_SCORE) {
-		projection->add_score_numeric(
-				FILTER_ONLY,
-				get_filter_type(),
-				final_raw_distance,
-				(get_filter_type() == FILTER_TYPE_MIN || get_filter_type() == FILTER_TYPE_RANGE) ? get_filter_min() : 0.0,
-				(get_filter_type() == FILTER_TYPE_MAX || get_filter_type() == FILTER_TYPE_RANGE) ? get_filter_max() : highest_distance);
-	}
+	//// Handle filtering using raw distance against thresholds
+	//if (get_test_purpose() == FILTER_ONLY || get_test_purpose() == FILTER_SCORE) {
+	//	projection->add_score_numeric(
+	//			FILTER_ONLY,
+	//			get_filter_type(),
+	//			final_raw_distance,
+	//			(get_filter_type() == FILTER_TYPE_MIN || get_filter_type() == FILTER_TYPE_RANGE) ? get_filter_min() : 0.0,
+	//			(get_filter_type() == FILTER_TYPE_MAX || get_filter_type() == FILTER_TYPE_RANGE) ? get_filter_max() : highest_distance);
+	//}
 
-	// If filtered, no point scoring
-	if (projection->get_is_filtered())
-		return;
+	//// If filtered, no point scoring
+	//if (projection->get_is_filtered())
+	//	return;
 
-	// Handle scoring using curve-adjusted value
-	if (get_test_purpose() == SCORE_ONLY || get_test_purpose() == FILTER_SCORE) {
-		double normalized = 0.0;
-		switch (get_filter_type()) {
-			case FILTER_TYPE_MIN: {
-				double range = highest_distance - get_filter_min();
-				normalized = (range > 0.0) ? std::clamp((final_raw_distance - get_filter_min()) / range, 0.0, 1.0) : 0.0;
-				break;
-			}
-			case FILTER_TYPE_MAX: {
-				normalized = (get_filter_max() > 0.0) ? std::clamp(final_raw_distance / get_filter_max(), 0.0, 1.0) : 0.0;
-				break;
-			}
-			case FILTER_TYPE_RANGE: {
-				double range = get_filter_max() - get_filter_min();
-				normalized = (range > 0.0) ? std::clamp((final_raw_distance - get_filter_min()) / range, 0.0, 1.0) : 0.0;
-				break;
-			}
-		}
+	//// Handle scoring using curve-adjusted value
+	//if (get_test_purpose() == SCORE_ONLY || get_test_purpose() == FILTER_SCORE) {
+	//	double normalized = 0.0;
+	//	switch (get_filter_type()) {
+	//		case FILTER_TYPE_MIN: {
+	//			double range = highest_distance - get_filter_min();
+	//			normalized = (range > 0.0) ? std::clamp((final_raw_distance - get_filter_min()) / range, 0.0, 1.0) : 0.0;
+	//			break;
+	//		}
+	//		case FILTER_TYPE_MAX: {
+	//			normalized = (get_filter_max() > 0.0) ? std::clamp(final_raw_distance / get_filter_max(), 0.0, 1.0) : 0.0;
+	//			break;
+	//		}
+	//		case FILTER_TYPE_RANGE: {
+	//			double range = get_filter_max() - get_filter_min();
+	//			normalized = (range > 0.0) ? std::clamp((final_raw_distance - get_filter_min()) / range, 0.0, 1.0) : 0.0;
+	//			break;
+	//		}
+	//	}
 
-		double curve_score = scoring_curve->sample_baked(normalized);
-		projection->add_score_numeric(
-				SCORE_ONLY,
-				get_filter_type(),
-				curve_score,
-				0.0,
-				1.0);
-	}
+	//	double curve_score = scoring_curve->sample_baked(normalized);
+	//	projection->add_score_numeric(
+	//			SCORE_ONLY,
+	//			get_filter_type(),
+	//			curve_score,
+	//			0.0,
+	//			1.0);
+	//}
 }
 
 // TODO: Change to NOTIFICATION_READY

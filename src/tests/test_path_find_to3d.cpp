@@ -23,63 +23,63 @@ void TestPathFindTo3D::set_found_path_threshold(double threshold) {
 }
 
 void TestPathFindTo3D::perform_test(Ref<QueryInstance3D> query_instance) {
-	if (path_to == nullptr) {
-		print_error("TestPathFindTo3D has no context");
-		return;
-	}
+	//if (path_to == nullptr) {
+	//	print_error("TestPathFindTo3D has no context");
+	//	return;
+	//}
 
-	Array context_positions = path_to->get_context_positions();
-	std::vector<double> scores = {};
+	//Array context_positions = path_to->get_context_positions();
+	//std::vector<double> scores = {};
 
-	for (Variant context_pos : context_positions) {
-		if (context_pos.get_type() != Variant::VECTOR3)
-			continue;
+	//for (Variant context_pos : context_positions) {
+	//	if (context_pos.get_type() != Variant::VECTOR3)
+	//		continue;
 
-		PackedVector3Array path = get_navigation_path(projection->get_projection_position(), context_pos);
-		if (use_debug) {
-			draw_path(path, Color(1, 0, 0));
-		}
-		//UtilityFunctions::print("Projection Pos: ", projection->projection_position, " Context Pos: ", context_pos);
-		//UtilityFunctions::print("Generated Path: ", path);
+	//	PackedVector3Array path = get_navigation_path(projection->get_projection_position(), context_pos);
+	//	if (use_debug) {
+	//		draw_path(path, Color(1, 0, 0));
+	//	}
+	//	//UtilityFunctions::print("Projection Pos: ", projection->projection_position, " Context Pos: ", context_pos);
+	//	//UtilityFunctions::print("Generated Path: ", path);
 
-		RID default_map_rid = get_world_3d()->get_navigation_map();
-		Vector3 nav_context =
-				NavigationServer3D::get_singleton()->map_get_closest_point(
-						default_map_rid,
-						context_pos);
-		if (path.is_empty()) {
-			//UtilityFunctions::print("Path was empty.");
-			scores.push_back(0.0);
-		} else {
-			//UtilityFunctions::print("size - 1 path point: ", path[path.size() - 1], " Context Pos: ", nav_context);
-			//UtilityFunctions::print("Threshold: ", found_path_threshold);
-			//UtilityFunctions::print("Distance to: ", path[path.size() - 1].distance_to(nav_context));
-			if (path[path.size() - 1].distance_to(nav_context) <= found_path_threshold) {
-				//UtilityFunctions::print("Final point on path did reach context.");
-				scores.push_back(1.0);
-			} else {
-				//UtilityFunctions::print("Final point on path did not reach context.");
-				scores.push_back(0.0);
-			}
-		}
-	}
+	//	RID default_map_rid = get_world_3d()->get_navigation_map();
+	//	Vector3 nav_context =
+	//			NavigationServer3D::get_singleton()->map_get_closest_point(
+	//					default_map_rid,
+	//					context_pos);
+	//	if (path.is_empty()) {
+	//		//UtilityFunctions::print("Path was empty.");
+	//		scores.push_back(0.0);
+	//	} else {
+	//		//UtilityFunctions::print("size - 1 path point: ", path[path.size() - 1], " Context Pos: ", nav_context);
+	//		//UtilityFunctions::print("Threshold: ", found_path_threshold);
+	//		//UtilityFunctions::print("Distance to: ", path[path.size() - 1].distance_to(nav_context));
+	//		if (path[path.size() - 1].distance_to(nav_context) <= found_path_threshold) {
+	//			//UtilityFunctions::print("Final point on path did reach context.");
+	//			scores.push_back(1.0);
+	//		} else {
+	//			//UtilityFunctions::print("Final point on path did not reach context.");
+	//			scores.push_back(0.0);
+	//		}
+	//	}
+	//}
 
-	double result = 0.0;
+	//double result = 0.0;
 
-	// Choose score for the result
-	switch (get_context_score_operator()) {
-		case AVERAGE_SCORE: {
-			double total_score = std::accumulate(scores.begin(), scores.end(), 0.0);
-			result = total_score / scores.size();
-			break;
-		}
-		case MAX_SCORE:
-			result = *std::max(scores.begin(), scores.end());
-			break;
-		case MIN_SCORE:
-			result = *std::min_element(scores.begin(), scores.end());
-			break;
-	}
+	//// Choose score for the result
+	//switch (get_context_score_operator()) {
+	//	case AVERAGE_SCORE: {
+	//		double total_score = std::accumulate(scores.begin(), scores.end(), 0.0);
+	//		result = total_score / scores.size();
+	//		break;
+	//	}
+	//	case MAX_SCORE:
+	//		result = *std::max(scores.begin(), scores.end());
+	//		break;
+	//	case MIN_SCORE:
+	//		result = *std::min_element(scores.begin(), scores.end());
+	//		break;
+	//}
 
 	//switch (get_test_purpose()) {
 	//	case FILTER_SCORE: {

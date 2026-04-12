@@ -31,88 +31,88 @@ void TestRaycastTo2D::set_raycast_mode(RaycastMode mode) {
 	raycast_mode = mode;
 }
 void TestRaycastTo2D::perform_test(Ref<QueryInstance2D> query_instance) {
-	if (!context) {
-		print_error("Test RaycastTo has no context");
-		return;
-	}
-	Array context_nodes = context->get_context();
-
-	int current_score = 0;
-
-	for (Variant context : context_nodes) {
-		Node2D *context_node = Object::cast_to<Node2D>(context);
-		if (context_node == nullptr) {
-			print_error("RaycastTo context should be PhysicsBody2D");
-			return;
-		}
-		PhysicsDirectSpaceState2D *space_state = get_world_2d()->get_direct_space_state();
-		Vector2 start_pos;
-		Vector2 end_pos;
-
-		if (cast_from_context) {
-			start_pos = context_node->get_global_position();
-			end_pos = projection->get_projection_position();
-		} else {
-			start_pos = projection->get_projection_position();
-			end_pos = context_node->get_global_position();
-		}
-
-		Ref<PhysicsRayQueryParameters2D> query = PhysicsRayQueryParameters2D::create(start_pos, end_pos);
-		query->set_collision_mask(collision_mask);
-
-		if (raycast_mode == AREA)
-			query->set_collide_with_bodies(false);
-		if (raycast_mode == AREA || raycast_mode == BODY_AREA)
-			query->set_collide_with_areas(true);
-		Array exclusion_rids = Array();
-
-		for (NodePath exclusion : exclusions) {
-			CollisionObject2D *node = Object::cast_to<CollisionObject2D>(get_node_or_null(exclusion));
-			if (node == nullptr)
-				continue;
-			exclusion_rids.append(node->get_rid());
-		}
-		query->set_exclude(exclusion_rids);
-
-		Dictionary result = space_state->intersect_ray(query);
-
-		bool is_hit = false;
-
-		Node2D *collider = Object::cast_to<Node2D>(result.get("collider", nullptr));
-		if (collider == context_node)
-			is_hit = true;
-
-		// Invert is_hit if hitting_is_true is false
-		if (!hitting_is_true) {
-			is_hit = !is_hit;
-		}
-
-		if (is_hit) {
-			current_score++;
-			if (get_context_filter_operator() == ANY_PASS)
-				break;
-		}
-	}
-	bool filter = false;
-	int final_score = 0;
-	MultipleContextFilterOp filter_op = get_context_filter_operator();
-
-	switch (filter_op) {
-		case ANY_PASS: {
-			if (current_score > 0) {
-				final_score = 1;
-			} else {
-				filter = true;
-			}
-		} break;
-		case ALL_PASS: {
-			if (current_score == context_nodes.size()) {
-				final_score = 1;
-			} else {
-				filter = true;
-			}
-		} break;
-	}
+	//	if (!context) {
+	//		print_error("Test RaycastTo has no context");
+	//		return;
+	//	}
+	//	Array context_nodes = context->get_context();
+	//
+	//	int current_score = 0;
+	//
+	//	for (Variant context : context_nodes) {
+	//		Node2D *context_node = Object::cast_to<Node2D>(context);
+	//		if (context_node == nullptr) {
+	//			print_error("RaycastTo context should be PhysicsBody2D");
+	//			return;
+	//		}
+	//		PhysicsDirectSpaceState2D *space_state = get_world_2d()->get_direct_space_state();
+	//		Vector2 start_pos;
+	//		Vector2 end_pos;
+	//
+	//		if (cast_from_context) {
+	//			start_pos = context_node->get_global_position();
+	//			end_pos = projection->get_projection_position();
+	//		} else {
+	//			start_pos = projection->get_projection_position();
+	//			end_pos = context_node->get_global_position();
+	//		}
+	//
+	//		Ref<PhysicsRayQueryParameters2D> query = PhysicsRayQueryParameters2D::create(start_pos, end_pos);
+	//		query->set_collision_mask(collision_mask);
+	//
+	//		if (raycast_mode == AREA)
+	//			query->set_collide_with_bodies(false);
+	//		if (raycast_mode == AREA || raycast_mode == BODY_AREA)
+	//			query->set_collide_with_areas(true);
+	//		Array exclusion_rids = Array();
+	//
+	//		for (NodePath exclusion : exclusions) {
+	//			CollisionObject2D *node = Object::cast_to<CollisionObject2D>(get_node_or_null(exclusion));
+	//			if (node == nullptr)
+	//				continue;
+	//			exclusion_rids.append(node->get_rid());
+	//		}
+	//		query->set_exclude(exclusion_rids);
+	//
+	//		Dictionary result = space_state->intersect_ray(query);
+	//
+	//		bool is_hit = false;
+	//
+	//		Node2D *collider = Object::cast_to<Node2D>(result.get("collider", nullptr));
+	//		if (collider == context_node)
+	//			is_hit = true;
+	//
+	//		// Invert is_hit if hitting_is_true is false
+	//		if (!hitting_is_true) {
+	//			is_hit = !is_hit;
+	//		}
+	//
+	//		if (is_hit) {
+	//			current_score++;
+	//			if (get_context_filter_operator() == ANY_PASS)
+	//				break;
+	//		}
+	//	}
+	//	bool filter = false;
+	//	int final_score = 0;
+	//	MultipleContextFilterOp filter_op = get_context_filter_operator();
+	//
+	//	switch (filter_op) {
+	//		case ANY_PASS: {
+	//			if (current_score > 0) {
+	//				final_score = 1;
+	//			} else {
+	//				filter = true;
+	//			}
+	//		} break;
+	//		case ALL_PASS: {
+	//			if (current_score == context_nodes.size()) {
+	//				final_score = 1;
+	//			} else {
+	//				filter = true;
+	//			}
+	//		} break;
+	//	}
 
 	//switch (get_test_purpose()) {
 	//	case FILTER_SCORE: {

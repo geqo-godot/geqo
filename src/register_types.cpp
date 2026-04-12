@@ -3,6 +3,9 @@
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
 
+#include "query_instance.h"
+#include "query_item.h"
+
 #include "contexts/query_context2d.h"
 #include "contexts/query_context3d.h"
 
@@ -81,6 +84,8 @@ void initialize_geqo_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<QueryResult2D>();
 	ClassDB::register_class<QueryResult3D>();
 
+	ClassDB::register_class<QueryInstance2D>();
+	ClassDB::register_class<QueryInstance3D>();
 	ClassDB::register_class<EnvironmentQuery2D>();
 	ClassDB::register_class<EnvironmentQuery3D>();
 

@@ -24,62 +24,62 @@ void TestIntersectsArea3D::set_shape_cast_mode(ShapeCastMode mode) {
 }
 
 void TestIntersectsArea3D::perform_test(Ref<QueryInstance3D> query_instance) {
-	if (!context) {
-		print_error("TestIntersectsArea3D: missing a context");
-		return;
-	}
-
-	Array context_nodes = context->get_context();
-
-	double current_score = 0.0;
-
-	PhysicsDirectSpaceState3D *space_state = get_world_3d()->get_direct_space_state();
-	Ref<PhysicsShapeQueryParameters3D> query;
-	query.instantiate();
-
-	query->set_shape(shape);
-	query->set_collision_mask(collision_mask);
-
-	Transform3D transform = Transform3D();
-	transform.set_origin(projection->get_projection_position());
-	query->set_transform(transform);
-
-	if (shape_cast_mode == AREA)
-		query->set_collide_with_bodies(false);
-	if (shape_cast_mode == AREA || shape_cast_mode == BODY_AREA)
-		query->set_collide_with_areas(true);
-
-	TypedArray<Dictionary> results = space_state->intersect_shape(query);
-
-	for (Dictionary result : results) {
-		if (context_nodes.has(result.get("collider", nullptr))) {
-			current_score += 1;
-			if (get_context_filter_operator() == ANY_PASS)
-				break;
-		}
-	}
-
-	bool filter = false;
-	int final_score = 0;
-	MultipleContextFilterOp filter_op = get_context_filter_operator();
-
-	switch (filter_op) {
-		case ANY_PASS: {
-			if (current_score > 0) {
-				final_score = 1;
-			} else {
-				filter = true;
-			}
-		} break;
-		case ALL_PASS: {
-			if (current_score == context_nodes.size()) {
-				final_score = 1;
-			} else {
-				filter = true;
-			}
-		} break;
-	}
-
+	//	if (!context) {
+	//		print_error("TestIntersectsArea3D: missing a context");
+	//		return;
+	//	}
+	//
+	//	Array context_nodes = context->get_context();
+	//
+	//	double current_score = 0.0;
+	//
+	//	PhysicsDirectSpaceState3D *space_state = get_world_3d()->get_direct_space_state();
+	//	Ref<PhysicsShapeQueryParameters3D> query;
+	//	query.instantiate();
+	//
+	//	query->set_shape(shape);
+	//	query->set_collision_mask(collision_mask);
+	//
+	//	Transform3D transform = Transform3D();
+	//	transform.set_origin(projection->get_projection_position());
+	//	query->set_transform(transform);
+	//
+	//	if (shape_cast_mode == AREA)
+	//		query->set_collide_with_bodies(false);
+	//	if (shape_cast_mode == AREA || shape_cast_mode == BODY_AREA)
+	//		query->set_collide_with_areas(true);
+	//
+	//	TypedArray<Dictionary> results = space_state->intersect_shape(query);
+	//
+	//	for (Dictionary result : results) {
+	//		if (context_nodes.has(result.get("collider", nullptr))) {
+	//			current_score += 1;
+	//			if (get_context_filter_operator() == ANY_PASS)
+	//				break;
+	//		}
+	//	}
+	//
+	//	bool filter = false;
+	//	int final_score = 0;
+	//	MultipleContextFilterOp filter_op = get_context_filter_operator();
+	//
+	//	switch (filter_op) {
+	//		case ANY_PASS: {
+	//			if (current_score > 0) {
+	//				final_score = 1;
+	//			} else {
+	//				filter = true;
+	//			}
+	//		} break;
+	//		case ALL_PASS: {
+	//			if (current_score == context_nodes.size()) {
+	//				final_score = 1;
+	//			} else {
+	//				filter = true;
+	//			}
+	//		} break;
+	//	}
+	//
 	//switch (get_test_purpose()) {
 	//	case FILTER_SCORE: {
 	//		projection->set_is_filtered(filter);

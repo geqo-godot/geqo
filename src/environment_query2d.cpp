@@ -13,12 +13,14 @@ using namespace godot;
 //}
 void EnvironmentQuery2D::_notification(int p_what) {
 	switch (p_what) {
-		case NOTIFICATION_READY: {
+		case NOTIFICATION_ENTER_TREE: {
 			if (!get_querier()) {
 				Node2D *new_querier = Object::cast_to<Node2D>(get_owner());
 				if (new_querier)
 					set_querier(new_querier);
 			}
+		} break;
+		case NOTIFICATION_READY: {
 			if (Engine::get_singleton()->is_editor_hint()) {
 				update_configuration_warnings();
 				return;
@@ -36,8 +38,7 @@ void EnvironmentQuery2D::_notification(int p_what) {
 		case NOTIFICATION_CHILD_ORDER_CHANGED: {
 			if (Engine::get_singleton()->is_editor_hint())
 				update_configuration_warnings();
-			break;
-		}
+		} break;
 	}
 }
 
