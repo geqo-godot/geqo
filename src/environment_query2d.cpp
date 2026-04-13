@@ -95,6 +95,7 @@ void EnvironmentQuery2D::init_generator() {
 void EnvironmentQuery2D::init_tests() {
 	if (!_get_generator())
 		return;
+	_gather_tests();
 	for (QueryTest2D *test : _get_sorted_tests()) {
 		test->connect("test_finished", callable_mp(this, &EnvironmentQuery2D::on_test_finished));
 	}

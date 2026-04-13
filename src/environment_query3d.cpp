@@ -94,7 +94,6 @@ void EnvironmentQuery3D::init_tests() {
 		return;
 	_gather_tests();
 	for (QueryTest3D *test : _get_sorted_tests()) {
-		UtilityFunctions::print(test);
 		test->connect("test_finished", callable_mp(this, &EnvironmentQuery3D::on_test_finished));
 	}
 }

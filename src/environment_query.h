@@ -97,6 +97,7 @@ public:
 		instance.instantiate();
 		generator->set_query_instance(instance);
 		is_querying = true;
+		current_test = 0;
 		_process_query();
 	}
 
@@ -144,7 +145,9 @@ public:
 			// No tests available
 			return;
 		// Begin first test
-		sorted_tests[0]->perform_test(instance);
+		QueryTestT *first_test = sorted_tests[0];
+		instance->clear_test_data(first_test);
+		first_test->perform_test(instance);
 	}
 
 	// Will return true to do the call_deferred query_finshed on the 2D and 3D environment queries
@@ -152,7 +155,9 @@ public:
 		current_test++;
 		instance->reset_iterator();
 		if (current_test < sorted_tests.size()) {
-			sorted_tests[current_test]->perform_test(instance);
+			QueryTestT *test_instance = sorted_tests[current_test];
+			instance->clear_test_data(test_instance);
+			test_instance->perform_test(instance);
 			return false;
 		} else {
 			// Process the results
