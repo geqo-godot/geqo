@@ -52,4 +52,13 @@ script = ExtResource("2_gmutw")
 distance_to = NodePath("../../ContextSelf")
 metadata/_custom_type_script = "uid://55v77romqu4f"
 
+[node name="CustomDistanceTo3D2" type="QueryTest3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("distance_to")]
+score_curve = SubResource("Curve_gmutw")
+filter_min = 1.0
+filter_max = 10.0
+cost = 1.0
+script = ExtResource("2_gmutw")
+distance_to = NodePath("../../ContextPlayer")
+metadata/_custom_type_script = "uid://55v77romqu4f"
+
 [connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]

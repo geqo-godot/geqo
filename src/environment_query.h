@@ -165,9 +165,40 @@ public:
 			result.instantiate();
 			stored_result = result;
 			stored_result->set_time_it_took(Time::get_singleton()->get_ticks_usec() - last_start_time_usec);
-			if (debug_spheres) {
-				debug_spheres->draw_items(instance->get_items());
+
+			// Normalize scores across all non-filtered items
+			std::vector<Ref<QueryItemT>> &items = instance->get_items();
+			float highest_score = -std::numeric_limits<float>::infinity();
+			float lowest_score = std::numeric_limits<float>::infinity();
+
+			for (Ref<QueryItemT> item : items) {
+				if (item->get_is_filtered())
+					continue;
+				float s = item->get_score();
+				if (s > highest_score)
+					highest_score = s;
+				if (s < lowest_score)
+					lowest_score = s;
 			}
+
+			if (highest_score == lowest_score) {
+				// All unfiltered items scored identically — put them in the middle
+				for (Ref<QueryItemT> item : items) {
+					if (!item->get_is_filtered())
+						item->set_score(0.5);
+				}
+			} else {
+				for (Ref<QueryItemT> item : items) {
+					if (item->get_is_filtered())
+						continue;
+					float normalized = (item->get_score() - lowest_score) / (highest_score - lowest_score);
+					item->set_score(normalized);
+				}
+			}
+
+			if (debug_spheres)
+				debug_spheres->draw_items(instance->get_items());
+
 			// Give query_items to result for caching
 			stored_result->set_items(instance->take_items());
 

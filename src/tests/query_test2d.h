@@ -1,4 +1,5 @@
 #pragma once
+#include "query_enums.h"
 #include "query_instance.h"
 #include "query_item.h"
 #include "tests/query_test.h"
@@ -14,9 +15,15 @@ class QueryTest2D : public Node2D, public QueryTestBase<QueryTest2D> {
 public:
 	QueryTest2D() {}
 	~QueryTest2D() {}
-	void set_test_purpose(const TestPurpose purpose) { _set_test_purpose(purpose); }
+	void set_test_purpose(const TestPurpose purpose) {
+		_set_test_purpose(purpose);
+		notify_property_list_changed();
+	}
 	TestPurpose get_test_purpose() const { return _get_test_purpose(); }
-	void set_test_type(TestType type) { _set_test_type(type); }
+	void set_test_type(TestType type) {
+		_set_test_type(type);
+		notify_property_list_changed();
+	}
 	TestType get_test_type() const { return _get_test_type(); }
 
 	// Scoring
@@ -25,18 +32,27 @@ public:
 	void set_scoring_curve(Ref<Curve> curve) { _set_scoring_curve(curve); }
 	Ref<Curve> get_scoring_curve() const { return _get_scoring_curve(); }
 
-	void set_clamp_min_type(ScoreClampType clamp_type) { _set_clamp_min_type(clamp_type); }
+	void set_clamp_min_type(ScoreClampType clamp_type) {
+		_set_clamp_min_type(clamp_type);
+		notify_property_list_changed();
+	}
 	ScoreClampType get_clamp_min_type() const { return _get_clamp_min_type(); }
 	void set_score_clamp_min(double score) { _set_score_clamp_min(score); }
 	double get_score_clamp_min() const { return _get_score_clamp_min(); }
 
-	void set_clamp_max_type(ScoreClampType clamp_type) { _set_clamp_max_type(clamp_type); }
+	void set_clamp_max_type(ScoreClampType clamp_type) {
+		_set_clamp_max_type(clamp_type);
+		notify_property_list_changed();
+	}
 	ScoreClampType get_clamp_max_type() const { return _get_clamp_max_type(); }
 	void set_score_clamp_max(double score) { _set_score_clamp_max(score); }
 	double get_score_clamp_max() const { return _get_score_clamp_max(); }
 
 	// Filtering
-	void set_filter_type(FilterType type) { _set_filter_type(type); }
+	void set_filter_type(FilterType type) {
+		_set_filter_type(type);
+		notify_property_list_changed();
+	}
 	FilterType get_filter_type() const { return _get_filter_type(); }
 
 	void set_multiple_context_filter_operator(const MultipleContextFilterOp filter_op) { _set_multiple_context_filter_operator(filter_op); }
@@ -57,10 +73,12 @@ public:
 	void set_cost(const double new_cost) { _set_cost(new_cost); }
 	double get_cost() const { return _get_cost(); }
 
+	void end_test();
 	virtual void perform_test(Ref<QueryInstance2D> query_instance);
 	GDVIRTUAL1_REQUIRED(_perform_test, Ref<QueryInstance2D>)
 
 protected:
 	static void _bind_methods();
 	void _validate_property(PropertyInfo &property) const;
+	void _notification(int p_what);
 };

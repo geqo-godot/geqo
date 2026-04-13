@@ -5,6 +5,7 @@
 #include "query_instance.h"
 #include "query_result.h"
 #include "tests/query_test2d.h"
+
 #include <godot_cpp/classes/node.hpp>
 #include <godot_cpp/classes/ref.hpp>
 #include <vector>
@@ -33,6 +34,7 @@ public:
 	void set_querier(Node2D *node) {
 		_set_querier(node);
 		notify_property_list_changed();
+		update_configuration_warnings();
 	}
 	Node2D *get_querier() const {
 		return _get_querier();
