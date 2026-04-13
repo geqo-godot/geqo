@@ -11,6 +11,7 @@ class TestDistanceTo3D : public QueryTest3D {
 private:
 	Ref<Curve> scoring_curve;
 	QueryContext3D *distance_to = nullptr;
+	Ref<QueryInstance3D> stored_instance;
 
 public:
 	TestDistanceTo3D() : QueryTest3D() {
@@ -25,6 +26,7 @@ public:
 	void set_distance_to(QueryContext3D *context_node);
 	QueryContext3D *get_distance_to() { return distance_to; }
 
+	void _on_next_process_frame();
 	void perform_test(Ref<QueryInstance3D> query_instance) override;
 	void _ready() override;
 

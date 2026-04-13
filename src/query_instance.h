@@ -92,20 +92,14 @@ public:
 
 class QueryInstance2D : public RefCounted, public QueryInstanceBase<QueryItem2D> {
 	GDCLASS(QueryInstance2D, RefCounted)
-private:
-	int end = 0;
-
 public:
-	int get_item_count() const {
-		return _get_item_count();
-	}
-
-	Ref<QueryItem2D> get_item(int index) const {
-		return _get_item(index);
-	}
-	void add_item(Ref<QueryItem2D> item) {
-		_add_item(item);
-	}
+	bool has_items() { return _has_items(); }
+	Ref<QueryItem3D> get_next_item() { return _get_next_item(); }
+	int get_item_count() const { return _get_item_count(); }
+	Ref<QueryItem3D> get_item(int index) const { return _get_item(index); }
+	void add_item(Ref<QueryItem3D> item) { _add_item(item); }
+	bool has_time_left() { return _has_time_left(); }
+	void refresh_timer() { _refresh_timer(); }
 
 protected:
 	static void _bind_methods();
@@ -113,9 +107,6 @@ protected:
 
 class QueryInstance3D : public RefCounted, public QueryInstanceBase<QueryItem3D> {
 	GDCLASS(QueryInstance3D, RefCounted)
-private:
-	int end = 0;
-
 public:
 	bool has_items() { return _has_items(); }
 	Ref<QueryItem3D> get_next_item() { return _get_next_item(); }

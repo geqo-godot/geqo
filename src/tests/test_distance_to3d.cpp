@@ -1,6 +1,10 @@
 #include "tests/test_distance_to3d.h"
-#include <algorithm>
+#include "query_enums.h"
+
 #include <godot_cpp/classes/engine.hpp>
+#include <godot_cpp/classes/scene_tree.hpp>
+
+#include <algorithm>
 #include <numeric>
 using namespace godot;
 
@@ -13,79 +17,66 @@ void TestDistanceTo3D::set_distance_to(QueryContext3D *context_node) {
 }
 
 void TestDistanceTo3D::perform_test(Ref<QueryInstance3D> query_instance) {
-	//// UtilityFunctions::print_rich("Testing the tested test to test");
-	//if (distance_to == nullptr) {
-	//	UtilityFunctions::print_rich("Test has no context");
-	//	return;
-	//}
+	if (!distance_to) {
+		UtilityFunctions::push_error("TestDistanceTo3D: Test has no context.");
+		end_test();
+		return;
+	}
 
-	//Array context_positions = distance_to->get_context_positions();
+	Array context_positions = distance_to->get_context_positions(query_instance);
+	if (context_positions.is_empty()) {
+		end_test();
+		return;
+	}
 
-	//// Collect raw distances
-	//std::vector<double> distances;
-	//for (int i = 0; i < context_positions.size(); i++) {
-	//	Vector3 pos = context_positions[i];
-	//	distances.push_back(projection->get_projection_position().distance_to(pos));
-	//}
+	while (query_instance->has_items()) {
+		Ref<QueryItem3D> item = query_instance->get_next_item();
+		if (item->get_is_filtered())
+			continue;
 
-	//// Aggregate distances based on operator
-	//double final_raw_distance = 0.0;
-	//double highest_distance = *std::max_element(distances.begin(), distances.end());
-	//double lowest_distance = *std::min_element(distances.begin(), distances.end());
-	//switch (get_context_score_operator()) {
-	//	case OP_AVERAGE_SCORE:
-	//		final_raw_distance = std::accumulate(distances.begin(), distances.end(), 0.0) / distances.size();
-	//		break;
-	//	case OP_MAX_SCORE:
-	//		final_raw_distance = highest_distance;
-	//		break;
-	//	case OP_MIN_SCORE:
-	//		final_raw_distance = lowest_distance;
-	//		break;
-	//}
+		// Collect distances from item to all context positions
+		std::vector<double> distances;
+		for (int i = 0; i < context_positions.size(); i++) {
+			Vector3 pos = context_positions[i];
+			distances.push_back(item->get_projection_position().distance_to(pos));
+		}
 
-	//// Handle filtering using raw distance against thresholds
-	//if (get_test_purpose() == FILTER_ONLY || get_test_purpose() == FILTER_SCORE) {
-	//	projection->add_score_numeric(
-	//			FILTER_ONLY,
-	//			get_filter_type(),
-	//			final_raw_distance,
-	//			(get_filter_type() == GEQOEnums::FILTER_TYPE_MIN || get_filter_type() == GEQOEnums::FILTER_TYPE_RANGE) ? get_filter_min() : 0.0,
-	//			(get_filter_type() == GEQOEnums::FILTER_TYPE_MAX || get_filter_type() == GEQOEnums::FILTER_TYPE_RANGE) ? get_filter_max() : highest_distance);
-	//}
+		// Aggregate distances based on operator
+		double distance = 0.0;
+		switch (get_context_score_operator()) {
+			case GEQOEnums::OP_AVERAGE_SCORE:
+				distance = std::accumulate(distances.begin(), distances.end(), 0.0) / distances.size();
+				break;
+			case GEQOEnums::OP_MAX_SCORE:
+				distance = *std::max_element(distances.begin(), distances.end());
+				break;
+			case GEQOEnums::OP_MIN_SCORE:
+				distance = *std::min_element(distances.begin(), distances.end());
+				break;
+		}
 
-	//// If filtered, no point scoring
-	//if (projection->get_is_filtered())
-	//	return;
+		// Apply curve to distance before scoring
+		double highest = *std::max_element(distances.begin(), distances.end());
+		double range = get_filter_max() - get_filter_min();
+		double normalized = (range > 0.0) ? std::clamp((distance - get_filter_min()) / range, 0.0, 1.0) : 0.0;
+		double curve_value = scoring_curve->sample_baked(normalized);
 
-	//// Handle scoring using curve-adjusted value
-	//if (get_test_purpose() == SCORE_ONLY || get_test_purpose() == FILTER_SCORE) {
-	//	double normalized = 0.0;
-	//	switch (get_filter_type()) {
-	//		case FILTER_TYPE_MIN: {
-	//			double range = highest_distance - get_filter_min();
-	//			normalized = (range > 0.0) ? std::clamp((final_raw_distance - get_filter_min()) / range, 0.0, 1.0) : 0.0;
-	//			break;
-	//		}
-	//		case FILTER_TYPE_MAX: {
-	//			normalized = (get_filter_max() > 0.0) ? std::clamp(final_raw_distance / get_filter_max(), 0.0, 1.0) : 0.0;
-	//			break;
-	//		}
-	//		case FILTER_TYPE_RANGE: {
-	//			double range = get_filter_max() - get_filter_min();
-	//			normalized = (range > 0.0) ? std::clamp((final_raw_distance - get_filter_min()) / range, 0.0, 1.0) : 0.0;
-	//			break;
-	//		}
-	//	}
+		item->add_score_numeric(get_test_purpose(), get_filter_type(), curve_value, get_filter_min(), get_filter_max());
 
-	//	double curve_score = scoring_curve->sample_baked(normalized);
-	//	projection->add_score_numeric(
-	//			SCORE_ONLY,
-	//			get_filter_type(),
-	//			curve_score,
-	//			0.0,
-	//			1.0);
-	//}
+		if (!query_instance->has_time_left()) {
+			UtilityFunctions::print("ONTO NEXT FRAME");
+			stored_instance = query_instance;
+			get_tree()->connect("process_frame", callable_mp(this, &TestDistanceTo3D::_on_next_process_frame), CONNECT_ONE_SHOT);
+			return;
+		}
+	}
+
+	end_test();
+}
+
+void TestDistanceTo3D::_on_next_process_frame() {
+	stored_instance->refresh_timer();
+	perform_test(stored_instance);
 }
 
 // TODO: Change to NOTIFICATION_READY
