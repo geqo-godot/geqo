@@ -5,39 +5,18 @@ using namespace godot;
 template <typename Derived>
 class QueryTestBase {
 public:
-	enum TestPurpose {
-		FILTER_SCORE,
-		FILTER_ONLY,
-		SCORE_ONLY,
-	};
-
-	enum TestType {
-		TEST_TYPE_NUMERIC,
-		TEST_TYPE_BOOLEAN,
-	};
-	enum MultipleContextScoreOp {
-		AVERAGE_SCORE,
-		MAX_SCORE,
-		MIN_SCORE,
-	};
-	enum MultipleContextFilterOp {
-		ANY_PASS,
-		ALL_PASS,
-	};
-
-	// Only used if TestType is numeric
-	enum FilterType {
-		FILTER_TYPE_MIN,
-		FILTER_TYPE_MAX,
-		FILTER_TYPE_RANGE,
-	};
+	using TestPurpose = GEQOEnums::TestPurpose;
+	using TestType = GEQOEnums::TestType;
+	using FilterType = GEQOEnums::FilterType;
+	using MultipleContextScoreOp = GEQOEnums::MultipleContextScoreOp;
+	using MultipleContextFilterOp = GEQOEnums::MultipleContextFilterOp;
 
 private:
-	TestPurpose test_purpose = FILTER_SCORE;
-	TestType test_type = TEST_TYPE_NUMERIC;
-	MultipleContextScoreOp multiple_context_score_operator = AVERAGE_SCORE;
-	MultipleContextFilterOp multiple_context_filter_operator = ANY_PASS;
-	FilterType filter_type = FILTER_TYPE_MIN;
+	TestPurpose test_purpose = GEQOEnums::FILTER_SCORE;
+	TestType test_type = GEQOEnums::TEST_TYPE_NUMERIC;
+	MultipleContextScoreOp multiple_context_score_operator = GEQOEnums::OP_AVERAGE_SCORE;
+	MultipleContextFilterOp multiple_context_filter_operator = GEQOEnums::OP_ANY_PASS;
+	FilterType filter_type = GEQOEnums::FILTER_TYPE_MIN;
 	float filter_min = 0.0f;
 	float filter_max = 0.0f;
 	float scoring_factor = 1.0f;

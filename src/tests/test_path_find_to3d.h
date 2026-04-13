@@ -26,7 +26,7 @@ private:
 public:
 	TestPathFindTo3D() : QueryTest3D() {
 		set_cost(0.98);
-		set_test_type(TEST_TYPE_BOOLEAN);
+		set_test_type(GEQOEnums::TEST_TYPE_BOOLEAN);
 	}
 	~TestPathFindTo3D() {}
 

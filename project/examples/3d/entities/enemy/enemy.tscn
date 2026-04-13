@@ -46,7 +46,7 @@ shape = SubResource("SphereShape3D_gmutw")
 
 [node name="CustomDistanceTo3D" type="QueryTest3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("distance_to")]
 cost = 1.0
-filter_type = 1
+filter_type = 2
 filter_min = 0.1
 filter_max = 0.5
 script = ExtResource("2_gmutw")

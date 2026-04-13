@@ -33,13 +33,13 @@ void TestDistanceTo3D::perform_test(Ref<QueryInstance3D> query_instance) {
 	//double highest_distance = *std::max_element(distances.begin(), distances.end());
 	//double lowest_distance = *std::min_element(distances.begin(), distances.end());
 	//switch (get_context_score_operator()) {
-	//	case AVERAGE_SCORE:
+	//	case OP_AVERAGE_SCORE:
 	//		final_raw_distance = std::accumulate(distances.begin(), distances.end(), 0.0) / distances.size();
 	//		break;
-	//	case MAX_SCORE:
+	//	case OP_MAX_SCORE:
 	//		final_raw_distance = highest_distance;
 	//		break;
-	//	case MIN_SCORE:
+	//	case OP_MIN_SCORE:
 	//		final_raw_distance = lowest_distance;
 	//		break;
 	//}
@@ -50,8 +50,8 @@ void TestDistanceTo3D::perform_test(Ref<QueryInstance3D> query_instance) {
 	//			FILTER_ONLY,
 	//			get_filter_type(),
 	//			final_raw_distance,
-	//			(get_filter_type() == FILTER_TYPE_MIN || get_filter_type() == FILTER_TYPE_RANGE) ? get_filter_min() : 0.0,
-	//			(get_filter_type() == FILTER_TYPE_MAX || get_filter_type() == FILTER_TYPE_RANGE) ? get_filter_max() : highest_distance);
+	//			(get_filter_type() == GEQOEnums::FILTER_TYPE_MIN || get_filter_type() == GEQOEnums::FILTER_TYPE_RANGE) ? get_filter_min() : 0.0,
+	//			(get_filter_type() == GEQOEnums::FILTER_TYPE_MAX || get_filter_type() == GEQOEnums::FILTER_TYPE_RANGE) ? get_filter_max() : highest_distance);
 	//}
 
 	//// If filtered, no point scoring

@@ -9,11 +9,24 @@
 	<tutorials>
 	</tutorials>
 	<methods>
-		<method name="add_score">
+		<method name="add_score_boolean">
 			<return type="void" />
-			<param index="0" name="amount" type="float" />
+			<param index="0" name="test_purpose" type="int" enum="GEQOEnums.TestPurpose" />
+			<param index="1" name="value" type="int" enum="GEQOEnums.FilterType" />
+			<param index="2" name="expected_boolean" type="float" />
+			<param index="3" name="_unnamed_arg3" type="float" />
+			<param index="4" name="_unnamed_arg4" type="float" />
 			<description>
-				Adds to the current score of this item.
+			</description>
+		</method>
+		<method name="add_score_numeric">
+			<return type="void" />
+			<param index="0" name="test_purpose" type="int" enum="GEQOEnums.TestPurpose" />
+			<param index="1" name="filter_type" type="int" enum="GEQOEnums.FilterType" />
+			<param index="2" name="amount" type="float" />
+			<param index="3" name="min_threshold" type="float" />
+			<param index="4" name="max_threshold" type="float" />
+			<description>
 			</description>
 		</method>
 		<method name="create" qualifiers="static">

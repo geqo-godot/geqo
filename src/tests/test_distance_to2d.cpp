@@ -32,13 +32,13 @@ void TestDistanceTo2D::perform_test(Ref<QueryInstance2D> query_instance) {
 	//// Aggregate distances based on operator
 	//double final_raw_distance = 0.0;
 	//switch (get_context_score_operator()) {
-	//	case AVERAGE_SCORE:
+	//	case OP_AVERAGE_SCORE:
 	//		final_raw_distance = std::accumulate(distances.begin(), distances.end(), 0.0) / distances.size();
 	//		break;
-	//	case MAX_SCORE:
+	//	case OP_MAX_SCORE:
 	//		final_raw_distance = *std::max_element(distances.begin(), distances.end());
 	//		break;
-	//	case MIN_SCORE:
+	//	case OP_MIN_SCORE:
 	//		final_raw_distance = *std::min_element(distances.begin(), distances.end());
 	//		break;
 	//}

@@ -46,24 +46,6 @@ void QueryTest3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_bool_match", "match"), &QueryTest3D::set_bool_match);
 	ClassDB::bind_method(D_METHOD("get_bool_match"), &QueryTest3D::get_bool_match);
 
-	BIND_ENUM_CONSTANT(FILTER_SCORE);
-	BIND_ENUM_CONSTANT(FILTER_ONLY);
-	BIND_ENUM_CONSTANT(SCORE_ONLY);
-
-	BIND_ENUM_CONSTANT(TEST_TYPE_NUMERIC);
-	BIND_ENUM_CONSTANT(TEST_TYPE_BOOLEAN);
-
-	BIND_ENUM_CONSTANT(AVERAGE_SCORE);
-	BIND_ENUM_CONSTANT(MAX_SCORE);
-	BIND_ENUM_CONSTANT(MIN_SCORE);
-
-	BIND_ENUM_CONSTANT(ANY_PASS);
-	BIND_ENUM_CONSTANT(ALL_PASS);
-
-	BIND_ENUM_CONSTANT(FILTER_TYPE_MIN);
-	BIND_ENUM_CONSTANT(FILTER_TYPE_MAX);
-	BIND_ENUM_CONSTANT(FILTER_TYPE_RANGE);
-
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "cost"), "set_cost", "get_cost");
 	ADD_PROPERTY(PropertyInfo(Variant::INT, "test_purpose", PROPERTY_HINT_ENUM, "Filter Score,Filter Only,Score Only"), "set_test_purpose", "get_test_purpose");
 	ADD_PROPERTY(PropertyInfo(Variant::INT, "test_type", PROPERTY_HINT_ENUM, "Numeric,Boolean", PROPERTY_USAGE_STORAGE), "set_test_type", "get_test_type");
@@ -81,31 +63,31 @@ void QueryTest3D::_bind_methods() {
 void QueryTest3D::_validate_property(PropertyInfo &property) const {
 	// Hide filter operator when not filtering
 	if (property.name == StringName("multiple_context_filter_operator"))
-		if (get_test_purpose() == SCORE_ONLY)
+		if (get_test_purpose() == GEQOEnums::SCORE_ONLY)
 			property.usage &= ~PROPERTY_USAGE_EDITOR;
 
 	// Hide score operator when not scoring
 	if (property.name == StringName("multiple_context_score_operator"))
-		if (get_test_purpose() == FILTER_ONLY)
+		if (get_test_purpose() == GEQOEnums::FILTER_ONLY)
 			property.usage &= ~PROPERTY_USAGE_EDITOR;
 
 	// Hide numeric fields when this is a boolean test
 	TypedArray<StringName> numeric_vars = { "filter_type", "filter_min", "filter_max", "scoring_factor" };
 	if (numeric_vars.has(property.name))
-		if (get_test_type() == TEST_TYPE_BOOLEAN)
+		if (get_test_type() == GEQOEnums::TEST_TYPE_BOOLEAN)
 			property.usage &= ~PROPERTY_USAGE_EDITOR;
 
 	// Hide bool_match when this is a numeric test
 	if (property.name == StringName("bool_match"))
-		if (get_test_type() == TEST_TYPE_NUMERIC)
+		if (get_test_type() == GEQOEnums::TEST_TYPE_NUMERIC)
 			property.usage &= ~PROPERTY_USAGE_EDITOR;
 
 	// Hide min/max based on filter type
 	if (property.name == StringName("filter_min"))
-		if (get_filter_type() == FILTER_TYPE_MAX)
+		if (get_filter_type() == GEQOEnums::FILTER_TYPE_MAX)
 			property.usage &= ~PROPERTY_USAGE_EDITOR;
 
 	if (property.name == StringName("filter_max"))
-		if (get_filter_type() == FILTER_TYPE_MIN)
+		if (get_filter_type() == GEQOEnums::FILTER_TYPE_MIN)
 			property.usage &= ~PROPERTY_USAGE_EDITOR;
 }

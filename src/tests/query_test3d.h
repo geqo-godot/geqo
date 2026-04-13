@@ -1,4 +1,5 @@
 #pragma once
+#include "query_enums.h"
 #include "query_instance.h"
 #include "query_item.h"
 #include "tests/query_test.h"
@@ -66,9 +67,3 @@ protected:
 	static void _bind_methods();
 	void _validate_property(PropertyInfo &property) const;
 };
-
-VARIANT_ENUM_CAST(QueryTest3D::TestPurpose);
-VARIANT_ENUM_CAST(QueryTest3D::TestType);
-VARIANT_ENUM_CAST(QueryTest3D::FilterType);
-VARIANT_ENUM_CAST(QueryTest3D::MultipleContextFilterOp);
-VARIANT_ENUM_CAST(QueryTest3D::MultipleContextScoreOp);

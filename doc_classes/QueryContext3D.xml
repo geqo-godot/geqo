@@ -11,6 +11,7 @@
 	<methods>
 		<method name="_get_context" qualifiers="virtual required const">
 			<return type="Array" />
+			<param index="0" name="query_instance" type="QueryInstance3D" />
 			<description>
 				Called on [QueryGenerator3D]s and [QueryTest3Ds] to get a list of [Node3Ds] and/or [Vector3]s.
 				[b]Note:[/b] Must be overrwritten.
@@ -18,20 +19,16 @@
 		</method>
 		<method name="get_context">
 			<return type="Array" />
+			<param index="0" name="query_instance" type="QueryInstance3D" />
 			<description>
 				Called on [QueryGenerator3D]s and [QueryTest3Ds] to get a list of [Node3Ds] and/or [Vector3]s.
 			</description>
 		</method>
 		<method name="get_context_positions">
 			<return type="PackedVector3Array" />
+			<param index="0" name="query_instance" type="QueryInstance3D" />
 			<description>
 				Returns only the positions of each context. Used in some [QueryTest3D]s where collisions aren't needed.
-			</description>
-		</method>
-		<method name="get_query_items">
-			<return type="Array" />
-			<description>
-				Returns the list of current [QueryItem3D]s.
 			</description>
 		</method>
 	</methods>

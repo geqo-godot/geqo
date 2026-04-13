@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GEQOEnums" inherits="Object" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+	</brief_description>
+	<description>
+	</description>
+	<tutorials>
+	</tutorials>
+	<constants>
+		<constant name="FILTER_SCORE" value="0" enum="TestPurpose">
+		</constant>
+		<constant name="FILTER_ONLY" value="1" enum="TestPurpose">
+		</constant>
+		<constant name="SCORE_ONLY" value="2" enum="TestPurpose">
+		</constant>
+		<constant name="TEST_TYPE_NUMERIC" value="0" enum="TestType">
+		</constant>
+		<constant name="TEST_TYPE_BOOLEAN" value="1" enum="TestType">
+		</constant>
+		<constant name="FILTER_TYPE_MIN" value="0" enum="FilterType">
+		</constant>
+		<constant name="FILTER_TYPE_MAX" value="1" enum="FilterType">
+		</constant>
+		<constant name="FILTER_TYPE_RANGE" value="2" enum="FilterType">
+		</constant>
+		<constant name="OP_AVERAGE_SCORE" value="0" enum="MultipleContextScoreOp">
+		</constant>
+		<constant name="OP_MAX_SCORE" value="1" enum="MultipleContextScoreOp">
+		</constant>
+		<constant name="OP_MIN_SCORE" value="2" enum="MultipleContextScoreOp">
+		</constant>
+		<constant name="OP_ANY_PASS" value="0" enum="MultipleContextFilterOp">
+		</constant>
+		<constant name="OP_ALL_PASS" value="1" enum="MultipleContextFilterOp">
+		</constant>
+	</constants>
+</class>

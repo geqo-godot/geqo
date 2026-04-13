@@ -29,7 +29,7 @@ private:
 public:
 	TestRaycastTo3D() : QueryTest3D() {
 		set_cost(1.42);
-		set_test_type(TEST_TYPE_BOOLEAN);
+		set_test_type(GEQOEnums::TEST_TYPE_BOOLEAN);
 	}
 	~TestRaycastTo3D() {}
 

@@ -31,6 +31,7 @@
 		<member name="shape" type="Shape3D" setter="set_shape" getter="get_shape">
 			The actual shape used by this test.
 		</member>
+		<member name="test_type" type="int" setter="set_test_type" getter="get_test_type" overrides="QueryTest3D" enum="GEQOEnums.TestType" default="1" />
 		<member name="use_shape_cast" type="bool" setter="set_use_shape_cast" getter="get_use_shape_cast" default="false">
 			Use a [Shape3D] instead of a raycast.
 		</member>

@@ -8,7 +8,7 @@ class_name CustomDistanceTo3D extends QueryTest3D
 @export var scoring_curve: Curve
 func _enter_tree() -> void:
 	cost = 1
-	test_type = QueryTest3D.TEST_TYPE_NUMERIC
+	test_type = GEQOEnums.TEST_TYPE_NUMERIC
 	if not scoring_curve:
 		scoring_curve = Curve.new()
 		scoring_curve.add_point(Vector2(0, 0))

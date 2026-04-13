@@ -1,0 +1,55 @@
+#pragma once
+#include <godot_cpp/classes/object.hpp>
+#include <godot_cpp/core/class_db.hpp>
+using namespace godot;
+
+class GEQOEnums : public Object {
+	GDCLASS(GEQOEnums, Object)
+public:
+	enum TestPurpose {
+		FILTER_SCORE,
+		FILTER_ONLY,
+		SCORE_ONLY
+	};
+	enum TestType {
+		TEST_TYPE_NUMERIC,
+		TEST_TYPE_BOOLEAN
+	};
+	enum FilterType {
+		FILTER_TYPE_MIN,
+		FILTER_TYPE_MAX,
+		FILTER_TYPE_RANGE
+	};
+	enum MultipleContextScoreOp {
+		OP_AVERAGE_SCORE,
+		OP_MAX_SCORE,
+		OP_MIN_SCORE
+	};
+	enum MultipleContextFilterOp {
+		OP_ANY_PASS,
+		OP_ALL_PASS
+	};
+
+protected:
+	static void _bind_methods() {
+		BIND_ENUM_CONSTANT(FILTER_SCORE);
+		BIND_ENUM_CONSTANT(FILTER_ONLY);
+		BIND_ENUM_CONSTANT(SCORE_ONLY);
+		BIND_ENUM_CONSTANT(TEST_TYPE_NUMERIC);
+		BIND_ENUM_CONSTANT(TEST_TYPE_BOOLEAN);
+		BIND_ENUM_CONSTANT(FILTER_TYPE_MIN);
+		BIND_ENUM_CONSTANT(FILTER_TYPE_MAX);
+		BIND_ENUM_CONSTANT(FILTER_TYPE_RANGE);
+		BIND_ENUM_CONSTANT(OP_AVERAGE_SCORE);
+		BIND_ENUM_CONSTANT(OP_MAX_SCORE);
+		BIND_ENUM_CONSTANT(OP_MIN_SCORE);
+		BIND_ENUM_CONSTANT(OP_ANY_PASS);
+		BIND_ENUM_CONSTANT(OP_ALL_PASS);
+	}
+};
+
+VARIANT_ENUM_CAST(GEQOEnums::TestPurpose);
+VARIANT_ENUM_CAST(GEQOEnums::TestType);
+VARIANT_ENUM_CAST(GEQOEnums::FilterType);
+VARIANT_ENUM_CAST(GEQOEnums::MultipleContextScoreOp);
+VARIANT_ENUM_CAST(GEQOEnums::MultipleContextFilterOp);

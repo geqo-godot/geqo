@@ -15,6 +15,7 @@
 		<member name="path_to" type="QueryContext3D" setter="set_path_to" getter="get_path_to">
 			The context that will be used to find the path.
 		</member>
+		<member name="test_type" type="int" setter="set_test_type" getter="get_test_type" overrides="QueryTest3D" enum="GEQOEnums.TestType" default="1" />
 		<member name="use_debug" type="bool" setter="set_use_debug" getter="get_use_debug" default="false">
 			Visualize the paths.
 		</member>

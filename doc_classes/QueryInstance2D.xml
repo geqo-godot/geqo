@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="QueryInstance2D" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+	</brief_description>
+	<description>
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="add_item">
+			<return type="void" />
+			<param index="0" name="item" type="QueryItem2D" />
+			<description>
+			</description>
+		</method>
+		<method name="get_item" qualifiers="const">
+			<return type="QueryItem2D" />
+			<param index="0" name="index" type="int" />
+			<description>
+			</description>
+		</method>
+	</methods>
+</class>

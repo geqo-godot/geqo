@@ -68,15 +68,15 @@ void TestPathFindTo3D::perform_test(Ref<QueryInstance3D> query_instance) {
 
 	//// Choose score for the result
 	//switch (get_context_score_operator()) {
-	//	case AVERAGE_SCORE: {
+	//	case OP_AVERAGE_SCORE: {
 	//		double total_score = std::accumulate(scores.begin(), scores.end(), 0.0);
 	//		result = total_score / scores.size();
 	//		break;
 	//	}
-	//	case MAX_SCORE:
+	//	case OP_MAX_SCORE:
 	//		result = *std::max(scores.begin(), scores.end());
 	//		break;
-	//	case MIN_SCORE:
+	//	case OP_MIN_SCORE:
 	//		result = *std::min_element(scores.begin(), scores.end());
 	//		break;
 	//}

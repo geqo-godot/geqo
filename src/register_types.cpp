@@ -3,6 +3,8 @@
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
 
+#include "query_enums.h"
+
 #include "query_instance.h"
 #include "query_item.h"
 
@@ -71,6 +73,7 @@ void initialize_geqo_module(ModuleInitializationLevel p_level) {
 	}
 
 	// Debugging
+	ClassDB::register_abstract_class<GEQOEnums>();
 	ClassDB::register_class<GEQODebug>();
 	_geqo_debug_singleton = memnew(GEQODebug);
 	Engine::get_singleton()->register_singleton("GEQODebug", GEQODebug::get_singleton());

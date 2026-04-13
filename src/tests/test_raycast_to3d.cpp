@@ -105,7 +105,7 @@ void TestRaycastTo3D::perform_test(Ref<QueryInstance3D> query_instance) {
 
 	//	if (is_hit) {
 	//		current_score++;
-	//		if (get_context_filter_operator() == ANY_PASS)
+	//		if (get_context_filter_operator() == OP_ANY_PASS)
 	//			break;
 	//	}
 	//}
@@ -115,14 +115,14 @@ void TestRaycastTo3D::perform_test(Ref<QueryInstance3D> query_instance) {
 	//MultipleContextFilterOp filter_op = get_context_filter_operator();
 
 	//switch (filter_op) {
-	//	case ANY_PASS: {
+	//	case OP_ANY_PASS: {
 	//		if (current_score > 0) {
 	//			final_score = 1;
 	//		} else {
 	//			filter = true;
 	//		}
 	//	} break;
-	//	case ALL_PASS: {
+	//	case OP_ALL_PASS: {
 	//		if (current_score == context_nodes.size()) {
 	//			final_score = 1;
 	//		} else {

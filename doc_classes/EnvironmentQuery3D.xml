@@ -10,16 +10,15 @@
 	<tutorials>
 	</tutorials>
 	<methods>
-		<method name="get_query_items">
-			<return type="QueryItem3D[]" />
-			<description>
-				Returns an array of [QueryItem3D]s.
-			</description>
-		</method>
 		<method name="get_result">
 			<return type="QueryResult3D" />
 			<description>
 				After requesting a query, the [QueryResult3D] is cached and can be called with this function.
+			</description>
+		</method>
+		<method name="on_test_finished">
+			<return type="void" />
+			<description>
 			</description>
 		</method>
 		<method name="request_query">
@@ -30,6 +29,8 @@
 		</method>
 	</methods>
 	<members>
+		<member name="querier" type="Node3D" setter="set_querier" getter="get_querier">
+		</member>
 		<member name="time_budget_ms" type="float" setter="set_time_budget_ms" getter="get_time_budget_ms" default="1.0">
 			Amount of time in milliseconds the query has each frame for processing. When budget is reached, the query pauses until the next [signal SceneTree.process_frame].
 		</member>

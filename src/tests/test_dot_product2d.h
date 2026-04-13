@@ -12,7 +12,7 @@ private:
 public:
 	TestDotProduct2D() : QueryTest2D() {
 		set_cost(0.78);
-		set_test_type(TEST_TYPE_NUMERIC);
+		set_test_type(GEQOEnums::TEST_TYPE_NUMERIC);
 	}
 	~TestDotProduct2D() {}
 

@@ -65,9 +65,3 @@ protected:
 	static void _bind_methods();
 	void _validate_property(PropertyInfo &property) const;
 };
-
-VARIANT_ENUM_CAST(QueryTest2D::TestPurpose);
-VARIANT_ENUM_CAST(QueryTest2D::TestType);
-VARIANT_ENUM_CAST(QueryTest2D::FilterType);
-VARIANT_ENUM_CAST(QueryTest2D::MultipleContextFilterOp);
-VARIANT_ENUM_CAST(QueryTest2D::MultipleContextScoreOp);
