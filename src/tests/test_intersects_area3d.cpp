@@ -81,14 +81,14 @@ void TestIntersectsArea3D::perform_test(Ref<QueryInstance3D> query_instance) {
 	//	}
 	//
 	//switch (get_test_purpose()) {
-	//	case FILTER_SCORE: {
+	//	case PURPOSE_FILTER_SCORE: {
 	//		projection->set_is_filtered(filter);
 	//		projection->add_score(final_score);
 	//	} break;
-	//	case FILTER_ONLY: {
+	//	case PURPOSE_FILTER_ONLY: {
 	//		projection->set_is_filtered(filter);
 	//	} break;
-	//	case SCORE_ONLY: {
+	//	case PURPOSE_SCORE_ONLY: {
 	//		projection->add_score(final_score);
 	//	} break;
 	//}

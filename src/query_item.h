@@ -67,7 +67,7 @@ public:
 	void _set_collided_with(NodeT *node) { collided_with = node; }
 
 	void _add_score_numeric(int test_purpose, int filter_type, double amount, double min_threshold, double max_threshold) {
-		if (test_purpose == GEQOEnums::FILTER_SCORE || test_purpose == GEQOEnums::FILTER_ONLY) {
+		if (test_purpose == GEQOEnums::PURPOSE_FILTER_SCORE || test_purpose == GEQOEnums::PURPOSE_FILTER_ONLY) {
 			bool filtered = false;
 			if (filter_type == GEQOEnums::FILTER_TYPE_MIN)
 				filtered = amount < min_threshold;
@@ -81,7 +81,7 @@ public:
 			}
 		}
 
-		if (test_purpose == GEQOEnums::FILTER_SCORE || test_purpose == GEQOEnums::SCORE_ONLY) {
+		if (test_purpose == GEQOEnums::PURPOSE_FILTER_SCORE || test_purpose == GEQOEnums::PURPOSE_SCORE_ONLY) {
 			double range = max_threshold - min_threshold;
 			double normalized = (range > 0.0) ? std::clamp((amount - min_threshold) / range, 0.0, 1.0) : 0.0;
 			score += normalized;

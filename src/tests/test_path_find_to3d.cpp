@@ -82,18 +82,18 @@ void TestPathFindTo3D::perform_test(Ref<QueryInstance3D> query_instance) {
 	//}
 
 	//switch (get_test_purpose()) {
-	//	case FILTER_SCORE: {
+	//	case PURPOSE_FILTER_SCORE: {
 	//		if (result == 0.0)
 	//			projection->set_is_filtered(true);
 	//		else
 	//			projection->add_score(result);
 	//		break;
 	//	}
-	//	case FILTER_ONLY:
+	//	case PURPOSE_FILTER_ONLY:
 	//		if (result == 0.0)
 	//			projection->set_is_filtered(true);
 	//		break;
-	//	case SCORE_ONLY:
+	//	case PURPOSE_SCORE_ONLY:
 	//		projection->add_score(result);
 	//		break;
 	//}

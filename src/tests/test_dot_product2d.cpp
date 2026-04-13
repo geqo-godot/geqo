@@ -29,18 +29,18 @@ void TestDotProduct2D::perform_test(Ref<QueryInstance2D> query_instance) {
 	//	score = 1.0;
 
 	//	switch (get_test_purpose()) {
-	//		case FILTER_SCORE: {
+	//		case PURPOSE_FILTER_SCORE: {
 	//			if (score > 0.0)
 	//				projection->add_score(score);
 	//			else
 	//				projection->set_is_filtered(true);
 	//			break;
 	//		}
-	//		case FILTER_ONLY:
+	//		case PURPOSE_FILTER_ONLY:
 	//			if (score <= 0.0)
 	//				projection->set_is_filtered(true);
 	//			break;
-	//		case SCORE_ONLY:
+	//		case PURPOSE_SCORE_ONLY:
 	//			projection->add_score(score);
 	//			break;
 	//	}

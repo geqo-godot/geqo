@@ -12,7 +12,7 @@ public:
 	using MultipleContextFilterOp = GEQOEnums::MultipleContextFilterOp;
 
 private:
-	TestPurpose test_purpose = GEQOEnums::FILTER_SCORE;
+	TestPurpose test_purpose = GEQOEnums::PURPOSE_FILTER_SCORE;
 	TestType test_type = GEQOEnums::TEST_TYPE_NUMERIC;
 	MultipleContextScoreOp multiple_context_score_operator = GEQOEnums::OP_AVERAGE_SCORE;
 	MultipleContextFilterOp multiple_context_filter_operator = GEQOEnums::OP_ANY_PASS;

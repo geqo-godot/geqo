@@ -58,7 +58,7 @@ void TestDistanceTo2D::perform_test(Ref<QueryInstance2D> query_instance) {
 
 	//// Raw distance was out of bounds so manually filter
 	//if (final_raw_distance < get_filter_min() || final_raw_distance > get_filter_max()) {
-	//	if (get_test_purpose() != SCORE_ONLY) {
+	//	if (get_test_purpose() != PURPOSE_SCORE_ONLY) {
 	//		projection->set_is_filtered(true);
 	//	}
 	//}

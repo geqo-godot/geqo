@@ -54,7 +54,7 @@ void QueryTest2D::_validate_property(PropertyInfo &property) const {
 	// Hide numeric fields when this is a boolean test
 	TypedArray<StringName> numeric_vars = { "filter_type", "filter_min", "filter_max" };
 	if (numeric_vars.has(property.name))
-		if (get_test_type() == GEQOEnums::TEST_TYPE_BOOLEAN || get_test_purpose() == GEQOEnums::SCORE_ONLY)
+		if (get_test_type() == GEQOEnums::TEST_TYPE_BOOLEAN || get_test_purpose() == GEQOEnums::PURPOSE_SCORE_ONLY)
 			property.usage &= ~PROPERTY_USAGE_EDITOR;
 
 	// Hide bool_match when this is a numeric test
@@ -73,11 +73,11 @@ void QueryTest2D::_validate_property(PropertyInfo &property) const {
 
 	// Hide filter operator when not filtering
 	if (property.name == StringName("multiple_context_filter_operator"))
-		if (get_test_purpose() == GEQOEnums::SCORE_ONLY)
+		if (get_test_purpose() == GEQOEnums::PURPOSE_SCORE_ONLY)
 			property.usage &= ~PROPERTY_USAGE_EDITOR;
 
 	// Hide score operator when not scoring
 	if (property.name == StringName("multiple_context_score_operator"))
-		if (get_test_purpose() == GEQOEnums::FILTER_ONLY)
+		if (get_test_purpose() == GEQOEnums::PURPOSE_FILTER_ONLY)
 			property.usage &= ~PROPERTY_USAGE_EDITOR;
 }

@@ -63,12 +63,12 @@ void QueryTest3D::_bind_methods() {
 void QueryTest3D::_validate_property(PropertyInfo &property) const {
 	// Hide filter operator when not filtering
 	if (property.name == StringName("multiple_context_filter_operator"))
-		if (get_test_purpose() == GEQOEnums::SCORE_ONLY)
+		if (get_test_purpose() == GEQOEnums::PURPOSE_SCORE_ONLY)
 			property.usage &= ~PROPERTY_USAGE_EDITOR;
 
 	// Hide score operator when not scoring
 	if (property.name == StringName("multiple_context_score_operator"))
-		if (get_test_purpose() == GEQOEnums::FILTER_ONLY)
+		if (get_test_purpose() == GEQOEnums::PURPOSE_FILTER_ONLY)
 			property.usage &= ~PROPERTY_USAGE_EDITOR;
 
 	// Hide numeric fields when this is a boolean test
@@ -90,4 +90,12 @@ void QueryTest3D::_validate_property(PropertyInfo &property) const {
 	if (property.name == StringName("filter_max"))
 		if (get_filter_type() == GEQOEnums::FILTER_TYPE_MIN)
 			property.usage &= ~PROPERTY_USAGE_EDITOR;
+
+	// Hide all filtering-related properties when scoring only
+	TypedArray<StringName> filter_vars = { "filter_type", "filter_min", "filter_max", "multiple_context_filter_operator" };
+	if (filter_vars.has(property.name)) {
+		if (get_test_purpose() == GEQOEnums::PURPOSE_SCORE_ONLY) {
+			property.usage &= ~PROPERTY_USAGE_EDITOR;
+		}
+	}
 }
