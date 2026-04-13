@@ -8,12 +8,6 @@ void QueryTest2D::perform_test(Ref<QueryInstance2D> query_instance) {
 
 void QueryTest2D::_bind_methods() {
 	GDVIRTUAL_BIND(_perform_test, "query_instance");
-	ClassDB::bind_method(D_METHOD("set_context_score_operator", "score_op"), &QueryTest2D::set_context_score_operator);
-	ClassDB::bind_method(D_METHOD("get_context_score_operator"), &QueryTest2D::get_context_score_operator);
-
-	ClassDB::bind_method(D_METHOD("set_context_filter_operator", "score_op"), &QueryTest2D::set_context_filter_operator);
-	ClassDB::bind_method(D_METHOD("get_context_filter_operator"), &QueryTest2D::get_context_filter_operator);
-
 	ClassDB::bind_method(D_METHOD("set_test_type", "type"), &QueryTest2D::set_test_type);
 	ClassDB::bind_method(D_METHOD("get_test_type"), &QueryTest2D::get_test_type);
 
@@ -41,8 +35,8 @@ void QueryTest2D::_bind_methods() {
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "cost"), "set_cost", "get_cost");
 	ADD_PROPERTY(PropertyInfo(Variant::INT, "test_purpose", PROPERTY_HINT_ENUM, "Filter Score,Filter Only,Score Only"), "set_test_purpose", "get_test_purpose");
 	ADD_PROPERTY(PropertyInfo(Variant::INT, "test_type", PROPERTY_HINT_ENUM, "Numeric,Boolean", PROPERTY_USAGE_STORAGE), "set_test_type", "get_test_type");
-	ADD_PROPERTY(PropertyInfo(Variant::INT, "multiple_context_filter_operator", PROPERTY_HINT_ENUM, "Any Pass,All Pass"), "set_context_filter_operator", "get_context_filter_operator");
-	ADD_PROPERTY(PropertyInfo(Variant::INT, "multiple_context_score_operator", PROPERTY_HINT_ENUM, "Average Score,Max Score,Min Score"), "set_context_score_operator", "get_context_score_operator");
+	ADD_PROPERTY(PropertyInfo(Variant::INT, "multiple_context_filter_operator", PROPERTY_HINT_ENUM, "Any Pass,All Pass"), "set_context_filter_operator", "get_multiple_context_filter_operator");
+	ADD_PROPERTY(PropertyInfo(Variant::INT, "multiple_context_score_operator", PROPERTY_HINT_ENUM, "Average Score,Max Score,Min Score"), "set_context_score_operator", "get_multiple_context_score_operator");
 	ADD_PROPERTY(PropertyInfo(Variant::INT, "filter_type", PROPERTY_HINT_ENUM, "Min,Max,Range"), "set_filter_type", "get_filter_type");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "filter_min"), "set_filter_min", "get_filter_min");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "filter_max"), "set_filter_max", "get_filter_max");

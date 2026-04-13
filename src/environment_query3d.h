@@ -34,6 +34,7 @@ public:
 	void set_querier(Node3D *node) {
 		_set_querier(node);
 		notify_property_list_changed();
+		update_configuration_warnings();
 	}
 	Node3D *get_querier() const {
 		return _get_querier();

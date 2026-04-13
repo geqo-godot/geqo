@@ -14,49 +14,48 @@ class QueryTest2D : public Node2D, public QueryTestBase<QueryTest2D> {
 public:
 	QueryTest2D() {}
 	~QueryTest2D() {}
-
-	void set_test_purpose(const TestPurpose purpose) {
-		_set_test_purpose(purpose);
-		notify_property_list_changed();
-	}
+	void set_test_purpose(const TestPurpose purpose) { _set_test_purpose(purpose); }
 	TestPurpose get_test_purpose() const { return _get_test_purpose(); }
-
-	void set_test_type(TestType type) {
-		_set_test_type(type);
-		notify_property_list_changed();
-	}
+	void set_test_type(TestType type) { _set_test_type(type); }
 	TestType get_test_type() const { return _get_test_type(); }
 
-	void set_context_score_operator(const MultipleContextScoreOp score_op) {
-		_set_context_score_operator(score_op);
-	}
-	MultipleContextScoreOp get_context_score_operator() const { return _get_context_score_operator(); }
+	// Scoring
+	void set_multiple_context_score_operator(const MultipleContextScoreOp score_op) { _set_multiple_context_score_operator(score_op); }
+	MultipleContextScoreOp get_multiple_context_score_operator() const { return _get_multiple_context_score_operator(); }
+	void set_scoring_curve(Ref<Curve> curve) { _set_scoring_curve(curve); }
+	Ref<Curve> get_scoring_curve() const { return _get_scoring_curve(); }
 
-	void set_context_filter_operator(const MultipleContextFilterOp filter_op) {
-		_set_context_filter_operator(filter_op);
-	}
-	MultipleContextFilterOp get_context_filter_operator() const { return _get_context_filter_operator(); }
+	void set_clamp_min_type(ScoreClampType clamp_type) { _set_clamp_min_type(clamp_type); }
+	ScoreClampType get_clamp_min_type() const { return _get_clamp_min_type(); }
+	void set_score_clamp_min(double score) { _set_score_clamp_min(score); }
+	double get_score_clamp_min() const { return _get_score_clamp_min(); }
+
+	void set_clamp_max_type(ScoreClampType clamp_type) { _set_clamp_max_type(clamp_type); }
+	ScoreClampType get_clamp_max_type() const { return _get_clamp_max_type(); }
+	void set_score_clamp_max(double score) { _set_score_clamp_max(score); }
+	double get_score_clamp_max() const { return _get_score_clamp_max(); }
+
+	// Filtering
+	void set_filter_type(FilterType type) { _set_filter_type(type); }
+	FilterType get_filter_type() const { return _get_filter_type(); }
+
+	void set_multiple_context_filter_operator(const MultipleContextFilterOp filter_op) { _set_multiple_context_filter_operator(filter_op); }
+	MultipleContextFilterOp get_multiple_context_filter_operator() const { return _get_multiple_context_filter_operator(); }
 
 	void set_bool_match(const bool match) { _set_bool_match(match); }
 	bool get_bool_match() const { return _get_bool_match(); }
 
-	void set_filter_type(FilterType type) {
-		_set_filter_type(type);
-		notify_property_list_changed();
-	}
-	FilterType get_filter_type() const { return _get_filter_type(); }
+	void set_filter_min(double val) { _set_filter_min(val); }
+	double get_filter_min() const { return _get_filter_min(); }
 
-	void set_filter_min(float val) { _set_filter_min(val); }
-	float get_filter_min() const { return _get_filter_min(); }
+	void set_filter_max(double val) { _set_filter_max(val); }
+	double get_filter_max() const { return _get_filter_max(); }
 
-	void set_filter_max(float val) { _set_filter_max(val); }
-	float get_filter_max() const { return _get_filter_max(); }
+	void set_scoring_factor(double val) { _set_scoring_factor(val); }
+	double get_scoring_factor() const { return _get_scoring_factor(); }
 
-	void set_scoring_factor(float val) { _set_scoring_factor(val); }
-	float get_scoring_factor() const { return _get_scoring_factor(); }
-
-	void set_cost(float new_cost) { return _set_cost(new_cost); }
-	float get_cost() { return _get_cost(); }
+	void set_cost(const double new_cost) { _set_cost(new_cost); }
+	double get_cost() const { return _get_cost(); }
 
 	virtual void perform_test(Ref<QueryInstance2D> query_instance);
 	GDVIRTUAL1_REQUIRED(_perform_test, Ref<QueryInstance2D>)

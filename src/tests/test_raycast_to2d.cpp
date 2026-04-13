@@ -89,13 +89,13 @@ void TestRaycastTo2D::perform_test(Ref<QueryInstance2D> query_instance) {
 	//
 	//		if (is_hit) {
 	//			current_score++;
-	//			if (get_context_filter_operator() == OP_ANY_PASS)
+	//			if (get_multiple_context_filter_operator() == OP_ANY_PASS)
 	//				break;
 	//		}
 	//	}
 	//	bool filter = false;
 	//	int final_score = 0;
-	//	MultipleContextFilterOp filter_op = get_context_filter_operator();
+	//	MultipleContextFilterOp filter_op = get_multiple_context_filter_operator();
 	//
 	//	switch (filter_op) {
 	//		case OP_ANY_PASS: {

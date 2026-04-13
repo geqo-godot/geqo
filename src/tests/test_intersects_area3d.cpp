@@ -54,14 +54,14 @@ void TestIntersectsArea3D::perform_test(Ref<QueryInstance3D> query_instance) {
 	//	for (Dictionary result : results) {
 	//		if (context_nodes.has(result.get("collider", nullptr))) {
 	//			current_score += 1;
-	//			if (get_context_filter_operator() == OP_ANY_PASS)
+	//			if (get_multiple_context_filter_operator() == OP_ANY_PASS)
 	//				break;
 	//		}
 	//	}
 	//
 	//	bool filter = false;
 	//	int final_score = 0;
-	//	MultipleContextFilterOp filter_op = get_context_filter_operator();
+	//	MultipleContextFilterOp filter_op = get_multiple_context_filter_operator();
 	//
 	//	switch (filter_op) {
 	//		case OP_ANY_PASS: {

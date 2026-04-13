@@ -76,7 +76,6 @@ PackedStringArray EnvironmentQuery3D::_get_configuration_warnings() const {
 }
 
 void EnvironmentQuery3D::init_generator() {
-	//UtilityFunctions::print("Initializing generators.");
 	bool has_generator = true;
 	for (Variant child : get_children()) {
 		QueryGenerator3D *curr_generator = cast_to<QueryGenerator3D>(child);

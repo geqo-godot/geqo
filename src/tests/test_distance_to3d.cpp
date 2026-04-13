@@ -43,7 +43,7 @@ void TestDistanceTo3D::perform_test(Ref<QueryInstance3D> query_instance) {
 
 		// Aggregate distances based on operator
 		double distance = 0.0;
-		switch (get_context_score_operator()) {
+		switch (get_multiple_context_score_operator()) {
 			case GEQOEnums::OP_AVERAGE_SCORE:
 				distance = std::accumulate(distances.begin(), distances.end(), 0.0) / distances.size();
 				break;

@@ -31,7 +31,7 @@ void TestDistanceTo2D::perform_test(Ref<QueryInstance2D> query_instance) {
 
 	//// Aggregate distances based on operator
 	//double final_raw_distance = 0.0;
-	//switch (get_context_score_operator()) {
+	//switch (get_multiple_context_score_operator()) {
 	//	case OP_AVERAGE_SCORE:
 	//		final_raw_distance = std::accumulate(distances.begin(), distances.end(), 0.0) / distances.size();
 	//		break;
@@ -51,7 +51,7 @@ void TestDistanceTo2D::perform_test(Ref<QueryInstance2D> query_instance) {
 	//// Add the score
 	//projection->add_score_numeric(
 	//		get_test_purpose(),
-	//		get_context_filter_operator(),
+	//		get_multiple_context_filter_operator(),
 	//		curve_score,
 	//		0.0,
 	//		1.0);

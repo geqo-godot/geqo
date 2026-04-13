@@ -10,7 +10,7 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_gmutw"]
 
 [sub_resource type="Curve" id="Curve_gmutw"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
 point_count = 2
 
 [node name="Enemy" type="CharacterBody3D" groups=["enemies"]]
@@ -44,14 +44,12 @@ use_shape_cast = true
 shape = SubResource("SphereShape3D_gmutw")
 
 [node name="CustomDistanceTo3D" type="QueryTest3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("distance_to")]
-cost = 1.0
-multiple_context_filter_operator = 1
-filter_type = 2
+score_curve = SubResource("Curve_gmutw")
 filter_min = 1.0
 filter_max = 10.0
+cost = 1.0
 script = ExtResource("2_gmutw")
-distance_to = NodePath("../../ContextPlayer")
-scoring_curve = SubResource("Curve_gmutw")
+distance_to = NodePath("../../ContextSelf")
 metadata/_custom_type_script = "uid://55v77romqu4f"
 
 [connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]

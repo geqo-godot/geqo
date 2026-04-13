@@ -92,17 +92,51 @@ public:
 	void _add_score_boolean(int test_purpose, bool value, bool expected_boolean) {
 		bool passed = (value == expected_boolean);
 
-		if (test_purpose == 0 || test_purpose == 1) {
+		if (test_purpose == GEQOEnums::PURPOSE_FILTER_SCORE || test_purpose == GEQOEnums::PURPOSE_FILTER_ONLY) {
 			if (!passed) {
 				is_filtered = true;
 				return;
 			}
 		}
 
-		if (test_purpose == 0 || test_purpose == 2) {
+		if (test_purpose == GEQOEnums::PURPOSE_FILTER_SCORE || test_purpose == GEQOEnums::PURPOSE_SCORE_ONLY) {
 			score += passed ? 1.0 : 0.0;
 			has_score = true;
 		}
+	}
+
+	// For pre-processed values (post-curve, post-remap).
+	void _add_score_direct(int test_purpose, double normalized_value, double scoring_factor = 1.0) {
+		if (test_purpose == GEQOEnums::PURPOSE_FILTER_SCORE || test_purpose == GEQOEnums::PURPOSE_SCORE_ONLY) {
+			score += std::clamp(normalized_value, 0.0, 1.0) * scoring_factor;
+			has_score = true;
+		}
+	}
+
+	// filter-only check, returns whether the item survived.
+	// Useful when you want to check filtering separately before committing a score
+	bool _apply_filter_numeric(int filter_type, double amount, double min_threshold, double max_threshold) {
+		bool filtered = false;
+		if (filter_type == GEQOEnums::FILTER_TYPE_MIN)
+			filtered = amount < min_threshold;
+		else if (filter_type == GEQOEnums::FILTER_TYPE_MAX)
+			filtered = amount > max_threshold;
+		else if (filter_type == GEQOEnums::FILTER_TYPE_RANGE)
+			filtered = amount < min_threshold || amount > max_threshold;
+		if (filtered) {
+			is_filtered = true;
+			return false;
+		}
+		return true;
+	}
+
+	// Same thing but for boolean tests
+	bool _apply_filter_boolean(bool value, bool expected) {
+		if (value != expected) {
+			is_filtered = true;
+			return false;
+		}
+		return true;
 	}
 
 	bool is_higher_than(Ref<QueryItemT> item) {
@@ -147,6 +181,18 @@ public:
 		return _add_score_boolean(test_purpose, value, expected_boolean);
 	}
 
+	void add_score_direct(TestPurpose test_purpose, double normalized_value, double scoring_factor) {
+		return _add_score_direct(test_purpose, normalized_value, scoring_factor);
+	}
+
+	bool apply_filter_numeric(FilterType filter_type, double amount, double min_threshold, double max_threshold) {
+		return _apply_filter_numeric(filter_type, amount, min_threshold, max_threshold);
+	}
+
+	bool apply_filter_boolean(bool value, bool expected) {
+		return _apply_filter_boolean(value, expected);
+	}
+
 	// Factory thingy
 	static Ref<QueryItem2D> create(Vector2 pos, Node2D *collider = nullptr) {
 		Ref<QueryItem2D> item;
@@ -185,6 +231,18 @@ public:
 	}
 	void add_score_boolean(TestPurpose test_purpose, bool value, bool expected_boolean) {
 		return _add_score_boolean(test_purpose, value, expected_boolean);
+	}
+
+	void add_score_direct(TestPurpose test_purpose, double normalized_value, double scoring_factor) {
+		return _add_score_direct(test_purpose, normalized_value, scoring_factor);
+	}
+
+	bool apply_filter_numeric(FilterType filter_type, double amount, double min_threshold, double max_threshold) {
+		return _apply_filter_numeric(filter_type, amount, min_threshold, max_threshold);
+	}
+
+	bool apply_filter_boolean(bool value, bool expected) {
+		return _apply_filter_boolean(value, expected);
 	}
 
 	// Factory thingy
