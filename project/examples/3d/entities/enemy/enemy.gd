@@ -22,6 +22,12 @@ func _input(event: InputEvent) -> void:
 			return
 		nav_agent.target_position = final_target
 		current_target = nav_agent.get_next_path_position()
+		#var result_str: String = ""
+		#print_debug("Results for this query: ")
+		#for item: QueryItem3D in query_result.get_all_results():
+		#	result_str += ("QueryItem: " + str(item) + " score: " + str(item.score) + " pos: " + str(item.projection_position) + ", ")
+		#print_debug(result_str)
+		#print_debug("Best item: ", query_result.get_all_results()[0])
 
 
 func _physics_process(delta: float) -> void:
