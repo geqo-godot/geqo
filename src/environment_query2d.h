@@ -27,7 +27,8 @@ public:
 	EnvironmentQuery2D() {}
 	~EnvironmentQuery2D() {}
 
-	void init_generator();
+	void init_generator() override;
+	void init_tests() override;
 
 	void set_querier(Node2D *node) {
 		_set_querier(node);
@@ -50,14 +51,9 @@ public:
 	void request_query() { return _request_query(); }
 	Ref<QueryResult2D> get_result() { return _get_result(); }
 
-	void perform_tests() override {
-		_perform_tests();
-		emit_signal("tests_finished");
-	}
-
 	void on_generator_finished() { return _on_generator_finished(); }
-	void on_tests_finished() {
-		bool result = _on_tests_finished();
+	void on_test_finished() {
+		bool result = _on_test_finished();
 		// Fast queries might miss the signal before it's caught, so defer it
 		if (result)
 			call_deferred("emit_signal", "query_finished", stored_result);

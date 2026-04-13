@@ -1,6 +1,11 @@
 #include "tests/query_test3d.h"
 #include "query_test3d.h"
+#include <godot_cpp/classes/scene_tree.hpp>
 #include <godot_cpp/core/class_db.hpp>
+
+void QueryTest3D::end_test() {
+	emit_signal("test_finished");
+}
 
 void QueryTest3D::perform_test(Ref<QueryInstance3D> query_instance) {
 	GDVIRTUAL_CALL(_perform_test, query_instance);
@@ -8,6 +13,9 @@ void QueryTest3D::perform_test(Ref<QueryInstance3D> query_instance) {
 
 void QueryTest3D::_bind_methods() {
 	GDVIRTUAL_BIND(_perform_test, "query_instance");
+
+	ClassDB::bind_method(D_METHOD("end_test"), &QueryTest3D::end_test);
+
 	ClassDB::bind_method(D_METHOD("set_context_score_operator", "score_op"), &QueryTest3D::set_context_score_operator);
 	ClassDB::bind_method(D_METHOD("get_context_score_operator"), &QueryTest3D::get_context_score_operator);
 
@@ -66,6 +74,8 @@ void QueryTest3D::_bind_methods() {
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "filter_max"), "set_filter_max", "get_filter_max");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "scoring_factor"), "set_scoring_factor", "get_scoring_factor");
 	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "bool_match"), "set_bool_match", "get_bool_match");
+
+	ADD_SIGNAL(MethodInfo("test_finished"));
 }
 
 void QueryTest3D::_validate_property(PropertyInfo &property) const {

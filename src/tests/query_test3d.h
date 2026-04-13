@@ -58,6 +58,7 @@ public:
 	void set_cost(float new_cost) { return _set_cost(new_cost); }
 	float get_cost() { return _get_cost(); }
 
+	void end_test();
 	virtual void perform_test(Ref<QueryInstance3D> query_instance);
 	GDVIRTUAL1_REQUIRED(_perform_test, Ref<QueryInstance3D>)
 

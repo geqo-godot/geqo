@@ -25,6 +25,8 @@ protected:
 	Ref<QueryInstanceT> instance;
 	NodeT *querier = nullptr;
 	GeneratorT *generator = nullptr;
+	std::vector<QueryTestT *> sorted_tests;
+	int current_test = 0;
 	SpheresT *debug_spheres = nullptr;
 
 	double time_budget_ms = 1.0;
@@ -39,12 +41,16 @@ public:
 	~EnvironmentQueryBase() = default;
 
 	virtual void init_generator() = 0;
+	virtual void init_tests() = 0;
 
 	void _set_querier(NodeT *node) {
 		querier = node;
 	}
 	NodeT *_get_querier() const {
 		return querier;
+	}
+	GeneratorT *_get_generator() const {
+		return generator;
 	}
 
 	uint64_t get_last_start_time() { return last_start_time_usec; }
@@ -101,49 +107,67 @@ public:
 
 	void _on_generator_finished() {
 		// Start tests
-		perform_tests();
+		instance->set_budget(time_budget_ms);
+		_perform_tests();
 	}
 
-	bool _on_tests_finished() {
-		// Process the results
-		Ref<ResultT> result;
-		result.instantiate();
-		stored_result = result;
-		stored_result->set_time_it_took(Time::get_singleton()->get_ticks_usec() - last_start_time_usec);
-		if (debug_spheres) {
-			debug_spheres->draw_items(instance->get_items());
-		}
-		// Give query_items to result for caching
-		stored_result->set_items(instance->take_items());
-
-		is_querying = false;
-		return true;
+	std::vector<QueryTestT *> _get_sorted_tests() {
+		return sorted_tests;
 	}
 
-	virtual void perform_tests() = 0;
-
-	void _perform_tests() {
-		std::vector<QueryTestT *> tests;
+	void _gather_tests() {
+		sorted_tests.clear();
 		for (Variant test : generator->get_children()) {
 			// Make sure all of them are tests
 			QueryTestT *current_test = Object::cast_to<QueryTestT>(test);
 			if (current_test)
-				tests.push_back(current_test);
+				sorted_tests.push_back(current_test);
 		}
-
 		// Sort test by purpose, then cost
-		std::sort(tests.begin(), tests.end(),
+		std::sort(sorted_tests.begin(), sorted_tests.end(),
 				  [](QueryTestT *a, QueryTestT *b) {
 					  if (a->get_test_purpose() != b->get_test_purpose())
 						  return a->get_test_purpose() < b->get_test_purpose();
 					  return a->get_cost() < b->get_cost();
 				  });
+	}
+
+	void _perform_tests() {
+		if (sorted_tests.size() != generator->get_children().size())
+			_gather_tests();
 
 		if (instance->get_item_count() == 0)
+			// There's no items so what's even the point of testing
 			return;
 
-		for (QueryTestT *test : tests) {
-			test->perform_test(instance);
+		if (sorted_tests.empty())
+			// No tests available
+			return;
+		// Begin first test
+		sorted_tests[0]->perform_test(instance);
+	}
+
+	// Will return true to do the call_deferred query_finshed on the 2D and 3D environment queries
+	bool _on_test_finished() {
+		current_test++;
+		instance->reset_iterator();
+		if (current_test < sorted_tests.size()) {
+			sorted_tests[current_test]->perform_test(instance);
+			return false;
+		} else {
+			// Process the results
+			Ref<ResultT> result;
+			result.instantiate();
+			stored_result = result;
+			stored_result->set_time_it_took(Time::get_singleton()->get_ticks_usec() - last_start_time_usec);
+			if (debug_spheres) {
+				debug_spheres->draw_items(instance->get_items());
+			}
+			// Give query_items to result for caching
+			stored_result->set_items(instance->take_items());
+
+			is_querying = false;
+			return true;
 		}
 	}
 };

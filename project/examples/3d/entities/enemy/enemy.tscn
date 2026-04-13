@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://nvso64245ltb"]
+[gd_scene load_steps=7 format=3 uid="uid://nvso64245ltb"]
 
 [ext_resource type="Script" uid="uid://cyqo7rh6dj286" path="res://examples/3d/entities/enemy/enemy.gd" id="1_3fvr7"]
+[ext_resource type="Script" uid="uid://55v77romqu4f" path="res://example_custom_scripts/custom_test3d.gd" id="2_gmutw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fj7yv"]
 
@@ -8,7 +9,7 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gmutw"]
 
-[sub_resource type="Curve" id="Curve_5peh2"]
+[sub_resource type="Curve" id="Curve_gmutw"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
@@ -26,7 +27,8 @@ mesh = SubResource("CapsuleMesh_036b0")
 
 [node name="Contexts" type="Node3D" parent="."]
 
-[node name="EnvironmentQuery3D" type="EnvironmentQuery3D" parent="."]
+[node name="EnvironmentQuery3D" type="EnvironmentQuery3D" parent="." node_paths=PackedStringArray("querier")]
+querier = NodePath("..")
 use_debug_shapes = true
 
 [node name="ContextPlayer" type="ContextInGroup3D" parent="EnvironmentQuery3D"]
@@ -42,11 +44,14 @@ post_projection_vertical_offset = 0.5
 use_shape_cast = true
 shape = SubResource("SphereShape3D_gmutw")
 
-[node name="TestDistanceToPlayer" type="TestDistanceTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("distance_to")]
+[node name="CustomDistanceTo3D" type="QueryTest3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("distance_to")]
+cost = 1.0
+filter_type = 1
+filter_min = 0.1
+filter_max = 0.5
+script = ExtResource("2_gmutw")
 distance_to = NodePath("../../ContextPlayer")
-scoring_curve = SubResource("Curve_5peh2")
-test_purpose = 2
-filter_min = 10.0
-filter_max = 15.0
+scoring_curve = SubResource("Curve_gmutw")
+metadata/_custom_type_script = "uid://55v77romqu4f"
 
 [connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]

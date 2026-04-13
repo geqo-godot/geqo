@@ -29,8 +29,8 @@ void EnvironmentQuery3D::_notification(int p_what) {
 				call_deferred("add_sibling", debug_spheres);
 			}
 			connect("query_finished", callable_mp(GEQODebug::get_singleton(), &GEQODebug::_on_query_finished3d));
-			connect("tests_finished", callable_mp(this, &EnvironmentQuery3D::on_tests_finished));
 			init_generator();
+			init_tests();
 		} break;
 		case NOTIFICATION_CHILD_ORDER_CHANGED: {
 			if (Engine::get_singleton()->is_editor_hint())
@@ -89,6 +89,16 @@ void EnvironmentQuery3D::init_generator() {
 	}
 }
 
+void EnvironmentQuery3D::init_tests() {
+	if (!_get_generator())
+		return;
+	_gather_tests();
+	for (QueryTest3D *test : _get_sorted_tests()) {
+		UtilityFunctions::print(test);
+		test->connect("test_finished", callable_mp(this, &EnvironmentQuery3D::on_test_finished));
+	}
+}
+
 void EnvironmentQuery3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_querier"), &EnvironmentQuery3D::set_querier);
 	ClassDB::bind_method(D_METHOD("get_querier"), &EnvironmentQuery3D::get_querier);
@@ -100,6 +110,7 @@ void EnvironmentQuery3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_result"), &EnvironmentQuery3D::get_result);
 	ClassDB::bind_method(D_METHOD("set_time_budget_ms"), &EnvironmentQuery3D::set_time_budget_ms);
 	ClassDB::bind_method(D_METHOD("get_time_budget_ms"), &EnvironmentQuery3D::get_time_budget_ms);
+	ClassDB::bind_method(D_METHOD("on_test_finished"), &EnvironmentQuery3D::on_test_finished);
 
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "querier", PROPERTY_HINT_NODE_TYPE, "Node3D"), "set_querier", "get_querier");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "time_budget_ms"), "set_time_budget_ms", "get_time_budget_ms");
