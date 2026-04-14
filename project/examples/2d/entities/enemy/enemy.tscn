@@ -29,12 +29,16 @@ target_desired_distance = 32.0
 querier = NodePath("..")
 use_debug_shapes = true
 
+[node name="ContextPlayer" type="ContextInGroup2D" parent="EnvironmentQuery2D"]
+group = "player"
+
 [node name="GeneratorGridShape2D" type="GeneratorGridShape2D" parent="EnvironmentQuery2D" node_paths=PackedStringArray("generate_around")]
-generate_around = NodePath("")
+generate_around = NodePath("../ContextPlayer")
 grid_half_size = 500.0
 space_between = 200.0
 
-[node name="TestDistanceTo2D" type="TestDistanceTo2D" parent="EnvironmentQuery2D/GeneratorGridShape2D"]
+[node name="TestDistanceTo2D" type="TestDistanceTo2D" parent="EnvironmentQuery2D/GeneratorGridShape2D" node_paths=PackedStringArray("distance_to")]
+distance_to = NodePath("../../ContextPlayer")
 score_curve = SubResource("Curve_84ptx")
 
 [connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]

@@ -29,6 +29,7 @@ public:
 	GDVIRTUAL1RC_REQUIRED(Array, _get_context, Ref<QueryInstance2D>)
 
 	PackedVector2Array get_context_positions(Ref<QueryInstance2D> query_instance) { return _get_context_positions(query_instance); }
+	TypedArray<Node2D> get_context_nodes(Ref<QueryInstance2D> query_instance) { return _get_context_nodes(query_instance); }
 	PackedStringArray _get_configuration_warnings() const override;
 
 protected:

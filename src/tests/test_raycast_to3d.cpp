@@ -1,22 +1,18 @@
-#include <godot_cpp/classes/node3d.hpp>
-
-#include "test_raycast_to3d.h"
 #include "tests/test_raycast_to3d.h"
+#include "contexts/context_target_node3d.h"
 #include <godot_cpp/classes/collision_object3d.hpp>
 #include <godot_cpp/classes/node3d.hpp>
 #include <godot_cpp/classes/physics_direct_space_state3d.hpp>
 #include <godot_cpp/classes/physics_ray_query_parameters3d.hpp>
 #include <godot_cpp/classes/physics_shape_query_parameters3d.hpp>
+#include <godot_cpp/classes/scene_tree.hpp>
 #include <godot_cpp/classes/world3d.hpp>
 #include <godot_cpp/core/class_db.hpp>
+
 #define MAKE_OBJECT_TYPE_HINT(m_type) vformat("%s/%s:%s", Variant::NODE_PATH, PROPERTY_HINT_NODE_PATH_VALID_TYPES, m_type)
 
 void TestRaycastTo3D::set_context(QueryContext3D *context_node) {
 	context = context_node;
-}
-
-void TestRaycastTo3D::set_hitting_is_true(bool hitting) {
-	hitting_is_true = hitting;
 }
 
 void TestRaycastTo3D::set_cast_from_context(bool cast) {
@@ -44,108 +40,112 @@ void TestRaycastTo3D::set_shape(Ref<Shape3D> new_shape) {
 	shape = new_shape;
 }
 
-void TestRaycastTo3D::perform_test(Ref<QueryInstance3D> query_instance) {
-	//if (!context) {
-	//	print_error("TestRaycastTo3D: Test RaycastTo has no context");
-	//	return;
-	//}
-	//Array context_nodes = context->get_context();
-
-	//int current_score = 0;
-
-	//for (Variant context : context_nodes) {
-	//	Node3D *context_node = Object::cast_to<Node3D>(context);
-	//	if (context_node == nullptr) {
-	//		print_error("TestRaycastTo3D: RaycastTo context should be PhysicsBody3D");
-	//		return;
-	//	}
-	//	Vector3 start_pos;
-	//	Vector3 end_pos;
-
-	//	if (cast_from_context) {
-	//		start_pos = context_node->get_global_position();
-	//		end_pos = projection->get_projection_position();
-	//	} else {
-	//		start_pos = projection->get_projection_position();
-	//		end_pos = context_node->get_global_position();
-	//	}
-	//	Dictionary result;
-
-	//	Array exclusion_nodes = Array();
-	//	for (NodePath exclusion_path : exclusions) {
-	//		CollisionObject3D *node = Object::cast_to<CollisionObject3D>(get_node_or_null(exclusion_path));
-	//		if (node != nullptr)
-	//			exclusion_nodes.append(node);
-	//	}
-	//	if (use_shape_cast) {
-	//		TypedArray<Dictionary> shape_results = cast_shape_projection(start_pos, end_pos, exclusion_nodes, shape, collision_mask);
-	//		if (!shape_results.is_empty()) {
-	//			result = shape_results[0];
-	//			for (Dictionary shape_result : shape_results) {
-	//				Node3D *collider = Object::cast_to<Node3D>(shape_result.get("collider", nullptr));
-	//				if (collider == context_node) {
-	//					result = shape_result;
-	//					break;
-	//				}
-	//			}
-	//		}
-	//	} else {
-	//		result = cast_ray_projection(start_pos, end_pos, exclusion_nodes, collision_mask);
-	//	}
-	//	bool is_hit = false;
-
-	//	Node3D *collider = Object::cast_to<Node3D>(result.get("collider", nullptr));
-	//	if (collider == context_node)
-	//		is_hit = true;
-
-	//	// Invert if hitting_is_true = false
-	//	if (!hitting_is_true) {
-	//		is_hit = !is_hit;
-	//	}
-
-	//	if (is_hit) {
-	//		current_score++;
-	//		if (get_multiple_context_filter_operator() == OP_ANY_PASS)
-	//			break;
-	//	}
-	//}
-
-	//bool filter = false;
-	//int final_score = 0;
-	//MultipleContextFilterOp filter_op = get_multiple_context_filter_operator();
-
-	//switch (filter_op) {
-	//	case OP_ANY_PASS: {
-	//		if (current_score > 0) {
-	//			final_score = 1;
-	//		} else {
-	//			filter = true;
-	//		}
-	//	} break;
-	//	case OP_ALL_PASS: {
-	//		if (current_score == context_nodes.size()) {
-	//			final_score = 1;
-	//		} else {
-	//			filter = true;
-	//		}
-	//	} break;
-	//}
-	//
-	//	switch (get_test_purpose()) {
-	//		case PURPOSE_FILTER_SCORE: {
-	//			projection->set_is_filtered(filter);
-	//			projection->add_score(final_score);
-	//		} break;
-	//		case PURPOSE_FILTER_ONLY: {
-	//			projection->set_is_filtered(filter);
-	//		} break;
-	//		case PURPOSE_SCORE_ONLY: {
-	//			projection->add_score(final_score);
-	//		} break;
-	//	}
+Array TestRaycastTo3D::resolve_exclusions() {
+	Array exclusion_nodes;
+	for (int i = 0; i < exclusions.size(); i++) {
+		CollisionObject3D *node = Object::cast_to<CollisionObject3D>(get_node_or_null(exclusions[i]));
+		if (node != nullptr)
+			exclusion_nodes.append(node);
+	}
+	return exclusion_nodes;
 }
 
-// TODO: Move this to a utils class or something (duplicated code)
+bool TestRaycastTo3D::cast_to_node(Ref<QueryItem3D> item, Node3D *context_node, const Array &exclusion_nodes) {
+	Vector3 start_pos, end_pos;
+	if (cast_from_context) {
+		start_pos = context_node->get_global_position();
+		end_pos = item->get_projection_position();
+	} else {
+		start_pos = item->get_projection_position();
+		end_pos = context_node->get_global_position();
+	}
+
+	Node3D *collider = nullptr;
+	if (use_shape_cast) {
+		TypedArray<Dictionary> shape_results = cast_shape_projection(start_pos, end_pos, exclusion_nodes, shape, collision_mask);
+		for (int i = 0; i < shape_results.size(); i++) {
+			Dictionary sr = shape_results[i];
+			Node3D *c = Object::cast_to<Node3D>(sr.get("collider", nullptr));
+			if (c == context_node) {
+				collider = c;
+				break;
+			}
+			if (i == 0)
+				collider = c; // fallback to first hit
+		}
+	} else {
+		Dictionary result = cast_ray_projection(start_pos, end_pos, exclusion_nodes, collision_mask);
+		collider = Object::cast_to<Node3D>(result.get("collider", nullptr));
+	}
+
+	return collider == context_node;
+}
+
+bool TestRaycastTo3D::evaluate_context_hit_any(Ref<QueryItem3D> item, const Array &context_nodes, const Array &exclusion_nodes) {
+	for (int i = 0; i < context_nodes.size(); i++) {
+		Node3D *node = Object::cast_to<Node3D>(context_nodes[i]);
+		if (node && cast_to_node(item, node, exclusion_nodes))
+			return true;
+	}
+	return false;
+}
+
+bool TestRaycastTo3D::evaluate_context_hit_all(Ref<QueryItem3D> item, const Array &context_nodes, const Array &exclusion_nodes) {
+	for (int i = 0; i < context_nodes.size(); i++) {
+		Node3D *node = Object::cast_to<Node3D>(context_nodes[i]);
+		if (!node || !cast_to_node(item, node, exclusion_nodes))
+			return false;
+	}
+	return true;
+}
+
+void TestRaycastTo3D::perform_test(Ref<QueryInstance3D> query_instance) {
+	if (!context)
+		context = Object::cast_to<QueryContext3D>(query_instance->get_querier_context());
+
+	Array context_nodes = context->get_context_nodes(query_instance);
+	if (context_nodes.is_empty()) {
+		end_test();
+		return;
+	}
+
+	Array exclusion_nodes = resolve_exclusions();
+
+	while (query_instance->has_items()) {
+		Ref<QueryItem3D> item = query_instance->get_next_item();
+		if (item->get_is_filtered())
+			continue;
+
+		bool passes = false;
+		switch (get_multiple_context_filter_operator()) {
+			case GEQOEnums::OP_ANY_PASS:
+				passes = evaluate_context_hit_any(item, context_nodes, exclusion_nodes);
+				break;
+			case GEQOEnums::OP_ALL_PASS:
+				passes = evaluate_context_hit_all(item, context_nodes, exclusion_nodes);
+				break;
+			default:
+				passes = evaluate_context_hit_any(item, context_nodes, exclusion_nodes);
+				break;
+		}
+
+		item->add_score_boolean(get_test_purpose(), passes, get_bool_match());
+
+		if (!query_instance->has_time_left()) {
+			stored_instance = query_instance;
+			get_tree()->connect("process_frame", callable_mp(this, &TestRaycastTo3D::_on_next_process_frame), CONNECT_ONE_SHOT);
+			return;
+		}
+	}
+
+	end_test();
+}
+
+void TestRaycastTo3D::_on_next_process_frame() {
+	stored_instance->refresh_timer();
+	perform_test(stored_instance);
+}
+
 Dictionary TestRaycastTo3D::cast_ray_projection(Vector3 start_pos, Vector3 end_pos, Array exclusions, int col_mask) {
 	PhysicsDirectSpaceState3D *space_state = get_world_3d()->get_direct_space_state();
 	Ref<PhysicsRayQueryParameters3D> query = PhysicsRayQueryParameters3D::create(start_pos, end_pos, col_mask);
@@ -155,8 +155,7 @@ Dictionary TestRaycastTo3D::cast_ray_projection(Vector3 start_pos, Vector3 end_p
 	if (get_raycast_mode() == AREA || get_raycast_mode() == BODY_AREA)
 		query->set_collide_with_areas(true);
 
-	Array exclusion_rids = Array();
-
+	Array exclusion_rids;
 	for (Variant exclusion : exclusions) {
 		CollisionObject3D *node = Object::cast_to<CollisionObject3D>(exclusion.operator Object *());
 		if (node == nullptr)
@@ -179,7 +178,6 @@ TypedArray<Dictionary> TestRaycastTo3D::cast_shape_projection(Vector3 start_pos,
 	Transform3D transform = Transform3D();
 	transform.set_origin(start_pos);
 	query->set_transform(transform);
-
 	query->set_motion(end_pos - start_pos);
 
 	if (get_raycast_mode() == AREA)
@@ -187,8 +185,7 @@ TypedArray<Dictionary> TestRaycastTo3D::cast_shape_projection(Vector3 start_pos,
 	if (get_raycast_mode() == AREA || get_raycast_mode() == BODY_AREA)
 		query->set_collide_with_areas(true);
 
-	Array exclusion_rids = Array();
-
+	Array exclusion_rids;
 	for (Variant exclusion : exclusions) {
 		CollisionObject3D *node = Object::cast_to<CollisionObject3D>(exclusion.operator Object *());
 		if (node == nullptr)
@@ -196,31 +193,25 @@ TypedArray<Dictionary> TestRaycastTo3D::cast_shape_projection(Vector3 start_pos,
 		exclusion_rids.append(node->get_rid());
 	}
 	query->set_exclude(exclusion_rids);
-	// Get safe motion proportion
+
 	PackedFloat32Array motion_array = space_state->cast_motion(query);
 	TypedArray<Dictionary> result;
 
-	// Check for collision
 	if (motion_array.size() >= 2 && motion_array[1] < 1.0) {
-		// Calculate collision position
 		Vector3 motion = end_pos - start_pos;
 		Vector3 collision_pos = start_pos + (motion * motion_array[1]);
 
-		// Update query tranfrom to collision pos
 		transform.set_origin(collision_pos);
 		query->set_transform(transform);
 		query->set_motion(Vector3(0, 0, 0));
 
 		Dictionary rest_info = space_state->get_rest_info(query);
-
 		if (!rest_info.is_empty()) {
 			uint64_t collider_id = rest_info.get("collider_id", 0);
 			if (collider_id != 0) {
 				Object *obj = ObjectDB::get_instance(ObjectID(collider_id));
-				if (obj != nullptr) {
-					// Add collider object
+				if (obj != nullptr)
 					rest_info["collider"] = obj;
-				}
 			}
 			result.append(rest_info);
 		}
@@ -231,9 +222,6 @@ TypedArray<Dictionary> TestRaycastTo3D::cast_shape_projection(Vector3 start_pos,
 void TestRaycastTo3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_context", "context_node"), &TestRaycastTo3D::set_context);
 	ClassDB::bind_method(D_METHOD("get_context"), &TestRaycastTo3D::get_context);
-
-	ClassDB::bind_method(D_METHOD("set_hitting_is_true", "hitting"), &TestRaycastTo3D::set_hitting_is_true);
-	ClassDB::bind_method(D_METHOD("get_hitting_is_true"), &TestRaycastTo3D::get_hitting_is_true);
 
 	ClassDB::bind_method(D_METHOD("set_cast_from_context", "cast"), &TestRaycastTo3D::set_cast_from_context);
 	ClassDB::bind_method(D_METHOD("get_cast_from_context"), &TestRaycastTo3D::get_cast_from_context);
@@ -254,7 +242,6 @@ void TestRaycastTo3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_shape"), &TestRaycastTo3D::get_shape);
 
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "context", PROPERTY_HINT_NODE_TYPE, "QueryContext3D"), "set_context", "get_context");
-	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "hitting_is_true"), "set_hitting_is_true", "get_hitting_is_true");
 	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "cast_from_context"), "set_cast_from_context", "get_cast_from_context");
 	ADD_PROPERTY(PropertyInfo(Variant::ARRAY, "exclusions", PROPERTY_HINT_ARRAY_TYPE, MAKE_OBJECT_TYPE_HINT("CollisionObject3D"), (PROPERTY_USAGE_DEFAULT | PROPERTY_USAGE_SCRIPT_VARIABLE)), "set_exclusions", "get_exclusions");
 	ADD_PROPERTY(PropertyInfo(Variant::INT, "collision_mask", PROPERTY_HINT_LAYERS_3D_PHYSICS), "set_collision_mask", "get_collision_mask");

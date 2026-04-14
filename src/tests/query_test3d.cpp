@@ -66,7 +66,16 @@ void QueryTest3D::_bind_methods() {
 	ADD_PROPERTY(PropertyInfo(Variant::INT, "test_purpose", PROPERTY_HINT_ENUM, "Filter Score,Filter Only,Score Only"), "set_test_purpose", "get_test_purpose");
 	ADD_PROPERTY(PropertyInfo(Variant::INT, "test_type", PROPERTY_HINT_ENUM, "Numeric,Boolean", PROPERTY_USAGE_STORAGE), "set_test_type", "get_test_type");
 
+	ADD_GROUP("Filter", "filter_");
+	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "filter_bool_match"), "set_bool_match", "get_bool_match");
+	ADD_PROPERTY(PropertyInfo(Variant::INT, "filter_type", PROPERTY_HINT_ENUM, "Min,Max,Range"), "set_filter_type", "get_filter_type");
+	ADD_PROPERTY(PropertyInfo(Variant::INT, "filter_multiple_context_filter_operator", PROPERTY_HINT_ENUM, "Any Pass,All Pass"), "set_multiple_context_filter_operator", "get_multiple_context_filter_operator");
+
+	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "filter_min"), "set_filter_min", "get_filter_min");
+	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "filter_max"), "set_filter_max", "get_filter_max");
+
 	ADD_GROUP("Score", "score_");
+	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "score_bool_match"), "set_bool_match", "get_bool_match");
 	ADD_PROPERTY(PropertyInfo(Variant::INT, "score_multiple_context_score_operator", PROPERTY_HINT_ENUM, "Average Score,Max Score,Min Score"), "set_multiple_context_score_operator", "get_multiple_context_score_operator");
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "score_curve", PROPERTY_HINT_RESOURCE_TYPE, "Curve"), "set_scoring_curve", "get_scoring_curve");
 
@@ -78,21 +87,11 @@ void QueryTest3D::_bind_methods() {
 
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "score_factor"), "set_scoring_factor", "get_scoring_factor");
 
-	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "score_bool_match"), "set_bool_match", "get_bool_match");
-
-	ADD_GROUP("Filter", "filter_");
-	ADD_PROPERTY(PropertyInfo(Variant::INT, "filter_type", PROPERTY_HINT_ENUM, "Min,Max,Range"), "set_filter_type", "get_filter_type");
-	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "filter_bool_match"), "set_bool_match", "get_bool_match");
-	ADD_PROPERTY(PropertyInfo(Variant::INT, "filter_multiple_context_filter_operator", PROPERTY_HINT_ENUM, "Any Pass,All Pass"), "set_multiple_context_filter_operator", "get_multiple_context_filter_operator");
-
-	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "filter_min"), "set_filter_min", "get_filter_min");
-	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "filter_max"), "set_filter_max", "get_filter_max");
-
 	ADD_GROUP("Misc", "");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "cost"), "set_cost", "get_cost");
 
 	// Keep bool_match so user can use it with this variable name instead of score/filter
-	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "bool_match", PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE), "set_test_type", "get_test_type");
+	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "bool_match", PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE), "set_bool_match", "get_bool_match");
 	ADD_SIGNAL(MethodInfo("test_finished"));
 }
 
@@ -125,13 +124,16 @@ void QueryTest3D::_validate_property(PropertyInfo &property) const {
 	if (get_test_type() == GEQOEnums::TEST_TYPE_BOOLEAN) {
 		static const TypedArray<StringName> numeric_vars = {
 			"filter_type", "filter_min", "filter_max",
-			"score_factor", "score_curve"
+			"score_factor", "score_curve",
+			"score_clamp_min_type", "score_clamp_max_type",
+			"score_clamp_min", "score_clamp_max"
 		};
 		if (numeric_vars.has(name)) {
 			property.usage &= ~PROPERTY_USAGE_EDITOR;
 			return;
 		}
 	}
+
 	if (get_test_type() == GEQOEnums::TEST_TYPE_NUMERIC) {
 		if (name == StringName("filter_bool_match") || name == StringName("score_bool_match")) {
 			property.usage &= ~PROPERTY_USAGE_EDITOR;
@@ -155,6 +157,21 @@ void QueryTest3D::_validate_property(PropertyInfo &property) const {
 	if (name == StringName("score_clamp_max") && get_clamp_max_type() != GEQOEnums::CLAMP_TYPE_VAL) {
 		property.usage &= ~PROPERTY_USAGE_EDITOR;
 		return;
+	}
+
+	// 5. Bool match placement
+	if (name == StringName("score_bool_match")) {
+		if (get_test_purpose() != GEQOEnums::PURPOSE_SCORE_ONLY) {
+			property.usage &= ~PROPERTY_USAGE_EDITOR;
+			return;
+		}
+	}
+
+	if (name == StringName("filter_bool_match")) {
+		if (get_test_purpose() == GEQOEnums::PURPOSE_SCORE_ONLY) {
+			property.usage &= ~PROPERTY_USAGE_EDITOR;
+			return;
+		}
 	}
 }
 

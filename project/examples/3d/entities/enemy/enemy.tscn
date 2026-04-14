@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://nvso64245ltb"]
+[gd_scene load_steps=8 format=3 uid="uid://nvso64245ltb"]
 
 [ext_resource type="Script" uid="uid://cyqo7rh6dj286" path="res://examples/3d/entities/enemy/enemy.gd" id="1_3fvr7"]
 
@@ -7,6 +7,12 @@
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_036b0"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gmutw"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_77jyu"]
+
+[sub_resource type="Curve" id="Curve_gmutw"]
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
 
 [sub_resource type="Curve" id="Curve_77jyu"]
 _data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
@@ -42,7 +48,15 @@ post_projection_vertical_offset = 0.5
 use_shape_cast = true
 shape = SubResource("SphereShape3D_gmutw")
 
+[node name="TestRaycastTo3D" type="TestRaycastTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("context")]
+context = NodePath("../../ContextPlayer")
+collision_mask = 3
+use_shape_cast = true
+shape = SubResource("SphereShape3D_77jyu")
+score_curve = SubResource("Curve_gmutw")
+
 [node name="TestDistanceTo3D" type="TestDistanceTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D"]
+test_purpose = 2
 score_curve = SubResource("Curve_77jyu")
 
 [connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]

@@ -23,4 +23,5 @@ void QueryContext2D::_bind_methods() {
 	GDVIRTUAL_BIND(_get_context, "query_instance");
 	ClassDB::bind_method(D_METHOD("get_context", "query_instance"), &QueryContext2D::get_context);
 	ClassDB::bind_method(D_METHOD("get_context_positions", "query_instance"), &QueryContext2D::get_context_positions);
+	ClassDB::bind_method(D_METHOD("get_context_nodes", "query_instance"), &QueryContext2D::get_context_nodes);
 }

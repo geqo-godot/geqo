@@ -47,4 +47,30 @@ public:
 		}
 		return results;
 	}
+
+	TypedArray<NodeT> _get_context_nodes(Ref<QueryInstanceT> query_instance) {
+		Array contexts;
+		// Pass in owner, since has_method and call are Godot Object functions only
+		if (!owner)
+			return TypedArray<NodeT>();
+		if (!owner->has_method("get_context"))
+			return TypedArray<NodeT>();
+
+		contexts = owner->call("get_context", query_instance);
+		TypedArray<NodeT> results = TypedArray<NodeT>();
+
+		for (Variant context : contexts) {
+			if (context.get_type() == Traits::VectorVariantT) {
+				continue;
+			}
+
+			NodeT *current_context = Object::cast_to<NodeT>(context);
+			if (current_context == nullptr) {
+				print_error("Context must be a Node");
+				continue;
+			}
+			results.append(current_context);
+		}
+		return results;
+	}
 };
