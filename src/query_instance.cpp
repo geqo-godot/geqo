@@ -3,6 +3,8 @@
 #include "contexts/context_target_node3d.h"
 
 void QueryInstance2D::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("get_current_query_item"), &QueryInstance2D::get_current_query_item);
+
 	ClassDB::bind_method(D_METHOD("set_querier_context", "node"), &QueryInstance2D::set_querier_context);
 	ClassDB::bind_method(D_METHOD("get_querier_context"), &QueryInstance2D::get_querier_context);
 
@@ -28,6 +30,8 @@ void QueryInstance2D::_bind_methods() {
 }
 
 void QueryInstance3D::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("get_current_query_item"), &QueryInstance3D::get_current_query_item);
+
 	ClassDB::bind_method(D_METHOD("set_querier_context", "node"), &QueryInstance3D::set_querier_context);
 	ClassDB::bind_method(D_METHOD("get_querier_context"), &QueryInstance3D::get_querier_context);
 

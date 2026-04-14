@@ -82,6 +82,10 @@ public:
 	void set_current(int c) { current = c; }
 	int get_current() { return current; }
 
+	Ref<QueryItemT> _get_current_query_item() {
+		return _get_item(current);
+	}
+
 	void set_items(std::vector<Ref<QueryItemT>> &&p_items) {
 		items = std::move(p_items);
 	}
@@ -128,6 +132,7 @@ public:
 class QueryInstance2D : public RefCounted, public QueryInstanceBase<QueryItem2D, ContextTargetNode2D> {
 	GDCLASS(QueryInstance2D, RefCounted)
 public:
+	Ref<QueryItem2D> get_current_query_item() { return _get_current_query_item(); }
 	void set_querier_context(ContextTargetNode2D *node) { _set_querier_context(node); }
 	ContextTargetNode2D *get_querier_context() const { return _get_querier_context(); }
 	void set_test_data_max(Object *test, double max) { _set_test_data_max(test, max); }
@@ -151,6 +156,7 @@ protected:
 class QueryInstance3D : public RefCounted, public QueryInstanceBase<QueryItem3D, ContextTargetNode3D> {
 	GDCLASS(QueryInstance3D, RefCounted)
 public:
+	Ref<QueryItem3D> get_current_query_item() { return _get_current_query_item(); }
 	void set_querier_context(ContextTargetNode3D *node) { _set_querier_context(node); }
 	ContextTargetNode3D *get_querier_context() const { return _get_querier_context(); }
 	void set_test_data_max(Object *test, double max) { _set_test_data_max(test, max); }
