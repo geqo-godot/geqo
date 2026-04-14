@@ -1,4 +1,6 @@
 #include "tests/test_path_find_to3d.h"
+#include "contexts/context_target_node3d.h"
+#include "query_enums.h"
 #include "test_path_find_to3d.h"
 #include <algorithm>
 #include <godot_cpp/classes/engine.hpp>
@@ -22,82 +24,93 @@ void TestPathFindTo3D::set_found_path_threshold(double threshold) {
 	found_path_threshold = threshold;
 }
 
-void TestPathFindTo3D::perform_test(Ref<QueryInstance3D> query_instance) {
-	//if (path_to == nullptr) {
-	//	print_error("TestPathFindTo3D has no context");
-	//	return;
-	//}
+bool TestPathFindTo3D::evaluate_context_paths(Ref<QueryItem3D> item, const Array &context_positions) {
+	RID default_map_rid = get_world_3d()->get_navigation_map();
+	Vector3 start = item->get_projection_position();
 
-	//Array context_positions = path_to->get_context_positions();
-	//std::vector<double> scores = {};
+	for (int i = 0; i < context_positions.size(); i++) {
+		Vector3 target = context_positions[i];
 
-	//for (Variant context_pos : context_positions) {
-	//	if (context_pos.get_type() != Variant::VECTOR3)
-	//		continue;
+		// Project target to navmesh
+		Vector3 nav_target = NavigationServer3D::get_singleton()->map_get_closest_point(default_map_rid, target);
 
-	//	PackedVector3Array path = get_navigation_path(projection->get_projection_position(), context_pos);
-	//	if (use_debug) {
-	//		draw_path(path, Color(1, 0, 0));
-	//	}
-	//	//UtilityFunctions::print("Projection Pos: ", projection->projection_position, " Context Pos: ", context_pos);
-	//	//UtilityFunctions::print("Generated Path: ", path);
+		bool is_valid = true;
+		PackedVector3Array path_to_pos;
 
-	//	RID default_map_rid = get_world_3d()->get_navigation_map();
-	//	Vector3 nav_context =
-	//			NavigationServer3D::get_singleton()->map_get_closest_point(
-	//					default_map_rid,
-	//					context_pos);
-	//	if (path.is_empty()) {
-	//		//UtilityFunctions::print("Path was empty.");
-	//		scores.push_back(0.0);
-	//	} else {
-	//		//UtilityFunctions::print("size - 1 path point: ", path[path.size() - 1], " Context Pos: ", nav_context);
-	//		//UtilityFunctions::print("Threshold: ", found_path_threshold);
-	//		//UtilityFunctions::print("Distance to: ", path[path.size() - 1].distance_to(nav_context));
-	//		if (path[path.size() - 1].distance_to(nav_context) <= found_path_threshold) {
-	//			//UtilityFunctions::print("Final point on path did reach context.");
-	//			scores.push_back(1.0);
-	//		} else {
-	//			//UtilityFunctions::print("Final point on path did not reach context.");
-	//			scores.push_back(0.0);
-	//		}
-	//	}
-	//}
+		// Check if it's even reachable
+		if (nav_target.distance_to(target) > found_path_threshold) {
+			// Can't even be reached
+			is_valid = false;
 
-	//double result = 0.0;
+			if (use_debug) {
+				// get the path for debugging
+				path_to_pos = NavigationServer3D::get_singleton()->map_get_path(default_map_rid, start, nav_target, true);
+			}
+		} else {
+			// get the path
+			path_to_pos = NavigationServer3D::get_singleton()->map_get_path(default_map_rid, start, nav_target, true);
 
-	//// Choose score for the result
-	//switch (get_multiple_context_score_operator()) {
-	//	case OP_AVERAGE_SCORE: {
-	//		double total_score = std::accumulate(scores.begin(), scores.end(), 0.0);
-	//		result = total_score / scores.size();
-	//		break;
-	//	}
-	//	case OP_MAX_SCORE:
-	//		result = *std::max(scores.begin(), scores.end());
-	//		break;
-	//	case OP_MIN_SCORE:
-	//		result = *std::min_element(scores.begin(), scores.end());
-	//		break;
-	//}
+			if (path_to_pos.is_empty()) {
+				is_valid = false;
+			} else {
+				Vector3 end = path_to_pos[path_to_pos.size() - 1];
 
-	//switch (get_test_purpose()) {
-	//	case PURPOSE_FILTER_SCORE: {
-	//		if (result == 0.0)
-	//			projection->set_is_filtered(true);
-	//		else
-	//			projection->add_score(result);
-	//		break;
-	//	}
-	//	case PURPOSE_FILTER_ONLY:
-	//		if (result == 0.0)
-	//			projection->set_is_filtered(true);
-	//		break;
-	//	case PURPOSE_SCORE_ONLY:
-	//		projection->add_score(result);
-	//		break;
-	//}
+				UtilityFunctions::print("target:", target);
+				UtilityFunctions::print("nav_target:", nav_target);
+				UtilityFunctions::print("end:", end);
+
+				bool reached_target = end.distance_to(nav_target) <= found_path_threshold;
+
+				if (!reached_target)
+					is_valid = false;
+			}
+		}
+
+		if (use_debug && !path_to_pos.is_empty()) {
+			draw_path(path_to_pos, is_valid ? Color(0, 1, 0) : Color(1, 0, 0));
+		}
+
+		// ALL_PASS early exit (did not find all paths)
+		if (!is_valid &&
+			get_multiple_context_filter_operator() == GEQOEnums::OP_ALL_PASS) {
+			return false;
+		}
+	}
+
+	// All of them passed
+	return true;
 }
+
+void TestPathFindTo3D::perform_test(Ref<QueryInstance3D> query_instance) {
+	if (path_to == nullptr) {
+		path_to = Object::cast_to<QueryContext3D>(query_instance->get_querier_context());
+		return;
+	}
+
+	Array context_positions = path_to->get_context_positions(query_instance);
+
+	while (query_instance->has_items()) {
+		Ref<QueryItem3D> item = query_instance->get_next_item();
+		if (item->get_is_filtered())
+			continue;
+
+		bool passes = evaluate_context_paths(item, context_positions);
+		item->add_score_boolean(get_test_purpose(), passes, get_bool_match());
+
+		if (!query_instance->has_time_left()) {
+			stored_instance = query_instance;
+			get_tree()->connect("process_frame", callable_mp(this, &TestPathFindTo3D::_on_next_process_frame), CONNECT_ONE_SHOT);
+			return;
+		}
+	}
+	end_test();
+}
+
+void TestPathFindTo3D::_on_next_process_frame() {
+	stored_instance->refresh_timer();
+	perform_test(stored_instance);
+}
+
 PackedVector3Array TestPathFindTo3D::get_navigation_path(Vector3 p_start_position, Vector3 p_target_position) {
 	if (!is_inside_tree())
 		return PackedVector3Array();

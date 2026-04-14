@@ -21,7 +21,8 @@ private:
 	bool use_debug = false;
 	PathTestType path_test_type = PATH_EXISTS;
 	QueryContext3D *path_to = nullptr;
-	double found_path_threshold = 0.1;
+	double found_path_threshold = 1.0;
+	Ref<QueryInstance3D> stored_instance;
 
 public:
 	TestPathFindTo3D() : QueryTest3D() {
@@ -39,6 +40,8 @@ public:
 	void set_found_path_threshold(double threshold);
 	double get_found_path_threshold() { return found_path_threshold; }
 
+	bool evaluate_context_paths(Ref<QueryItem3D> item, const Array &context_nodes);
+	void _on_next_process_frame();
 	void perform_test(Ref<QueryInstance3D> query_instance) override;
 
 	PackedVector3Array get_navigation_path(Vector3 p_start_position, Vector3 p_target_position);
