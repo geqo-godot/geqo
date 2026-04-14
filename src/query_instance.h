@@ -136,10 +136,10 @@ public:
 	double get_test_data_min(Object *test) { return _get_test_data_min(test); }
 	bool has_test_data(Object *test) { return _has_test_data(test); }
 	bool has_items() { return _has_items(); }
-	Ref<QueryItem3D> get_next_item() { return _get_next_item(); }
+	Ref<QueryItem2D> get_next_item() { return _get_next_item(); }
 	int get_item_count() const { return _get_item_count(); }
-	Ref<QueryItem3D> get_item(int index) const { return _get_item(index); }
-	void add_item(Ref<QueryItem3D> item) { _add_item(item); }
+	Ref<QueryItem2D> get_item(int index) const { return _get_item(index); }
+	void add_item(Ref<QueryItem2D> item) { _add_item(item); }
 	bool has_time_left() { return _has_time_left(); }
 	void refresh_timer() { _refresh_timer(); }
 	void reset_iterator() { _reset_iterator(); }

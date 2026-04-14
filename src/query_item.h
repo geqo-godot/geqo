@@ -155,7 +155,6 @@ public:
 		return score > item->score;
 	}
 };
-
 class QueryItem2D : public RefCounted, public QueryItemBase<QueryItemTraits2D> {
 	GDCLASS(QueryItem2D, RefCounted)
 public:
@@ -208,8 +207,6 @@ protected:
 
 class QueryItem3D : public RefCounted, public QueryItemBase<QueryItemTraits3D> {
 	GDCLASS(QueryItem3D, RefCounted)
-	using MultipleContextFilterOp = GEQOEnums::MultipleContextFilterOp;
-
 public:
 	double get_score() { return _get_score(); }
 	void set_score(double new_score) { return _set_score(new_score); }

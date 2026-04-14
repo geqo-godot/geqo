@@ -147,7 +147,7 @@ void TestDistanceTo3D::perform_test(Ref<QueryInstance3D> query_instance) {
 			}
 		}
 
-		// Scoring uses curve-sampled value × score_factor
+		// Scoring uses curve-sampled value x score_factor
 		if (get_test_purpose() == GEQOEnums::PURPOSE_FILTER_SCORE ||
 			get_test_purpose() == GEQOEnums::PURPOSE_SCORE_ONLY) {
 			double normalized = std::clamp((raw_score - clamp_min) / std::max(clamp_max - clamp_min, 1e-9), 0.0, 1.0);
