@@ -49,6 +49,8 @@ shape = SubResource("SphereShape3D_gmutw")
 context = NodePath("../../ContextPlayer")
 shape = SubResource("SphereShape3D_py6ki")
 collision_mask = 2
+test_purpose = 2
+filter_multiple_context_filter_operator = 1
 score_curve = SubResource("Curve_uy82w")
 
 [connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]

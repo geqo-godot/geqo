@@ -51,6 +51,7 @@ void GEQODebugDraw2D::set_debug_color(const Ref<Gradient> &gradient) {
 void GEQODebugDraw2D::_draw() {
 	Ref<Font> font = ThemeDB::get_singleton()->get_fallback_font();
 	int32_t font_size = ThemeDB::get_singleton()->get_fallback_font_size();
+	float text_offset_y = (font->get_ascent(font_size) - font->get_descent(font_size)) / 2.0f;
 	for (Ref<QueryItem2D> query_item : saved_query_items) {
 		Color color;
 		if (query_item->get_is_filtered()) {
@@ -63,14 +64,18 @@ void GEQODebugDraw2D::_draw() {
 
 		draw_rect(
 				Rect2(
-						query_item->get_projection_position() - Vector2(16, 16),
-						Vector2(32, 32)),
+						query_item->get_projection_position() - Vector2(8, 8),
+						Vector2(16, 16)),
 				color);
 
+		Vector2 text_pos = query_item->get_projection_position() + Vector2(0, text_offset_y);
+
 		if (query_item->get_is_filtered()) {
-			draw_string(font, query_item->get_projection_position(), "Filtered", HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, color);
+			draw_string_outline(font, text_pos, "Filtered", HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, 6, Color(0, 0, 0, 1));
+			draw_string(font, text_pos, "Filtered", HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, Color(1, 1, 1, 0.8));
 		} else if (query_item->get_has_score()) {
-			draw_string(font, query_item->get_projection_position(), String::num(query_item->get_score()).pad_decimals(2), HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, Color(1, 1, 1, 0.8));
+			draw_string_outline(font, text_pos, String::num(query_item->get_score()).pad_decimals(2), HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, 6, Color(0, 0, 0, 1));
+			draw_string(font, text_pos, String::num(query_item->get_score()).pad_decimals(2), HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, Color(1, 1, 1, 0.8));
 		}
 	}
 }

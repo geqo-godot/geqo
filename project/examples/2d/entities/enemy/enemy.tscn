@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dfn8vyxb0emok"]
+[gd_scene load_steps=6 format=3 uid="uid://dfn8vyxb0emok"]
 
 [ext_resource type="Script" uid="uid://c7euo0tjfaedf" path="res://examples/2d/entities/enemy/enemy.gd" id="1_eq6a5"]
 
@@ -8,7 +8,10 @@ size = Vector2(64, 64)
 [sub_resource type="CircleShape2D" id="CircleShape2D_24wi7"]
 radius = 64.0
 
-[sub_resource type="Curve" id="Curve_84ptx"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_84ptx"]
+radius = 200.0
+
+[sub_resource type="Curve" id="Curve_eq6a5"]
 _data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
 point_count = 2
 
@@ -32,13 +35,18 @@ use_debug_shapes = true
 [node name="ContextPlayer" type="ContextInGroup2D" parent="EnvironmentQuery2D"]
 group = "player"
 
+[node name="ContextSelf" type="ContextTargetNode2D" parent="EnvironmentQuery2D" node_paths=PackedStringArray("target_node")]
+target_node = NodePath("../..")
+
 [node name="GeneratorGridShape2D" type="GeneratorGridShape2D" parent="EnvironmentQuery2D" node_paths=PackedStringArray("generate_around")]
-generate_around = NodePath("../ContextPlayer")
+generate_around = NodePath("../ContextSelf")
 grid_half_size = 500.0
 space_between = 200.0
 
-[node name="TestDistanceTo2D" type="TestDistanceTo2D" parent="EnvironmentQuery2D/GeneratorGridShape2D" node_paths=PackedStringArray("distance_to")]
-distance_to = NodePath("../../ContextPlayer")
-score_curve = SubResource("Curve_84ptx")
+[node name="TestIntersectsArea2D" type="TestIntersectsArea2D" parent="EnvironmentQuery2D/GeneratorGridShape2D" node_paths=PackedStringArray("context")]
+context = NodePath("../../ContextPlayer")
+shape = SubResource("CircleShape2D_84ptx")
+collision_mask = 2
+score_curve = SubResource("Curve_eq6a5")
 
 [connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]

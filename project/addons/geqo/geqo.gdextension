@@ -32,6 +32,7 @@ EnvironmentQuery2D = "res://addons/geqo/icons/environment_query2d.svg"
 QueryTest2D = "res://addons/geqo/icons/query_test2d.svg"
 QueryGenerator2D = "res://addons/geqo/icons/generator2d.svg"
 
+TestIntersectsArea2D = "res://addons/geqo/icons/query_test2d.svg"
 TestDistanceTo2D = "res://addons/geqo/icons/distance_test2d.svg"
 TestRaycastTo2D = "res://addons/geqo/icons/raycast_test2d.svg"
 TestDotProduct2D = "res://addons/geqo/icons/dot_product_test2d.svg"
