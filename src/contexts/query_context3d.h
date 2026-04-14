@@ -1,6 +1,5 @@
 #pragma once
 #include "contexts/query_context.h"
-#include "environment_query3d.h"
 #include "query_instance.h"
 #include <godot_cpp/classes/node3d.hpp>
 #include <godot_cpp/variant/array.hpp>
@@ -11,6 +10,7 @@
 
 using namespace godot;
 
+class EnvironmentQuery3D;
 struct QueryContextTraits3D {
 	using NodeT = Node3D;
 	using PackedTArray = PackedVector3Array;

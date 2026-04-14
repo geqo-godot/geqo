@@ -1,4 +1,5 @@
 #pragma once
+#include "contexts/context_target_node2d.h"
 #include "debug/geqo_debug_spheres2d.h"
 #include "environment_query.h"
 #include "generators/query_generator2d.h"
@@ -19,6 +20,7 @@ struct QueryTraits2D {
 	using QueryItemT = QueryItem2D;
 	using QueryTestT = QueryTest2D;
 	using QueryInstanceT = QueryInstance2D;
+	using ContextTargetNodeT = ContextTargetNode2D;
 };
 
 class EnvironmentQuery2D : public Node2D, public EnvironmentQueryBase<QueryTraits2D> {
@@ -36,9 +38,11 @@ public:
 		notify_property_list_changed();
 		update_configuration_warnings();
 	}
-	Node2D *get_querier() const {
-		return _get_querier();
-	}
+	Node2D *get_querier() const { return _get_querier(); }
+
+	void set_querier_context(ContextTargetNode2D *node) { _set_querier_context(node); }
+	ContextTargetNode2D *get_querier_context() const { return _get_querier_context(); }
+
 	Ref<QueryInstance2D> get_query_instance() { return _get_query_instance(); }
 	void set_use_debug_shapes(const bool use_debug) { return _set_use_debug_shapes(use_debug); }
 	bool get_use_debug_shapes() const { return _get_use_debug_shapes(); }

@@ -1,6 +1,7 @@
 #include "environment_query3d.h"
 #include "contexts/query_context3d.h"
 #include "generators/query_generator3d.h"
+#include <contexts/context_target_node3d.h>
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/scene_tree.hpp>
 #include <godot_cpp/classes/time.hpp>
@@ -12,9 +13,10 @@ void EnvironmentQuery3D::_notification(int p_what) {
 	switch (p_what) {
 		case NOTIFICATION_ENTER_TREE: {
 			if (!get_querier()) {
-				Node3D *new_querier = Object::cast_to<Node3D>(get_owner());
+				Node3D *new_querier = Object::cast_to<Node3D>(get_parent());
 				if (new_querier)
 					set_querier(new_querier);
+				notify_property_list_changed();
 			}
 		} break;
 		case NOTIFICATION_READY: {
@@ -28,6 +30,15 @@ void EnvironmentQuery3D::_notification(int p_what) {
 				debug_spheres = memnew(GEQODebugSpheres3D);
 				call_deferred("add_sibling", debug_spheres);
 			}
+
+			// Add a context node containing the querier
+			if (!Engine::get_singleton()->is_editor_hint()) {
+				set_querier_context(memnew(ContextTargetNode3D));
+				add_child(get_querier_context());
+				get_querier_context()->set_target_node(querier);
+				get_querier_context()->set_name("ContextQuerier");
+			}
+
 			connect("query_finished", callable_mp(GEQODebug::get_singleton(), &GEQODebug::_on_query_finished3d));
 			init_generator();
 			init_tests();

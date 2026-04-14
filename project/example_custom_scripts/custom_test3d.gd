@@ -10,7 +10,7 @@ func _enter_tree() -> void:
 
 func _perform_test(query_instance: QueryInstance3D) -> void:
 	if not distance_to:
-		push_error("Test has no context")
+		distance_to = query_instance.querier_context
 		end_test()
 		return
 	
@@ -37,7 +37,7 @@ func _perform_test(query_instance: QueryInstance3D) -> void:
 		query_instance.set_test_data_min(self , smallest_item)
 		query_instance.set_test_data_max(self , biggest_item)
 		query_instance.reset_iterator()
-	
+	query_instance.get_querier_context()
 	# Second pass
 	var clamp_min: float = get_effective_clamp_min(query_instance)
 	var clamp_max: float = get_effective_clamp_max(query_instance)

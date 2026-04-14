@@ -1,6 +1,11 @@
 #include "query_instance.h"
+#include "contexts/context_target_node2d.h"
+#include "contexts/context_target_node3d.h"
 
 void QueryInstance2D::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("set_querier_context", "node"), &QueryInstance2D::set_querier_context);
+	ClassDB::bind_method(D_METHOD("get_querier_context"), &QueryInstance2D::get_querier_context);
+
 	ClassDB::bind_method(D_METHOD("set_test_data_max", "test", "max"), &QueryInstance2D::set_test_data_max);
 	ClassDB::bind_method(D_METHOD("get_test_data_max", "test"), &QueryInstance2D::get_test_data_max);
 
@@ -18,9 +23,14 @@ void QueryInstance2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("has_time_left"), &QueryInstance2D::has_time_left);
 	ClassDB::bind_method(D_METHOD("refresh_timer"), &QueryInstance2D::refresh_timer);
 	ClassDB::bind_method(D_METHOD("reset_iterator"), &QueryInstance2D::reset_iterator);
+
+	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "querier_context"), "set_querier_context", "get_querier_context");
 }
 
 void QueryInstance3D::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("set_querier_context", "node"), &QueryInstance3D::set_querier_context);
+	ClassDB::bind_method(D_METHOD("get_querier_context"), &QueryInstance3D::get_querier_context);
+
 	ClassDB::bind_method(D_METHOD("set_test_data_max", "test", "max"), &QueryInstance3D::set_test_data_max);
 	ClassDB::bind_method(D_METHOD("get_test_data_max", "test"), &QueryInstance3D::get_test_data_max);
 
@@ -38,4 +48,6 @@ void QueryInstance3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("has_time_left"), &QueryInstance3D::has_time_left);
 	ClassDB::bind_method(D_METHOD("refresh_timer"), &QueryInstance3D::refresh_timer);
 	ClassDB::bind_method(D_METHOD("reset_iterator"), &QueryInstance3D::reset_iterator);
+
+	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "querier_context"), "set_querier_context", "get_querier_context");
 }

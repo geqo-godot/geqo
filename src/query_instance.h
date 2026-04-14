@@ -4,15 +4,18 @@
 #include <vector>
 
 using namespace godot;
+class ContextTargetNode2D;
+class ContextTargetNode3D;
 
 struct TestExecutionData {
 	double min = 0.0;
 	double max = 0.0;
 };
 
-template <typename QueryItemT>
+template <typename QueryItemT, typename ContextTargetNodeT>
 class QueryInstanceBase {
 private:
+	ContextTargetNodeT *querier_context = nullptr;
 	std::vector<Ref<QueryItemT>> items;
 	uint64_t initial_time_usec = 0;
 	double time_budget_ms = 0.0;
@@ -21,17 +24,14 @@ private:
 	std::unordered_map<uint64_t, TestExecutionData> test_data;
 
 public:
-	bool has_test_data(Object *test) {
-		return test_data.count(test->get_instance_id()) > 0;
-	}
+	void _set_querier_context(ContextTargetNodeT *node) { querier_context = node; }
+	ContextTargetNodeT *_get_querier_context() const { return querier_context; }
 
-	void clear_test_data(Object *test) {
-		test_data.erase(test->get_instance_id());
-	}
+	bool has_test_data(Object *test) { return test_data.count(test->get_instance_id()) > 0; }
 
-	void _set_test_data_max(Object *test, double max) {
-		test_data[test->get_instance_id()].max = max;
-	}
+	void clear_test_data(Object *test) { test_data.erase(test->get_instance_id()); }
+
+	void _set_test_data_max(Object *test, double max) { test_data[test->get_instance_id()].max = max; }
 
 	double _get_test_data_max(Object *test) {
 		auto it = test_data.find(test->get_instance_id());
@@ -125,9 +125,11 @@ public:
 	}
 };
 
-class QueryInstance2D : public RefCounted, public QueryInstanceBase<QueryItem2D> {
+class QueryInstance2D : public RefCounted, public QueryInstanceBase<QueryItem2D, ContextTargetNode2D> {
 	GDCLASS(QueryInstance2D, RefCounted)
 public:
+	void set_querier_context(ContextTargetNode2D *node) { _set_querier_context(node); }
+	ContextTargetNode2D *get_querier_context() const { return _get_querier_context(); }
 	void set_test_data_max(Object *test, double max) { _set_test_data_max(test, max); }
 	double get_test_data_max(Object *test) { return _get_test_data_max(test); }
 	void set_test_data_min(Object *test, double min) { _set_test_data_min(test, min); }
@@ -146,9 +148,11 @@ protected:
 	static void _bind_methods();
 };
 
-class QueryInstance3D : public RefCounted, public QueryInstanceBase<QueryItem3D> {
+class QueryInstance3D : public RefCounted, public QueryInstanceBase<QueryItem3D, ContextTargetNode3D> {
 	GDCLASS(QueryInstance3D, RefCounted)
 public:
+	void set_querier_context(ContextTargetNode3D *node) { _set_querier_context(node); }
+	ContextTargetNode3D *get_querier_context() const { return _get_querier_context(); }
 	void set_test_data_max(Object *test, double max) { _set_test_data_max(test, max); }
 	double get_test_data_max(Object *test) { return _get_test_data_max(test); }
 	void set_test_data_min(Object *test, double min) { _set_test_data_min(test, min); }

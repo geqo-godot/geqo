@@ -21,9 +21,11 @@ protected:
 	using QueryItemT = typename Traits::QueryItemT;
 	using QueryTestT = typename Traits::QueryTestT;
 	using QueryInstanceT = typename Traits::QueryInstanceT;
+	using ContextTargetNodeT = typename Traits::ContextTargetNodeT;
 
 	Ref<QueryInstanceT> instance;
 	NodeT *querier = nullptr;
+	ContextTargetNodeT *querier_context = nullptr;
 	GeneratorT *generator = nullptr;
 	std::vector<QueryTestT *> sorted_tests;
 	int current_test = 0;
@@ -43,38 +45,27 @@ public:
 	virtual void init_generator() = 0;
 	virtual void init_tests() = 0;
 
-	void _set_querier(NodeT *node) {
-		querier = node;
-	}
-	NodeT *_get_querier() const {
-		return querier;
-	}
-	GeneratorT *_get_generator() const {
-		return generator;
-	}
+	void _set_querier(NodeT *node) { querier = node; }
+	NodeT *_get_querier() const { return querier; }
+
+	void _set_querier_context(ContextTargetNodeT *node) { querier_context = node; }
+	ContextTargetNodeT *_get_querier_context() const { return querier_context; }
+
+	GeneratorT *_get_generator() const { return generator; }
 
 	uint64_t get_last_start_time() { return last_start_time_usec; }
 	void set_last_start_time(uint64_t usecs) { last_start_time_usec = usecs; }
 
-	Ref<QueryInstanceT> _get_query_instance() {
-		return instance;
-	}
+	Ref<QueryInstanceT> _get_query_instance() { return instance; }
 
 	void _set_use_debug_shapes(const bool use_debug) { use_debug_shapes = use_debug; }
 	bool _get_use_debug_shapes() const { return use_debug_shapes; }
-	Ref<ResultT> _get_result() {
-		return stored_result;
-	}
+	Ref<ResultT> _get_result() { return stored_result; }
 
-	void _set_time_budget_ms(const double budget) {
-		time_budget_ms = budget;
-	}
+	void _set_time_budget_ms(const double budget) { time_budget_ms = budget; }
 	double _get_time_budget_ms() const { return time_budget_ms; }
 
-	void _set_is_querying(const bool querying) {
-		is_querying = querying;
-		GEQODebug *geqo_debug = GEQODebug::get_singleton();
-	}
+	void _set_is_querying(const bool querying) { is_querying = querying; }
 	bool _get_is_querying() const { return is_querying; }
 
 	void _request_query() {
@@ -95,6 +86,7 @@ public:
 		// UtilityFunctions::print(vformat("Previous vector size: %s", query_items.size()));
 		instance = Ref<QueryInstanceT>();
 		instance.instantiate();
+		instance->set_querier_context(querier_context);
 		generator->set_query_instance(instance);
 		is_querying = true;
 		current_test = 0;
