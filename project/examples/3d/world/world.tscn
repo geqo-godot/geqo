@@ -111,10 +111,13 @@ environment = SubResource("Environment_tlwt5")
 [node name="TestPlayer2" parent="." instance=ExtResource("2_loppk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4345932, 0, 5.32123)
 
+[node name="TestPlayer3" parent="." instance=ExtResource("2_loppk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.9559565, 0, 5.32123)
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_aqk2v")
 }
 
-[node name="Enemy" parent="." instance=ExtResource("3_8f04b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.25094, 1.0356274, 10.466226)
+[node name="Enemy3" parent="." instance=ExtResource("3_8f04b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.636073, 1.0356274, 6.8866444)

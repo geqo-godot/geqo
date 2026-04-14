@@ -34,7 +34,7 @@ private:
 	double scoring_factor = 1.0;
 
 	// Used when test type is boolean
-	bool bool_match = false;
+	bool bool_match = true;
 	double cost = 0.0;
 
 public:
