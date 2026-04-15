@@ -37,7 +37,7 @@ Dictionary QueryGenerator2D::cast_ray_projection(Vector2 start_pos, Vector2 end_
 }
 
 void QueryGenerator2D::_bind_methods() {
-	ClassDB::bind_method(D_METHOD("cast_ray_projection"), &QueryGenerator2D::cast_ray_projection);
+	ClassDB::bind_method(D_METHOD("cast_ray_projection", "start_pos", "end_pos", "exclusions", "col_mask"), &QueryGenerator2D::cast_ray_projection);
 
 	ClassDB::bind_method(D_METHOD("get_raycast_mode"), &QueryGenerator2D::get_raycast_mode);
 	ClassDB::bind_method(D_METHOD("set_raycast_mode", "mode"), &QueryGenerator2D::set_raycast_mode);

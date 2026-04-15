@@ -15,7 +15,7 @@
 		<member name="grid_half_size" type="float" setter="set_grid_half_size" getter="get_grid_half_size" default="20.0">
 			The half the size of the grid, similar to radius.
 		</member>
-		<member name="post_projection_vertical_offset" type="float" setter="set_post_projection_vertical_offset" getter="get_post_projection_vertical_offset" default="0.0">
+		<member name="post_projection_vertical_offset" type="float" setter="set_post_projection_vertical_offset" getter="get_post_projection_vertical_offset" default="0.5">
 			Offset the position of the [QueryItem3D] vertically by this amount after projecting it. Useful to avoid accidental collisions when doing visibility tests.
 		</member>
 		<member name="project_down" type="float" setter="set_project_down" getter="get_project_down" default="100.0">
