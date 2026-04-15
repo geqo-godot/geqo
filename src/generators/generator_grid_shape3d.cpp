@@ -123,6 +123,7 @@ void GeneratorGridShape3D::perform_generation(Ref<QueryInstance3D> query_instanc
 		_current_state.prev_z = 0;
 	}
 	// Finished the generation, continue on, and reset the state
+	UtilityFunctions::print("EMITTING generator_finished");
 	emit_signal("generator_finished");
 	_current_state.reset();
 }

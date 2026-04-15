@@ -94,7 +94,6 @@ public:
 	}
 
 	void _process_query() {
-		uint64_t _initial_time_usec = Time::get_singleton()->get_ticks_usec();
 		generator->perform_generation(instance);
 	}
 
@@ -128,12 +127,12 @@ public:
 		if (sorted_tests.size() != generator->get_children().size())
 			_gather_tests();
 
-		if (instance->get_item_count() == 0 || sorted_tests.empty()) {
-			// There's no items/tests so what's even the point of testing
-			stored_result.instantiate();
-			stored_result->set_time_it_took(
-					Time::get_singleton()->get_ticks_usec() - last_start_time_usec);
-			is_querying = false;
+		if (instance->get_item_count() == 0) {
+			_finalize_query();
+			return true;
+		}
+		if (sorted_tests.empty()) {
+			_finalize_query();
 			return true;
 		}
 
@@ -154,12 +153,6 @@ public:
 			test_instance->perform_test(instance);
 			return false;
 		} else {
-			// Process the results
-			Ref<ResultT> result;
-			result.instantiate();
-			stored_result = result;
-			stored_result->set_time_it_took(Time::get_singleton()->get_ticks_usec() - last_start_time_usec);
-
 			// Normalize scores across all non-filtered items
 			std::vector<Ref<QueryItemT>> &items = instance->get_items();
 			float highest_score = -std::numeric_limits<float>::infinity();
@@ -190,14 +183,19 @@ public:
 				}
 			}
 
-			if (debug_spheres)
-				debug_spheres->draw_items(instance->get_items());
-
-			// Give query_items to result for caching
-			stored_result->set_items(instance->take_items());
-
-			is_querying = false;
+			_finalize_query();
 			return true;
 		}
+	}
+	void _finalize_query() {
+		stored_result.instantiate();
+		stored_result->set_time_it_took(
+				Time::get_singleton()->get_ticks_usec() - last_start_time_usec);
+
+		if (debug_spheres)
+			debug_spheres->draw_items(instance->get_items());
+
+		stored_result->set_items(instance->take_items());
+		is_querying = false;
 	}
 };

@@ -44,14 +44,14 @@ public:
 	ContextTargetNode2D *get_querier_context() const { return _get_querier_context(); }
 
 	Ref<QueryInstance2D> get_query_instance() { return _get_query_instance(); }
-	void set_use_debug_shapes(const bool use_debug) { return _set_use_debug_shapes(use_debug); }
+	void set_use_debug_shapes(const bool use_debug) { _set_use_debug_shapes(use_debug); }
 	bool get_use_debug_shapes() const { return _get_use_debug_shapes(); }
 
 	// TODO: Change this when I figure out how to bind them to Godot without forwarding them
-	void set_time_budget_ms(const double budget) { return _set_time_budget_ms(budget); }
+	void set_time_budget_ms(const double budget) { _set_time_budget_ms(budget); }
 	double get_time_budget_ms() const { return _get_time_budget_ms(); }
 
-	void set_is_querying(const bool querying) { return _set_is_querying(querying); }
+	void set_is_querying(const bool querying) { _set_is_querying(querying); }
 	bool get_is_querying() const { return _get_is_querying(); }
 
 	void request_query() { return _request_query(); }
@@ -63,6 +63,7 @@ public:
 		if (result)
 			call_deferred("emit_signal", "query_finished", stored_result);
 	}
+
 	void on_test_finished() {
 		bool result = _on_test_finished();
 		// Fast queries might miss the signal before it's caught, so defer it
