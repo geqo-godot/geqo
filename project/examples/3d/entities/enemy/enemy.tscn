@@ -1,6 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://nvso64245ltb"]
+[gd_scene load_steps=11 format=3 uid="uid://nvso64245ltb"]
 
 [ext_resource type="Script" uid="uid://cyqo7rh6dj286" path="res://examples/3d/entities/enemy/enemy.gd" id="1_3fvr7"]
+[ext_resource type="Script" uid="uid://d3r1iam5x8yok" path="res://example_custom_scripts/custom_generator3d.gd" id="2_gmutw"]
+[ext_resource type="Script" uid="uid://bucuncg6ilwc0" path="res://example_custom_scripts/custom_context3d.gd" id="2_uy82w"]
+[ext_resource type="Script" uid="uid://55v77romqu4f" path="res://example_custom_scripts/custom_test3d.gd" id="3_py6ki"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fj7yv"]
 
@@ -16,6 +19,10 @@ point_count = 2
 
 [sub_resource type="Curve" id="Curve_gmutw"]
 _data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_uy82w"]
+_data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
 point_count = 2
 
 [node name="Enemy" type="CharacterBody3D" groups=["enemies"]]
@@ -65,5 +72,30 @@ filter_bool_match = false
 score_bool_match = false
 score_curve = SubResource("Curve_gmutw")
 bool_match = false
+
+[node name="EnvironmentQuery3DCustom" type="EnvironmentQuery3D" parent="." node_paths=PackedStringArray("querier")]
+querier = NodePath("..")
+use_debug_shapes = true
+
+[node name="ContextSelf" type="ContextTargetNode3D" parent="EnvironmentQuery3DCustom" node_paths=PackedStringArray("target_node")]
+target_node = NodePath("../..")
+
+[node name="CustomContextPlayer" type="QueryContext3D" parent="EnvironmentQuery3DCustom"]
+script = ExtResource("2_uy82w")
+group = &"player"
+metadata/_custom_type_script = "uid://bucuncg6ilwc0"
+
+[node name="CustomGenerator3D" type="QueryGenerator3D" parent="EnvironmentQuery3DCustom" node_paths=PackedStringArray("generate_around")]
+script = ExtResource("2_gmutw")
+generate_around = NodePath("../ContextSelf")
+metadata/_custom_type_script = "uid://d3r1iam5x8yok"
+
+[node name="CustomDistanceTo3D" type="QueryTest3D" parent="EnvironmentQuery3DCustom/CustomGenerator3D" node_paths=PackedStringArray("distance_to")]
+test_purpose = 2
+score_curve = SubResource("Curve_uy82w")
+cost = 1.0
+script = ExtResource("3_py6ki")
+distance_to = NodePath("../../CustomContextPlayer")
+metadata/_custom_type_script = "uid://55v77romqu4f"
 
 [connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]
