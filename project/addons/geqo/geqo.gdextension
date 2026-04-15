@@ -41,6 +41,7 @@ GeneratorGridShape2D = "res://addons/geqo/icons/generator2d.svg"
 GeneratorCircleShape2D = "res://addons/geqo/icons/generator2d.svg"
 GeneratorInGroup2D = "res://addons/geqo/icons/generator2d.svg"
 
+ContextQueryItems2D = "res://addons/geqo/icons/context2d.svg"
 ContextInGroup2D = "res://addons/geqo/icons/context2d.svg"
 ContextTargetNode2D = "res://addons/geqo/icons/context2d.svg"
 ContextTargetArray2D = "res://addons/geqo/icons/context2d.svg"
