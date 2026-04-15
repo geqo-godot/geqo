@@ -11,13 +11,6 @@ public:
 	};
 
 private:
-	double min_value = 0.5;
-	double max_value = 1.0;
-
-	QueryContext3D *from_place = nullptr;
-	QueryContext3D *to_target = nullptr;
-
-	// NEW
 	// Line A
 	LineMode line_a_mode = LINE_ROTATION;
 	QueryContext3D *line_a_rotation = nullptr;
