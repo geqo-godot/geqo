@@ -1,7 +1,12 @@
 #include "generators/generator_circle_shape3d.h"
+#include "contexts/context_target_node3d.h"
 #include "generator_circle_shape3d.h"
 #include "godot_cpp/classes/scene_tree.hpp"
 #include "godot_cpp/classes/time.hpp"
+
+GeneratorCircleShape3D::GeneratorCircleShape3D() {
+	post_projection_vertical_offset = 0.5;
+}
 
 void GeneratorCircleShape3D::set_circle_center(QueryContext3D *context) {
 	circle_center = context;
@@ -65,12 +70,11 @@ void GeneratorCircleShape3D::set_use_shape(bool use) {
 void GeneratorCircleShape3D::set_shape(Ref<Shape3D> new_shape) {
 	shape = new_shape;
 }
-void GeneratorCircleShape3D::perform_generation(uint64_t initial_time_usec, double time_budget_ms) {
-	if (circle_center == nullptr) {
-		print_error("CircleShape circle_center context not found.");
-		return;
-	}
-	Array contexts = circle_center->get_context(get_query_instance());
+void GeneratorCircleShape3D::perform_generation(Ref<QueryInstance3D> query_instance) {
+	if (!circle_center)
+		circle_center = Object::cast_to<QueryContext3D>(query_instance->get_querier_context());
+
+	Array contexts = circle_center->get_context(query_instance);
 
 	int points_amount = UtilityFunctions::roundi(circle_radius / space_between);
 
@@ -111,7 +115,7 @@ void GeneratorCircleShape3D::perform_generation(uint64_t initial_time_usec, doub
 			}
 
 			if (!use_vertical_projection) {
-				add_query_item(QueryItem3D::create(final_pos));
+				query_instance->add_item(QueryItem3D::create(final_pos));
 				continue;
 			}
 
@@ -134,16 +138,18 @@ void GeneratorCircleShape3D::perform_generation(uint64_t initial_time_usec, doub
 				Vector3 pos_result = ray_result.get("position", Vector3());
 				pos_result += Vector3(0, post_projection_vertical_offset, 0);
 				Node3D *collider = Object::cast_to<Node3D>(ray_result.get("collider", nullptr));
-				add_query_item(QueryItem3D::create(pos_result, collider));
+				query_instance->add_item(QueryItem3D::create(pos_result, collider));
 			}
 			// Check the time for stopping
 			uint64_t current_time_usec = Time::get_singleton()->get_ticks_usec();
 
-			if (!has_time_left(initial_time_usec, current_time_usec, time_budget_ms)) {
+			if (!query_instance->has_time_left()) {
 				_current_state.prev_point = point + 1;
 				_current_state.prev_context = context;
+				saved_instance = query_instance;
+
 				// Stop and wait until next frame
-				get_tree()->connect("process_frame", callable_mp(this, &GeneratorCircleShape3D::perform_generation), CONNECT_ONE_SHOT);
+				get_tree()->connect("process_frame", callable_mp(this, &GeneratorCircleShape3D::_on_next_process_frame), CONNECT_ONE_SHOT);
 				return;
 			}
 		}
@@ -153,6 +159,11 @@ void GeneratorCircleShape3D::perform_generation(uint64_t initial_time_usec, doub
 	// Finished the generation, continue on, and reset the state
 	emit_signal("generator_finished");
 	_current_state.reset();
+}
+
+void GeneratorCircleShape3D::_on_next_process_frame() {
+	saved_instance->refresh_timer();
+	perform_generation(saved_instance);
 }
 
 void GeneratorCircleShape3D::_bind_methods() {

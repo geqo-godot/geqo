@@ -1,40 +1,39 @@
 #include <godot_cpp/classes/scene_tree.hpp>
 #include <godot_cpp/classes/time.hpp>
 
+#include "contexts/context_target_node3d.h"
 #include "generator_in_array3d.h"
 
 void GeneratorInArray3D::set_context_array(QueryContext3D *context) {
 	context_array = context;
 }
 
-void GeneratorInArray3D::perform_generation(uint64_t initial_time_usec, double time_budget_ms) {
-	if (context_array == nullptr) {
-		print_error("Generator couldn't find Context");
-		return;
-	}
-	Array contexts = context_array->get_context(get_query_instance());
+void GeneratorInArray3D::perform_generation(Ref<QueryInstance3D> query_instance) {
+	if (!context_array)
+		context_array = Object::cast_to<QueryContext3D>(query_instance->get_querier_context());
+
+	Array contexts = context_array->get_context(query_instance);
 
 	for (int context = _current_state.prev_context; context < contexts.size(); context++) {
 		if (contexts[context].get_type() == Variant::VECTOR3) {
 			Vector3 pos = contexts[context];
-			add_query_item(QueryItem3D::create(pos));
+			query_instance->add_item(QueryItem3D::create(pos));
 		} else {
 			Node3D *current_context = Object::cast_to<Node3D>(contexts[context]);
 			if (current_context == nullptr) {
 				print_error("Context is invalid, must be Node3D or Vector3");
 				continue;
 			}
-			add_query_item(QueryItem3D::create(current_context->get_global_position(), current_context));
+			query_instance->add_item(QueryItem3D::create(current_context->get_global_position(), current_context));
 		}
 
 		// Check the time for stopping
 		uint64_t current_time_usec = Time::get_singleton()->get_ticks_usec();
 
-		if (!has_time_left(initial_time_usec, current_time_usec, time_budget_ms)) {
-			// UtilityFunctions::print("No time left, continue to next frame.");
+		if (!query_instance->has_time_left()) {
 			// Stop and wait until next frame
 			_current_state.prev_context = context;
-			_current_state.time_budget_ms = time_budget_ms;
+			saved_instance = query_instance;
 			get_tree()->connect("process_frame", callable_mp(this, &GeneratorInArray3D::_on_next_process_frame), CONNECT_ONE_SHOT);
 			return;
 		}
@@ -46,8 +45,8 @@ void GeneratorInArray3D::perform_generation(uint64_t initial_time_usec, double t
 }
 
 void GeneratorInArray3D::_on_next_process_frame() {
-	uint64_t initial_time_usec = Time::get_singleton()->get_ticks_usec();
-	perform_generation(initial_time_usec, _current_state.time_budget_ms);
+	saved_instance->refresh_timer();
+	perform_generation(saved_instance);
 }
 
 void GeneratorInArray3D::_bind_methods() {

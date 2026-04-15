@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dfn8vyxb0emok"]
+[gd_scene load_steps=7 format=3 uid="uid://dfn8vyxb0emok"]
 
 [ext_resource type="Script" uid="uid://c7euo0tjfaedf" path="res://examples/2d/entities/enemy/enemy.gd" id="1_eq6a5"]
 
@@ -6,13 +6,22 @@
 size = Vector2(64, 64)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_24wi7"]
-radius = 64.0
+radius = 31.06445
 
 [sub_resource type="Curve" id="Curve_84ptx"]
+_data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_eq6a5"]
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_5lhqg"]
 _data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
 point_count = 2
 
 [node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 4
 script = ExtResource("1_eq6a5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -40,9 +49,23 @@ generate_around = NodePath("../ContextSelf")
 grid_half_size = 500.0
 space_between = 200.0
 
-[node name="TestDotProduct2D" type="TestDotProduct2D" parent="EnvironmentQuery2D/GeneratorGridShape2D" node_paths=PackedStringArray("line_a_rotation", "line_b_rotation")]
-line_a_rotation = NodePath("../../ContextSelf")
-line_b_rotation = NodePath("../../ContextPlayer")
+[node name="TestDistanceToSelf" type="TestDistanceTo2D" parent="EnvironmentQuery2D/GeneratorGridShape2D" node_paths=PackedStringArray("distance_to")]
+distance_to = NodePath("../../ContextSelf")
+test_purpose = 2
 score_curve = SubResource("Curve_84ptx")
+
+[node name="TestDistanceToPlayer" type="TestDistanceTo2D" parent="EnvironmentQuery2D/GeneratorGridShape2D" node_paths=PackedStringArray("distance_to")]
+distance_to = NodePath("../../ContextPlayer")
+test_purpose = 2
+score_curve = SubResource("Curve_eq6a5")
+
+[node name="TestRaycastTo2D" type="TestRaycastTo2D" parent="EnvironmentQuery2D/GeneratorGridShape2D" node_paths=PackedStringArray("context")]
+context = NodePath("../../ContextPlayer")
+collision_mask = 3
+test_purpose = 1
+filter_bool_match = false
+score_bool_match = false
+score_curve = SubResource("Curve_5lhqg")
+bool_match = false
 
 [connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]

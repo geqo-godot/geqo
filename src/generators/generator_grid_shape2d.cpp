@@ -1,4 +1,5 @@
 #include "generators/generator_grid_shape2d.h"
+#include "contexts/context_target_node2d.h"
 #include "godot_cpp/classes/scene_tree.hpp"
 #include "godot_cpp/classes/time.hpp"
 
@@ -14,14 +15,13 @@ void GeneratorGridShape2D::set_generate_around(QueryContext2D *context) {
 	generate_around = context;
 }
 
-void GeneratorGridShape2D::perform_generation(uint64_t initial_time_usec, double time_budget_ms) {
-	if (generate_around == nullptr) {
-		print_error("Generator couldn't find Context");
-		return;
-	}
+void GeneratorGridShape2D::perform_generation(Ref<QueryInstance2D> query_instance) {
+	if (!generate_around)
+		generate_around = Object::cast_to<QueryContext2D>(query_instance->get_querier_context());
+
 	int grid_size = std::round(grid_half_size * 2 / space_between) + 1;
 	//UtilityFunctions::print("The size of the grid: ", grid_size * grid_size);
-	Array contexts = generate_around->get_context(get_query_instance());
+	Array contexts = generate_around->get_context(query_instance);
 
 	for (int context = _current_state.prev_context; context < contexts.size(); context++) {
 		Vector2 starting_pos;
@@ -43,18 +43,17 @@ void GeneratorGridShape2D::perform_generation(uint64_t initial_time_usec, double
 				double pos_x = starting_pos.x + (x * space_between);
 				double pos_y = starting_pos.y + (y * space_between);
 
-				add_query_item(QueryItem2D::create(Vector2(pos_x, pos_y)));
+				query_instance->add_item(QueryItem2D::create(Vector2(pos_x, pos_y)));
 
 				// Check the time for stopping
 				uint64_t current_time_usec = Time::get_singleton()->get_ticks_usec();
 
-				if (!has_time_left(initial_time_usec, current_time_usec, time_budget_ms)) {
-					// UtilityFunctions::print("No time left, continue to next frame.");
+				if (!query_instance->has_time_left()) {
 					// Stop and wait until next frame
 					_current_state.prev_context = context;
 					_current_state.prev_x = x + 1;
 					_current_state.prev_y = y;
-					_current_state.time_budget_ms = time_budget_ms;
+					saved_instance = query_instance;
 					get_tree()->connect("process_frame", callable_mp(this, &GeneratorGridShape2D::_on_next_process_frame), CONNECT_ONE_SHOT);
 					return;
 				}
@@ -71,9 +70,8 @@ void GeneratorGridShape2D::perform_generation(uint64_t initial_time_usec, double
 }
 
 void GeneratorGridShape2D::_on_next_process_frame() {
-	// UtilityFunctions::print("Next process frame called.");
-	uint64_t initial_time_usec = Time::get_singleton()->get_ticks_usec();
-	perform_generation(initial_time_usec, _current_state.time_budget_ms);
+	saved_instance->refresh_timer();
+	perform_generation(saved_instance);
 }
 
 void GeneratorGridShape2D::_bind_methods() {

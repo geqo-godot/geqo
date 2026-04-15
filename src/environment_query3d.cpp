@@ -91,7 +91,6 @@ void EnvironmentQuery3D::init_generator() {
 	for (Variant child : get_children()) {
 		QueryGenerator3D *curr_generator = cast_to<QueryGenerator3D>(child);
 		if (curr_generator) {
-			curr_generator->set_query_instance(get_query_instance());
 			curr_generator->connect("generator_finished", callable_mp(this, &EnvironmentQuery3D::on_generator_finished));
 			generator = curr_generator;
 			break;

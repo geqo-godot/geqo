@@ -87,7 +87,7 @@ public:
 		instance = Ref<QueryInstanceT>();
 		instance.instantiate();
 		instance->set_querier_context(querier_context);
-		generator->set_query_instance(instance);
+		instance->set_budget(time_budget_ms);
 		is_querying = true;
 		current_test = 0;
 		_process_query();
@@ -95,13 +95,12 @@ public:
 
 	void _process_query() {
 		uint64_t _initial_time_usec = Time::get_singleton()->get_ticks_usec();
-		generator->perform_generation(_initial_time_usec, time_budget_ms);
+		generator->perform_generation(instance);
 	}
 
-	void _on_generator_finished() {
+	bool _on_generator_finished() {
 		// Start tests
-		instance->set_budget(time_budget_ms);
-		_perform_tests();
+		return _perform_tests();
 	}
 
 	std::vector<QueryTestT *> _get_sorted_tests() {
@@ -125,21 +124,24 @@ public:
 				  });
 	}
 
-	void _perform_tests() {
+	bool _perform_tests() {
 		if (sorted_tests.size() != generator->get_children().size())
 			_gather_tests();
 
-		if (instance->get_item_count() == 0)
-			// There's no items so what's even the point of testing
-			return;
+		if (instance->get_item_count() == 0 || sorted_tests.empty()) {
+			// There's no items/tests so what's even the point of testing
+			stored_result.instantiate();
+			stored_result->set_time_it_took(
+					Time::get_singleton()->get_ticks_usec() - last_start_time_usec);
+			is_querying = false;
+			return true;
+		}
 
-		if (sorted_tests.empty())
-			// No tests available
-			return;
 		// Begin first test
 		QueryTestT *first_test = sorted_tests[0];
 		instance->clear_test_data(first_test);
 		first_test->perform_test(instance);
+		return false;
 	}
 
 	// Will return true to do the call_deferred query_finshed on the 2D and 3D environment queries

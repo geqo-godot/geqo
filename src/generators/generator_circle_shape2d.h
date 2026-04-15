@@ -1,6 +1,7 @@
 #pragma once
 #include "contexts/query_context2d.h"
 #include "generators/query_generator2d.h"
+#include "query_instance.h"
 #include <vector>
 using namespace godot;
 struct CircleShapeState2D {
@@ -17,6 +18,7 @@ class GeneratorCircleShape2D : public QueryGenerator2D {
 
 private:
 	// QueryGenerator
+	Ref<QueryInstance2D> saved_instance;
 	QueryContext2D *circle_center = nullptr;
 	double circle_radius = 200.0;
 	double space_between = 20.0;
@@ -51,7 +53,8 @@ public:
 	void set_cast_collision_mask(int mask);
 	int get_cast_collision_mask() const { return cast_collision_mask; }
 
-	void perform_generation(uint64_t initial_time_usec, double time_budget_ms) override;
+	void perform_generation(Ref<QueryInstance2D> query_instance) override;
+	void _on_next_process_frame();
 
 protected:
 	static void _bind_methods();

@@ -7,6 +7,7 @@
 #include <godot_cpp/classes/time.hpp>
 #include <godot_cpp/classes/world3d.hpp>
 
+#include "contexts/context_target_node3d.h"
 #include "generator_in_group3d.h"
 
 void GeneratorInGroup3D::set_generate_around(QueryContext3D *context) {
@@ -25,12 +26,11 @@ void GeneratorInGroup3D::set_collision_mask(int mask) {
 	collision_mask = mask;
 }
 
-void GeneratorInGroup3D::perform_generation(uint64_t initial_time_usec, double time_budget_ms) {
-	if (generate_around == nullptr) {
-		print_error("Generator couldn't find Context");
-		return;
-	}
-	Array contexts = generate_around->get_context(get_query_instance());
+void GeneratorInGroup3D::perform_generation(Ref<QueryInstance3D> query_instance) {
+	if (!generate_around)
+		generate_around = Object::cast_to<QueryContext3D>(query_instance->get_querier_context());
+
+	Array contexts = generate_around->get_context(query_instance);
 
 	for (int context = _current_state.prev_context; context < contexts.size(); context++) {
 		Vector3 pos;
@@ -72,19 +72,15 @@ void GeneratorInGroup3D::perform_generation(uint64_t initial_time_usec, double t
 			if (!node)
 				continue;
 			if (node->is_in_group(group)) {
-				add_query_item(QueryItem3D::create(node->get_global_position(), node));
+				query_instance->add_item(QueryItem3D::create(node->get_global_position(), node));
 			} else
 				continue;
 		}
 
-		// Check the time for stopping
-		uint64_t current_time_usec = Time::get_singleton()->get_ticks_usec();
-
-		if (!has_time_left(initial_time_usec, current_time_usec, time_budget_ms)) {
-			// UtilityFunctions::print("No time left, continue to next frame.");
+		if (!query_instance->has_time_left()) {
 			// Stop and wait until next frame
 			_current_state.prev_context = context;
-			_current_state.time_budget_ms = time_budget_ms;
+			saved_instance = query_instance;
 			get_tree()->connect("process_frame", callable_mp(this, &GeneratorInGroup3D::_on_next_process_frame), CONNECT_ONE_SHOT);
 			return;
 		}
@@ -96,8 +92,8 @@ void GeneratorInGroup3D::perform_generation(uint64_t initial_time_usec, double t
 }
 
 void GeneratorInGroup3D::_on_next_process_frame() {
-	uint64_t initial_time_usec = Time::get_singleton()->get_ticks_usec();
-	perform_generation(initial_time_usec, _current_state.time_budget_ms);
+	saved_instance->refresh_timer();
+	perform_generation(saved_instance);
 }
 
 void GeneratorInGroup3D::_bind_methods() {

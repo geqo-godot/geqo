@@ -1,4 +1,6 @@
 #include "generators/generator_circle_shape2d.h"
+#include "contexts/context_target_node2d.h"
+#include "generator_circle_shape2d.h"
 #include "godot_cpp/classes/scene_tree.hpp"
 #include "godot_cpp/classes/time.hpp"
 
@@ -26,12 +28,11 @@ void GeneratorCircleShape2D::set_cast_collision_mask(int mask) {
 	cast_collision_mask = mask;
 }
 
-void GeneratorCircleShape2D::perform_generation(uint64_t initial_time_usec, double time_budget_ms) {
-	if (circle_center == nullptr) {
-		print_error("CircleShape circle_center context not found.");
-		return;
-	}
-	Array contexts = circle_center->get_context(get_query_instance());
+void GeneratorCircleShape2D::perform_generation(Ref<QueryInstance2D> query_instance) {
+	if (!circle_center)
+		circle_center = Object::cast_to<QueryContext2D>(query_instance->get_querier_context());
+
+	Array contexts = circle_center->get_context(query_instance);
 
 	int points_amount = UtilityFunctions::roundi(circle_radius / space_between);
 
@@ -65,12 +66,12 @@ void GeneratorCircleShape2D::perform_generation(uint64_t initial_time_usec, doub
 					final_pos = casted_ray.get("position", Vector2());
 			}
 
-			add_query_item(QueryItem2D::create(final_pos));
+			query_instance->add_item(QueryItem2D::create(final_pos));
 
 			// Check the time for stopping
 			uint64_t current_time_usec = Time::get_singleton()->get_ticks_usec();
 
-			if (!has_time_left(initial_time_usec, current_time_usec, time_budget_ms)) {
+			if (!query_instance->has_time_left()) {
 				_current_state.prev_point = point + 1;
 				_current_state.prev_context = context;
 				// Stop and wait until next frame
@@ -86,6 +87,10 @@ void GeneratorCircleShape2D::perform_generation(uint64_t initial_time_usec, doub
 	_current_state.reset();
 }
 
+void GeneratorCircleShape2D::_on_next_process_frame() {
+	saved_instance->refresh_timer();
+	perform_generation(saved_instance);
+}
 void GeneratorCircleShape2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_circle_center", "context"), &GeneratorCircleShape2D::set_circle_center);
 	ClassDB::bind_method(D_METHOD("get_circle_center"), &GeneratorCircleShape2D::get_circle_center);
