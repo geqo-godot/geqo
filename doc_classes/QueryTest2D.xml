@@ -11,50 +11,60 @@
 	<methods>
 		<method name="_perform_test" qualifiers="virtual required">
 			<return type="void" />
-			<param index="0" name="projection" type="QueryItem2D" />
+			<param index="0" name="query_instance" type="QueryInstance2D" />
 			<description>
 				Performs the test on this [param projection]. It adds score or filters it out.
 			</description>
 		</method>
+		<method name="end_test">
+			<return type="void" />
+			<description>
+				Ends the test. Sends signal to environment query to continue.
+			</description>
+		</method>
 	</methods>
 	<members>
+		<member name="bool_match" type="bool" setter="set_bool_match" getter="get_bool_match" default="true">
+		</member>
 		<member name="cost" type="float" setter="set_cost" getter="get_cost" default="0.0">
 			How expensive this test will be to execute.
 		</member>
-		<member name="multiple_context_filter_operator" type="int" setter="set_context_filter_operator" getter="get_context_filter_operator" enum="QueryTest2D.FilterOperator" default="0">
-			What conditions must be met for each context member while filtering.
+		<member name="filter_bool_match" type="bool" setter="set_bool_match" getter="get_bool_match" default="true">
 		</member>
-		<member name="multiple_context_score_operator" type="int" setter="set_context_score_operator" getter="get_context_score_operator" enum="QueryTest2D.ScoreOperator" default="0">
-			What operation will happen for each context member while scoring.
+		<member name="filter_max" type="float" setter="set_filter_max" getter="get_filter_max" default="0.0">
 		</member>
-		<member name="test_purpose" type="int" setter="set_test_purpose" getter="get_test_purpose" enum="QueryTest2D.TestPurpose" default="0">
+		<member name="filter_min" type="float" setter="set_filter_min" getter="get_filter_min" default="0.0">
+		</member>
+		<member name="filter_multiple_context_filter_operator" type="int" setter="set_multiple_context_filter_operator" getter="get_multiple_context_filter_operator" enum="GEQOEnums.MultipleContextFilterOp" default="0">
+		</member>
+		<member name="filter_type" type="int" setter="set_filter_type" getter="get_filter_type" enum="GEQOEnums.FilterType" default="0">
+		</member>
+		<member name="score_bool_match" type="bool" setter="set_bool_match" getter="get_bool_match" default="true">
+		</member>
+		<member name="score_clamp_max" type="float" setter="set_score_clamp_max" getter="get_score_clamp_max" default="0.0">
+		</member>
+		<member name="score_clamp_max_type" type="int" setter="set_clamp_max_type" getter="get_clamp_max_type" enum="GEQOEnums.ScoreClampType" default="0">
+		</member>
+		<member name="score_clamp_min" type="float" setter="set_score_clamp_min" getter="get_score_clamp_min" default="0.0">
+		</member>
+		<member name="score_clamp_min_type" type="int" setter="set_clamp_min_type" getter="get_clamp_min_type" enum="GEQOEnums.ScoreClampType" default="0">
+		</member>
+		<member name="score_curve" type="Curve" setter="set_scoring_curve" getter="get_scoring_curve">
+		</member>
+		<member name="score_factor" type="float" setter="set_scoring_factor" getter="get_scoring_factor" default="1.0">
+		</member>
+		<member name="score_multiple_context_score_operator" type="int" setter="set_multiple_context_score_operator" getter="get_multiple_context_score_operator" enum="GEQOEnums.MultipleContextScoreOp" default="0">
+		</member>
+		<member name="test_purpose" type="int" setter="set_test_purpose" getter="get_test_purpose" enum="GEQOEnums.TestPurpose" default="0">
 			What this test is for.
 		</member>
+		<member name="test_type" type="int" setter="set_test_type" getter="get_test_type" enum="GEQOEnums.TestType" default="0">
+		</member>
 	</members>
-	<constants>
-		<constant name="FILTER_SCORE" value="0" enum="TestPurpose">
-			Applies both scoring and filtering.
-		</constant>
-		<constant name="FILTER_ONLY" value="1" enum="TestPurpose">
-			Applies only filtering.
-		</constant>
-		<constant name="SCORE_ONLY" value="2" enum="TestPurpose">
-			Applies only scoring.
-		</constant>
-		<constant name="AVERAGE_SCORE" value="0" enum="ScoreOperator">
-			Takes the average score of each context member.
-		</constant>
-		<constant name="MAX_SCORE" value="1" enum="ScoreOperator">
-			Takes the max score of each context member.
-		</constant>
-		<constant name="MIN_SCORE" value="2" enum="ScoreOperator">
-			Takes the min score of each context member.
-		</constant>
-		<constant name="ANY_PASS" value="0" enum="FilterOperator">
-			Any context member must pass the test.
-		</constant>
-		<constant name="ALL_PASS" value="1" enum="FilterOperator">
-			All context members must pass the test.
-		</constant>
-	</constants>
+	<signals>
+		<signal name="test_finished">
+			<description>
+			</description>
+		</signal>
+	</signals>
 </class>

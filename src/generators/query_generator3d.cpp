@@ -11,19 +11,6 @@
 
 using namespace godot;
 
-void QueryGenerator3D::perform_tests(int current_item) {
-	for (Variant test : get_children()) {
-		QueryTest3D *current_test = Object::cast_to<QueryTest3D>(test);
-		if (current_test == nullptr) {
-			print_error("Invalid test, is this a QueryTest node?");
-			continue;
-		}
-		Ref<QueryItem3D> item = get_query_items_ref()[current_item];
-		if (!item->get_is_filtered())
-			current_test->perform_test(item);
-	}
-}
-
 Dictionary QueryGenerator3D::cast_ray_projection(Vector3 start_pos, Vector3 end_pos, Array exclusions, int col_mask) {
 	PhysicsDirectSpaceState3D *space_state = get_world_3d()->get_direct_space_state();
 	Ref<PhysicsRayQueryParameters3D> query = PhysicsRayQueryParameters3D::create(start_pos, end_pos, col_mask);

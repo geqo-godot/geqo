@@ -3,6 +3,11 @@
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
 
+#include "query_enums.h"
+
+#include "query_instance.h"
+#include "query_item.h"
+
 #include "contexts/query_context2d.h"
 #include "contexts/query_context3d.h"
 
@@ -54,6 +59,7 @@
 
 #include "tests/test_path_find_to3d.h"
 
+#include "tests/test_intersects_area2d.h"
 #include "tests/test_intersects_area3d.h"
 
 #include "register_types.h"
@@ -68,6 +74,7 @@ void initialize_geqo_module(ModuleInitializationLevel p_level) {
 	}
 
 	// Debugging
+	ClassDB::register_abstract_class<GEQOEnums>();
 	ClassDB::register_class<GEQODebug>();
 	_geqo_debug_singleton = memnew(GEQODebug);
 	Engine::get_singleton()->register_singleton("GEQODebug", GEQODebug::get_singleton());
@@ -81,6 +88,8 @@ void initialize_geqo_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<QueryResult2D>();
 	ClassDB::register_class<QueryResult3D>();
 
+	ClassDB::register_class<QueryInstance2D>();
+	ClassDB::register_class<QueryInstance3D>();
 	ClassDB::register_class<EnvironmentQuery2D>();
 	ClassDB::register_class<EnvironmentQuery3D>();
 
@@ -124,6 +133,7 @@ void initialize_geqo_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<TestDotProduct2D>();
 	ClassDB::register_class<TestDotProduct3D>();
 	ClassDB::register_class<TestPathFindTo3D>();
+	ClassDB::register_class<TestIntersectsArea2D>();
 	ClassDB::register_class<TestIntersectsArea3D>();
 }
 

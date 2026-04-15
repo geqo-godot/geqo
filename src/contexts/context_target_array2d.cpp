@@ -1,10 +1,11 @@
 #include "contexts/context_target_array2d.h"
+#include "context_target_array2d.h"
 
 void ContextTargetArray2D::set_target_nodes(TypedArray<Node2D> targets) {
 	target_nodes = targets;
 }
 
-Array ContextTargetArray2D::get_context() {
+Array ContextTargetArray2D::get_context(Ref<QueryInstance2D> query_instance) {
 	return target_nodes;
 }
 

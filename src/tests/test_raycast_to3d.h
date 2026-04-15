@@ -2,11 +2,11 @@
 #include "contexts/query_context3d.h"
 #include "tests/query_test3d.h"
 #include <godot_cpp/classes/collision_object3d.hpp>
-#include <godot_cpp/classes/curve.hpp>
 #include <godot_cpp/classes/shape3d.hpp>
 #include <godot_cpp/variant/node_path.hpp>
 #include <godot_cpp/variant/typed_array.hpp>
 using namespace godot;
+
 class TestRaycastTo3D : public QueryTest3D {
 	GDCLASS(TestRaycastTo3D, QueryTest3D)
 public:
@@ -18,25 +18,23 @@ public:
 
 private:
 	QueryContext3D *context = nullptr;
-	bool hitting_is_true = true;
 	bool cast_from_context = false;
 	TypedArray<NodePath> exclusions;
 	int collision_mask = 1;
 	RaycastMode raycast_mode = BODY;
 	bool use_shape_cast = false;
 	Ref<Shape3D> shape;
+	Ref<QueryInstance3D> stored_instance;
 
 public:
 	TestRaycastTo3D() : QueryTest3D() {
-			set_cost(1.42);
+		set_cost(1.42);
+		set_test_type(GEQOEnums::TEST_TYPE_BOOLEAN);
 	}
 	~TestRaycastTo3D() {}
 
 	void set_context(QueryContext3D *context_node);
 	QueryContext3D *get_context() { return context; }
-
-	void set_hitting_is_true(bool hitting);
-	bool get_hitting_is_true() const { return hitting_is_true; }
 
 	void set_cast_from_context(bool cast);
 	bool get_cast_from_context() const { return cast_from_context; }
@@ -56,10 +54,16 @@ public:
 	void set_shape(Ref<Shape3D> new_shape);
 	Ref<Shape3D> get_shape() const { return shape; }
 
+	Array resolve_exclusions();
+	bool cast_to_node(Ref<QueryItem3D> item, Node3D *context_node, const Array &exclusion_nodes);
+	bool evaluate_context_hit_any(Ref<QueryItem3D> item, const Array &context_nodes, const Array &exclusion_nodes);
+	bool evaluate_context_hit_all(Ref<QueryItem3D> item, const Array &context_nodes, const Array &exclusion_nodes);
+
 	Dictionary cast_ray_projection(Vector3 start_pos, Vector3 end_pos, Array exclusions, int col_mask = 1);
 	TypedArray<Dictionary> cast_shape_projection(Vector3 start_pos, Vector3 end_pos, Array exclusions, Ref<Shape3D> shape, int col_mask = 1);
 
-	void perform_test(Ref<QueryItem3D> projection) override;
+	void _on_next_process_frame();
+	void perform_test(Ref<QueryInstance3D> query_instance) override;
 
 protected:
 	static void _bind_methods();

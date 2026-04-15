@@ -17,7 +17,7 @@ public:
 	void set_target_nodes(TypedArray<Node2D> target);
 	TypedArray<Node2D> get_target_node() { return target_nodes; }
 
-	Array get_context() override;
+	Array get_context(Ref<QueryInstance2D> query_instance) override;
 
 protected:
 	static void _bind_methods();

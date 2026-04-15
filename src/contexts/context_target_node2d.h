@@ -17,7 +17,7 @@ public:
 	void set_target_node(Node2D *target);
 	Node2D *get_target_node() { return target_node; }
 
-	Array get_context() override;
+	Array get_context(Ref<QueryInstance2D> query_instance) override;
 
 protected:
 	static void _bind_methods();

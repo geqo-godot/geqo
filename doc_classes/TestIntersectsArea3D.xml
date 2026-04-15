@@ -22,5 +22,6 @@
 		<member name="shape_cast_mode" type="int" setter="set_shape_cast_mode" getter="get_shape_cast_mode" enum="TestIntersectsArea3D.ShapeCastMode" default="0">
 			What types of collision objects the test will scan.
 		</member>
+		<member name="test_type" type="int" setter="set_test_type" getter="get_test_type" overrides="QueryTest3D" enum="GEQOEnums.TestType" default="1" />
 	</members>
 </class>

@@ -4,10 +4,9 @@ void ContextTargetArray3D::set_target_nodes(TypedArray<Node3D> targets) {
 	target_nodes = targets;
 }
 
-Array ContextTargetArray3D::get_context() {
+Array ContextTargetArray3D::get_context(Ref<QueryInstance3D> query_instance) {
 	return target_nodes;
 }
-
 void ContextTargetArray3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_target_nodes"), &ContextTargetArray3D::get_target_node);
 	ClassDB::bind_method(D_METHOD("set_target_nodes", "targets"), &ContextTargetArray3D::set_target_nodes);

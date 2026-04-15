@@ -5,7 +5,7 @@ void ContextInGroup3D::set_group(String new_group) {
 	group = new_group;
 }
 
-Array ContextInGroup3D::get_context() {
+Array ContextInGroup3D::get_context(Ref<QueryInstance3D> query_instance) {
 	if (!is_inside_tree())
 		return Array();
 	Array nodes = get_tree()->get_nodes_in_group(group);

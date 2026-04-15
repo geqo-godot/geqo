@@ -31,7 +31,7 @@ void GeneratorCircleShape2D::perform_generation(uint64_t initial_time_usec, doub
 		print_error("CircleShape circle_center context not found.");
 		return;
 	}
-	Array contexts = circle_center->get_context();
+	Array contexts = circle_center->get_context(get_query_instance());
 
 	int points_amount = UtilityFunctions::roundi(circle_radius / space_between);
 

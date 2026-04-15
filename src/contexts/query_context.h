@@ -4,9 +4,13 @@
 #include <godot_cpp/variant/packed_vector3_array.hpp>
 using namespace godot;
 
-template <typename NodeT, typename PackedTArray, int VectorVariantT, typename EnvironmentQueryT>
+template <typename Traits>
 class QueryContextBase {
 protected:
+	using NodeT = typename Traits::NodeT;
+	using PackedTArray = typename Traits::PackedTArray;
+	using EnvironmentQueryT = typename Traits::EnvironmentQueryT;
+	using QueryInstanceT = typename Traits::QueryInstanceT;
 	// The parent, aka the node that is inheriting this class
 	Object *owner = nullptr;
 
@@ -17,17 +21,7 @@ public:
 		owner = p_owner;
 	}
 
-	Array _get_query_items() {
-		Node *myself = Object::cast_to<NodeT>(owner);
-		EnvironmentQueryT *query = Object::cast_to<EnvironmentQueryT>(myself->get_parent());
-		if (!query) {
-			UtilityFunctions::print("No parent query!");
-			return Array();
-		}
-		return query->get_query_items();
-	}
-
-	PackedTArray _get_context_positions() {
+	PackedTArray _get_context_positions(Ref<QueryInstanceT> query_instance) {
 		Array contexts;
 		// Pass in owner, since has_method and call are Godot Object functions only
 		if (!owner)
@@ -35,11 +29,11 @@ public:
 		if (!owner->has_method("get_context"))
 			return PackedTArray();
 
-		contexts = owner->call("get_context");
+		contexts = owner->call("get_context", query_instance);
 		PackedTArray results = PackedTArray();
 
 		for (Variant context : contexts) {
-			if (context.get_type() == VectorVariantT) {
+			if (context.get_type() == Traits::VectorVariantT) {
 				results.append(context);
 				continue;
 			}
@@ -50,6 +44,32 @@ public:
 				continue;
 			}
 			results.append(current_context->get_global_position());
+		}
+		return results;
+	}
+
+	TypedArray<NodeT> _get_context_nodes(Ref<QueryInstanceT> query_instance) {
+		Array contexts;
+		// Pass in owner, since has_method and call are Godot Object functions only
+		if (!owner)
+			return TypedArray<NodeT>();
+		if (!owner->has_method("get_context"))
+			return TypedArray<NodeT>();
+
+		contexts = owner->call("get_context", query_instance);
+		TypedArray<NodeT> results = TypedArray<NodeT>();
+
+		for (Variant context : contexts) {
+			if (context.get_type() == Traits::VectorVariantT) {
+				continue;
+			}
+
+			NodeT *current_context = Object::cast_to<NodeT>(context);
+			if (current_context == nullptr) {
+				print_error("Context must be a Node");
+				continue;
+			}
+			results.append(current_context);
 		}
 		return results;
 	}

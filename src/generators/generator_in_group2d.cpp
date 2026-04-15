@@ -30,7 +30,7 @@ void GeneratorInGroup2D::perform_generation(uint64_t initial_time_usec, double t
 		print_error("Generator couldn't find Context");
 		return;
 	}
-	Array contexts = generate_around->get_context();
+	Array contexts = generate_around->get_context(get_query_instance());
 
 	for (int context = _current_state.prev_context; context < contexts.size(); context++) {
 		Vector2 pos;

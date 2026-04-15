@@ -4,7 +4,7 @@ void ContextTargetNode3D::set_target_node(Node3D *target) {
 	target_node = target;
 }
 
-Array ContextTargetNode3D::get_context() {
+Array ContextTargetNode3D::get_context(Ref<QueryInstance3D> query_instance) {
 	Array result = Array();
 	if (target_node == nullptr) {
 		print_error("ContextTargetNode3D: No target node.");
@@ -13,7 +13,6 @@ Array ContextTargetNode3D::get_context() {
 	result.append(target_node);
 	return result;
 }
-
 void ContextTargetNode3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_target_node"), &ContextTargetNode3D::get_target_node);
 	ClassDB::bind_method(D_METHOD("set_target_node", "target"), &ContextTargetNode3D::set_target_node);

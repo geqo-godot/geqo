@@ -8,15 +8,87 @@
 	</description>
 	<tutorials>
 	</tutorials>
+	<methods>
+		<method name="get_line_a_from">
+			<return type="QueryContext2D" />
+			<description>
+			</description>
+		</method>
+		<method name="get_line_a_mode" qualifiers="const">
+			<return type="int" enum="TestDotProduct2D.LineMode" />
+			<description>
+			</description>
+		</method>
+		<method name="get_line_a_to">
+			<return type="QueryContext2D" />
+			<description>
+			</description>
+		</method>
+		<method name="get_line_b_from">
+			<return type="QueryContext2D" />
+			<description>
+			</description>
+		</method>
+		<method name="get_line_b_mode" qualifiers="const">
+			<return type="int" enum="TestDotProduct2D.LineMode" />
+			<description>
+			</description>
+		</method>
+		<method name="get_line_b_to">
+			<return type="QueryContext2D" />
+			<description>
+			</description>
+		</method>
+		<method name="set_line_a_from">
+			<return type="void" />
+			<param index="0" name="context" type="QueryContext2D" />
+			<description>
+			</description>
+		</method>
+		<method name="set_line_a_mode">
+			<return type="void" />
+			<param index="0" name="mode" type="int" enum="TestDotProduct2D.LineMode" />
+			<description>
+			</description>
+		</method>
+		<method name="set_line_a_to">
+			<return type="void" />
+			<param index="0" name="context" type="QueryContext2D" />
+			<description>
+			</description>
+		</method>
+		<method name="set_line_b_from">
+			<return type="void" />
+			<param index="0" name="context" type="QueryContext2D" />
+			<description>
+			</description>
+		</method>
+		<method name="set_line_b_mode">
+			<return type="void" />
+			<param index="0" name="mode" type="int" enum="TestDotProduct2D.LineMode" />
+			<description>
+			</description>
+		</method>
+		<method name="set_line_b_to">
+			<return type="void" />
+			<param index="0" name="context" type="QueryContext2D" />
+			<description>
+			</description>
+		</method>
+	</methods>
 	<members>
 		<member name="cost" type="float" setter="set_cost" getter="get_cost" overrides="QueryTest2D" default="0.78" />
-		<member name="from_place" type="QueryContext2D" setter="set_from_place" getter="get_from_place">
+		<member name="line_a_rotation" type="QueryContext2D" setter="set_line_a_rotation" getter="get_line_a_rotation">
 		</member>
-		<member name="max_value" type="float" setter="set_max_value" getter="get_max_value" default="1.0">
+		<member name="line_b_rotation" type="QueryContext2D" setter="set_line_b_rotation" getter="get_line_b_rotation">
 		</member>
-		<member name="min_value" type="float" setter="set_min_value" getter="get_min_value" default="0.5">
-		</member>
-		<member name="to_target" type="QueryContext2D" setter="set_to_target" getter="get_to_target">
+		<member name="use_absolute_value" type="bool" setter="set_use_absolute_value" getter="get_use_absolute_value" default="false">
 		</member>
 	</members>
+	<constants>
+		<constant name="LINE_ROTATION" value="0" enum="LineMode">
+		</constant>
+		<constant name="LINE_TWO_POINTS" value="1" enum="LineMode">
+		</constant>
+	</constants>
 </class>

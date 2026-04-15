@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="TestIntersectsArea2D" inherits="QueryTest2D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+	</brief_description>
+	<description>
+	</description>
+	<tutorials>
+	</tutorials>
+	<members>
+		<member name="collision_mask" type="int" setter="set_collision_mask" getter="get_collision_mask" default="1">
+		</member>
+		<member name="context" type="QueryContext2D" setter="set_context" getter="get_context">
+		</member>
+		<member name="cost" type="float" setter="set_cost" getter="get_cost" overrides="QueryTest2D" default="0.98" />
+		<member name="shape" type="Shape2D" setter="set_shape" getter="get_shape">
+		</member>
+		<member name="shape_cast_mode" type="int" setter="set_shape_cast_mode" getter="get_shape_cast_mode" enum="TestIntersectsArea2D.ShapeCastMode" default="0">
+		</member>
+		<member name="test_type" type="int" setter="set_test_type" getter="get_test_type" overrides="QueryTest2D" enum="GEQOEnums.TestType" default="1" />
+	</members>
+</class>

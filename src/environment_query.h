@@ -13,15 +13,22 @@ using namespace godot;
 template <typename Traits>
 class EnvironmentQueryBase {
 protected:
+	using NodeT = typename Traits::NodeT;
 	using VectorT = typename Traits::VectorT;
 	using ResultT = typename Traits::ResultT;
 	using GeneratorT = typename Traits::GeneratorT;
 	using SpheresT = typename Traits::SpheresT;
 	using QueryItemT = typename Traits::QueryItemT;
 	using QueryTestT = typename Traits::QueryTestT;
-	//Current query items of the query.
-	std::vector<Ref<QueryItemT>> query_items;
-	GeneratorT *generator;
+	using QueryInstanceT = typename Traits::QueryInstanceT;
+	using ContextTargetNodeT = typename Traits::ContextTargetNodeT;
+
+	Ref<QueryInstanceT> instance;
+	NodeT *querier = nullptr;
+	ContextTargetNodeT *querier_context = nullptr;
+	GeneratorT *generator = nullptr;
+	std::vector<QueryTestT *> sorted_tests;
+	int current_test = 0;
 	SpheresT *debug_spheres = nullptr;
 
 	double time_budget_ms = 1.0;
@@ -36,34 +43,30 @@ public:
 	~EnvironmentQueryBase() = default;
 
 	virtual void init_generator() = 0;
+	virtual void init_tests() = 0;
+
+	void _set_querier(NodeT *node) { querier = node; }
+	NodeT *_get_querier() const { return querier; }
+
+	void _set_querier_context(ContextTargetNodeT *node) { querier_context = node; }
+	ContextTargetNodeT *_get_querier_context() const { return querier_context; }
+
+	GeneratorT *_get_generator() const { return generator; }
 
 	uint64_t get_last_start_time() { return last_start_time_usec; }
 	void set_last_start_time(uint64_t usecs) { last_start_time_usec = usecs; }
 
+	Ref<QueryInstanceT> _get_query_instance() { return instance; }
+
 	void _set_use_debug_shapes(const bool use_debug) { use_debug_shapes = use_debug; }
 	bool _get_use_debug_shapes() const { return use_debug_shapes; }
-	Ref<ResultT> _get_result() {
-		return stored_result;
-	}
+	Ref<ResultT> _get_result() { return stored_result; }
 
-	void _set_time_budget_ms(const double budget) {
-		time_budget_ms = budget;
-	}
+	void _set_time_budget_ms(const double budget) { time_budget_ms = budget; }
 	double _get_time_budget_ms() const { return time_budget_ms; }
 
-	void _set_is_querying(const bool querying) {
-		is_querying = querying;
-		GEQODebug *geqo_debug = GEQODebug::get_singleton();
-	}
+	void _set_is_querying(const bool querying) { is_querying = querying; }
 	bool _get_is_querying() const { return is_querying; }
-
-	TypedArray<Ref<QueryItemT>> _get_query_items() {
-		Array items;
-		for (Ref<QueryItemT> item : query_items) {
-			items.append(item);
-		}
-		return items;
-	}
 
 	void _request_query() {
 		// UtilityFunctions::print("EnvironmentQuery3D::request_query(): Requested a new query.");
@@ -81,8 +84,12 @@ public:
 
 	void _start_query() {
 		// UtilityFunctions::print(vformat("Previous vector size: %s", query_items.size()));
-		query_items.clear();
+		instance = Ref<QueryInstanceT>();
+		instance.instantiate();
+		instance->set_querier_context(querier_context);
+		generator->set_query_instance(instance);
 		is_querying = true;
+		current_test = 0;
 		_process_query();
 	}
 
@@ -93,79 +100,102 @@ public:
 
 	void _on_generator_finished() {
 		// Start tests
-		perform_tests();
+		instance->set_budget(time_budget_ms);
+		_perform_tests();
 	}
 
-	bool _on_tests_finished() {
-		// Process the results
-		Ref<ResultT> result;
-		result.instantiate();
-		stored_result = result;
-		stored_result->set_time_it_took(Time::get_singleton()->get_ticks_usec() - last_start_time_usec);
-		if (debug_spheres) {
-			debug_spheres->draw_items(query_items);
-		}
-		// Give query_items to result for caching
-		stored_result->set_items(std::move(query_items));
-
-		is_querying = false;
-		return true;
+	std::vector<QueryTestT *> _get_sorted_tests() {
+		return sorted_tests;
 	}
 
-	virtual void perform_tests() = 0;
-
-	void _perform_tests() {
-		std::vector<QueryTestT *> tests;
+	void _gather_tests() {
+		sorted_tests.clear();
 		for (Variant test : generator->get_children()) {
 			// Make sure all of them are tests
 			QueryTestT *current_test = Object::cast_to<QueryTestT>(test);
 			if (current_test)
-				tests.push_back(current_test);
+				sorted_tests.push_back(current_test);
 		}
-
 		// Sort test by purpose, then cost
-		std::sort(tests.begin(), tests.end(),
+		std::sort(sorted_tests.begin(), sorted_tests.end(),
 				  [](QueryTestT *a, QueryTestT *b) {
 					  if (a->get_test_purpose() != b->get_test_purpose())
 						  return a->get_test_purpose() < b->get_test_purpose();
 					  return a->get_cost() < b->get_cost();
 				  });
+	}
 
-		// TODO: Let user switch normalization mode
-		if (query_items.empty())
+	void _perform_tests() {
+		if (sorted_tests.size() != generator->get_children().size())
+			_gather_tests();
+
+		if (instance->get_item_count() == 0)
+			// There's no items so what's even the point of testing
 			return;
 
-		float highest_score = -std::numeric_limits<float>::infinity();
-		float lowest_score = std::numeric_limits<float>::infinity();
-		for (int i = 0; i < query_items.size(); i++) {
-			for (Variant test : tests) {
-				QueryTestT *current_test = Object::cast_to<QueryTestT>(test);
-				current_test->perform_test(query_items[i]);
-				if (query_items[i]->get_is_filtered())
-					break;
-			}
-			if (!query_items[i]->get_is_filtered()) {
-				float score = query_items[i]->get_score();
-				if (score > highest_score)
-					highest_score = score;
-				if (score < lowest_score)
-					lowest_score = score;
-			}
-		}
+		if (sorted_tests.empty())
+			// No tests available
+			return;
+		// Begin first test
+		QueryTestT *first_test = sorted_tests[0];
+		instance->clear_test_data(first_test);
+		first_test->perform_test(instance);
+	}
 
-		// Normalize the values
-		if (highest_score == lowest_score) {
-			// All scores are the same, just put them in the middle
-			for (Ref<QueryItemT> item : query_items) {
-				if (!item->get_is_filtered())
-					item->set_score(0.5);
-			}
+	// Will return true to do the call_deferred query_finshed on the 2D and 3D environment queries
+	bool _on_test_finished() {
+		current_test++;
+		instance->reset_iterator();
+		if (current_test < sorted_tests.size()) {
+			QueryTestT *test_instance = sorted_tests[current_test];
+			instance->clear_test_data(test_instance);
+			test_instance->perform_test(instance);
+			return false;
 		} else {
-			for (Ref<QueryItemT> item : query_items) {
+			// Process the results
+			Ref<ResultT> result;
+			result.instantiate();
+			stored_result = result;
+			stored_result->set_time_it_took(Time::get_singleton()->get_ticks_usec() - last_start_time_usec);
+
+			// Normalize scores across all non-filtered items
+			std::vector<Ref<QueryItemT>> &items = instance->get_items();
+			float highest_score = -std::numeric_limits<float>::infinity();
+			float lowest_score = std::numeric_limits<float>::infinity();
+
+			for (Ref<QueryItemT> item : items) {
 				if (item->get_is_filtered())
 					continue;
-				item->set_score(UtilityFunctions::remap(item->get_score(), lowest_score, highest_score, 0.0, 1.0));
+				float s = item->get_score();
+				if (s > highest_score)
+					highest_score = s;
+				if (s < lowest_score)
+					lowest_score = s;
 			}
+
+			if (highest_score == lowest_score) {
+				// All unfiltered items scored identically — put them in the middle
+				for (Ref<QueryItemT> item : items) {
+					if (!item->get_is_filtered())
+						item->set_score(0.5);
+				}
+			} else {
+				for (Ref<QueryItemT> item : items) {
+					if (item->get_is_filtered())
+						continue;
+					float normalized = (item->get_score() - lowest_score) / (highest_score - lowest_score);
+					item->set_score(normalized);
+				}
+			}
+
+			if (debug_spheres)
+				debug_spheres->draw_items(instance->get_items());
+
+			// Give query_items to result for caching
+			stored_result->set_items(instance->take_items());
+
+			is_querying = false;
+			return true;
 		}
 	}
 };
