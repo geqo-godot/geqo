@@ -1,13 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://c2ih13se78qrg"]
+[gd_scene load_steps=7 format=3 uid="uid://c2ih13se78qrg"]
 
 [ext_resource type="Script" uid="uid://bd1sfbmbnph3x" path="res://examples/3d/entities/test_player.gd" id="1_ib1tq"]
-
-[sub_resource type="Compositor" id="Compositor_ib1tq"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_s8sja"]
 
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_ib1tq"]
 albedo_color = Color(0.49803922, 1, 0.49803922, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g7t3q"]
+albedo_color = Color(2.6471912e-06, 0.56438774, 0.2893599, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_sudxr"]
+material = SubResource("StandardMaterial3D_g7t3q")
+size = Vector3(0.435, 0.505, 0.53)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ib1tq"]
 
@@ -15,15 +20,13 @@ albedo_color = Color(0.49803922, 1, 0.49803922, 1)
 collision_layer = 2
 script = ExtResource("1_ib1tq")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.70200396, 0.71217304, 0, -0.71217304, 0.70200396, 0, 16.394823, 12.608026)
-compositor = SubResource("Compositor_ib1tq")
-current = true
-fov = 37.849285
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_s8sja")
 surface_material_override/0 = SubResource("ORMMaterial3D_ib1tq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5166789, -0.4525696)
+mesh = SubResource("BoxMesh_sudxr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_ib1tq")

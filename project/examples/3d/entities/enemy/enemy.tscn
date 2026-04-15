@@ -30,6 +30,8 @@ mesh = SubResource("CapsuleMesh_036b0")
 querier = NodePath("..")
 use_debug_shapes = true
 
+[node name="ContextQueryItems3D" type="ContextQueryItems3D" parent="EnvironmentQuery3D"]
+
 [node name="ContextPlayer" type="ContextInGroup3D" parent="EnvironmentQuery3D"]
 group = "player"
 
@@ -42,10 +44,10 @@ post_projection_vertical_offset = 0.5
 use_shape_cast = true
 shape = SubResource("SphereShape3D_gmutw")
 
-[node name="TestPathFindTo3D" type="TestPathFindTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("path_to")]
-use_debug = true
-path_to = NodePath("../../ContextPlayer")
-test_purpose = 1
+[node name="TestDotProduct3D" type="TestDotProduct3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("line_a_rotation", "line_b_rotation")]
+line_a_rotation = NodePath("../../ContextPlayer")
+line_b_rotation = NodePath("../../ContextSelf")
+filter_max = 1.0
 score_curve = SubResource("Curve_77jyu")
 
 [connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]
