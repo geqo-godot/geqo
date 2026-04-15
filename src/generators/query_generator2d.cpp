@@ -10,6 +10,10 @@
 
 using namespace godot;
 
+void QueryGenerator2D::perform_generation(Ref<QueryInstance2D> query_instance) {
+	GDVIRTUAL_CALL(_perform_generation, query_instance);
+}
+
 Dictionary QueryGenerator2D::cast_ray_projection(Vector2 start_pos, Vector2 end_pos, Array exclusions, int col_mask) {
 	PhysicsDirectSpaceState2D *space_state = get_world_2d()->get_direct_space_state();
 	Ref<PhysicsRayQueryParameters2D> query = PhysicsRayQueryParameters2D::create(start_pos, end_pos, col_mask);
@@ -33,6 +37,8 @@ Dictionary QueryGenerator2D::cast_ray_projection(Vector2 start_pos, Vector2 end_
 }
 
 void QueryGenerator2D::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("cast_ray_projection"), &QueryGenerator2D::cast_ray_projection);
+
 	ClassDB::bind_method(D_METHOD("get_raycast_mode"), &QueryGenerator2D::get_raycast_mode);
 	ClassDB::bind_method(D_METHOD("set_raycast_mode", "mode"), &QueryGenerator2D::set_raycast_mode);
 

@@ -1,15 +1,14 @@
 #pragma once
 #include "contexts/query_context3d.h"
 #include "generators/query_generator3d.h"
+#include "query_instance.h"
 #include <vector>
 using namespace godot;
 struct GeneratorInGroupState3D {
 	int prev_context = 0;
-	double time_budget_ms = 0;
 
 	void reset() {
 		prev_context = 0;
-		time_budget_ms = 0;
 	}
 };
 class GeneratorInGroup3D : public QueryGenerator3D {
@@ -17,6 +16,7 @@ class GeneratorInGroup3D : public QueryGenerator3D {
 
 private:
 	// QueryGenerator
+	Ref<QueryInstance3D> saved_instance;
 	QueryContext3D *generate_around = nullptr;
 	String group = "";
 	double range_radius = 50.0;
@@ -40,7 +40,7 @@ public:
 	void set_collision_mask(int mask);
 	double get_collision_mask() { return collision_mask; }
 
-	void perform_generation(uint64_t initial_time_usec, double time_budget_ms) override;
+	void perform_generation(Ref<QueryInstance3D> query_instance) override;
 	void _on_next_process_frame();
 
 protected:

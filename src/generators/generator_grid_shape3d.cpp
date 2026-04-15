@@ -1,7 +1,12 @@
 #include "generators/generator_grid_shape3d.h"
+#include "contexts/context_target_node3d.h"
 #include "generator_grid_shape3d.h"
 #include "godot_cpp/classes/scene_tree.hpp"
 #include "godot_cpp/classes/time.hpp"
+
+GeneratorGridShape3D::GeneratorGridShape3D() {
+	post_projection_vertical_offset = 0.5;
+}
 
 void GeneratorGridShape3D::set_grid_half_size(double size) {
 	grid_half_size = size;
@@ -43,14 +48,13 @@ void GeneratorGridShape3D::set_use_shape_cast(bool use) {
 void GeneratorGridShape3D::set_shape(Ref<Shape3D> new_shape) {
 	shape = new_shape;
 }
-void GeneratorGridShape3D::perform_generation(uint64_t initial_time_usec, double time_budget_ms) {
-	if (generate_around == nullptr) {
-		print_error("Generator couldn't find Context");
-		return;
-	}
+void GeneratorGridShape3D::perform_generation(Ref<QueryInstance3D> query_instance) {
+	if (!generate_around)
+		generate_around = Object::cast_to<QueryContext3D>(query_instance->get_querier_context());
+
 	int grid_size = std::round(grid_half_size * 2 / space_between) + 1;
 	//UtilityFunctions::print("The size of the grid: ", grid_size * grid_size);
-	Array contexts = generate_around->get_context(get_query_instance());
+	Array contexts = generate_around->get_context(query_instance);
 
 	for (int context = _current_state.prev_context; context < contexts.size(); context++) {
 		Vector3 starting_pos;
@@ -92,22 +96,22 @@ void GeneratorGridShape3D::perform_generation(uint64_t initial_time_usec, double
 						Node3D *collider = Object::cast_to<Node3D>(ray_result.get("collider", nullptr));
 						Vector3 casted_position;
 						casted_position = ray_result.get("position", Vector3());
-						add_query_item(QueryItem3D::create(casted_position + Vector3(0, post_projection_vertical_offset, 0), collider));
+						query_instance->add_item(QueryItem3D::create(casted_position + Vector3(0, post_projection_vertical_offset, 0), collider));
 					}
 				} else {
-					add_query_item(QueryItem3D::create(Vector3(pos_x, starting_pos.y, pos_z)));
+					query_instance->add_item(QueryItem3D::create(Vector3(pos_x, starting_pos.y, pos_z)));
 				}
 
 				// Check the time for stopping
 				uint64_t current_time_usec = Time::get_singleton()->get_ticks_usec();
 
-				if (!has_time_left(initial_time_usec, current_time_usec, time_budget_ms)) {
+				if (!query_instance->has_time_left()) {
 					// UtilityFunctions::print("No time left, continue to next frame.");
 					// Stop and wait until next frame
 					_current_state.prev_context = context;
 					_current_state.prev_x = x + 1;
 					_current_state.prev_z = z;
-					_current_state.time_budget_ms = time_budget_ms;
+					saved_instance = query_instance;
 					get_tree()->connect("process_frame", callable_mp(this, &GeneratorGridShape3D::_on_next_process_frame), CONNECT_ONE_SHOT);
 					return;
 				}
@@ -124,9 +128,8 @@ void GeneratorGridShape3D::perform_generation(uint64_t initial_time_usec, double
 }
 
 void GeneratorGridShape3D::_on_next_process_frame() {
-	// UtilityFunctions::print("Next process frame called.");
-	uint64_t initial_time_usec = Time::get_singleton()->get_ticks_usec();
-	perform_generation(initial_time_usec, _current_state.time_budget_ms);
+	saved_instance->refresh_timer();
+	perform_generation(saved_instance);
 }
 
 void GeneratorGridShape3D::_bind_methods() {

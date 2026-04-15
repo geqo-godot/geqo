@@ -1,12 +1,12 @@
 #pragma once
 #include "contexts/query_context3d.h"
+#include "query_instance.h"
 #include "generators/query_generator3d.h"
 #include <godot_cpp/classes/shape3d.hpp>
 #include <vector>
 
 using namespace godot;
 struct GridShapeState3D {
-	double time_budget_ms = 0;
 	int prev_z = 0;
 	int prev_x = 0;
 	int prev_context = 0;
@@ -22,6 +22,7 @@ class GeneratorGridShape3D : public QueryGenerator3D {
 
 private:
 	// QueryGenerator
+	Ref<QueryInstance3D> saved_instance;
 	double grid_half_size = 20.0;
 	double space_between = 5.0;
 	QueryContext3D *generate_around = nullptr;
@@ -38,7 +39,7 @@ private:
 	GridShapeState3D _current_state = GridShapeState3D();
 
 public:
-	GeneratorGridShape3D() {}
+	GeneratorGridShape3D();
 	~GeneratorGridShape3D() {}
 
 	void set_grid_half_size(double size);
@@ -71,7 +72,7 @@ public:
 	void set_shape(Ref<Shape3D> new_shape);
 	Ref<Shape3D> get_shape() const { return shape; }
 
-	void perform_generation(uint64_t initial_time_usec, double time_budget_ms) override;
+	void perform_generation(Ref<QueryInstance3D> query_instance) override;
 	void _on_next_process_frame();
 
 protected:

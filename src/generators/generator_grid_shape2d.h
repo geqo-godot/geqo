@@ -1,10 +1,10 @@
 #pragma once
 #include "contexts/query_context2d.h"
 #include "generators/query_generator2d.h"
+#include "query_instance.h"
 #include <vector>
 using namespace godot;
 struct GridShapeState2D {
-	double time_budget_ms = 0;
 	int prev_y = 0;
 	int prev_x = 0;
 	int prev_context = 0;
@@ -20,6 +20,7 @@ class GeneratorGridShape2D : public QueryGenerator2D {
 
 private:
 	// QueryGenerator
+	Ref<QueryInstance2D> saved_instance;
 	double grid_half_size = 200.0;
 	double space_between = 50.0;
 	QueryContext2D *generate_around = nullptr;
@@ -39,7 +40,7 @@ public:
 	void set_generate_around(QueryContext2D *context);
 	QueryContext2D *get_generate_around() { return generate_around; }
 
-	void perform_generation(uint64_t initial_time_usec, double time_budget_ms) override;
+	void perform_generation(Ref<QueryInstance2D> query_instance) override;
 	void _on_next_process_frame();
 
 protected:

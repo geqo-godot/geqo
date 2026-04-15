@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED = 5000
+const SPEED = 400
 
 enum State {IDLE, WALKING}
 
@@ -24,19 +24,19 @@ func _input(event: InputEvent) -> void:
 		current_target = nav_agent.get_next_path_position()
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	match current_state:
 		State.IDLE:
 			idle()
 		State.WALKING:
-			walking(delta)
+			walking()
 	move_and_slide()
 
 
-func move_to_target(delta: float, target: Vector2):
+func move_to_target(target: Vector2):
 	var direction: Vector2 = (self.global_position.direction_to(target))
-	velocity.x = direction.x * SPEED * delta
-	velocity.y = direction.y * SPEED * delta
+	velocity.x = direction.x * SPEED
+	velocity.y = direction.y * SPEED
 
 
 func idle():
@@ -46,12 +46,16 @@ func idle():
 		current_state = State.WALKING
 
 
-func walking(delta: float):
+func walking():
+	if nav_agent.is_navigation_finished():
+		current_state = State.IDLE
+		return
+	
 	if !current_target:
 		current_state = State.IDLE
 		return
 	current_target = nav_agent.get_next_path_position()
-	move_to_target(delta, current_target)
+	move_to_target(current_target)
 
 
 func _on_navigation_agent_2d_target_reached() -> void:

@@ -1,6 +1,7 @@
 #pragma once
 #include "contexts/query_context3d.h"
 #include "generators/query_generator3d.h"
+#include "query_instance.h"
 #include <vector>
 using namespace godot;
 struct CircleShapeState3D {
@@ -17,6 +18,7 @@ class GeneratorCircleShape3D : public QueryGenerator3D {
 
 private:
 	// QueryGenerator
+	Ref<QueryInstance3D> saved_instance;
 	QueryContext3D *circle_center = nullptr;
 	double circle_radius = 10.0;
 	double space_between = 1.0;
@@ -41,7 +43,7 @@ private:
 	CircleShapeState3D _current_state = CircleShapeState3D();
 
 public:
-	GeneratorCircleShape3D() {}
+	GeneratorCircleShape3D();
 	~GeneratorCircleShape3D() {}
 
 	void set_circle_center(QueryContext3D *context);
@@ -89,7 +91,8 @@ public:
 	void set_shape(Ref<Shape3D> new_shape);
 	Ref<Shape3D> get_shape() const { return shape; }
 
-	void perform_generation(uint64_t initial_time_usec, double time_budget_ms) override;
+	void perform_generation(Ref<QueryInstance3D> query_instance) override;
+	void _on_next_process_frame();
 
 protected:
 	static void _bind_methods();

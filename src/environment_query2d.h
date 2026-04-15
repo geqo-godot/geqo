@@ -57,7 +57,12 @@ public:
 	void request_query() { return _request_query(); }
 	Ref<QueryResult2D> get_result() { return _get_result(); }
 
-	void on_generator_finished() { return _on_generator_finished(); }
+	void on_generator_finished() {
+		bool result = _on_generator_finished();
+		// Generator had no tests / failed so finish early
+		if (result)
+			call_deferred("emit_signal", "query_finished", stored_result);
+	}
 	void on_test_finished() {
 		bool result = _on_test_finished();
 		// Fast queries might miss the signal before it's caught, so defer it

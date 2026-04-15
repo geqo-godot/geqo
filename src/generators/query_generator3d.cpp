@@ -11,6 +11,10 @@
 
 using namespace godot;
 
+void QueryGenerator3D::perform_generation(Ref<QueryInstance3D> query_instance) {
+	GDVIRTUAL_CALL(_perform_generation, query_instance);
+}
+
 Dictionary QueryGenerator3D::cast_ray_projection(Vector3 start_pos, Vector3 end_pos, Array exclusions, int col_mask) {
 	PhysicsDirectSpaceState3D *space_state = get_world_3d()->get_direct_space_state();
 	Ref<PhysicsRayQueryParameters3D> query = PhysicsRayQueryParameters3D::create(start_pos, end_pos, col_mask);
@@ -87,6 +91,11 @@ TypedArray<Dictionary> QueryGenerator3D::cast_shape_projection(Vector3 start_pos
 }
 
 void QueryGenerator3D::_bind_methods() {
+	GDVIRTUAL_BIND(_perform_generation, "query_instance");
+
+	ClassDB::bind_method(D_METHOD("cast_ray_projection"), &QueryGenerator3D::cast_ray_projection);
+	ClassDB::bind_method(D_METHOD("cast_shape_projection"), &QueryGenerator3D::cast_shape_projection);
+
 	ClassDB::bind_method(D_METHOD("get_raycast_mode"), &QueryGenerator3D::get_raycast_mode);
 	ClassDB::bind_method(D_METHOD("set_raycast_mode", "mode"), &QueryGenerator3D::set_raycast_mode);
 
