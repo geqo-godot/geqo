@@ -22,9 +22,6 @@
 		<member name="exclusions" type="NodePath[]" setter="set_exclusions" getter="get_exclusions" default="[]">
 			What collision objects will be excluded from the test. Usually the querier should be excluded.
 		</member>
-		<member name="hitting_is_true" type="bool" setter="set_hitting_is_true" getter="get_hitting_is_true" default="true">
-			If [code]false[/code], hitting the target will result in failure.
-		</member>
 		<member name="raycast_mode" type="int" setter="set_raycast_mode" getter="get_raycast_mode" enum="TestRaycastTo3D.RaycastMode" default="0">
 			What type of collision object this test will detect.
 		</member>

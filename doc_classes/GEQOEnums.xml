@@ -7,11 +7,11 @@
 	<tutorials>
 	</tutorials>
 	<constants>
-		<constant name="FILTER_SCORE" value="0" enum="TestPurpose">
+		<constant name="PURPOSE_FILTER_SCORE" value="0" enum="TestPurpose">
 		</constant>
-		<constant name="FILTER_ONLY" value="1" enum="TestPurpose">
+		<constant name="PURPOSE_FILTER_ONLY" value="1" enum="TestPurpose">
 		</constant>
-		<constant name="SCORE_ONLY" value="2" enum="TestPurpose">
+		<constant name="PURPOSE_SCORE_ONLY" value="2" enum="TestPurpose">
 		</constant>
 		<constant name="TEST_TYPE_NUMERIC" value="0" enum="TestType">
 		</constant>
@@ -32,6 +32,12 @@
 		<constant name="OP_ANY_PASS" value="0" enum="MultipleContextFilterOp">
 		</constant>
 		<constant name="OP_ALL_PASS" value="1" enum="MultipleContextFilterOp">
+		</constant>
+		<constant name="CLAMP_TYPE_NONE" value="0" enum="ScoreClampType">
+		</constant>
+		<constant name="CLAMP_TYPE_VAL" value="1" enum="ScoreClampType">
+		</constant>
+		<constant name="CLAMP_TYPE_FILTER" value="2" enum="ScoreClampType">
 		</constant>
 	</constants>
 </class>

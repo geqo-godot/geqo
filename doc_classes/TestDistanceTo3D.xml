@@ -13,8 +13,7 @@
 		<member name="distance_to" type="QueryContext3D" setter="set_distance_to" getter="get_distance_to">
 			What context the test will use for the checking the distance. If it's more than one location, then the results are averaged.
 		</member>
-		<member name="scoring_curve" type="Curve" setter="set_scoring_curve" getter="get_scoring_curve">
-			Scoring curve from [member min_distance] to [member max_distance]. Decides how much score each context member applies to the [QueryItem3D]
-		</member>
+		<member name="filter_max" type="float" setter="set_filter_max" getter="get_filter_max" overrides="QueryTest3D" default="10.0" />
+		<member name="score_clamp_max" type="float" setter="set_score_clamp_max" getter="get_score_clamp_max" overrides="QueryTest3D" default="10.0" />
 	</members>
 </class>

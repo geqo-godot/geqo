@@ -13,11 +13,82 @@
 			<description>
 			</description>
 		</method>
+		<method name="get_current_query_item">
+			<return type="QueryItem2D" />
+			<description>
+			</description>
+		</method>
 		<method name="get_item" qualifiers="const">
 			<return type="QueryItem2D" />
 			<param index="0" name="index" type="int" />
 			<description>
 			</description>
 		</method>
+		<method name="get_item_count" qualifiers="const">
+			<return type="int" />
+			<description>
+			</description>
+		</method>
+		<method name="get_next_item">
+			<return type="QueryItem2D" />
+			<description>
+			</description>
+		</method>
+		<method name="get_test_data_max">
+			<return type="float" />
+			<param index="0" name="test" type="Object" />
+			<description>
+			</description>
+		</method>
+		<method name="get_test_data_min">
+			<return type="float" />
+			<param index="0" name="test" type="Object" />
+			<description>
+			</description>
+		</method>
+		<method name="has_items">
+			<return type="bool" />
+			<description>
+			</description>
+		</method>
+		<method name="has_test_data">
+			<return type="bool" />
+			<param index="0" name="test" type="Object" />
+			<description>
+			</description>
+		</method>
+		<method name="has_time_left">
+			<return type="bool" />
+			<description>
+			</description>
+		</method>
+		<method name="refresh_timer">
+			<return type="void" />
+			<description>
+			</description>
+		</method>
+		<method name="reset_iterator">
+			<return type="void" />
+			<description>
+			</description>
+		</method>
+		<method name="set_test_data_max">
+			<return type="void" />
+			<param index="0" name="test" type="Object" />
+			<param index="1" name="max" type="float" />
+			<description>
+			</description>
+		</method>
+		<method name="set_test_data_min">
+			<return type="void" />
+			<param index="0" name="test" type="Object" />
+			<param index="1" name="min" type="float" />
+			<description>
+			</description>
+		</method>
 	</methods>
+	<members>
+		<member name="querier_context" type="ContextTargetNode2D" setter="set_querier_context" getter="get_querier_context">
+		</member>
+	</members>
 </class>

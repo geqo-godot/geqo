@@ -24,6 +24,12 @@
 				Called on [QueryGenerator2D]s and [QueryTest2Ds] to get a list of [Node2Ds] and/or [Vector2]s.
 			</description>
 		</method>
+		<method name="get_context_nodes">
+			<return type="Node2D[]" />
+			<param index="0" name="query_instance" type="QueryInstance2D" />
+			<description>
+			</description>
+		</method>
 		<method name="get_context_positions">
 			<return type="PackedVector2Array" />
 			<param index="0" name="query_instance" type="QueryInstance2D" />

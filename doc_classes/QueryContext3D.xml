@@ -24,6 +24,12 @@
 				Called on [QueryGenerator3D]s and [QueryTest3Ds] to get a list of [Node3Ds] and/or [Vector3]s.
 			</description>
 		</method>
+		<method name="get_context_nodes">
+			<return type="Node3D[]" />
+			<param index="0" name="query_instance" type="QueryInstance3D" />
+			<description>
+			</description>
+		</method>
 		<method name="get_context_positions">
 			<return type="PackedVector3Array" />
 			<param index="0" name="query_instance" type="QueryInstance3D" />

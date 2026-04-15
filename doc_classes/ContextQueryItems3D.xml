@@ -8,4 +8,8 @@
 	</description>
 	<tutorials>
 	</tutorials>
+	<members>
+		<member name="use_current_query_item" type="bool" setter="set_use_current_query_item" getter="get_use_current_query_item" default="true">
+		</member>
+	</members>
 </class>
