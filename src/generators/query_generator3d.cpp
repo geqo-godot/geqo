@@ -93,8 +93,8 @@ TypedArray<Dictionary> QueryGenerator3D::cast_shape_projection(Vector3 start_pos
 void QueryGenerator3D::_bind_methods() {
 	GDVIRTUAL_BIND(_perform_generation, "query_instance");
 
-	ClassDB::bind_method(D_METHOD("cast_ray_projection"), &QueryGenerator3D::cast_ray_projection);
-	ClassDB::bind_method(D_METHOD("cast_shape_projection"), &QueryGenerator3D::cast_shape_projection);
+	ClassDB::bind_method(D_METHOD("cast_ray_projection", "start_pos", "end_pos", "exclusions", "col_mask"), &QueryGenerator3D::cast_ray_projection);
+	ClassDB::bind_method(D_METHOD("cast_shape_projection", "start_pos", "end_pos", "exclusions", "shape", "col_mask"), &QueryGenerator3D::cast_shape_projection);
 
 	ClassDB::bind_method(D_METHOD("get_raycast_mode"), &QueryGenerator3D::get_raycast_mode);
 	ClassDB::bind_method(D_METHOD("set_raycast_mode", "mode"), &QueryGenerator3D::set_raycast_mode);

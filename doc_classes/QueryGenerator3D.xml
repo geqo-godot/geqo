@@ -8,6 +8,33 @@
 	</description>
 	<tutorials>
 	</tutorials>
+	<methods>
+		<method name="_perform_generation" qualifiers="virtual required">
+			<return type="void" />
+			<param index="0" name="query_instance" type="QueryInstance3D" />
+			<description>
+			</description>
+		</method>
+		<method name="cast_ray_projection">
+			<return type="Dictionary" />
+			<param index="0" name="start_pos" type="Vector3" />
+			<param index="1" name="end_pos" type="Vector3" />
+			<param index="2" name="exclusions" type="Array" />
+			<param index="3" name="col_mask" type="int" />
+			<description>
+			</description>
+		</method>
+		<method name="cast_shape_projection">
+			<return type="Dictionary[]" />
+			<param index="0" name="start_pos" type="Vector3" />
+			<param index="1" name="end_pos" type="Vector3" />
+			<param index="2" name="exclusions" type="Array" />
+			<param index="3" name="shape" type="Shape3D" />
+			<param index="4" name="col_mask" type="int" />
+			<description>
+			</description>
+		</method>
+	</methods>
 	<members>
 		<member name="raycast_mode" type="int" setter="set_raycast_mode" getter="get_raycast_mode" enum="QueryGenerator3D.RaycastMode" default="0">
 			Determines what type of collisions the raycast will detect, usually used by projections.

@@ -24,7 +24,7 @@
 		<member name="circle_radius" type="float" setter="set_circle_radius" getter="get_circle_radius" default="10.0">
 			Radius of the circle that expands from [member circle_center].
 		</member>
-		<member name="post_projection_vertical_offset" type="float" setter="set_post_projection_vertical_offset" getter="get_post_projection_vertical_offset" default="0.0">
+		<member name="post_projection_vertical_offset" type="float" setter="set_post_projection_vertical_offset" getter="get_post_projection_vertical_offset" default="0.5">
 			Offset the position of the [QueryItem3D] vertically by this amount after projecting it. Useful to avoid accidental collisions when doing visibility tests.
 		</member>
 		<member name="project_down" type="float" setter="set_project_down" getter="get_project_down" default="100.0">
