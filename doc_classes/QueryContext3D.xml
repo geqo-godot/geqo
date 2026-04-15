@@ -37,5 +37,11 @@
 				Returns only the positions of each context. Used in some [QueryTest3D]s where collisions aren't needed.
 			</description>
 		</method>
+		<method name="get_query_items">
+			<return type="Array" />
+			<description>
+				Returns the list of current [QueryItem3D]s.
+			</description>
+		</method>
 	</methods>
 </class>

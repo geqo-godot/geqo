@@ -51,6 +51,7 @@
 			<param index="2" name="min_threshold" type="float" />
 			<param index="3" name="max_threshold" type="float" />
 			<description>
+				Adds to the current score of this item.
 			</description>
 		</method>
 		<method name="create" qualifiers="static">

@@ -19,6 +19,7 @@
 		<method name="end_test">
 			<return type="void" />
 			<description>
+				Performs the test on this [param projection]. It adds score or filters it out.
 			</description>
 		</method>
 	</methods>
