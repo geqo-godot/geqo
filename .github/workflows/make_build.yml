@@ -87,6 +87,13 @@ jobs:
         run: |
           cp README.md LICENSE.txt project/addons/geqo/
 
+      - name: Remove icon and project before uploading
+        shell: sh
+        run: |
+          rm -f project/icon.svg
+          rm -f project/icon.svg.import
+          rm -f project/project.godot
+
       # Upload the build
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
