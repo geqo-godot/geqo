@@ -40,7 +40,7 @@ For examples, see [example custom scripts](project/example_custom_scripts)
 
 ## How to Use
 
-For more information, see [Getting Started](./GETTING_STARTED.md)
+For more information, see [Quickstart](https://geqo-docs.readthedocs.io/en/stable/getting_started/quick_start.html)
 
 Connect signal, then request a query.
 
