@@ -1,7 +1,7 @@
 ![GEQO logo](./geqo-logo.svg)
 
 _Godot Environment Query Orchestrator (GEQO)_ is a node-based environment querying system for Godot 4.5+, inspired by Unreal Engine's EQS.
-It allows AI agents to evaluate the world around them and select the best position/node/item based on customizable generators and tests (e.g distance, visibility), made around contexts (Any node with a position value).
+It allows AI characters to evaluate the world around them and select the best position/node/item based on customizable generators and tests (e.g distance, visibility), made around contexts (Any node with a position value).
 It is implemented in C++ as a GDExtension for higher performance.
 
 Documentation is available [here](https://geqo-docs.readthedocs.io/en/stable/).
@@ -40,7 +40,7 @@ For examples, see [example custom scripts](project/example_custom_scripts)
 
 ## How to Use
 
-For more information, see [Getting Started](./GETTING_STARTED.md)
+For more information, see [Quickstart](https://geqo-docs.readthedocs.io/en/stable/getting_started/quick_start.html)
 
 Connect signal, then request a query.
 
