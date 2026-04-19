@@ -38,12 +38,15 @@ void GEQODebugSpheres3D::clear_spheres() {
 }
 
 void GEQODebugSpheres3D::render_spheres() {
-	if (!multi_mesh_instance || !line_multi_mesh_instance) {
+	if (!multi_mesh_instance) {
 		multi_mesh_instance = memnew(MultiMeshInstance3D);
-		line_multi_mesh_instance = memnew(MultiMeshInstance3D);
 		add_child(multi_mesh_instance);
+	}
+	if (!line_multi_mesh_instance) {
+		line_multi_mesh_instance = memnew(MultiMeshInstance3D);
 		add_child(line_multi_mesh_instance);
 	}
+
 	if (!sphere_mesh.is_valid()) {
 		sphere_mesh.instantiate();
 
