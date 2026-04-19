@@ -17,7 +17,8 @@ func _input(event: InputEvent) -> void:
 		env_query.request_query()
 		await env_query.query_finished
 		var query_result: QueryResult3D = env_query.get_result()
-		final_target = query_result.get_highest_score_position()
+		if query_result.has_result():
+			final_target = query_result.get_highest_score_position()
 		if !final_target:
 			return
 		nav_agent.target_position = final_target

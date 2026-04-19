@@ -158,6 +158,11 @@ public:
 		int random_i = UtilityFunctions::randi_range(0, top_count - 1);
 		return query_items[sorted_indices[random_i]]->get_collided_with();
 	}
+
+	bool _has_result() {
+		_build_cache();
+		return highest_unfiltered_index != -1;
+	}
 	uint64_t get_time_it_took() { return time_it_took_usec; }
 	void set_time_it_took(uint64_t usecs) { time_it_took_usec = usecs; }
 };
@@ -176,6 +181,7 @@ public:
 	Vector2 get_top_random_position(double percent = 0.05) const { return _get_top_random_position(percent); }
 	Node2D *get_highest_score_node() const { return _get_highest_score_node(); };
 	Node2D *get_top_random_node(double percent = 0.05) const { return _get_top_random_node(percent); }
+	bool has_result() { return _has_result(); }
 };
 
 class QueryResult3D : public RefCounted, public QueryResultBase<Vector3, QueryItem3D, Node3D> {
@@ -192,4 +198,5 @@ public:
 	Vector3 get_top_random_position(double percent = 0.1) const { return _get_top_random_position(percent); }
 	Node3D *get_highest_score_node() const { return _get_highest_score_node(); };
 	Node3D *get_top_random_node(double percent = 0.1) const { return _get_top_random_node(percent); }
+	bool has_result() { return _has_result(); }
 };

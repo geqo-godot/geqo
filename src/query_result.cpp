@@ -13,6 +13,7 @@ void QueryResult2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_top_random_position", "percent"), &QueryResult2D::get_top_random_position, DEFVAL(0.1));
 	ClassDB::bind_method(D_METHOD("get_highest_score_node"), &QueryResult2D::get_highest_score_node);
 	ClassDB::bind_method(D_METHOD("get_top_random_node", "percent"), &QueryResult2D::get_top_random_node, DEFVAL(0.1));
+	ClassDB::bind_method(D_METHOD("has_result"), &QueryResult2D::has_result);
 }
 
 void QueryResult3D::_bind_methods() {
@@ -23,4 +24,5 @@ void QueryResult3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_top_random_position", "percent"), &QueryResult3D::get_top_random_position, DEFVAL(0.1));
 	ClassDB::bind_method(D_METHOD("get_highest_score_node"), &QueryResult3D::get_highest_score_node);
 	ClassDB::bind_method(D_METHOD("get_top_random_node", "percent"), &QueryResult3D::get_top_random_node, DEFVAL(0.1));
+	ClassDB::bind_method(D_METHOD("has_result"), &QueryResult3D::has_result);
 }
