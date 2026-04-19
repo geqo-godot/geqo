@@ -24,6 +24,7 @@ private:
 	double space_between = 20.0;
 
 	double arc_angle = 360.0;
+	bool use_arc_direction = false;
 
 	// Cast Data
 	bool use_casting = true;
@@ -46,6 +47,9 @@ public:
 
 	void set_arc_angle(double angle);
 	double get_arc_angle() const { return arc_angle; }
+
+	void set_use_arc_direction(double use);
+	bool get_use_arc_direction() const { return use_arc_direction; }
 
 	void set_use_casting(bool use);
 	bool get_use_casting() const { return use_casting; }

@@ -24,6 +24,10 @@ void GeneratorCircleShape3D::set_arc_angle(double angle) {
 	arc_angle = angle;
 }
 
+void GeneratorCircleShape3D::set_use_arc_direction(double use) {
+	use_arc_direction = use;
+}
+
 void GeneratorCircleShape3D::set_use_casting(bool use) {
 	use_casting = use;
 	notify_property_list_changed();
@@ -89,6 +93,7 @@ void GeneratorCircleShape3D::perform_generation(Ref<QueryInstance3D> query_insta
 		Vector3 starting_pos;
 		Node3D *context_ref = nullptr;
 
+		double rotation_offset = -(Math_PI / 2);
 		// TODO: Test if this doesn't crash for edge cases
 		if (contexts[context].get_type() == Variant::VECTOR3)
 			starting_pos = contexts[context];
@@ -96,12 +101,15 @@ void GeneratorCircleShape3D::perform_generation(Ref<QueryInstance3D> query_insta
 			context_ref = Object::cast_to<Node3D>(contexts[context]);
 			if (context_ref) {
 				starting_pos = context_ref->get_global_position();
-				Vector3 forward = -(context_ref->get_global_transform().get_basis().get_column(2));
+				if (use_arc_direction) {
+					Vector3 forward = -(context_ref->get_global_transform().get_basis().get_column(2));
+					rotation_offset = atan2(forward.z, forward.x);
+				}
 			}
 		}
 
 		// Center the arc
-		double start_angle = -(arc_radians / 2.0) - (Math_PI / 2);
+		double start_angle = -(arc_radians / 2.0) + rotation_offset;
 		float angle_step = arc_radians / points_amount;
 		double current_angle = start_angle;
 
@@ -190,6 +198,9 @@ void GeneratorCircleShape3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_arc_angle", "angle"), &GeneratorCircleShape3D::set_arc_angle);
 	ClassDB::bind_method(D_METHOD("get_arc_angle"), &GeneratorCircleShape3D::get_arc_angle);
 
+	ClassDB::bind_method(D_METHOD("set_use_arc_direction", "use"), &GeneratorCircleShape3D::set_use_arc_direction);
+	ClassDB::bind_method(D_METHOD("get_use_arc_direction"), &GeneratorCircleShape3D::get_use_arc_direction);
+
 	ClassDB::bind_method(D_METHOD("set_use_casting", "use"), &GeneratorCircleShape3D::set_use_casting);
 	ClassDB::bind_method(D_METHOD("get_use_casting"), &GeneratorCircleShape3D::get_use_casting);
 
@@ -228,6 +239,7 @@ void GeneratorCircleShape3D::_bind_methods() {
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "space_between"), "set_space_between", "get_space_between");
 
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "arc_angle", PROPERTY_HINT_RANGE, "0.0,360.0,0.5"), "set_arc_angle", "get_arc_angle");
+	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_arc_direction"), "set_use_arc_direction", "get_use_arc_direction");
 
 	ADD_GROUP("Cast Data", "");
 	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_casting"), "set_use_casting", "get_use_casting");

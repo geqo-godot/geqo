@@ -20,6 +20,10 @@ void GeneratorCircleShape2D::set_arc_angle(double angle) {
 	arc_angle = angle;
 }
 
+void GeneratorCircleShape2D::set_use_arc_direction(double use) {
+	use_arc_direction = use;
+}
+
 void GeneratorCircleShape2D::set_use_casting(bool use) {
 	use_casting = use;
 }
@@ -47,17 +51,21 @@ void GeneratorCircleShape2D::perform_generation(Ref<QueryInstance2D> query_insta
 		Vector2 starting_pos;
 		Node2D *context_ref = nullptr;
 
+		double rotation_offset = 0.0;
 		// TODO: Test if this doesn't crash for edge cases
 		if (contexts[context].get_type() == Variant::VECTOR2)
 			starting_pos = contexts[context];
 		else {
 			context_ref = Object::cast_to<Node2D>(contexts[context]);
-			if (context_ref)
+			if (context_ref) {
 				starting_pos = context_ref->get_global_position();
+				if (use_arc_direction)
+					rotation_offset = context_ref->get_global_rotation();
+			}
 		}
 
 		// Center the arc
-		double start_angle = -(arc_radians / 2.0);
+		double start_angle = -(arc_radians / 2.0) + rotation_offset;
 		float angle_step = arc_radians / points_amount;
 		double current_angle = start_angle;
 
@@ -113,6 +121,9 @@ void GeneratorCircleShape2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_arc_angle", "angle"), &GeneratorCircleShape2D::set_arc_angle);
 	ClassDB::bind_method(D_METHOD("get_arc_angle"), &GeneratorCircleShape2D::get_arc_angle);
 
+	ClassDB::bind_method(D_METHOD("set_use_arc_direction", "use"), &GeneratorCircleShape2D::set_use_arc_direction);
+	ClassDB::bind_method(D_METHOD("get_use_arc_direction"), &GeneratorCircleShape2D::get_use_arc_direction);
+
 	ClassDB::bind_method(D_METHOD("set_use_casting", "use"), &GeneratorCircleShape2D::set_use_casting);
 	ClassDB::bind_method(D_METHOD("get_use_casting"), &GeneratorCircleShape2D::get_use_casting);
 
@@ -124,6 +135,7 @@ void GeneratorCircleShape2D::_bind_methods() {
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "space_between"), "set_space_between", "get_space_between");
 
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "arc_angle", PROPERTY_HINT_RANGE, "0.0,360.0,0.5"), "set_arc_angle", "get_arc_angle");
+	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_arc_direction"), "set_use_arc_direction", "get_use_arc_direction");
 
 	ADD_GROUP("Cast Data", "");
 	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_casting"), "set_use_casting", "get_use_casting");
