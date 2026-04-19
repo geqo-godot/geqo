@@ -75,8 +75,15 @@ void GeneratorCircleShape3D::perform_generation(Ref<QueryInstance3D> query_insta
 		circle_center = Object::cast_to<QueryContext3D>(query_instance->get_querier_context());
 
 	Array contexts = circle_center->get_context(query_instance);
+	// arc_angle needs to be radian
+	double arc_radians = Math::deg_to_rad(arc_angle);
 
-	int points_amount = UtilityFunctions::roundi(circle_radius / space_between);
+	// Calculate arc length and points for arc
+	double arc_length = arc_radians * circle_radius;
+	int points_amount = UtilityFunctions::roundi(arc_length / space_between);
+
+	if (points_amount <= 0)
+		points_amount = 1;
 
 	for (int context = _current_state.prev_context; context < contexts.size(); context++) {
 		Vector3 starting_pos;
@@ -87,18 +94,22 @@ void GeneratorCircleShape3D::perform_generation(Ref<QueryInstance3D> query_insta
 			starting_pos = contexts[context];
 		else {
 			context_ref = Object::cast_to<Node3D>(contexts[context]);
-			if (context_ref)
+			if (context_ref) {
 				starting_pos = context_ref->get_global_position();
+				Vector3 forward = -(context_ref->get_global_transform().get_basis().get_column(2));
+			}
 		}
 
-		double previous_angle = 0.0;
-		float angle_step = Math_TAU / points_amount;
+		// Center the arc
+		double start_angle = -(arc_radians / 2.0) - (Math_PI / 2);
+		float angle_step = arc_radians / points_amount;
+		double current_angle = start_angle;
 
 		for (int point = _current_state.prev_context; point < points_amount; point++) {
-			double pos_x = cos(previous_angle) * circle_radius + starting_pos.x;
-			double pos_z = sin(previous_angle) * circle_radius + starting_pos.z;
+			double pos_x = cos(current_angle) * circle_radius + starting_pos.x;
+			double pos_z = sin(current_angle) * circle_radius + starting_pos.z;
 
-			previous_angle += angle_step;
+			current_angle += angle_step;
 
 			Vector3 final_pos = Vector3(pos_x, starting_pos.y, pos_z);
 
