@@ -1,6 +1,8 @@
 #pragma once
 #include "godot_cpp/classes/time.hpp"
 #include "query_item.h"
+
+#include <unordered_map>
 #include <vector>
 
 using namespace godot;
