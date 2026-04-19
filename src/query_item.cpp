@@ -12,7 +12,7 @@ void QueryItem2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_collided_with"), &QueryItem2D::get_collided_with);
 
 	ClassDB::bind_method(D_METHOD("add_score_numeric", "test_purpose", "filter_type", "amount", "min_threshold", "max_threshold"), &QueryItem2D::add_score_numeric);
-	ClassDB::bind_method(D_METHOD("add_score_boolean", "test_purpose", "value", "expected_boolean"), &QueryItem2D::add_score_numeric);
+	ClassDB::bind_method(D_METHOD("add_score_boolean", "test_purpose", "value", "expected_boolean"), &QueryItem2D::add_score_boolean);
 	ClassDB::bind_method(D_METHOD("add_score_direct", "test_purpose", "normalized_value", "scoring_factor"), &QueryItem2D::add_score_direct);
 	ClassDB::bind_method(D_METHOD("apply_filter_numeric", "filter_type", "amount", "min_threshold", "max_threshold"), &QueryItem2D::apply_filter_numeric);
 	ClassDB::bind_method(D_METHOD("apply_filter_boolean", "value", "expected"), &QueryItem2D::apply_filter_boolean);
@@ -36,7 +36,7 @@ void QueryItem3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_collided_with"), &QueryItem3D::get_collided_with);
 
 	ClassDB::bind_method(D_METHOD("add_score_numeric", "test_purpose", "filter_type", "amount", "min_threshold", "max_threshold"), &QueryItem3D::add_score_numeric);
-	ClassDB::bind_method(D_METHOD("add_score_boolean", "test_purpose", "value", "expected_boolean"), &QueryItem3D::add_score_numeric);
+	ClassDB::bind_method(D_METHOD("add_score_boolean", "test_purpose", "value", "expected_boolean"), &QueryItem3D::add_score_boolean);
 	ClassDB::bind_method(D_METHOD("add_score_direct", "test_purpose", "normalized_value", "scoring_factor"), &QueryItem3D::add_score_direct);
 	ClassDB::bind_method(D_METHOD("apply_filter_numeric", "filter_type", "amount", "min_threshold", "max_threshold"), &QueryItem3D::apply_filter_numeric);
 	ClassDB::bind_method(D_METHOD("apply_filter_boolean", "value", "expected"), &QueryItem3D::apply_filter_boolean);

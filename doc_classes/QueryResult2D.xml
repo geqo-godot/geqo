@@ -53,5 +53,10 @@
 				Returns a random position from the top [param percent] from a range of 0-1.
 			</description>
 		</method>
+		<method name="has_result">
+			<return type="bool" />
+			<description>
+			</description>
+		</method>
 	</methods>
 </class>
