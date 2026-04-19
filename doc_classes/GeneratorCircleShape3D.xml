@@ -42,6 +42,8 @@
 		<member name="space_between" type="float" setter="set_space_between" getter="get_space_between" default="1.0">
 			The space between each point around the circle.
 		</member>
+		<member name="use_arc_direction" type="bool" setter="set_use_arc_direction" getter="get_use_arc_direction" default="false">
+		</member>
 		<member name="use_cast_shape" type="bool" setter="set_use_cast_shape" getter="get_use_cast_shape" default="false">
 			Use a [Shape3D] instead of a raycast.
 		</member>
