@@ -38,6 +38,12 @@ void GEQODebugSpheres3D::clear_spheres() {
 }
 
 void GEQODebugSpheres3D::render_spheres() {
+	if (!multi_mesh_instance || !line_multi_mesh_instance) {
+		multi_mesh_instance = memnew(MultiMeshInstance3D);
+		line_multi_mesh_instance = memnew(MultiMeshInstance3D);
+		add_child(multi_mesh_instance);
+		add_child(line_multi_mesh_instance);
+	}
 	if (!sphere_mesh.is_valid()) {
 		sphere_mesh.instantiate();
 
@@ -81,7 +87,6 @@ void GEQODebugSpheres3D::render_spheres() {
 }
 
 void GEQODebugSpheres3D::draw_items(std::vector<Ref<QueryItem3D>> &query_items_list, double time_to_destroy) {
-	SceneTree *scene_tree = get_tree();
 	remove_labels();
 	clear_spheres();
 
@@ -161,11 +166,6 @@ void GEQODebugSpheres3D::_ready() {
 	debug_color->set_offsets(offsets);
 
 	debug_color->set_interpolation_mode(Gradient::GRADIENT_INTERPOLATE_CUBIC);
-
-	multi_mesh_instance = memnew(MultiMeshInstance3D);
-	add_child(multi_mesh_instance);
-	line_multi_mesh_instance = memnew(MultiMeshInstance3D);
-	add_child(line_multi_mesh_instance);
 }
 
 void GEQODebugSpheres3D::_bind_methods() {
