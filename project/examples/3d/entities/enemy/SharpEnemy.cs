@@ -9,23 +9,22 @@ public partial class SharpEnemy : CharacterBody3D
 	private Vector3 finalTarget;
 	private Vector3? currentTarget = null;
 	private NavigationAgent3D navAgent;
-	private Node envQuery;
+	private EnvironmentQuery3D envQuery;
 	public override void _Ready()
 	{
 		navAgent = GetNode<NavigationAgent3D>("NavigationAgent3D");
-		envQuery = GetNode("EnvironmentQuery3D");
+		envQuery = new EnvironmentQuery3D(GetNode("EnvironmentQuery3D"));
 	}
 	public override async void _Input(InputEvent @event)
 	{
 		if (@event.IsActionPressed("request_query"))
 		{
-			envQuery.Call("request_query");
-			await ToSignal(envQuery, "query_finished");
-			GodotObject queryResult = (GodotObject)envQuery.Call("get_result");
-			bool hasResult = (bool)queryResult.Call("has_result");
-			if (!hasResult)
+			envQuery.RequestQuery();
+			await envQuery.QueryFinished;
+			QueryResult3D queryResult = envQuery.GetResult();
+			if (!queryResult.HasResult())
 				return;
-			finalTarget = (Vector3)queryResult.Call("get_highest_score_position");
+			finalTarget = queryResult.GetHighestScorePosition();
 			navAgent.TargetPosition = finalTarget;
 			currentTarget = navAgent.GetNextPathPosition();
 		}
