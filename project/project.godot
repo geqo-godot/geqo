@@ -15,6 +15,10 @@ run/main_scene="uid://bep8vp2474roh"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
+[dotnet]
+
+project/assembly_name="Godot Environment Query Orchestrator"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/geqo/plugin.cfg")
