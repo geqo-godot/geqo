@@ -20,7 +20,13 @@ public partial class QueryResult3D
 
 	}
 
-	//TODO: Implement get_all_results maybe
+	public Godot.Collections.Array<QueryItem3D> GetAllResults()
+	{
+		Godot.Collections.Array<QueryItem3D> items = [];
+		foreach (RefCounted refItem in (Godot.Collections.Array)result.Call(MethodName.GetAllResults))
+			items.Add(new QueryItem3D(refItem));
+		return items;
+	}
 
 	public Node3D GetHighestScoreNode()
 	{
@@ -51,6 +57,7 @@ public partial class QueryResult3D
 	{
 		public static readonly StringName GetAllNode = "get_all_node";
 		public static readonly StringName GetAllPosition = "get_all_position";
+		public static readonly StringName GetAllResults = "get_all_results";
 		public static readonly StringName GetHighestScoreNode = "get_highest_score_node";
 		public static readonly StringName GetHighestScorePosition = "get_highest_score_position";
 		public static readonly StringName GetTopRandomNode = "get_top_random_node";
