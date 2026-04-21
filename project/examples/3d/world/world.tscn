@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://bep8vp2474roh"]
+[gd_scene load_steps=15 format=3 uid="uid://bep8vp2474roh"]
 
 [ext_resource type="Material" uid="uid://dvpbk4gvh28og" path="res://examples/3d/world/materials/placeholder_texture.material" id="1_dgp1c"]
 [ext_resource type="PackedScene" uid="uid://c2ih13se78qrg" path="res://examples/3d/entities/test_player.tscn" id="2_loppk"]
 [ext_resource type="PackedScene" uid="uid://nvso64245ltb" path="res://examples/3d/entities/enemy/enemy.tscn" id="3_8f04b"]
 [ext_resource type="Script" uid="uid://bkyijhvpqte6f" path="res://examples/3d/world/spring_arm_3d.gd" id="4_54dcv"]
+[ext_resource type="PackedScene" uid="uid://cylin26nbgted" path="res://examples/3d/entities/enemy/sharp_enemy.tscn" id="5_mwshc"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_dgp1c"]
 vertices = PackedVector3Array(-8, 0, 3.5, -3.5, 0, 3.25, -3.5, 0, 2, -8.5, 0, 1, -2.5, 0, 0.5, -17.75, 0, 2.25, -13.75, 0, 2.25, -12.75, 0, 0.5, -17.75, 0, -17.75, -10, 0, 0, 0, 0, 0, -0.25, 0, -17.75, 11, 0, -3.25, 11, 0, -10, 9.25, 0, -10.5, 8.75, 0, -2.25, 8.25, 0, -12, 8.5, 0, -17.75, 8.25, 0, 0, 13.5, 0, -2.25, 14, 0, 0.25, 17.75, 0, 0, 12, 0, -3.25, 17.75, 0, -17.75, 14, 0, -12, 13, 0, -10.5, 13.75, 0, -17.75, 14, 0, 9.75, 17.75, 0, 10, -10.75, 0, 17.75, -10.75, 0, 16.75, -12.75, 0, 16.25, -17.75, 0, 17.75, -13.75, 0, 14.75, -9, 0, 16.25, 11, 0, 17.75, 11, 0, 13.5, 9.25, 0, 13, -3, 0, 5.75, 8.25, 0, 11.5, -1.5, 0, 6.75, -8, 0, 14.75, 8.25, 0, 6.75, 12.25, 0, 13.25, 13.5, 0, 12.25, 17.75, 0, 17.75)
@@ -130,3 +131,6 @@ script = ExtResource("4_54dcv")
 target = NodePath("../TestPlayer2")
 
 [node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
+
+[node name="Enemy" parent="." instance=ExtResource("5_mwshc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.534649)
