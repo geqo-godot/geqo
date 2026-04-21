@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cylin26nbgted"]
+[gd_scene load_steps=12 format=3 uid="uid://cylin26nbgted"]
 
 [ext_resource type="Script" uid="uid://dek4b1ktqqnqx" path="res://examples/3d/entities/enemy/SharpEnemy.cs" id="1_pndwi"]
 [ext_resource type="Script" uid="uid://bucuncg6ilwc0" path="res://example_custom_scripts/custom_context3d.gd" id="2_kosy3"]
@@ -7,7 +7,11 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fj7yv"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pndwi"]
+albedo_color = Color(0.7797769, 0.47596323, 0.9885132, 1)
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_036b0"]
+material = SubResource("StandardMaterial3D_pndwi")
 
 [sub_resource type="Curve" id="Curve_77jyu"]
 _data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
@@ -25,7 +29,7 @@ point_count = 2
 _data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
 point_count = 2
 
-[node name="Enemy" type="CharacterBody3D" groups=["enemies"]]
+[node name="SharpEnemy" type="CharacterBody3D" groups=["enemies"]]
 collision_layer = 4
 script = ExtResource("1_pndwi")
 
