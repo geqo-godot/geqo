@@ -2,13 +2,13 @@ using Godot;
 namespace GEQO;
 public class EnvironmentQuery3D(Node node)
 {
-    public Node3D Querier
-    {
+	public Node3D Querier
+	{
 		get => (Node3D)(GodotObject)node.Call("get_querier");
 		set => node.Call("set_querier", value);
 	}
-    public float TimeBudgetMs
-    {
+	public float TimeBudgetMs
+	{
 		get => (float)node.Call("get_time_budget_ms");
 		set => node.Call("set_time_budget_ms", value);
 	}
@@ -18,7 +18,7 @@ public class EnvironmentQuery3D(Node node)
 		set => node.Call("set_use_debug_shapes", value);
 	}
 
-    public void RequestQuery()
+	public void RequestQuery()
 	{
 		node.Call(MethodName.RequestQuery);
 	}
