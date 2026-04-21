@@ -3,7 +3,7 @@ using System.Linq;
 namespace GEQO;
 public partial class QueryResult3D(RefCounted refCounted)
 {
-    public Godot.Collections.Array<Node3D> GetAllNode()
+	public Godot.Collections.Array<Node3D> GetAllNode()
 	{
 		return (Godot.Collections.Array<Node3D>)refCounted.Call(MethodName.GetAllNode);
 	}
@@ -13,15 +13,15 @@ public partial class QueryResult3D(RefCounted refCounted)
 		return (Vector3[])refCounted.Call(MethodName.GetAllPosition);
 	}
 
-    public Godot.Collections.Array<QueryItem3D> GetAllResults()
-    {
-        Godot.Collections.Array<QueryItem3D> items = [];
-        foreach (RefCounted refItem in ((Godot.Collections.Array)refCounted.Call(MethodName.GetAllResults)).Select(v => (RefCounted)(GodotObject)v))
-            items.Add(new QueryItem3D(refItem));
-        return items;
-    }
+	public Godot.Collections.Array<QueryItem3D> GetAllResults()
+	{
+		Godot.Collections.Array<QueryItem3D> items = [];
+		foreach (RefCounted refItem in ((Godot.Collections.Array)refCounted.Call(MethodName.GetAllResults)).Select(v => (RefCounted)(GodotObject)v))
+			items.Add(new QueryItem3D(refItem));
+		return items;
+	}
 
-    public Node3D GetHighestScoreNode()
+	public Node3D GetHighestScoreNode()
 	{
 		return (Node3D)(GodotObject)refCounted.Call(MethodName.GetHighestScoreNode);
 	}
