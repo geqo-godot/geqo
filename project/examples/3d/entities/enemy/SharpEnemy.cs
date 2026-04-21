@@ -24,7 +24,14 @@ public partial class SharpEnemy : CharacterBody3D
 			QueryResult3D queryResult = envQuery.GetResult();
 			if (!queryResult.HasResult())
 				return;
+			GD.Print("Calling all result functions");
 			finalTarget = queryResult.GetHighestScorePosition();
+			queryResult.GetTopRandomPosition();
+			queryResult.GetAllNode();
+			queryResult.GetAllPosition();
+			queryResult.GetHighestScoreNode();
+			queryResult.GetTopRandomNode();
+			queryResult.GetTopRandomPosition();
 			navAgent.TargetPosition = finalTarget;
 			currentTarget = navAgent.GetNextPathPosition();
 		}

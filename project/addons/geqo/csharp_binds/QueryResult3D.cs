@@ -9,10 +9,38 @@ public partial class QueryResult3D
 	{
 		result = refCounted;
 	}
-	
+
+	public Godot.Collections.Array<Node3D> GetAllNode()
+	{
+		return (Godot.Collections.Array<Node3D>)result.Call(MethodName.GetAllNode);
+	}
+
+	public Vector3[] GetAllPosition()
+	{
+		return (Vector3[])result.Call(MethodName.GetAllNode);
+
+	}
+
+	//TODO: Implement get_all_results maybe
+
+	public Node3D GetHighestScoreNode()
+	{
+		return (Node3D)result.Call(MethodName.GetHighestScoreNode);
+	}
+
 	public Vector3 GetHighestScorePosition()
 	{
 		return (Vector3)result.Call(MethodName.GetHighestScorePosition);
+	}
+
+	public Node3D GetTopRandomNode(double percent = 0.1)
+	{
+		return (Node3D)result.Call(MethodName.GetTopRandomNode, percent);
+	}
+
+	public Vector3 GetTopRandomPosition(double percent = 0.1)
+	{
+		return (Vector3)result.Call(MethodName.GetTopRandomPosition, percent);
 	}
 
 	public bool HasResult()
