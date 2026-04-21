@@ -16,7 +16,7 @@ public partial class QueryResult2D
 
     public Vector2[] GetAllPosition()
     {
-        return (Vector2[])result.Call(MethodName.GetAllNode);
+        return (Vector2[])result.Call(MethodName.GetAllPosition);
 
     }
     public Godot.Collections.Array<QueryItem3D> GetAllResults()

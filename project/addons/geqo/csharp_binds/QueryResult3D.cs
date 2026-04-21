@@ -16,7 +16,7 @@ public partial class QueryResult3D
 
 	public Vector3[] GetAllPosition()
 	{
-		return (Vector3[])result.Call(MethodName.GetAllNode);
+		return (Vector3[])result.Call(MethodName.GetAllPosition);
 
 	}
 
