@@ -176,7 +176,7 @@ protected:
 public:
 	TypedArray<Ref<QueryItem2D>> get_all_results() const { return _get_all_results(); }
 	TypedArray<Vector2> get_all_position() const { return _get_all_position(); }
-	TypedArray<Node> get_all_node() const { return _get_all_node(); }
+	TypedArray<Node2D> get_all_node() const { return _get_all_node(); }
 	Vector2 get_highest_score_position() const { return _get_highest_score_position(); };
 	Vector2 get_top_random_position(double percent = 0.05) const { return _get_top_random_position(percent); }
 	Node2D *get_highest_score_node() const { return _get_highest_score_node(); };
@@ -193,7 +193,7 @@ protected:
 public:
 	TypedArray<Ref<QueryItem3D>> get_all_results() const { return _get_all_results(); }
 	TypedArray<Vector3> get_all_position() const { return _get_all_position(); }
-	TypedArray<Node> get_all_node() const { return _get_all_node(); }
+	TypedArray<Node3D> get_all_node() const { return _get_all_node(); }
 	Vector3 get_highest_score_position() const { return _get_highest_score_position(); };
 	Vector3 get_top_random_position(double percent = 0.1) const { return _get_top_random_position(percent); }
 	Node3D *get_highest_score_node() const { return _get_highest_score_node(); };
