@@ -1,5 +1,4 @@
 using Godot;
-using System.Threading.Tasks;
 
 public partial class SharpEnemy : CharacterBody3D
 {
@@ -88,7 +87,7 @@ public partial class SharpEnemy : CharacterBody3D
 		currentTarget = navAgent.GetNextPathPosition();
 		MoveToTarget(delta, currentTarget.Value);
 	}
-	private void _OnNavigationAgent3DTargetReached()
+	private void OnNavigationAgent3DTargetReached()
 	{
 		currentTarget = null;
 	}
