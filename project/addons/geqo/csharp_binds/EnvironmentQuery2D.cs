@@ -1,41 +1,36 @@
 using Godot;
+namespace GEQO;
 
-public class EnvironmentQuery2D
+public class EnvironmentQuery2D(Node node)
 {
-    public Node3D querier
+    public Node2D Querier
     {
-        get => (Node3D)envQuery.Call("get_querier");
-        set => envQuery.Call("set_querier", value);
+        get => (Node2D)(GodotObject)node.Call("get_querier");
+        set => node.Call("set_querier", value);
     }
-    public float timeBudgetMs
+    public float TimeBudgetMs
     {
-        get => (float)envQuery.Call("get_time_budget_ms");
-        set => envQuery.Call("set_time_budget_ms", value);
+        get => (float)node.Call("get_time_budget_ms");
+        set => node.Call("set_time_budget_ms", value);
     }
-    public float useDebugShapes
+    public float UseDebugShapes
     {
-        get => (float)envQuery.Call("get_use_debug_shapes");
-        set => envQuery.Call("set_use_debug_shapes", value);
-    }
-    private readonly Node envQuery;
-
-    public EnvironmentQuery2D(Node node)
-    {
-        envQuery = node;
+        get => (float)node.Call("get_use_debug_shapes");
+        set => node.Call("set_use_debug_shapes", value);
     }
 
     public void RequestQuery()
     {
-        envQuery.Call(MethodName.RequestQuery);
+        node.Call(MethodName.RequestQuery);
     }
 
     public QueryResult2D GetResult()
     {
-        return new QueryResult2D((RefCounted)envQuery.Call(MethodName.GetResult));
+        return new QueryResult2D((RefCounted)(GodotObject)node.Call(MethodName.GetResult));
     }
 
     public SignalAwaiter QueryFinished
-        => envQuery.ToSignal(envQuery, SignalName.QueryFinished);
+        => node.ToSignal(node, SignalName.QueryFinished);
 
     private static class MethodName
     {
