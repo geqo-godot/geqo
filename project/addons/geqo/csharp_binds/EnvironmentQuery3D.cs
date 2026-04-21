@@ -7,18 +7,17 @@ public class EnvironmentQuery3D
 		get => (Node3D)envQuery.Call("get_querier");
 		set => envQuery.Call("set_querier", value);
 	}
-    public float timeBudgetMs
-    {
-        get => (float)envQuery.Call("get_time_budget_ms");
-        set => envQuery.Call("set_time_budget_ms", value);
-    }
-    public float useDebugShapes
-    {
-        get => (float)envQuery.Call("get_use_debug_shapes");
-        set => envQuery.Call("set_use_debug_shapes", value);
-    }
-    private readonly Node envQuery;
-
+	public float timeBudgetMs
+	{
+		get => (float)envQuery.Call("get_time_budget_ms");
+		set => envQuery.Call("set_time_budget_ms", value);
+	}
+	public float useDebugShapes
+	{
+		get => (float)envQuery.Call("get_use_debug_shapes");
+		set => envQuery.Call("set_use_debug_shapes", value);
+	}
+	private readonly Node envQuery;
 
 	public EnvironmentQuery3D(Node node)
 	{

@@ -27,6 +27,7 @@ public partial class SharpEnemy : CharacterBody3D
 			GD.Print("Calling all result functions");
 			finalTarget = queryResult.GetHighestScorePosition();
 			queryResult.GetTopRandomPosition();
+			Godot.Collections.Array<QueryItem3D> itemResults = queryResult.GetAllResults();
 			queryResult.GetAllNode();
 			queryResult.GetAllPosition();
 			queryResult.GetHighestScoreNode();
@@ -34,6 +35,12 @@ public partial class SharpEnemy : CharacterBody3D
 			queryResult.GetTopRandomPosition();
 			navAgent.TargetPosition = finalTarget;
 			currentTarget = navAgent.GetNextPathPosition();
+
+			QueryItem3D firstItem = itemResults[0];
+			GD.Print("Collided with: ", firstItem.collidedWith);
+			GD.Print("Is filtered: ", firstItem.isFiltered);
+			GD.Print("Projection position: ", firstItem.projectionPosition);
+			GD.Print("Score: ", firstItem.score);
 		}
 	}
 	public override void _PhysicsProcess(double delta)
