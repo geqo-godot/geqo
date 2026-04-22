@@ -1,53 +1,55 @@
 using Godot;
-using System.Linq;
-namespace GEQO;
-
-public partial class QueryResult2D(RefCounted refCounted)
+/// <summary>
+/// Wraps over the GDExtension QueryResult2D.
+/// </summary>
+public partial class QueryResultWrapper2D(RefCounted refCounted)
 {
+    private readonly RefCounted refCounted = refCounted;
+
     public Godot.Collections.Array<Node2D> GetAllNode()
     {
-        return (Godot.Collections.Array<Node2D>)refCounted.Call(MethodName.GetAllNode);
+        return (Godot.Collections.Array<Node2D>)refCounted.Call(Methods.GetAllNode);
     }
 
     public Vector2[] GetAllPosition()
     {
-        return (Vector2[])refCounted.Call(MethodName.GetAllPosition);
+        return (Vector2[])refCounted.Call(Methods.GetAllPosition);
     }
 
-    public Godot.Collections.Array<QueryItem2D> GetAllResults()
+    public Godot.Collections.Array<QueryItemWrapper2D> GetAllResults()
     {
-        Godot.Collections.Array<QueryItem2D> items = [];
-        foreach (RefCounted refItem in ((Godot.Collections.Array)refCounted.Call(MethodName.GetAllResults)).Select(v => (RefCounted)(GodotObject)v))
-            items.Add(new QueryItem2D(refItem));
-        return items;
+        var result = new Godot.Collections.Array<QueryItemWrapper2D>();
+        foreach (RefCounted item in (Godot.Collections.Array)refCounted.Call(Methods.GetAllResults))
+            result.Add(new QueryItemWrapper2D(item));
+        return result;
     }
 
     public Node2D GetHighestScoreNode()
     {
-        return (Node2D)(GodotObject)refCounted.Call(MethodName.GetHighestScoreNode);
+        return (Node2D)(GodotObject)refCounted.Call(Methods.GetHighestScoreNode);
     }
 
     public Vector2 GetHighestScorePosition()
     {
-        return (Vector2)refCounted.Call(MethodName.GetHighestScorePosition);
+        return (Vector2)refCounted.Call(Methods.GetHighestScorePosition);
     }
 
     public Node2D GetTopRandomNode(double percent = 0.1)
     {
-        return (Node2D)(GodotObject)refCounted.Call(MethodName.GetTopRandomNode, percent);
+        return (Node2D)(GodotObject)refCounted.Call(Methods.GetTopRandomNode, percent);
     }
 
     public Vector2 GetTopRandomPosition(double percent = 0.1)
     {
-        return (Vector2)refCounted.Call(MethodName.GetTopRandomPosition, percent);
+        return (Vector2)refCounted.Call(Methods.GetTopRandomPosition, percent);
     }
 
     public bool HasResult()
     {
-        return (bool)refCounted.Call(MethodName.HasResult);
+        return (bool)refCounted.Call(Methods.HasResult);
     }
 
-    private static class MethodName
+    private static class Methods
     {
         public static readonly StringName GetAllNode = "get_all_node";
         public static readonly StringName GetAllPosition = "get_all_position";
