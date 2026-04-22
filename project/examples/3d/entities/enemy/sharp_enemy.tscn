@@ -1,6 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://cylin26nbgted"]
+[gd_scene load_steps=14 format=3 uid="uid://cylin26nbgted"]
 
 [ext_resource type="Script" uid="uid://dek4b1ktqqnqx" path="res://examples/3d/entities/enemy/SharpEnemy.cs" id="1_pndwi"]
+[ext_resource type="PackedScene" uid="uid://u5ksq7ppl44x" path="res://examples/3d/entities/enemy/sharp_context.tscn" id="2_2hdkr"]
+[ext_resource type="PackedScene" uid="uid://11dhlhbts41e" path="res://examples/3d/entities/enemy/sharp_test.tscn" id="2_b428m"]
 [ext_resource type="Script" uid="uid://bucuncg6ilwc0" path="res://example_custom_scripts/custom_context3d.gd" id="2_kosy3"]
 [ext_resource type="Script" uid="uid://d3r1iam5x8yok" path="res://example_custom_scripts/custom_generator3d.gd" id="3_b428m"]
 [ext_resource type="Script" uid="uid://55v77romqu4f" path="res://example_custom_scripts/custom_test3d.gd" id="4_2hdkr"]
@@ -50,11 +52,11 @@ use_debug_shapes = true
 [node name="ContextPlayer" type="ContextInGroup3D" parent="EnvironmentQuery3D"]
 group = "player"
 
-[node name="ContextSelf" type="ContextTargetNode3D" parent="EnvironmentQuery3D" node_paths=PackedStringArray("target_node")]
-target_node = NodePath("../..")
+[node name="SharpSelf" parent="EnvironmentQuery3D" node_paths=PackedStringArray("targetNode") instance=ExtResource("2_2hdkr")]
+targetNode = NodePath("../..")
 
 [node name="GeneratorGridShape3D" type="GeneratorGridShape3D" parent="EnvironmentQuery3D" node_paths=PackedStringArray("generate_around")]
-generate_around = NodePath("../ContextSelf")
+generate_around = NodePath("../SharpSelf")
 grid_half_size = 30.0
 
 [node name="TestDistanceToSelf" type="TestDistanceTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("distance_to")]
@@ -76,6 +78,10 @@ filter_bool_match = false
 score_bool_match = false
 score_curve = SubResource("Curve_gmutw")
 bool_match = false
+
+[node name="SharpTest" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("context") instance=ExtResource("2_b428m")]
+test_type = 1
+context = NodePath("../../ContextPlayer")
 
 [node name="EnvironmentQuery3DCustom" type="EnvironmentQuery3D" parent="." node_paths=PackedStringArray("querier")]
 querier = NodePath("..")

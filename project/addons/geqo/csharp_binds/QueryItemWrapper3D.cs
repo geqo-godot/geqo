@@ -2,6 +2,7 @@ using Godot;
 public partial class QueryItemWrapper3D(RefCounted refCounted) : RefCounted
 {
     private readonly RefCounted refCounted = refCounted;
+    public RefCounted RawQueryItem => refCounted;
     public Node3D CollidedWith
     {
         get => (Node3D)(GodotObject)refCounted.Call("get_collided_with");
