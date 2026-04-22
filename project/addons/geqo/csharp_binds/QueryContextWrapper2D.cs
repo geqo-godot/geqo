@@ -1,5 +1,4 @@
 using Godot;
-[Tool]
 public partial class QueryContextWrapper2D(Node2D node)
 {
     private readonly Node2D node = node;
