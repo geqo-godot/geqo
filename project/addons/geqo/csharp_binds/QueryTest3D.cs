@@ -56,7 +56,7 @@ public partial class QueryTest3D : Node3D
         set => Call("set_multiple_context_score_operator", (int)value);
     }
 
-    public Curve ScoringCurve
+    public Curve ScoreCurve
     {
         get => (Curve)(GodotObject)Call("get_scoring_curve");
         set => Call("set_scoring_curve", value);
