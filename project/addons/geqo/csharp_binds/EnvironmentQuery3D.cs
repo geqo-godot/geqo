@@ -1,8 +1,13 @@
 using Godot;
-namespace GEQO;
-public class EnvironmentQuery3D(Node node)
+
+public partial class EnvironmentQueryWrapper3D(Node node)
 {
-	public Node3D Querier
+	private readonly Node node = node;
+	/// <summary>
+	/// Returns the raw node of EnvironmentQuery, in case it's methods are needed, like queue_free().
+	/// </summary>
+	public Node QueryNode => node;
+    public Node3D Querier
 	{
 		get => (Node3D)(GodotObject)node.Call("get_querier");
 		set => node.Call("set_querier", value);
@@ -20,24 +25,24 @@ public class EnvironmentQuery3D(Node node)
 
 	public void RequestQuery()
 	{
-		node.Call(MethodName.RequestQuery);
+		node.Call(Methods.RequestQuery);
 	}
 
-	public QueryResult3D GetResult()
+	public QueryResultWrapper3D GetResult()
 	{
-		return new QueryResult3D((RefCounted)(GodotObject)node.Call(MethodName.GetResult));
+		return new QueryResultWrapper3D((RefCounted)(GodotObject)node.Call(Methods.GetResult));
 	}
 
 	public SignalAwaiter QueryFinished
-		=> node.ToSignal(node, SignalName.QueryFinished);
+		=>node.ToSignal(node, Signals.QueryFinished);
 
-	private static class MethodName
+	private static class Methods
 	{
 		public static readonly StringName GetResult = "get_result";
 		public static readonly StringName RequestQuery = "request_query";
 	}
 
-	private static class SignalName
+	private static class Signals
 	{
 		public static readonly StringName QueryFinished = "query_finished";
 	}

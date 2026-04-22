@@ -1,8 +1,12 @@
 using Godot;
-namespace GEQO;
 
-public class EnvironmentQuery2D(Node node)
+public partial class EnvironmentQueryWrapper2D(Node node)
 {
+    private readonly Node node = node;
+    /// <summary>
+    /// Returns the raw node of EnvironmentQuery, in case it's methods are needed, like queue_free().
+    /// </summary>
+    public Node QueryNode => node;
     public Node2D Querier
     {
         get => (Node2D)(GodotObject)node.Call("get_querier");
@@ -21,24 +25,24 @@ public class EnvironmentQuery2D(Node node)
 
     public void RequestQuery()
     {
-        node.Call(MethodName.RequestQuery);
+        node.Call(Methods.RequestQuery);
     }
 
-    public QueryResult2D GetResult()
+    public QueryResultWrapper2D GetResult()
     {
-        return new QueryResult2D((RefCounted)(GodotObject)node.Call(MethodName.GetResult));
+        return new QueryResultWrapper2D((RefCounted)(GodotObject)node.Call(Methods.GetResult));
     }
 
     public SignalAwaiter QueryFinished
-        => node.ToSignal(node, SignalName.QueryFinished);
+        => node.ToSignal(node, Signals.QueryFinished);
 
-    private static class MethodName
+    private static class Methods
     {
         public static readonly StringName GetResult = "get_result";
         public static readonly StringName RequestQuery = "request_query";
     }
 
-    private static class SignalName
+    private static class Signals
     {
         public static readonly StringName QueryFinished = "query_finished";
     }

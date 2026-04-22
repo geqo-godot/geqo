@@ -8,11 +8,11 @@ public partial class SharpEnemy : CharacterBody3D
 	private Vector3 finalTarget;
 	private Vector3? currentTarget = null;
 	private NavigationAgent3D navAgent;
-	private GEQO.EnvironmentQuery3D envQuery;
+	private EnvironmentQueryWrapper3D envQuery;
 	public override void _Ready()
 	{
 		navAgent = GetNode<NavigationAgent3D>("NavigationAgent3D");
-		envQuery = new GEQO.EnvironmentQuery3D(GetNode("EnvironmentQuery3D"));
+		envQuery = new EnvironmentQueryWrapper3D(GetNode<Node>("EnvironmentQuery3D"));
 	}
 	public override async void _Input(InputEvent @event)
 	{
@@ -20,13 +20,13 @@ public partial class SharpEnemy : CharacterBody3D
 		{
 			envQuery.RequestQuery();
 			await envQuery.QueryFinished;
-			GEQO.QueryResult3D queryResult = envQuery.GetResult();
+			QueryResultWrapper3D queryResult = envQuery.GetResult();
 			if (!queryResult.HasResult())
 				return;
 			GD.Print("Calling all result functions");
 			finalTarget = queryResult.GetHighestScorePosition();
 			queryResult.GetTopRandomPosition();
-			Godot.Collections.Array<GEQO.QueryItem3D> itemResults = queryResult.GetAllResults();
+			Godot.Collections.Array<QueryItemWrapper3D> itemResults = queryResult.GetAllResults();
 			queryResult.GetAllNode();
 			queryResult.GetAllPosition();
 			queryResult.GetHighestScoreNode();
@@ -35,7 +35,7 @@ public partial class SharpEnemy : CharacterBody3D
 			navAgent.TargetPosition = finalTarget;
 			currentTarget = navAgent.GetNextPathPosition();
 
-			GEQO.QueryItem3D firstItem = itemResults[0];
+			QueryItemWrapper3D firstItem = itemResults[0];
 			GD.Print("Collided with: ", firstItem.CollidedWith);
 			GD.Print("Is filtered: ", firstItem.IsFiltered);
 			GD.Print("Projection position: ", firstItem.ProjectionPosition);
