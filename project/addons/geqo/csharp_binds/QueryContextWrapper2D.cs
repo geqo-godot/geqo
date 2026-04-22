@@ -3,6 +3,7 @@ using Godot;
 public partial class QueryContextWrapper2D(Node2D node)
 {
     private readonly Node2D node = node;
+    public Node2D RawQueryContext => node;
     public Godot.Collections.Array GetContext(QueryInstanceWrapper2D queryInstance)
     {
         return (Godot.Collections.Array)node.Call(Methods.GetContext, queryInstance.RawQueryInstance);

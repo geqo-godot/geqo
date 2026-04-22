@@ -8,21 +8,14 @@ using Godot;
 [Tool]
 public partial class QueryTest2D : Node2D
 {
-    public enum TestPurposeEnum { FilterScore = 0, FilterOnly = 1, ScoreOnly = 2 }
-    public enum TestTypeEnum { Numeric = 0, Boolean = 1 }
-    public enum FilterTypeEnum { Min = 0, Max = 1, Range = 2 }
-    public enum MultipleContextScoreOp { AverageScore = 0, MaxScore = 1, MinScore = 2 }
-    public enum MultipleContextFilterOp { AnyPass = 0, AllPass = 1 }
-    public enum ScoreClampType { None = 0, Value = 1, SameAsFilter = 2 }
-
     public float Cost
     {
         get => (float)Call("get_cost");
         set => Call("set_cost", value);
     }
-    public FilterTypeEnum FilterType
+    public GEQOEnums.FilterType FilterType
     {
-        get => (FilterTypeEnum)(int)Call("get_filter_type");
+        get => (GEQOEnums.FilterType)(int)Call("get_filter_type");
         set => Call("set_filter_type", (int)value);
     }
 
@@ -44,15 +37,15 @@ public partial class QueryTest2D : Node2D
         set => Call("set_filter_max", value);
     }
 
-    public MultipleContextFilterOp MultipleContextFilterOperator
+    public GEQOEnums.MultipleContextFilterOp MultipleContextFilterOperator
     {
-        get => (MultipleContextFilterOp)(int)Call("get_multiple_context_filter_operator");
+        get => (GEQOEnums.MultipleContextFilterOp)(int)Call("get_multiple_context_filter_operator");
         set => Call("set_multiple_context_filter_operator", (int)value);
     }
 
-    public MultipleContextScoreOp MultipleContextScoreOperator
+    public GEQOEnums.MultipleContextScoreOp MultipleContextScoreOperator
     {
-        get => (MultipleContextScoreOp)(int)Call("get_multiple_context_score_operator");
+        get => (GEQOEnums.MultipleContextScoreOp)(int)Call("get_multiple_context_score_operator");
         set => Call("set_multiple_context_score_operator", (int)value);
     }
 
@@ -62,9 +55,9 @@ public partial class QueryTest2D : Node2D
         set => Call("set_scoring_curve", value);
     }
 
-    public ScoreClampType ScoreClampMinType
+    public GEQOEnums.ScoreClampType ScoreClampMinType
     {
-        get => (ScoreClampType)(int)Call("get_clamp_min_type");
+        get => (GEQOEnums.ScoreClampType)(int)Call("get_clamp_min_type");
         set => Call("set_clamp_min_type", (int)value);
     }
 
@@ -74,9 +67,9 @@ public partial class QueryTest2D : Node2D
         set => Call("set_score_clamp_min", value);
     }
 
-    public ScoreClampType ScoreClampMaxType
+    public GEQOEnums.ScoreClampType ScoreClampMaxType
     {
-        get => (ScoreClampType)(int)Call("get_clamp_max_type");
+        get => (GEQOEnums.ScoreClampType)(int)Call("get_clamp_max_type");
         set => Call("set_clamp_max_type", (int)value);
     }
 
@@ -86,21 +79,21 @@ public partial class QueryTest2D : Node2D
         set => Call("set_score_clamp_max", value);
     }
 
-    public float ScoringFactor
+    public float ScoreFactor
     {
         get => (float)Call("get_scoring_factor");
         set => Call("set_scoring_factor", value);
     }
 
-    public TestPurposeEnum TestPurpose
+    public GEQOEnums.TestPurpose TestPurpose
     {
-        get => (TestPurposeEnum)(int)Call("get_test_purpose");
+        get => (GEQOEnums.TestPurpose)(int)Call("get_test_purpose");
         set => Call("set_test_purpose", (int)value);
     }
 
-    public TestTypeEnum TestType
+    public GEQOEnums.TestType TestType
     {
-        get => (TestTypeEnum)(int)Call("get_test_type");
+        get => (GEQOEnums.TestType)(int)Call("get_test_type");
         set => Call("set_test_type", (int)value);
     }
     /// <summary>

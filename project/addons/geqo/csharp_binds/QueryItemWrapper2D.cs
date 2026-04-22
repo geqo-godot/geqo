@@ -3,13 +3,6 @@ public partial class QueryItemWrapper2D(RefCounted refCounted) : RefCounted
 {
     private readonly RefCounted refCounted = refCounted;
 
-    public enum TestPurposeEnum { FilterScore = 0, FilterOnly = 1, ScoreOnly = 2 }
-    public enum TestTypeEnum { Numeric = 0, Boolean = 1 }
-    public enum FilterTypeEnum { Min = 0, Max = 1, Range = 2 }
-    public enum MultipleContextScoreOp { AverageScore = 0, MaxScore = 1, MinScore = 2 }
-    public enum MultipleContextFilterOp { AnyPass = 0, AllPass = 1 }
-    public enum ScoreClampType { None = 0, Value = 1, SameAsFilter = 2 }
-
     public RefCounted RawQueryItem => refCounted;
     public Node2D CollidedWith
     {
@@ -32,29 +25,29 @@ public partial class QueryItemWrapper2D(RefCounted refCounted) : RefCounted
         set => refCounted.Call("set_score", value);
     }
 
-    public void AddScoreBoolean(TestPurposeEnum testPurpose, bool value, bool expectedBoolean)
+    public void AddScoreBoolean(GEQOEnums.TestPurpose testPurpose, bool value, bool expectedBoolean)
     {
         refCounted.Call(Methods.AddScoreBoolean, (int)testPurpose, value, expectedBoolean);
     }
 
-    public void AddScoreDirect(TestPurposeEnum testPurpose, float normalizedValue, float scoringFactor)
+    public void AddScoreDirect(GEQOEnums.TestPurpose testPurpose, float normalizedValue, float scoringFactor)
     {
         refCounted.Call(Methods.AddScoreDirect, (int)testPurpose, normalizedValue, scoringFactor);
     }
 
-    public void AddScoreNumeric(TestPurposeEnum testPurpose, FilterTypeEnum filterType, float amount, float minThreshold, float maxThreshold)
+    public void AddScoreNumeric(GEQOEnums.TestPurpose testPurpose, GEQOEnums.FilterType filterType, float amount, float minThreshold, float maxThreshold)
     {
         refCounted.Call(Methods.AddScoreNumeric, (int)testPurpose, (int)filterType, amount, minThreshold, maxThreshold);
     }
 
-    public void ApplyFilterBoolean(bool value, bool expected)
+    public bool ApplyFilterBoolean(bool value, bool expected)
     {
-        refCounted.Call(Methods.ApplyFilterBoolean, value, expected);
+        return (bool)refCounted.Call(Methods.ApplyFilterBoolean, value, expected);
     }
 
-    public void ApplyFilterNumeric(FilterTypeEnum filterType, float amount, float minThreshold, float maxThreshold)
+    public bool ApplyFilterNumeric(GEQOEnums.FilterType filterType, float amount, float minThreshold, float maxThreshold)
     {
-        refCounted.Call(Methods.ApplyFilterNumeric, (int)filterType, amount, minThreshold, maxThreshold);
+        return (bool)refCounted.Call(Methods.ApplyFilterNumeric, (int)filterType, amount, minThreshold, maxThreshold);
     }
 
     public static QueryItemWrapper2D Create(Vector2 position, Node2D collider)

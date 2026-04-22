@@ -1,9 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://cylin26nbgted"]
+[gd_scene load_steps=11 format=3 uid="uid://cylin26nbgted"]
 
 [ext_resource type="Script" uid="uid://dek4b1ktqqnqx" path="res://examples/3d/entities/enemy/SharpEnemy.cs" id="1_pndwi"]
 [ext_resource type="PackedScene" uid="uid://u5ksq7ppl44x" path="res://examples/3d/entities/enemy/sharp_context.tscn" id="2_2hdkr"]
-[ext_resource type="PackedScene" uid="uid://11dhlhbts41e" path="res://examples/3d/entities/enemy/sharp_test.tscn" id="2_b428m"]
 [ext_resource type="Script" uid="uid://bucuncg6ilwc0" path="res://example_custom_scripts/custom_context3d.gd" id="2_kosy3"]
+[ext_resource type="PackedScene" uid="uid://11dhlhbts41e" path="res://examples/3d/entities/enemy/sharp_distance_to3d.tscn" id="3_2hdkr"]
 [ext_resource type="Script" uid="uid://d3r1iam5x8yok" path="res://example_custom_scripts/custom_generator3d.gd" id="3_b428m"]
 [ext_resource type="Script" uid="uid://55v77romqu4f" path="res://example_custom_scripts/custom_test3d.gd" id="4_2hdkr"]
 
@@ -14,18 +14,6 @@ albedo_color = Color(0.7797769, 0.47596323, 0.9885132, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_036b0"]
 material = SubResource("StandardMaterial3D_pndwi")
-
-[sub_resource type="Curve" id="Curve_77jyu"]
-_data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
-point_count = 2
-
-[sub_resource type="Curve" id="Curve_py6ki"]
-_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
-point_count = 2
-
-[sub_resource type="Curve" id="Curve_gmutw"]
-_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
-point_count = 2
 
 [sub_resource type="Curve" id="Curve_uy82w"]
 _data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
@@ -59,29 +47,10 @@ targetNode = NodePath("../..")
 generate_around = NodePath("../SharpSelf")
 grid_half_size = 30.0
 
-[node name="TestDistanceToSelf" type="TestDistanceTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("distance_to")]
-distance_to = NodePath("../../ContextPlayer")
+[node name="SharpDistanceTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("distanceTo") instance=ExtResource("3_2hdkr")]
 test_purpose = 2
-score_curve = SubResource("Curve_77jyu")
-
-[node name="TestDistanceToPlayer" type="TestDistanceTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("distance_to")]
-distance_to = NodePath("../../ContextPlayer")
-test_purpose = 2
-score_curve = SubResource("Curve_py6ki")
-score_clamp_max_type = 1
-
-[node name="TestRaycastTo3D" type="TestRaycastTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("context")]
-context = NodePath("../../ContextPlayer")
-collision_mask = 3
-test_purpose = 1
-filter_bool_match = false
-score_bool_match = false
-score_curve = SubResource("Curve_gmutw")
-bool_match = false
-
-[node name="SharpTest" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("context") instance=ExtResource("2_b428m")]
-test_type = 1
-context = NodePath("../../ContextPlayer")
+cost = 1.0
+distanceTo = NodePath("../../ContextPlayer")
 
 [node name="EnvironmentQuery3DCustom" type="EnvironmentQuery3D" parent="." node_paths=PackedStringArray("querier")]
 querier = NodePath("..")

@@ -16,12 +16,4 @@ public partial class QueryContext2D : Node2D
         GD.PrintErr("Need to override _GetContext in derived class");
         return [];
     }
-
-    private static class Methods
-    {
-        public static readonly StringName GetContext = "get_context";
-        public static readonly StringName GetContextNodes = "get_context_nodes";
-        public static readonly StringName GetContextPositions = "get_context_positions";
-    }
 }
-

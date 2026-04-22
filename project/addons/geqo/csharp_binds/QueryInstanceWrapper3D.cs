@@ -4,6 +4,12 @@ public partial class QueryInstanceWrapper3D(RefCounted refCounted)
     private readonly RefCounted refCounted = refCounted;
     public RefCounted RawQueryInstance => refCounted;
 
+    private QueryContextWrapper3D _querierContext;
+    public QueryContextWrapper3D QuerierContext =>
+        _querierContext ??= new QueryContextWrapper3D(
+            (Node3D)(GodotObject)refCounted.Call("get_querier_context")
+        );
+
     public void AddItem(QueryItemWrapper3D item)
     {
         refCounted.Call(MethodName.AddItem, item.RawQueryItem);
@@ -19,7 +25,7 @@ public partial class QueryInstanceWrapper3D(RefCounted refCounted)
         return new QueryItemWrapper3D((RefCounted)(GodotObject)refCounted.Call(MethodName.GetItem, index));
     }
 
-    int GetItemCount()
+    public int GetItemCount()
     {
         return (int)refCounted.Call(MethodName.GetItemCount);
     }
@@ -29,14 +35,14 @@ public partial class QueryInstanceWrapper3D(RefCounted refCounted)
         return new QueryItemWrapper3D((RefCounted)(GodotObject)refCounted.Call(MethodName.GetNextItem));
     }
 
-    public float GetTestDataMax()
+    public float GetTestDataMax(GodotObject test)
     {
-        return (float)refCounted.Call(MethodName.GetTestDataMax);
+        return (float)refCounted.Call(MethodName.GetTestDataMax, test);
     }
 
-    public float GetTestDataMin()
+    public float GetTestDataMin(GodotObject test)
     {
-        return (float)refCounted.Call(MethodName.GetTestDataMin);
+        return (float)refCounted.Call(MethodName.GetTestDataMin, test);
     }
 
     public bool HasItems()
