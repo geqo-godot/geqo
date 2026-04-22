@@ -86,7 +86,6 @@ public partial class QueryTest3D : Node3D
         set => Call("set_score_clamp_max", value);
     }
 
-
     public float ScoringFactor
     {
         get => (float)Call("get_scoring_factor");
