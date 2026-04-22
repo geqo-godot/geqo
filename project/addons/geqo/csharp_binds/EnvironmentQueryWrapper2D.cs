@@ -25,24 +25,24 @@ public partial class EnvironmentQueryWrapper2D(Node node)
 
     public void RequestQuery()
     {
-        node.Call(Methods.RequestQuery);
+        node.Call(MethodName.RequestQuery);
     }
 
     public QueryResultWrapper2D GetResult()
     {
-        return new QueryResultWrapper2D((RefCounted)(GodotObject)node.Call(Methods.GetResult));
+        return new QueryResultWrapper2D((RefCounted)(GodotObject)node.Call(MethodName.GetResult));
     }
 
     public SignalAwaiter QueryFinished
-        => node.ToSignal(node, Signals.QueryFinished);
+        => node.ToSignal(node, SignalName.QueryFinished);
 
-    private static class Methods
+    private static class MethodName
     {
         public static readonly StringName GetResult = "get_result";
         public static readonly StringName RequestQuery = "request_query";
     }
 
-    private static class Signals
+    private static class SignalName
     {
         public static readonly StringName QueryFinished = "query_finished";
     }
