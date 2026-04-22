@@ -97,9 +97,9 @@ public partial class QueryTest2D : Node2D
         set => Call("set_test_type", (int)value);
     }
     /// <summary>
-    /// The GDExtension calls this function
+    /// The GDExtension calls this function.
     /// </summary>
-    public void _perform_test(RefCounted queryInstance)
+    void _perform_test(RefCounted queryInstance)
     {
         QueryInstanceWrapper2D instance = new QueryInstanceWrapper2D(queryInstance);
         _PerformTest(instance);
