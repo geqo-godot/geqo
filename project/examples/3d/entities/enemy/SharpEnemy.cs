@@ -70,9 +70,9 @@ public partial class SharpEnemy : CharacterBody3D
 	private void Idle()
 	{
 		Velocity = new Vector3(
-			Mathf.Lerp(Velocity.X, 0f, 0.25f),
+			Mathf.Lerp(Velocity.X, 0f, 0.35f),
 			Velocity.Y,
-			Mathf.Lerp(Velocity.Z, 0f, 0.25f)
+			Mathf.Lerp(Velocity.Z, 0f, 0.35f)
 		);
 		if (currentTarget != null)
 			currentState = State.Walking;
