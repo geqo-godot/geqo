@@ -30,7 +30,7 @@ Documentation is available [here](https://geqo-docs.readthedocs.io/en/stable/).
 
 ### Custom contexts and tests
 
-Extend GEQO with custom logic using GDScript.
+Extend GEQO with custom logic using GDScript and C#.
 
 For examples, see [example custom scripts](project/example_custom_scripts)
 
