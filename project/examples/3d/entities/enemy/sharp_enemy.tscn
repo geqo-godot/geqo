@@ -1,11 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://cylin26nbgted"]
+[gd_scene load_steps=12 format=3 uid="uid://cylin26nbgted"]
 
 [ext_resource type="Script" uid="uid://dek4b1ktqqnqx" path="res://examples/3d/entities/enemy/SharpEnemy.cs" id="1_pndwi"]
 [ext_resource type="PackedScene" uid="uid://u5ksq7ppl44x" path="res://examples/3d/entities/enemy/sharp_context.tscn" id="2_2hdkr"]
 [ext_resource type="Script" uid="uid://bucuncg6ilwc0" path="res://example_custom_scripts/custom_context3d.gd" id="2_kosy3"]
-[ext_resource type="PackedScene" uid="uid://11dhlhbts41e" path="res://examples/3d/entities/enemy/sharp_distance_to3d.tscn" id="3_2hdkr"]
+[ext_resource type="PackedScene" uid="uid://cjw8enb77a74n" path="res://examples/3d/entities/enemy/sharp_generator_3d.tscn" id="3_2hdkr"]
 [ext_resource type="Script" uid="uid://d3r1iam5x8yok" path="res://example_custom_scripts/custom_generator3d.gd" id="3_b428m"]
 [ext_resource type="Script" uid="uid://55v77romqu4f" path="res://example_custom_scripts/custom_test3d.gd" id="4_2hdkr"]
+[ext_resource type="PackedScene" uid="uid://11dhlhbts41e" path="res://examples/3d/entities/enemy/sharp_distance_to3d.tscn" id="4_wt66s"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fj7yv"]
 
@@ -43,11 +44,10 @@ group = "player"
 [node name="SharpSelf" parent="EnvironmentQuery3D" node_paths=PackedStringArray("targetNode") instance=ExtResource("2_2hdkr")]
 targetNode = NodePath("../..")
 
-[node name="GeneratorGridShape3D" type="GeneratorGridShape3D" parent="EnvironmentQuery3D" node_paths=PackedStringArray("generate_around")]
-generate_around = NodePath("../SharpSelf")
-grid_half_size = 30.0
+[node name="SharpGenerator3D" parent="EnvironmentQuery3D" node_paths=PackedStringArray("generateAround") instance=ExtResource("3_2hdkr")]
+generateAround = NodePath("../SharpSelf")
 
-[node name="SharpDistanceTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("distanceTo") instance=ExtResource("3_2hdkr")]
+[node name="SharpDistanceTo3D" parent="EnvironmentQuery3D/SharpGenerator3D" node_paths=PackedStringArray("distanceTo") instance=ExtResource("4_wt66s")]
 test_purpose = 2
 cost = 1.0
 distanceTo = NodePath("../../ContextPlayer")
