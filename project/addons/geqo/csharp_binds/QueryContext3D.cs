@@ -6,7 +6,7 @@ public partial class QueryContext3D : Node3D
     /// <summary>
     /// The GDExtension calls this function
     /// </summary>
-    Array _get_context(RefCounted queryInstance)
+    private Array _get_context(RefCounted queryInstance)
     {
         QueryInstanceWrapper3D instance = new QueryInstanceWrapper3D(queryInstance);
         return _GetContext(instance);

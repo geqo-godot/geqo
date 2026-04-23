@@ -18,7 +18,7 @@ public partial class QueryGenerator2D : Node2D
     /// <summary>
     /// The GDExtension calls this function.
     /// </summary>
-    void _perform_generation(RefCounted queryInstance)
+    private void _perform_generation(RefCounted queryInstance)
     {
         QueryInstanceWrapper2D instance = new QueryInstanceWrapper2D(queryInstance);
         _PerformGeneration(instance);

@@ -6,7 +6,7 @@ public partial class QueryContext2D : Node2D
     /// <summary>
     /// The GDExtension calls this function
     /// </summary>
-    Array _get_context(RefCounted queryInstance)
+    private Array _get_context(RefCounted queryInstance)
     {
         QueryInstanceWrapper2D instance = new QueryInstanceWrapper2D(queryInstance);
         return _GetContext(instance);
