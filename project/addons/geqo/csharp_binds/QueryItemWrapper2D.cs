@@ -38,8 +38,8 @@ public partial class QueryItemWrapper2D(RefCounted refCounted) : RefCounted
     public static QueryItemWrapper2D Create(Vector2 position, Node2D collider)
     {
         RefCounted new_item = (RefCounted)(GodotObject)ClassDB.Instantiate("QueryItem2D");
-        new_item.Call("set_projection_position", position);
-        new_item.Call("set_collided_with", collider);
+        new_item.Call(Methods.SetProjectionPosition, position);
+        new_item.Call(Methods.SetCollidedWith, collider);
         return new QueryItemWrapper2D(new_item);
     }
 
@@ -51,14 +51,13 @@ public partial class QueryItemWrapper2D(RefCounted refCounted) : RefCounted
         public static readonly StringName ApplyFilterBoolean = "apply_filter_boolean";
         public static readonly StringName ApplyFilterNumeric = "apply_filter_numeric";
         public static readonly StringName Create = "create";
-
-	public static readonly StringName GetCollidedWith = "get_collided_with";
-	public static readonly StringName SetCollidedWith = "set_collided_with";
-	public static readonly StringName GetIsFiltered = "get_is_filtered";
-	public static readonly StringName SetIsFiltered = "set_is_filtered";
-	public static readonly StringName GetProjectionPosition = "get_projection_position";
-	public static readonly StringName SetProjectionPosition = "set_projection_position";
-	public static readonly StringName GetScore = "get_score";
-	public static readonly StringName SetScore = "set_score";
+        public static readonly StringName GetCollidedWith = "get_collided_with";
+        public static readonly StringName SetCollidedWith = "set_collided_with";
+        public static readonly StringName GetIsFiltered = "get_is_filtered";
+        public static readonly StringName SetIsFiltered = "set_is_filtered";
+        public static readonly StringName GetProjectionPosition = "get_projection_position";
+        public static readonly StringName SetProjectionPosition = "set_projection_position";
+        public static readonly StringName GetScore = "get_score";
+        public static readonly StringName SetScore = "set_score";
     }
 }
