@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://u5ksq7ppl44x"]
 
-[ext_resource type="Script" uid="uid://b0ivv8dkqna14" path="res://examples/3d/entities/enemy/SharpContext.cs" id="1_g75aw"]
+[ext_resource type="Script" uid="uid://b0ivv8dkqna14" path="res://example_custom_scripts/SharpContext.cs" id="1_g75aw"]
 
 [node name="SharpContext" type="QueryContext3D"]
 script = ExtResource("1_g75aw")
