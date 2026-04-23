@@ -18,7 +18,7 @@ public partial class QueryGenerator3D : Node3D
     /// <summary>
     /// The GDExtension calls this function.
     /// </summary>
-    void _perform_generation(RefCounted queryInstance)
+    private void _perform_generation(RefCounted queryInstance)
     {
         QueryInstanceWrapper3D instance = new QueryInstanceWrapper3D(queryInstance);
         _PerformGeneration(instance);

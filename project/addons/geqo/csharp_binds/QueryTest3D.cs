@@ -97,7 +97,7 @@ public partial class QueryTest3D : Node3D
     /// <summary>
     /// The GDExtension calls this function.
     /// </summary>
-    void _perform_test(RefCounted queryInstance)
+    private void _perform_test(RefCounted queryInstance)
     {
         QueryInstanceWrapper3D instance = new QueryInstanceWrapper3D(queryInstance);
         _PerformTest(instance);
