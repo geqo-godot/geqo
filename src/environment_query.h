@@ -68,18 +68,21 @@ public:
 	void _set_is_querying(const bool querying) { is_querying = querying; }
 	bool _get_is_querying() const { return is_querying; }
 
-	void _request_query() {
+	bool _request_query() {
+		// Returns true if query has started, false if it failed to start
+
 		// UtilityFunctions::print("EnvironmentQuery3D::request_query(): Requested a new query.");
 		if (is_querying) {
 			// print_error("EnvironmentQuery3D::request_query(): Requested another query while processing.");
-			return;
+			return false;
 		}
 		if (!generator) {
 			print_error("EnvironmentQuery: No Generator in EnvironmentQuery.");
-			return;
+			return false;
 		}
 		last_start_time_usec = Time::get_singleton()->get_ticks_usec();
 		_start_query();
+		return true;
 	} // Can't be binded from here so must be binded on inherited
 
 	void _start_query() {
