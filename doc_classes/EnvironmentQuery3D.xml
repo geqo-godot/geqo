@@ -16,11 +16,6 @@
 				After requesting a query, the [QueryResult3D] is cached and can be called with this function.
 			</description>
 		</method>
-		<method name="on_test_finished">
-			<return type="void" />
-			<description>
-			</description>
-		</method>
 		<method name="request_query">
 			<return type="void" />
 			<description>
@@ -43,11 +38,6 @@
 			<param index="0" name="result" type="QueryResult3D" />
 			<description>
 				Emitted when the query finishes processing.
-			</description>
-		</signal>
-		<signal name="tests_finished">
-			<description>
-				Emitted when the tests are finished, leading to finishing the query.
 			</description>
 		</signal>
 	</signals>

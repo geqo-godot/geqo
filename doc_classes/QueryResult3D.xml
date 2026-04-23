@@ -10,7 +10,7 @@
 	</tutorials>
 	<methods>
 		<method name="get_all_node" qualifiers="const">
-			<return type="Node[]" />
+			<return type="Node3D[]" />
 			<description>
 				Returns all result [Node3D]s within each [QueryItem3D] in ascending order based on score.
 			</description>
