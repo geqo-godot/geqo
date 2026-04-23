@@ -2,52 +2,32 @@ using Godot;
 /// <summary>
 /// Wraps over the GDExtension QueryResult2D.
 /// </summary>
+using Godot.Collections;
 public partial class QueryResultWrapper2D(RefCounted refCounted)
 {
     private readonly RefCounted refCounted = refCounted;
 
-    public Godot.Collections.Array<Node2D> GetAllNode()
-    {
-        return (Godot.Collections.Array<Node2D>)refCounted.Call(MethodName.GetAllNode);
-    }
+    public Array<Node2D> GetAllNode() => (Array<Node2D>)refCounted.Call(MethodName.GetAllNode);
 
-    public Vector2[] GetAllPosition()
-    {
-        return (Vector2[])refCounted.Call(MethodName.GetAllPosition);
-    }
+    public Vector2[] GetAllPosition() => (Vector2[])refCounted.Call(MethodName.GetAllPosition);
 
-    public Godot.Collections.Array<QueryItemWrapper2D> GetAllResults()
+    public Array<QueryItemWrapper2D> GetAllResults()
     {
-        var result = new Godot.Collections.Array<QueryItemWrapper2D>();
-        foreach (RefCounted item in (Godot.Collections.Array)refCounted.Call(MethodName.GetAllResults))
+        var result = new Array<QueryItemWrapper2D>();
+        foreach (RefCounted item in (Array)refCounted.Call(MethodName.GetAllResults))
             result.Add(new QueryItemWrapper2D(item));
         return result;
     }
 
-    public Node2D GetHighestScoreNode()
-    {
-        return (Node2D)(GodotObject)refCounted.Call(MethodName.GetHighestScoreNode);
-    }
+    public Node2D GetHighestScoreNode() => (Node2D)(GodotObject)refCounted.Call(MethodName.GetHighestScoreNode);
 
-    public Vector2 GetHighestScorePosition()
-    {
-        return (Vector2)refCounted.Call(MethodName.GetHighestScorePosition);
-    }
+    public Vector2 GetHighestScorePosition() => (Vector2)refCounted.Call(MethodName.GetHighestScorePosition);
 
-    public Node2D GetTopRandomNode(double percent = 0.1)
-    {
-        return (Node2D)(GodotObject)refCounted.Call(MethodName.GetTopRandomNode, percent);
-    }
+    public Node2D GetTopRandomNode(double percent = 0.1) => (Node2D)(GodotObject)refCounted.Call(MethodName.GetTopRandomNode, percent);
 
-    public Vector2 GetTopRandomPosition(double percent = 0.1)
-    {
-        return (Vector2)refCounted.Call(MethodName.GetTopRandomPosition, percent);
-    }
+    public Vector2 GetTopRandomPosition(double percent = 0.1) => (Vector2)refCounted.Call(MethodName.GetTopRandomPosition, percent);
 
-    public bool HasResult()
-    {
-        return (bool)refCounted.Call(MethodName.HasResult);
-    }
+    public bool HasResult() => (bool)refCounted.Call(MethodName.HasResult);
 
     private static class MethodName
     {
