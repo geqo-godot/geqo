@@ -7,78 +7,36 @@ public partial class QueryInstanceWrapper2D(RefCounted refCounted)
     private QueryContextWrapper2D _querierContext;
     public QueryContextWrapper2D QuerierContext =>
         _querierContext ??= new QueryContextWrapper2D(
-            (Node2D)(GodotObject)refCounted.Call("get_querier_context")
+            (Node2D)(GodotObject)refCounted.Call(MethodName.GetQuerierContext)
         );
 
-    public void AddItem(QueryItemWrapper2D item)
-    {
-        refCounted.Call(MethodName.AddItem, item.RawQueryItem);
-    }
+    public void AddItem(QueryItemWrapper2D item) => refCounted.Call(MethodName.AddItem, item.RawQueryItem);
 
-    public QueryItemWrapper2D GetCurrentQueryItem()
-    {
-        return new QueryItemWrapper2D((RefCounted)(GodotObject)refCounted.Call(MethodName.GetCurrentQueryItem));
-    }
+    public QueryItemWrapper2D GetCurrentQueryItem() => new QueryItemWrapper2D((RefCounted)(GodotObject)refCounted.Call(MethodName.GetCurrentQueryItem));
 
-    public QueryItemWrapper2D GetItem(int index)
-    {
-        return new QueryItemWrapper2D((RefCounted)(GodotObject)refCounted.Call(MethodName.GetItem, index));
-    }
+    public QueryItemWrapper2D GetItem(int index) => new QueryItemWrapper2D((RefCounted)(GodotObject)refCounted.Call(MethodName.GetItem, index));
 
-    public int GetItemCount()
-    {
-        return (int)refCounted.Call(MethodName.GetItemCount);
-    }
+    public int GetItemCount() => (int)refCounted.Call(MethodName.GetItemCount);
 
-    public QueryItemWrapper2D GetNextItem()
-    {
-        return new QueryItemWrapper2D((RefCounted)(GodotObject)refCounted.Call(MethodName.GetNextItem));
-    }
+    public QueryItemWrapper2D GetNextItem() => new QueryItemWrapper2D((RefCounted)(GodotObject)refCounted.Call(MethodName.GetNextItem));
 
-    public float GetTestDataMax(GodotObject test)
-    {
-        return (float)refCounted.Call(MethodName.GetTestDataMax, test);
-    }
+    public float GetTestDataMax(GodotObject test) => (float)refCounted.Call(MethodName.GetTestDataMax, test);
 
-    public float GetTestDataMin(GodotObject test)
-    {
-        return (float)refCounted.Call(MethodName.GetTestDataMin, test);
-    }
+    public float GetTestDataMin(GodotObject test) => (float)refCounted.Call(MethodName.GetTestDataMin, test);
 
-    public bool HasItems()
-    {
-        return (bool)refCounted.Call(MethodName.HasItems);
-    }
+    public bool HasItems() => (bool)refCounted.Call(MethodName.HasItems);
 
-    public bool HasTestData(GodotObject test)
-    {
-        return (bool)refCounted.Call(MethodName.HasTestData, test);
-    }
+    public bool HasTestData(GodotObject test) => (bool)refCounted.Call(MethodName.HasTestData, test);
 
-    public bool HasTimeLeft()
-    {
-        return (bool)refCounted.Call(MethodName.HasTimeLeft);
-    }
+    public bool HasTimeLeft() => (bool)refCounted.Call(MethodName.HasTimeLeft);
 
-    public void RefreshTimer()
-    {
-        refCounted.Call(MethodName.RefreshTimer);
-    }
+    public void RefreshTimer() => refCounted.Call(MethodName.RefreshTimer);
 
-    public void ResetIterator()
-    {
-        refCounted.Call(MethodName.ResetIterator);
-    }
+    public void ResetIterator() => refCounted.Call(MethodName.ResetIterator);
 
-    public void SetTestDataMax(GodotObject test, float max)
-    {
-        refCounted.Call(MethodName.SetTestDataMax, test, max);
-    }
+    public void SetTestDataMax(GodotObject test, float max) => refCounted.Call(MethodName.SetTestDataMax, test, max);
 
-    public void SetTestDataMin(GodotObject test, float max)
-    {
-        refCounted.Call(MethodName.SetTestDataMin, test, max);
-    }
+    public void SetTestDataMin(GodotObject test, float max) => refCounted.Call(MethodName.SetTestDataMin, test, max);
 
     private static class MethodName
     {
@@ -96,5 +54,7 @@ public partial class QueryInstanceWrapper2D(RefCounted refCounted)
         public static readonly StringName ResetIterator = "reset_iterator";
         public static readonly StringName SetTestDataMax = "set_test_data_max";
         public static readonly StringName SetTestDataMin = "set_test_data_min";
+
+	public static readonly StringName GetQuerierContext = "get_querier_context";
     }
 }
