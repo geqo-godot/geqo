@@ -21,7 +21,7 @@ project/assembly_name="Godot Environment Query Orchestrator"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/geqo/plugin.cfg")
+enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg", "res://addons/geqo/plugin.cfg")
 
 [global_group]
 
