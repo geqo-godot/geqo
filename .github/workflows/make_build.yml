@@ -93,7 +93,8 @@ jobs:
           rm -f project/icon.svg
           rm -f project/icon.svg.import
           rm -f project/project.godot
-          rm -f *.sln *.csproj
+          rm -f project/*.sln
+          rm -f project/*.csproj
 
       # Upload the build
       - name: Upload Artifact
