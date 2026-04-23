@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Godot Environment Query Orchestrator"
 run/main_scene="uid://bep8vp2474roh"
-config/features=PackedStringArray("4.5", "Forward Plus")
+config/features=PackedStringArray("4.5", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [dotnet]
