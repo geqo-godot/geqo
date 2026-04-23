@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://11dhlhbts41e"]
 
-[ext_resource type="Script" uid="uid://y7t37vhy367y" path="res://examples/3d/entities/enemy/SharpDistanceTo3D.cs" id="1_cvwt2"]
+[ext_resource type="Script" uid="uid://y7t37vhy367y" path="res://example_custom_scripts/SharpDistanceTo3D.cs" id="1_cvwt2"]
 
 [sub_resource type="Curve" id="Curve_e5dn4"]
 _data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]

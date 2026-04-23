@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cjw8enb77a74n"]
 
-[ext_resource type="Script" uid="uid://c3bk22r0ej8fd" path="res://examples/3d/entities/enemy/SharpGenerator3D.cs" id="1_aidkx"]
+[ext_resource type="Script" uid="uid://c3bk22r0ej8fd" path="res://example_custom_scripts/SharpGenerator3D.cs" id="1_aidkx"]
 
 [node name="SharpGenerator3D" type="QueryGenerator3D"]
 script = ExtResource("1_aidkx")
