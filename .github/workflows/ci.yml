@@ -97,15 +97,14 @@ jobs:
           scons-cache: ${{ github.workspace }}/.scons-cache/
           cache-name: ${{ matrix.target.platform }}_${{ matrix.target.arch }}_${{ matrix.float-precision }}_${{ matrix.target-type }}
 
-      - name: Run Unit Tests
+      # Run GDScript tests
+      - name: Run GDScript Tests
         if: ${{ matrix.run-tests && matrix.target.platform == 'linux' }}
         uses: MikeSchulze/gdUnit4-action@v1.3.1
         with:
           godot-version: "4.5"
-          godot-net: true
+          godot-net: false # No C#
           project_dir: "./project/"
           paths: |
             res://project/test/
-          timeout: 5
-          retries: 1
-          report-name: test_report.xml
+          timeout: 30
