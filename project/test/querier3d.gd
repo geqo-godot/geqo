@@ -1,4 +1,4 @@
-extends CharacterBody3D
+class_name Querier extends CharacterBody3D
 
 const JUMP_VELOCITY = 4
 const SPEED = 500
@@ -8,22 +8,24 @@ enum State {IDLE, WALKING}
 var current_state: State = State.IDLE
 var final_target: Vector3
 var current_target
+
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
-@onready var env_query: EnvironmentQuery3D = $EnvironmentQuery3D
+@export var env_query: EnvironmentQuery3D
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("request_query"):
-		env_query.request_query()
-		await env_query.query_finished
-		var query_result: QueryResult3D = env_query.get_result()
-		if query_result.has_result():
-			final_target = query_result.get_highest_score_position()
-		else:
-			return
-		nav_agent.target_position = final_target
-		current_target = nav_agent.get_next_path_position()
+		execute()
 
-
+func execute():
+	env_query.request_query()
+	await env_query.query_finished
+	var query_result: QueryResult3D = env_query.get_result()
+	if query_result.has_result():
+		final_target = query_result.get_highest_score_position()
+	else:
+		return
+	nav_agent.target_position = final_target
+	current_target = nav_agent.get_next_path_position()
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():

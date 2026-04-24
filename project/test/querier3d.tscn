@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://ct67y5utq4rao"]
+
+[ext_resource type="Script" uid="uid://cavjcqu8xw4vl" path="res://test/querier3d.gd" id="1_10tvx"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_10tvx"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_10tvx"]
+
+[node name="Querier3D" type="CharacterBody3D" groups=["enemies"]]
+collision_layer = 4
+script = ExtResource("1_10tvx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_10tvx")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_10tvx")
