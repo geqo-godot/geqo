@@ -23,6 +23,8 @@ protected:
 	using QueryInstanceT = typename Traits::QueryInstanceT;
 	using ContextTargetNodeT = typename Traits::ContextTargetNodeT;
 
+	// The parent, aka the node that is inheriting this class
+	Object *owner = nullptr;
 	Ref<QueryInstanceT> instance;
 	NodeT *querier = nullptr;
 	ContextTargetNodeT *querier_context = nullptr;
@@ -41,6 +43,10 @@ protected:
 
 public:
 	~EnvironmentQueryBase() = default;
+
+	void set_base_owner(Object *p_owner) {
+		owner = p_owner;
+	}
 
 	virtual void init_generator() = 0;
 	virtual void init_tests() = 0;
@@ -195,8 +201,14 @@ public:
 		stored_result->set_time_it_took(
 				Time::get_singleton()->get_ticks_usec() - last_start_time_usec);
 
-		if (debug_spheres)
+		if (use_debug_shapes) {
+			if (!debug_spheres) {
+				debug_spheres = memnew(SpheresT);
+				Node *parent_env_query = Object::cast_to<Node>(owner);
+				parent_env_query->add_child(debug_spheres);
+			}
 			debug_spheres->draw_items(instance->get_items());
+		}
 
 		stored_result->set_items(instance->take_items());
 		is_querying = false;
