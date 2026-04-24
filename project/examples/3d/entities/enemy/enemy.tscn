@@ -9,16 +9,16 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_036b0"]
 
-[sub_resource type="Curve" id="Curve_77jyu"]
-_data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
-point_count = 2
-
 [sub_resource type="Curve" id="Curve_py6ki"]
 _data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_gmutw"]
 _data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_77jyu"]
+_data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_uy82w"]
@@ -43,20 +43,8 @@ mesh = SubResource("CapsuleMesh_036b0")
 querier = NodePath("..")
 use_debug_shapes = true
 
-[node name="ContextPlayer" type="ContextInGroup3D" parent="EnvironmentQuery3D"]
-group = "player"
-
-[node name="ContextSelf" type="ContextTargetNode3D" parent="EnvironmentQuery3D" node_paths=PackedStringArray("target_node")]
-target_node = NodePath("../..")
-
 [node name="GeneratorGridShape3D" type="GeneratorGridShape3D" parent="EnvironmentQuery3D" node_paths=PackedStringArray("generate_around")]
 generate_around = NodePath("../ContextSelf")
-grid_half_size = 30.0
-
-[node name="TestDistanceToSelf" type="TestDistanceTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("distance_to")]
-distance_to = NodePath("../../ContextPlayer")
-test_purpose = 2
-score_curve = SubResource("Curve_77jyu")
 
 [node name="TestDistanceToPlayer" type="TestDistanceTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("distance_to")]
 distance_to = NodePath("../../ContextPlayer")
@@ -72,6 +60,17 @@ filter_bool_match = false
 score_bool_match = false
 score_curve = SubResource("Curve_gmutw")
 bool_match = false
+
+[node name="TestDistanceToSelf" type="TestDistanceTo3D" parent="EnvironmentQuery3D/GeneratorGridShape3D" node_paths=PackedStringArray("distance_to")]
+distance_to = NodePath("../../ContextPlayer")
+test_purpose = 2
+score_curve = SubResource("Curve_77jyu")
+
+[node name="ContextPlayer" type="ContextInGroup3D" parent="EnvironmentQuery3D"]
+group = "player"
+
+[node name="ContextSelf" type="ContextTargetNode3D" parent="EnvironmentQuery3D" node_paths=PackedStringArray("target_node")]
+target_node = NodePath("../..")
 
 [node name="EnvironmentQuery3DCustom" type="EnvironmentQuery3D" parent="." node_paths=PackedStringArray("querier")]
 querier = NodePath("..")
