@@ -24,6 +24,15 @@ func test_querier() -> void:
 	# The query should have defaulted to character node when being added to scene
 	assert_object(environment_query.querier).is_equal(character)
 
+func test_made_default_context() -> void:
+	# The environment query made a default context from querier
+	var has_context: bool = false
+	for node in environment_query.get_children():
+		if node is QueryContext2D:
+			has_context = true
+			break
+	assert_bool(has_context).is_true()
+
 func test_request_query_no_generator() -> void:
 	# request should fail if it has no generator child
 	var result: bool = environment_query.request_query()
