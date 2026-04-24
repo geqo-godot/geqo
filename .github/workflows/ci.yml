@@ -103,6 +103,7 @@ jobs:
         with:
           godot-version: "4.5"
           godot-net: true
+          project_dir: "./project/"
           paths: |
             res://project/test/
           timeout: 5
