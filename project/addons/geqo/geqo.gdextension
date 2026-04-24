@@ -40,6 +40,7 @@ TestDotProduct2D = "res://addons/geqo/icons/dot_product_test2d.svg"
 GeneratorGridShape2D = "res://addons/geqo/icons/generator2d.svg"
 GeneratorCircleShape2D = "res://addons/geqo/icons/generator2d.svg"
 GeneratorInGroup2D = "res://addons/geqo/icons/generator2d.svg"
+GeneratorInArray2D= "res://addons/geqo/icons/generator2d.svg"
 
 ContextQueryItems2D = "res://addons/geqo/icons/context2d.svg"
 ContextInGroup2D = "res://addons/geqo/icons/context2d.svg"
