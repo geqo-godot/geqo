@@ -62,8 +62,10 @@ public:
 	bool get_is_querying() const { return _get_is_querying(); }
 
 	bool request_query() {
-		init_generator();
-		init_tests();
+		if (!_get_is_querying()) {
+			init_generator();
+			init_tests();
+		}
 		bool result = _request_query();
 		return result;
 	}
