@@ -39,7 +39,7 @@ public:
 	GEQODebugSpheres2D() {}
 	~GEQODebugSpheres2D() {}
 
-	void draw_items(std::vector<Ref<QueryItem2D>> &query_items_list, double time_to_destroy = 2.0);
+	void draw_items(std::vector<Ref<QueryItem2D>> &query_items_list, double time_to_destroy = 2.0) override;
 
 	void _ready() override;
 

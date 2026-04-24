@@ -36,7 +36,7 @@ public:
 	GEQODebugSpheres3D() {}
 	~GEQODebugSpheres3D() {}
 
-	void draw_items(std::vector<Ref<QueryItem3D>> &query_items_list, double time_to_destroy = 2.0);
+	void draw_items(std::vector<Ref<QueryItem3D>> &query_items_list, double time_to_destroy = 2.0) override;
 	void draw_debug_sphere(Vector3 pos, Color color);
 	Ref<StandardMaterial3D> get_sphere_material();
 	Ref<StandardMaterial3D> get_line_material();
