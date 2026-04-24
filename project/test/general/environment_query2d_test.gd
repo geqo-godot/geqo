@@ -8,22 +8,17 @@ var character: CharacterBody2D
 var environment_query: EnvironmentQuery2D
 var grid_generator: GeneratorGridShape2D
 
-func before() -> void:
-	world = Node2D.new()
+func before_test() -> void:
+	world = auto_free(Node2D.new())
 	get_tree().root.add_child(world)
 	
 	# Dummy character for testing
-	character = CharacterBody2D.new()
+	character = auto_free(CharacterBody2D.new())
 	world.add_child(character)
-
-func before_test() -> void:
 	# Make a default environment query
 	environment_query = auto_free(EnvironmentQuery2D.new())
 	grid_generator = auto_free(GeneratorGridShape2D.new())
 	character.add_child(environment_query)
-
-func after() -> void:
-	world.queue_free()
 
 func test_querier() -> void:
 	# The query should have defaulted to character node when being added to scene
