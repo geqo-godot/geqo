@@ -22,26 +22,40 @@ jobs:
           - target: { platform: linux, arch: x86_64, os: ubuntu-22.04 }
             target-type: template_debug
             float-precision: single
+            run-tests: true
           - target: { platform: windows, arch: x86_64, os: windows-latest }
             target-type: template_release
             float-precision: single
+            run-tests: true
           - target: { platform: macos, arch: universal, os: macos-latest }
             target-type: template_debug
             float-precision: single
+            run-tests: true
           - target: { platform: android, arch: arm64, os: ubuntu-22.04 }
             target-type: template_debug
             float-precision: single
+            run-tests: true
           - target: { platform: web, arch: wasm32, os: ubuntu-22.04 }
             target-type: template_release
             float-precision: single
+            # No run-tests = tests won't run for web platform (Because of C# Godot limitation)
 
     runs-on: ${{ matrix.target.os }}
+    timeout-minutes: 15 # Add timeout for test runs
+    permissions:
+      actions: write
+      checks: write
+      contents: write
+      pull-requests: write
+      statuses: write
+
     steps:
       # Clone this repository
       - name: Checkout
         uses: actions/checkout@v4
         with:
           submodules: true
+          lfs: true # Add LFS support for tests
 
       # Lint
       - name: Setup clang-format
@@ -79,10 +93,23 @@ jobs:
         env:
           SCONS_CACHE: ${{ github.workspace }}/.scons-cache/
         run: |
-          scons target=${{ matrix.target-type }} platform=${{ matrix.target.platform }} arch=${{ matrix.target.arch }} precision=${{ matrix.float-precision }}
+          scons target=${{ matrix.target-type }} platform=${{ matrix.target.platform }} arch=${{ matrix.target.arch }} precision=${{ matrix.float-precision }} api_version=4.5
 
       - name: Save .scons_cache
         uses: ./godot-cpp/.github/actions/godot-cache-save
         with:
           scons-cache: ${{ github.workspace }}/.scons-cache/
           cache-name: ${{ matrix.target.platform }}_${{ matrix.target.arch }}_${{ matrix.float-precision }}_${{ matrix.target-type }}
+
+      # Run tests after build (all platforms except web)
+      - name: Run Unit Tests
+        if: ${{ matrix.run-tests }}
+        uses: MikeSchulze/gdUnit4-action@v1
+        with:
+          godot-version: "4.5"
+          godot-net: true # Enable C# support
+          paths: |
+            res://project/test/
+          timeout: 5
+          retries: 1 # Retry once if tests are flaky
+          report-name: test_report_${{ matrix.target.platform }}_${{ matrix.target.arch }}.xml
