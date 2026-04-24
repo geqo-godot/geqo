@@ -96,7 +96,7 @@ jobs:
           rm -f project/*.sln
           rm -f project/*.csproj
           rm -rf project/addons/gdUnit4
-          rm -f project/test
+          rm -rf project/test
 
       # Upload the build
       - name: Upload Artifact
