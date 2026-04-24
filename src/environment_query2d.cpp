@@ -40,8 +40,6 @@ void EnvironmentQuery2D::_notification(int p_what) {
 			}
 
 			connect("query_finished", callable_mp(GEQODebug::get_singleton(), &GEQODebug::_on_query_finished2d));
-			init_generator();
-			init_tests();
 		} break;
 		case NOTIFICATION_CHILD_ORDER_CHANGED: {
 			if (Engine::get_singleton()->is_editor_hint())
@@ -91,7 +89,7 @@ void EnvironmentQuery2D::init_generator() {
 	for (Variant child : get_children()) {
 		QueryGenerator2D *curr_generator = cast_to<QueryGenerator2D>(child);
 		if (curr_generator) {
-			curr_generator->connect("generator_finished", callable_mp(this, &EnvironmentQuery2D::on_generator_finished));
+			curr_generator->connect("generator_finished", generator_finished_callable);
 			generator = curr_generator;
 			break;
 		}
@@ -103,7 +101,14 @@ void EnvironmentQuery2D::init_tests() {
 		return;
 	_gather_tests();
 	for (QueryTest2D *test : _get_sorted_tests()) {
-		test->connect("test_finished", callable_mp(this, &EnvironmentQuery2D::on_test_finished));
+		test->connect("test_finished", test_finished_callable);
+	}
+}
+
+void EnvironmentQuery2D::disconnect_signals() {
+	generator->disconnect("generator_finished", generator_finished_callable);
+	for (QueryTest2D *test : _get_sorted_tests()) {
+		test->disconnect("test_finished", test_finished_callable);
 	}
 }
 

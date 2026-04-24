@@ -25,9 +25,15 @@ struct QueryTraits3D {
 
 class EnvironmentQuery3D : public Node3D, public EnvironmentQueryBase<QueryTraits3D> {
 	GDCLASS(EnvironmentQuery3D, Node3D)
+private:
+	Callable generator_finished_callable;
+	Callable test_finished_callable;
 
 public:
-	EnvironmentQuery3D() {}
+	EnvironmentQuery3D() {
+		generator_finished_callable = callable_mp(this, &EnvironmentQuery3D::on_generator_finished);
+		test_finished_callable = callable_mp(this, &EnvironmentQuery3D::on_test_finished);
+	}
 	~EnvironmentQuery3D() {}
 
 	void init_generator() override;
@@ -54,23 +60,33 @@ public:
 	void set_is_querying(const bool querying) { _set_is_querying(querying); }
 	bool get_is_querying() const { return _get_is_querying(); }
 
-	bool request_query() { return _request_query(); }
+	bool request_query() {
+		init_generator();
+		init_tests();
+		bool result = _request_query();
+		return result;
+	}
 	Ref<QueryResult3D> get_result() { return _get_result(); }
 
 	void on_generator_finished() {
 		bool result = _on_generator_finished();
 		// Generator had no tests / failed so finish early
-		if (result)
+		if (result) {
 			call_deferred("emit_signal", "query_finished", stored_result);
+			disconnect_signals();
+		}
 	}
 
 	void on_test_finished() {
 		bool result = _on_test_finished();
 		// Fast queries might miss the signal before it's caught, so defer it
-		if (result)
+		if (result) {
 			call_deferred("emit_signal", "query_finished", stored_result);
+			disconnect_signals();
+		}
 	}
 	PackedStringArray _get_configuration_warnings() const override;
+	void disconnect_signals();
 
 protected:
 	static void _bind_methods();

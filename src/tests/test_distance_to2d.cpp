@@ -156,7 +156,6 @@ void TestDistanceTo2D::perform_test(Ref<QueryInstance2D> query_instance) {
 		}
 
 		if (!query_instance->has_time_left()) {
-			UtilityFunctions::print("ONTO NEXT FRAME");
 			stored_instance = query_instance;
 			get_tree()->connect("process_frame", callable_mp(this, &TestDistanceTo2D::_on_next_process_frame), CONNECT_ONE_SHOT);
 			return;
