@@ -1,4 +1,5 @@
 class_name Querier extends CharacterBody3D
+signal reached_destination
 
 const JUMP_VELOCITY = 4
 const SPEED = 500
@@ -57,3 +58,4 @@ func walking(delta: float):
 
 func _on_navigation_agent_3d_target_reached() -> void:
 	current_target = null
+	reached_destination.emit()

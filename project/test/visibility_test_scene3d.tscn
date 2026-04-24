@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://72oxnie8gn0c"]
+[gd_scene load_steps=8 format=3 uid="uid://72oxnie8gn0c"]
 
 [ext_resource type="PackedScene" uid="uid://pxgk5xm3osbo" path="res://test/mock_player.tscn" id="1_n4uk2"]
+[ext_resource type="Script" uid="uid://bk0qd6grqdp7n" path="res://test/visibility_test_scene_3d.gd" id="1_xm24w"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6blt7"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -16,14 +17,14 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_emt1u"]
-vertices = PackedVector3Array(-2.25, 0.5, -12.75, -0.75, 0.5, -12.75, -1, 0.5, -49, -3, 0.5, -12, -49, 0.5, -49, -49, 0.5, -11, -3, 0.5, -11, 1, 0.5, -12.75, 1.25, 0.5, -49, 2.5, 0.5, -12.75, 3.25, 0.5, -12, 49, 0.5, -11, 49, 0.5, -49, 3.25, 0.5, -11, -3, 0.5, -10.25, -2.25, 0.5, -9.5, -49, 0.5, 49, 0.25, 0.5, 49, 0.25, 0.5, -9.5, 3.25, 0.5, -10.25, 2.5, 0.5, -9.5, 49, 0.5, 49)
-polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(0, 3, 2), PackedInt32Array(2, 3, 4), PackedInt32Array(4, 3, 5), PackedInt32Array(3, 6, 5), PackedInt32Array(1, 2, 7), PackedInt32Array(7, 2, 8), PackedInt32Array(9, 7, 8), PackedInt32Array(9, 8, 10), PackedInt32Array(10, 8, 12), PackedInt32Array(10, 12, 11), PackedInt32Array(11, 13, 10), PackedInt32Array(5, 6, 14), PackedInt32Array(14, 15, 5), PackedInt32Array(5, 15, 16), PackedInt32Array(16, 15, 17), PackedInt32Array(15, 18, 17), PackedInt32Array(19, 13, 11), PackedInt32Array(19, 11, 20), PackedInt32Array(20, 11, 21), PackedInt32Array(20, 21, 17), PackedInt32Array(17, 18, 20)]
+vertices = PackedVector3Array(-4.25, 0.5, -12.75, -2.75, 0.5, -12.75, -3, 0.5, -49, -5, 0.5, -12, -49, 0.5, -49, -49, 0.5, -11, -5, 0.5, -11, 2.75, 0.5, -12.75, 3, 0.5, -49, 4.25, 0.5, -12.75, 5, 0.5, -12, 49, 0.5, -11, 49, 0.5, -49, 5, 0.5, -11, -5, 0.5, -10.25, -4.25, 0.5, -9.5, -49, 0.5, 49, -2.25, 0.5, 49, -2.25, 0.5, -9.5, 5, 0.5, -10.25, 4.25, 0.5, -9.5, 2.25, 0.5, 49, 49, 0.5, 49, 2.25, 0.5, -9.5)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(0, 3, 2), PackedInt32Array(2, 3, 4), PackedInt32Array(4, 3, 5), PackedInt32Array(3, 6, 5), PackedInt32Array(1, 2, 7), PackedInt32Array(7, 2, 8), PackedInt32Array(9, 7, 8), PackedInt32Array(9, 8, 10), PackedInt32Array(10, 8, 12), PackedInt32Array(10, 12, 11), PackedInt32Array(11, 13, 10), PackedInt32Array(5, 6, 14), PackedInt32Array(14, 15, 5), PackedInt32Array(5, 15, 16), PackedInt32Array(16, 15, 17), PackedInt32Array(15, 18, 17), PackedInt32Array(19, 13, 11), PackedInt32Array(19, 11, 20), PackedInt32Array(20, 11, 22), PackedInt32Array(20, 22, 21), PackedInt32Array(21, 23, 20), PackedInt32Array(18, 23, 17), PackedInt32Array(17, 23, 21)]
 agent_radius = 1.0
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_6blt7"]
-size = Vector3(2.0146484, 6.743953, 15.463379)
+[sub_resource type="SphereShape3D" id="SphereShape3D_xm24w"]
 
 [node name="VisibilityTestScene3D" type="Node3D"]
+script = ExtResource("1_xm24w")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_m07un")
@@ -43,7 +44,7 @@ size = Vector3(100, 1, 100)
 [node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -11.183)
 use_collision = true
-size = Vector3(4, 6, 1)
+size = Vector3(3.616211, 6, 1)
 
 [node name="MockPlayer" parent="." instance=ExtResource("1_n4uk2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -57,11 +58,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -4.1957455)
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.0865993, 0.99624324, 0, -0.99624324, 0.0865993, 1.9531116, 26.95669, -7.3720837)
 
-[node name="AreaNotVisible" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -14.707)
-collision_layer = 0
-collision_mask = 4
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+target_position = Vector3(0, 4.19, 0)
+collision_mask = 5
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="AreaNotVisible"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4950235, -4.704835)
-shape = SubResource("BoxShape3D_6blt7")
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("SphereShape3D_xm24w")
+target_position = Vector3(0, 0, 0)
+collision_mask = 5

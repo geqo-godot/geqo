@@ -26,6 +26,12 @@ enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg", "res://addons/geqo/
 [gdunit4]
 
 settings/test/test_discovery=true
+settings/test/flaky_check_enable=true
+ui/toolbar/run_overall=true
+hooks/session_hooks=Dictionary[String, bool]({
+"res://addons/gdUnit4/src/core/hooks/GdUnitHtmlReporterTestSessionHook.gd": true,
+"res://addons/gdUnit4/src/core/hooks/GdUnitXMLReporterTestSessionHook.gd": true
+})
 
 [global_group]
 
