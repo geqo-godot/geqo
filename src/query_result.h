@@ -46,7 +46,7 @@ public:
 					return query_items[lhs]->is_higher_than(query_items[rhs]);
 				});
 		for (size_t i = 0; i < sorted_indices.size(); i++) {
-			if (query_items[sorted_indices[i]]->get_is_filtered())
+			if (query_items[sorted_indices[i]]->get_is_filtered() || !query_items[sorted_indices[i]]->get_has_score())
 				break;
 			else
 				highest_unfiltered_index = i;
