@@ -26,10 +26,6 @@ void EnvironmentQuery2D::_notification(int p_what) {
 			}
 			if (!is_inside_tree())
 				return;
-			if (get_use_debug_shapes()) {
-				debug_spheres = memnew(GEQODebugSpheres2D);
-				call_deferred("add_sibling", debug_spheres);
-			}
 
 			// Add a context node containing the querier
 			if (!Engine::get_singleton()->is_editor_hint()) {

@@ -31,6 +31,7 @@ private:
 
 public:
 	EnvironmentQuery3D() {
+		set_base_owner(this);
 		generator_finished_callable = callable_mp(this, &EnvironmentQuery3D::on_generator_finished);
 		test_finished_callable = callable_mp(this, &EnvironmentQuery3D::on_test_finished);
 	}
