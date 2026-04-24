@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://72oxnie8gn0c"]
+[gd_scene load_steps=9 format=3 uid="uid://72oxnie8gn0c"]
 
 [ext_resource type="PackedScene" uid="uid://pxgk5xm3osbo" path="res://test/mock_player.tscn" id="1_n4uk2"]
 [ext_resource type="Script" uid="uid://bk0qd6grqdp7n" path="res://test/visibility_test_scene_3d.gd" id="1_xm24w"]
@@ -22,6 +22,10 @@ polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(0, 3, 2), PackedInt32Arr
 agent_radius = 1.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_xm24w"]
+
+[sub_resource type="Curve" id="Curve_xm24w"]
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
 
 [node name="VisibilityTestScene3D" type="Node3D"]
 script = ExtResource("1_xm24w")
@@ -68,3 +72,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("SphereShape3D_xm24w")
 target_position = Vector3(0, 0, 0)
 collision_mask = 5
+
+[node name="EnvironmentQuery3D" type="EnvironmentQuery3D" parent="." node_paths=PackedStringArray("querier")]
+querier = NodePath("..")
+
+[node name="TestDistanceTo3D" type="TestDistanceTo3D" parent="EnvironmentQuery3D"]
+test_purpose = 2
+score_curve = SubResource("Curve_xm24w")
