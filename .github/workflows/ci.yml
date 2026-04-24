@@ -106,5 +106,5 @@ jobs:
           godot-net: false # No C#
           project_dir: "./project/"
           paths: |
-            res://project/test/
+            res://test/
           timeout: 30
