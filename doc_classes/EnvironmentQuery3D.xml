@@ -17,7 +17,7 @@
 			</description>
 		</method>
 		<method name="request_query">
-			<return type="void" />
+			<return type="bool" />
 			<description>
 				Request a query, processing it in the background, emitting [signal EnvironmentQuery3D.query_finished] when done.
 			</description>
