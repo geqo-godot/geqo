@@ -46,6 +46,7 @@ func test_not_visible() -> void:
 	raycast_test.bool_match = false
 	await await_idle_frame()
 	querier.execute()
+	@warning_ignore("redundant_await")
 	await assert_signal(querier).wait_until(5000).is_emitted(querier.reached_destination)
 	var collider = ray_cast.get_collider()
 	var hit_querier: bool = (collider == querier)
@@ -55,6 +56,7 @@ func test_visible() -> void:
 	raycast_test.bool_match = true
 	await await_idle_frame()
 	querier.execute()
+	@warning_ignore("redundant_await")
 	await assert_signal(querier).wait_until(5000).is_emitted(querier.reached_destination)
 	var collider = ray_cast.get_collider()
 	var hit_querier: bool = (collider == querier)
@@ -68,6 +70,7 @@ func test_not_visible_with_shape() -> void:
 	shape_cast.shape = raycast_test.shape
 	await await_idle_frame()
 	querier.execute()
+	@warning_ignore("redundant_await")
 	await assert_signal(querier).wait_until(5000).is_emitted(querier.reached_destination)
 	var collider = shape_cast.get_collider(0)
 	var hit_querier: bool = (collider == querier)
@@ -80,6 +83,7 @@ func test_visible_with_shape() -> void:
 	shape_cast.shape = raycast_test.shape
 	await await_idle_frame()
 	querier.execute()
+	@warning_ignore("redundant_await")
 	await assert_signal(querier).wait_until(5000).is_emitted(querier.reached_destination)
 	var collider = shape_cast.get_collider(0)
 	var hit_querier: bool = (collider == querier)
