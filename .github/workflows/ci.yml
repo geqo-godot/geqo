@@ -22,7 +22,6 @@ jobs:
           - target: { platform: linux, arch: x86_64, os: ubuntu-22.04 }
             target-type: template_debug
             float-precision: single
-            run-tests: true # Run unit tests on linux
           - target: { platform: windows, arch: x86_64, os: windows-latest }
             target-type: template_release
             float-precision: single
@@ -37,13 +36,9 @@ jobs:
             float-precision: single
 
     runs-on: ${{ matrix.target.os }}
-    timeout-minutes: 15 # Add timeout for test runs
+    timeout-minutes: 15
     permissions:
-      actions: write
-      checks: write
-      contents: write
-      pull-requests: write
-      statuses: write
+      contents: read
 
     steps:
       # Clone this repository
@@ -97,9 +92,43 @@ jobs:
           scons-cache: ${{ github.workspace }}/.scons-cache/
           cache-name: ${{ matrix.target.platform }}_${{ matrix.target.arch }}_${{ matrix.float-precision }}_${{ matrix.target-type }}
 
+      # Upload the Linux build so the test job can use it
+      - name: Upload build artifact
+        if: ${{ matrix.target.platform == 'linux' && matrix.target.arch == 'x86_64' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-x86_64-single-template_debug
+          path: project/addons/geqo/bin/
+
+  test:
+    name: GDUnit4 Tests
+    needs: build # Run unit tests on linux, after all builds pass
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15 # Add timeout for test runs
+    permissions:
+      actions: write
+      checks: write
+      contents: write
+      pull-requests: write
+      statuses: write
+
+    steps:
+      # Clone this repository
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          lfs: true # Add LFS support for tests
+
+      # Download pre-built Linux artifact from build job
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: linux-x86_64-single-template_debug
+          path: project/addons/
+
       # Run GDScript tests
       - name: Run GDScript Tests
-        if: ${{ matrix.run-tests && matrix.target.platform == 'linux' }}
         uses: MikeSchulze/gdUnit4-action@v1.3.1
         with:
           godot-version: "4.5"
