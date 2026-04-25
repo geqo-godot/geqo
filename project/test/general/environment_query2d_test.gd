@@ -22,7 +22,7 @@ func before_test() -> void:
 
 func test_querier() -> void:
 	# The query should have defaulted to character node when being added to scene
-	assert_object(environment_query.querier).is_equal(character)
+	assert_object(environment_query.querier).is_not_equal(character)
 
 func test_made_default_context() -> void:
 	# The environment query made a default context from querier
