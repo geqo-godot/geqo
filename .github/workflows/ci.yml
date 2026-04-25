@@ -98,7 +98,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: linux-x86_64-single-template_debug
-          path: project/addons/geqo/bin/
+          path: project/addons/geqo/
 
   test:
     name: GDUnit4 Tests
@@ -125,7 +125,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: linux-x86_64-single-template_debug
-          path: project/addons/
+          path: project/addons/geqo/
 
       # Run GDScript tests
       - name: Run GDScript Tests
