@@ -1,5 +1,5 @@
 #include "tests/test_path_find_to3d.h"
-#include "contexts/context_target_node3d.h"
+#include "contexts/context_querier3d.h"
 #include "query_enums.h"
 #include "test_path_find_to3d.h"
 #include <algorithm>

@@ -1,5 +1,5 @@
 #pragma once
-#include "contexts/context_target_node3d.h"
+#include "contexts/context_querier3d.h"
 #include "debug/geqo_debug_spheres3d.h"
 #include "environment_query.h"
 #include "generators/query_generator3d.h"
@@ -21,7 +21,7 @@ struct QueryTraits3D {
 	using QueryItemT = QueryItem3D;
 	using QueryTestT = QueryTest3D;
 	using QueryInstanceT = QueryInstance3D;
-	using ContextTargetNodeT = ContextTargetNode3D;
+	using ContextQuerierT = ContextQuerier3D;
 	using EnvironmentQueryT = EnvironmentQuery3D;
 };
 
@@ -49,8 +49,8 @@ public:
 	}
 	Node3D *get_querier() const { return _get_querier(); }
 
-	void set_querier_context(ContextTargetNode3D *node) { _set_querier_context(node); }
-	ContextTargetNode3D *get_querier_context() const { return _get_querier_context(); }
+	void set_querier_context(ContextQuerier3D *node) { _set_querier_context(node); }
+	ContextQuerier3D *get_querier_context() const { return _get_querier_context(); }
 
 	Ref<QueryInstance3D> get_query_instance() { return _get_query_instance(); }
 	void set_use_debug_shapes(const bool use_debug) { _set_use_debug_shapes(use_debug); }

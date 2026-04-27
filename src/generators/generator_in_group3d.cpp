@@ -7,7 +7,7 @@
 #include <godot_cpp/classes/time.hpp>
 #include <godot_cpp/classes/world3d.hpp>
 
-#include "contexts/context_target_node3d.h"
+#include "contexts/context_querier3d.h"
 #include "generator_in_group3d.h"
 
 void GeneratorInGroup3D::set_generate_around(QueryContext3D *context) {

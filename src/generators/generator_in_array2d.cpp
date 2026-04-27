@@ -1,7 +1,7 @@
 #include <godot_cpp/classes/scene_tree.hpp>
 #include <godot_cpp/classes/time.hpp>
 
-#include "contexts/context_target_node2d.h"
+#include "contexts/context_querier2d.h"
 #include "generator_in_array2d.h"
 
 void GeneratorInArray2D::set_context_array(QueryContext2D *context) {

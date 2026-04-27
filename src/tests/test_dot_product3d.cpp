@@ -1,5 +1,5 @@
 #include "tests/test_dot_product3d.h"
-#include "contexts/context_target_node3d.h"
+#include "contexts/context_querier3d.h"
 #include "test_dot_product3d.h"
 
 void TestDotProduct3D::set_line_a_mode(LineMode mode) {

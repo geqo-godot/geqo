@@ -1,5 +1,5 @@
-#include "contexts/context_target_node2d.h"
 #include "context_target_node2d.h"
+#include "contexts/context_target_node2d.h"
 
 void ContextTargetNode2D::set_target_node(Node2D *target) {
 	target_node = target;
