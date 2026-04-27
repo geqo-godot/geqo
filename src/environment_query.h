@@ -21,14 +21,14 @@ protected:
 	using QueryItemT = typename Traits::QueryItemT;
 	using QueryTestT = typename Traits::QueryTestT;
 	using QueryInstanceT = typename Traits::QueryInstanceT;
-	using ContextTargetNodeT = typename Traits::ContextTargetNodeT;
+	using ContextQuerierT = typename Traits::ContextQuerierT;
 	using EnvironmentQueryT = typename Traits::EnvironmentQueryT;
 
 	// The parent, aka the node that is inheriting this class
 	Object *owner = nullptr;
 	Ref<QueryInstanceT> instance;
 	NodeT *querier = nullptr;
-	ContextTargetNodeT *querier_context = nullptr;
+	ContextQuerierT *querier_context = nullptr;
 	GeneratorT *generator = nullptr;
 	std::vector<QueryTestT *> sorted_tests;
 	int current_test = 0;
@@ -55,8 +55,8 @@ public:
 	void _set_querier(NodeT *node) { querier = node; }
 	NodeT *_get_querier() const { return querier; }
 
-	void _set_querier_context(ContextTargetNodeT *node) { querier_context = node; }
-	ContextTargetNodeT *_get_querier_context() const { return querier_context; }
+	void _set_querier_context(ContextQuerierT *node) { querier_context = node; }
+	ContextQuerierT *_get_querier_context() const { return querier_context; }
 
 	GeneratorT *_get_generator() const { return generator; }
 

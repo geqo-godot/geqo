@@ -1,5 +1,5 @@
 #include "tests/test_intersects_area2d.h"
-#include "contexts/context_target_node2d.h"
+#include "contexts/context_querier2d.h"
 #include "test_intersects_area2d.h"
 #include <godot_cpp/classes/collision_object2d.hpp>
 #include <godot_cpp/classes/engine.hpp>

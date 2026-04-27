@@ -1,7 +1,7 @@
 #include "environment_query3d.h"
 #include "contexts/query_context3d.h"
 #include "generators/query_generator3d.h"
-#include <contexts/context_target_node3d.h>
+#include <contexts/context_querier3d.h>
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/scene_tree.hpp>
 #include <godot_cpp/classes/time.hpp>
@@ -27,12 +27,22 @@ void EnvironmentQuery3D::_notification(int p_what) {
 			if (!is_inside_tree())
 				return;
 
-			// Add a context node containing the querier
+			// Add a context node containing the querier (if it doesn't exist)
 			if (!Engine::get_singleton()->is_editor_hint()) {
-				set_querier_context(memnew(ContextTargetNode3D));
-				add_child(get_querier_context());
-				get_querier_context()->set_target_node(querier);
-				get_querier_context()->set_name("ContextQuerier");
+				bool has_querier_context = false;
+				for (Variant child : get_children()) {
+					ContextQuerier3D *context_querier = cast_to<ContextQuerier3D>(child);
+					if (context_querier) {
+						has_querier_context = true;
+						set_querier_context(context_querier);
+						break;
+					}
+				}
+				if (!has_querier_context) {
+					set_querier_context(memnew(ContextQuerier3D));
+					add_child(get_querier_context());
+					get_querier_context()->set_name("ContextQuerier");
+				}
 			}
 
 			connect("query_finished", callable_mp(GEQODebug::get_singleton(), &GEQODebug::_on_query_finished3d));

@@ -7,7 +7,7 @@
 #include <godot_cpp/classes/time.hpp>
 #include <godot_cpp/classes/world2d.hpp>
 
-#include "contexts/context_target_node2d.h"
+#include "contexts/context_querier2d.h"
 #include "generator_in_group2d.h"
 
 void GeneratorInGroup2D::set_generate_around(QueryContext2D *context) {

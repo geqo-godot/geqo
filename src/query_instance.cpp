@@ -1,6 +1,6 @@
 #include "query_instance.h"
-#include "contexts/context_target_node2d.h"
-#include "contexts/context_target_node3d.h"
+#include "contexts/context_querier2d.h"
+#include "contexts/context_querier3d.h"
 #include "environment_query2d.h"
 #include "environment_query3d.h"
 

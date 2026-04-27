@@ -1,5 +1,5 @@
 #include "tests/test_raycast_to2d.h"
-#include "contexts/context_target_node2d.h"
+#include "contexts/context_querier2d.h"
 #include <godot_cpp/classes/collision_object2d.hpp>
 #include <godot_cpp/classes/node2d.hpp>
 #include <godot_cpp/classes/physics_direct_space_state2d.hpp>

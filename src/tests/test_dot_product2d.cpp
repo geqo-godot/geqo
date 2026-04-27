@@ -1,5 +1,5 @@
 #include "tests/test_dot_product2d.h"
-#include "contexts/context_target_node2d.h"
+#include "contexts/context_querier2d.h"
 #include "test_dot_product2d.h"
 
 void TestDotProduct2D::set_line_a_mode(LineMode mode) {

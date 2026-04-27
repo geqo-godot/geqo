@@ -6,8 +6,8 @@
 #include <vector>
 
 using namespace godot;
-class ContextTargetNode2D;
-class ContextTargetNode3D;
+class ContextQuerier2D;
+class ContextQuerier3D;
 class EnvironmentQuery2D;
 class EnvironmentQuery3D;
 
@@ -16,11 +16,11 @@ struct TestExecutionData {
 	double max = 0.0;
 };
 
-template <typename QueryItemT, typename ContextTargetNodeT, typename EnvironmentQueryT>
+template <typename QueryItemT, typename ContextQuerierT, typename EnvironmentQueryT>
 class QueryInstanceBase {
 private:
 	EnvironmentQueryT *environment_query = nullptr;
-	ContextTargetNodeT *querier_context = nullptr;
+	ContextQuerierT *querier_context = nullptr;
 	std::vector<Ref<QueryItemT>> items;
 	uint64_t initial_time_usec = 0;
 	double time_budget_ms = 0.0;
@@ -32,8 +32,8 @@ public:
 	void _set_environment_query(EnvironmentQueryT *node) { environment_query = node; }
 	EnvironmentQueryT *_get_environment_query() const { return environment_query; }
 
-	void _set_querier_context(ContextTargetNodeT *node) { querier_context = node; }
-	ContextTargetNodeT *_get_querier_context() const { return querier_context; }
+	void _set_querier_context(ContextQuerierT *node) { querier_context = node; }
+	ContextQuerierT *_get_querier_context() const { return querier_context; }
 
 	bool has_test_data(Object *test) { return test_data.count(test->get_instance_id()) > 0; }
 
@@ -137,14 +137,14 @@ public:
 	}
 };
 
-class QueryInstance2D : public RefCounted, public QueryInstanceBase<QueryItem2D, ContextTargetNode2D, EnvironmentQuery2D> {
+class QueryInstance2D : public RefCounted, public QueryInstanceBase<QueryItem2D, ContextQuerier2D, EnvironmentQuery2D> {
 	GDCLASS(QueryInstance2D, RefCounted)
 public:
 	Ref<QueryItem2D> get_current_query_item() { return _get_current_query_item(); }
 	void set_environment_query(EnvironmentQuery2D *node) { _set_environment_query(node); }
 	EnvironmentQuery2D *get_environment_query() const { return _get_environment_query(); }
-	void set_querier_context(ContextTargetNode2D *node) { _set_querier_context(node); }
-	ContextTargetNode2D *get_querier_context() const { return _get_querier_context(); }
+	void set_querier_context(ContextQuerier2D *node) { _set_querier_context(node); }
+	ContextQuerier2D *get_querier_context() const { return _get_querier_context(); }
 	void set_test_data_max(Object *test, double max) { _set_test_data_max(test, max); }
 	double get_test_data_max(Object *test) { return _get_test_data_max(test); }
 	void set_test_data_min(Object *test, double min) { _set_test_data_min(test, min); }
@@ -163,14 +163,14 @@ protected:
 	static void _bind_methods();
 };
 
-class QueryInstance3D : public RefCounted, public QueryInstanceBase<QueryItem3D, ContextTargetNode3D, EnvironmentQuery3D> {
+class QueryInstance3D : public RefCounted, public QueryInstanceBase<QueryItem3D, ContextQuerier3D, EnvironmentQuery3D> {
 	GDCLASS(QueryInstance3D, RefCounted)
 public:
 	Ref<QueryItem3D> get_current_query_item() { return _get_current_query_item(); }
 	void set_environment_query(EnvironmentQuery3D *node) { _set_environment_query(node); }
 	EnvironmentQuery3D *get_environment_query() const { return _get_environment_query(); }
-	void set_querier_context(ContextTargetNode3D *node) { _set_querier_context(node); }
-	ContextTargetNode3D *get_querier_context() const { return _get_querier_context(); }
+	void set_querier_context(ContextQuerier3D *node) { _set_querier_context(node); }
+	ContextQuerier3D *get_querier_context() const { return _get_querier_context(); }
 	void set_test_data_max(Object *test, double max) { _set_test_data_max(test, max); }
 	double get_test_data_max(Object *test) { return _get_test_data_max(test); }
 	void set_test_data_min(Object *test, double min) { _set_test_data_min(test, min); }
