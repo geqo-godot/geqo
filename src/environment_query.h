@@ -22,6 +22,7 @@ protected:
 	using QueryTestT = typename Traits::QueryTestT;
 	using QueryInstanceT = typename Traits::QueryInstanceT;
 	using ContextTargetNodeT = typename Traits::ContextTargetNodeT;
+	using EnvironmentQueryT = typename Traits::EnvironmentQueryT;
 
 	// The parent, aka the node that is inheriting this class
 	Object *owner = nullptr;
@@ -95,6 +96,7 @@ public:
 		// UtilityFunctions::print(vformat("Previous vector size: %s", query_items.size()));
 		instance = Ref<QueryInstanceT>();
 		instance.instantiate();
+		instance->set_environment_query(Object::cast_to<EnvironmentQueryT>(owner));
 		instance->set_querier_context(querier_context);
 		instance->set_budget(time_budget_ms);
 		is_querying = true;
