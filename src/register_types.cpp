@@ -26,6 +26,9 @@
 #include "environment_query2d.h"
 #include "environment_query3d.h"
 // Contexts
+#include "contexts/context_querier2d.h"
+#include "contexts/context_querier3d.h"
+
 #include "contexts/context_in_group2d.h"
 #include "contexts/context_in_group3d.h"
 
@@ -117,6 +120,8 @@ void initialize_geqo_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<GeneratorInArray3D>();
 
 	// Contexts
+	ClassDB::register_class<ContextQuerier2D>();
+	ClassDB::register_class<ContextQuerier3D>();
 	ClassDB::register_class<ContextTargetNode2D>();
 	ClassDB::register_class<ContextTargetNode3D>();
 	ClassDB::register_class<ContextTargetArray2D>();

@@ -1,9 +1,14 @@
 #include "query_instance.h"
 #include "contexts/context_target_node2d.h"
 #include "contexts/context_target_node3d.h"
+#include "environment_query2d.h"
+#include "environment_query3d.h"
 
 void QueryInstance2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_current_query_item"), &QueryInstance2D::get_current_query_item);
+
+	ClassDB::bind_method(D_METHOD("set_environment_query", "node"), &QueryInstance2D::set_environment_query);
+	ClassDB::bind_method(D_METHOD("get_environment_query"), &QueryInstance2D::get_environment_query);
 
 	ClassDB::bind_method(D_METHOD("set_querier_context", "node"), &QueryInstance2D::set_querier_context);
 	ClassDB::bind_method(D_METHOD("get_querier_context"), &QueryInstance2D::get_querier_context);
@@ -31,6 +36,9 @@ void QueryInstance2D::_bind_methods() {
 
 void QueryInstance3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_current_query_item"), &QueryInstance3D::get_current_query_item);
+
+	ClassDB::bind_method(D_METHOD("set_environment_query", "node"), &QueryInstance3D::set_environment_query);
+	ClassDB::bind_method(D_METHOD("get_environment_query"), &QueryInstance3D::get_environment_query);
 
 	ClassDB::bind_method(D_METHOD("set_querier_context", "node"), &QueryInstance3D::set_querier_context);
 	ClassDB::bind_method(D_METHOD("get_querier_context"), &QueryInstance3D::get_querier_context);

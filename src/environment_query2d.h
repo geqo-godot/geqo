@@ -11,6 +11,7 @@
 #include <godot_cpp/classes/ref.hpp>
 #include <vector>
 using namespace godot;
+class EnvironmentQuery2D;
 struct QueryTraits2D {
 	using NodeT = Node2D;
 	using VectorT = Vector2;
@@ -21,6 +22,7 @@ struct QueryTraits2D {
 	using QueryTestT = QueryTest2D;
 	using QueryInstanceT = QueryInstance2D;
 	using ContextTargetNodeT = ContextTargetNode2D;
+	using EnvironmentQueryT = EnvironmentQuery2D;
 };
 
 class EnvironmentQuery2D : public Node2D, public EnvironmentQueryBase<QueryTraits2D> {
