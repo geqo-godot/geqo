@@ -44,12 +44,18 @@
 // Generators
 #include "generators/generator_circle_shape2d.h"
 #include "generators/generator_circle_shape3d.h"
+
 #include "generators/generator_grid_shape2d.h"
 #include "generators/generator_grid_shape3d.h"
+
 #include "generators/generator_in_array2d.h"
 #include "generators/generator_in_array3d.h"
+
 #include "generators/generator_in_group2d.h"
 #include "generators/generator_in_group3d.h"
+
+#include "generators/generator_composite2d.h"
+#include "generators/generator_composite3d.h"
 
 // Tests
 #include "tests/test_distance_to2d.h"
@@ -118,6 +124,9 @@ void initialize_geqo_module(ModuleInitializationLevel p_level) {
 
 	ClassDB::register_class<GeneratorInArray2D>();
 	ClassDB::register_class<GeneratorInArray3D>();
+
+	ClassDB::register_class<GeneratorComposite2D>();
+	ClassDB::register_class<GeneratorComposite3D>();
 
 	// Contexts
 	ClassDB::register_class<ContextQuerier2D>();
