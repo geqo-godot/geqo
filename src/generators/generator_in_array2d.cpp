@@ -27,9 +27,6 @@ void GeneratorInArray2D::perform_generation(Ref<QueryInstance2D> query_instance)
 			query_instance->add_item(QueryItem2D::create(current_context->get_global_position(), current_context));
 		}
 
-		// Check the time for stopping
-		uint64_t current_time_usec = Time::get_singleton()->get_ticks_usec();
-
 		if (!query_instance->has_time_left()) {
 			// Stop and wait until next frame
 			_current_state.prev_context = context;

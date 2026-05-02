@@ -102,9 +102,6 @@ void GeneratorGridShape3D::perform_generation(Ref<QueryInstance3D> query_instanc
 					query_instance->add_item(QueryItem3D::create(Vector3(pos_x, starting_pos.y, pos_z)));
 				}
 
-				// Check the time for stopping
-				uint64_t current_time_usec = Time::get_singleton()->get_ticks_usec();
-
 				if (!query_instance->has_time_left()) {
 					// UtilityFunctions::print("No time left, continue to next frame.");
 					// Stop and wait until next frame

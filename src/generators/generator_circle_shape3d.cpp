@@ -159,8 +159,6 @@ void GeneratorCircleShape3D::perform_generation(Ref<QueryInstance3D> query_insta
 				Node3D *collider = Object::cast_to<Node3D>(ray_result.get("collider", nullptr));
 				query_instance->add_item(QueryItem3D::create(pos_result, collider));
 			}
-			// Check the time for stopping
-			uint64_t current_time_usec = Time::get_singleton()->get_ticks_usec();
 
 			if (!query_instance->has_time_left()) {
 				_current_state.prev_point = point + 1;
