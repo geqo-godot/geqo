@@ -18,6 +18,11 @@
 			<description>
 			</description>
 		</method>
+		<method name="get_environment_query" qualifiers="const">
+			<return type="EnvironmentQuery3D" />
+			<description>
+			</description>
+		</method>
 		<method name="get_item" qualifiers="const">
 			<return type="QueryItem3D" />
 			<param index="0" name="index" type="int" />
@@ -72,6 +77,12 @@
 			<description>
 			</description>
 		</method>
+		<method name="set_environment_query">
+			<return type="void" />
+			<param index="0" name="node" type="EnvironmentQuery3D" />
+			<description>
+			</description>
+		</method>
 		<method name="set_test_data_max">
 			<return type="void" />
 			<param index="0" name="test" type="Object" />
@@ -88,7 +99,7 @@
 		</method>
 	</methods>
 	<members>
-		<member name="querier_context" type="ContextTargetNode3D" setter="set_querier_context" getter="get_querier_context">
+		<member name="querier_context" type="ContextQuerier3D" setter="set_querier_context" getter="get_querier_context">
 		</member>
 	</members>
 </class>
