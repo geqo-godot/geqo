@@ -20,7 +20,7 @@ private:
 	QueryContext2D *generate_around = nullptr;
 	String group = "";
 	double range_radius = 500.0;
-	int collision_mask = 0;
+	int collision_mask = 1;
 
 	GeneratorInGroupState2D _current_state = GeneratorInGroupState2D();
 

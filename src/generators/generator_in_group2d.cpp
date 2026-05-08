@@ -55,6 +55,7 @@ void GeneratorInGroup2D::perform_generation(Ref<QueryInstance2D> query_instance)
 
 		sphere->set_radius(range_radius);
 		query->set_shape(sphere);
+		query->set_collision_mask(collision_mask);
 		Transform2D transform = Transform2D();
 		transform.set_origin(pos);
 		query->set_transform(transform);
