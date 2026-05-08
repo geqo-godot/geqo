@@ -55,9 +55,9 @@ bool TestPathFindTo3D::evaluate_context_paths(Ref<QueryItem3D> item, const Array
 			} else {
 				Vector3 end = path_to_pos[path_to_pos.size() - 1];
 
-				UtilityFunctions::print("target:", target);
-				UtilityFunctions::print("nav_target:", nav_target);
-				UtilityFunctions::print("end:", end);
+				//UtilityFunctions::print("target:", target);
+				//UtilityFunctions::print("nav_target:", nav_target);
+				//UtilityFunctions::print("end:", end);
 
 				bool reached_target = end.distance_to(nav_target) <= found_path_threshold;
 

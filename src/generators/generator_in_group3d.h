@@ -20,7 +20,7 @@ private:
 	QueryContext3D *generate_around = nullptr;
 	String group = "";
 	double range_radius = 50.0;
-	int collision_mask = 0;
+	int collision_mask = 1;
 
 	GeneratorInGroupState3D _current_state = GeneratorInGroupState3D();
 
