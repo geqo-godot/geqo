@@ -1,22 +1,29 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<class name="TestPathFindTo3D" inherits="QueryTest3D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<class name="TestPathFindTo3D" inherits="QueryTest3D"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
 		A query test that checks if there is a navigation path from the [QueryItem3D] to a [QueryContext3D].
 	</brief_description>
 	<description>
+		A query test that checks if there is a navigation path from the [QueryItem3D] to a [QueryContext3D].
 	</description>
 	<tutorials>
 	</tutorials>
 	<members>
-		<member name="cost" type="float" setter="set_cost" getter="get_cost" overrides="QueryTest3D" default="0.98" />
-		<member name="found_path_threshold" type="float" setter="set_found_path_threshold" getter="get_found_path_threshold" default="1.0">
+		<member name="cost" type="float" setter="set_cost" getter="get_cost" overrides="QueryTest3D"
+			default="0.98" />
+		<member name="found_path_threshold" type="float" setter="set_found_path_threshold"
+			getter="get_found_path_threshold" default="1.0">
 			How far from the destination the [QueryContext3D] or [QueryItem3D] can be to be considered reached by the pathfinding.
 		</member>
 		<member name="path_to" type="QueryContext3D" setter="set_path_to" getter="get_path_to">
 			The context that will be used to find the path.
 		</member>
-		<member name="test_type" type="int" setter="set_test_type" getter="get_test_type" overrides="QueryTest3D" enum="GEQOEnums.TestType" default="1" />
-		<member name="use_debug" type="bool" setter="set_use_debug" getter="get_use_debug" default="false">
+		<member name="test_type" type="int" setter="set_test_type" getter="get_test_type"
+			overrides="QueryTest3D" enum="GEQOEnums.TestType" default="1" />
+		<member name="use_debug" type="bool" setter="set_use_debug" getter="get_use_debug"
+			default="false">
 			Visualize the paths.
 		</member>
 	</members>

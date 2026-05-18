@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<class name="GeneratorComposite2D" inherits="QueryGenerator2D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<class name="GeneratorComposite2D" inherits="QueryGenerator2D"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
+		Allows multiple Generators to be used. The Generators must be children of this node.
 	</brief_description>
 	<description>
+		Allows multiple Generators to be used. The Generators must be children of this node.
 	</description>
 	<tutorials>
 	</tutorials>

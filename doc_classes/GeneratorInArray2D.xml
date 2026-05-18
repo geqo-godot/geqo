@@ -1,13 +1,19 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<class name="GeneratorInArray2D" inherits="QueryGenerator2D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<class name="GeneratorInArray2D" inherits="QueryGenerator2D"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
+		A query generator that generates [QueryItem2D]s in the positions of each [QueryContext2D].
 	</brief_description>
 	<description>
+		A query generator that generates [QueryItem2D]s in the positions of each [QueryContext2D].
 	</description>
 	<tutorials>
 	</tutorials>
 	<members>
-		<member name="context_array" type="QueryContext2D" setter="set_context_array" getter="get_context_array">
+		<member name="context_array" type="QueryContext2D" setter="set_context_array"
+			getter="get_context_array">
+			Array that will be returned. Can be [Node2D]s or [Vector2]s.
 		</member>
 	</members>
 </class>
