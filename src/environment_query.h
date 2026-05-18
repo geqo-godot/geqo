@@ -39,6 +39,7 @@ protected:
 
 	bool is_querying = false;
 	bool use_debug_shapes = false;
+	double debug_lifetime_sec = 5.0;
 
 	Ref<ResultT> stored_result;
 
@@ -71,6 +72,9 @@ public:
 
 	void _set_time_budget_ms(const double budget) { time_budget_ms = budget; }
 	double _get_time_budget_ms() const { return time_budget_ms; }
+
+	void _set_debug_lifetime_sec(const double sec) { debug_lifetime_sec = sec; }
+	double _get_debug_lifetime_sec() const { return debug_lifetime_sec; }
 
 	void _set_is_querying(const bool querying) { is_querying = querying; }
 	bool _get_is_querying() const { return is_querying; }
@@ -209,7 +213,7 @@ public:
 				Node *parent_env_query = Object::cast_to<Node>(owner);
 				parent_env_query->add_child(debug_spheres);
 			}
-			debug_spheres->draw_items(instance->get_items());
+			debug_spheres->draw_items(instance->get_items(), debug_lifetime_sec);
 		}
 
 		stored_result->set_items(instance->take_items());

@@ -60,6 +60,9 @@ public:
 	void set_time_budget_ms(const double budget) { _set_time_budget_ms(budget); }
 	double get_time_budget_ms() const { return _get_time_budget_ms(); }
 
+	void set_debug_lifetime_sec(const double sec) { _set_debug_lifetime_sec(sec); }
+	double get_debug_lifetime_sec() const { return _get_debug_lifetime_sec(); }
+
 	void set_is_querying(const bool querying) { _set_is_querying(querying); }
 	bool get_is_querying() const { return _get_is_querying(); }
 
