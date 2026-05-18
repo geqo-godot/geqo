@@ -23,6 +23,12 @@ public partial class EnvironmentQueryWrapper3D(Node node)
         set => node.Call(MethodName.SetUseDebugShapes, value);
     }
 
+    public float DebugLifetimeSec
+    {
+        get => (float)node.Call(MethodName.GetDebugLifetimeSec);
+        set => node.Call(MethodName.SetDebugLifetimeSec, value);
+    }
+
     public void RequestQuery() => node.Call(MethodName.RequestQuery);
 
     public QueryResultWrapper3D GetResult() => new QueryResultWrapper3D((RefCounted)(GodotObject)node.Call(MethodName.GetResult));
@@ -34,12 +40,14 @@ public partial class EnvironmentQueryWrapper3D(Node node)
     {
         public static readonly StringName GetResult = "get_result";
         public static readonly StringName RequestQuery = "request_query";
-	public static readonly StringName GetQuerier = "get_querier";
-	public static readonly StringName SetQuerier = "set_querier";
-	public static readonly StringName GetTimeBudgetMs = "get_time_budget_ms";
-	public static readonly StringName SetBudgetTimeMs = "set_time_budget_ms";
-	public static readonly StringName GetUseDebugShapes = "get_use_debug_shapes";
-	public static readonly StringName SetUseDebugShapes = "set_use_debug_shapes";
+        public static readonly StringName GetQuerier = "get_querier";
+        public static readonly StringName SetQuerier = "set_querier";
+        public static readonly StringName GetTimeBudgetMs = "get_time_budget_ms";
+        public static readonly StringName SetBudgetTimeMs = "set_time_budget_ms";
+        public static readonly StringName GetUseDebugShapes = "get_use_debug_shapes";
+        public static readonly StringName SetUseDebugShapes = "set_use_debug_shapes";
+        public static readonly StringName GetDebugLifetimeSec = "get_debug_lifetime_sec";
+        public static readonly StringName SetDebugLifetimeSec = "set_debug_lifetime_sec";
     }
 
     private static class SignalName
