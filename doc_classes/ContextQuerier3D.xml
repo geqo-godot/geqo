@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<class name="ContextQuerier3D" inherits="QueryContext3D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<class name="ContextQuerier3D" inherits="QueryContext3D"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
+		Uses the querier defined in the [EnvironmentQuery3D].
 	</brief_description>
 	<description>
+		Uses the querier defined in the [EnvironmentQuery3D].
 	</description>
 	<tutorials>
 	</tutorials>
