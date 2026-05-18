@@ -9,7 +9,7 @@
 	<tutorials>
 	</tutorials>
 	<members>
-		<member name="collision_mask" type="float" setter="set_collision_mask" getter="get_collision_mask" default="0.0">
+		<member name="collision_mask" type="float" setter="set_collision_mask" getter="get_collision_mask" default="1.0">
 		</member>
 		<member name="generate_around" type="QueryContext2D" setter="set_generate_around" getter="get_generate_around">
 		</member>

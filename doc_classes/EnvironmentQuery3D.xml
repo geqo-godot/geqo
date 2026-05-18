@@ -24,6 +24,8 @@
 		</method>
 	</methods>
 	<members>
+		<member name="debug_lifetime_sec" type="float" setter="set_debug_lifetime_sec" getter="get_debug_lifetime_sec" default="5.0">
+		</member>
 		<member name="querier" type="Node3D" setter="set_querier" getter="get_querier">
 		</member>
 		<member name="time_budget_ms" type="float" setter="set_time_budget_ms" getter="get_time_budget_ms" default="1.0">
