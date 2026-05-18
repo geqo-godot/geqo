@@ -59,8 +59,8 @@ void GEQODebugSpheres3D::render_spheres() {
 		sphere_mesh->set_radius(0.5);
 		sphere_mesh->set_height(1.0);
 
-		sphere_mesh->set_radial_segments(12);
-		sphere_mesh->set_rings(6);
+		sphere_mesh->set_radial_segments(10);
+		sphere_mesh->set_rings(5);
 		sphere_mesh->set_material(get_sphere_material());
 	}
 	if (!line_mesh.is_valid()) {
