@@ -1,6 +1,7 @@
 #include "debug/geqo_debug_spheres3d.h"
 #include <godot_cpp/classes/label3d.hpp>
 #include <godot_cpp/classes/multi_mesh.hpp>
+#include <godot_cpp/classes/scene_tree.hpp>
 
 #include "geqo_debug_spheres3d.h"
 #include "query_result.h"
@@ -33,8 +34,13 @@ Array GEQODebugSpheres3D::get_debug_mesh_lines() const {
 }
 
 void GEQODebugSpheres3D::clear_spheres() {
+	destroy_timer.unref();
 	sphere_data.clear();
-	// TODO: Clear them from rendering as well
+	if (multi_mesh_instance)
+		multi_mesh_instance->set_multimesh(nullptr);
+	if (line_multi_mesh_instance)
+		line_multi_mesh_instance->set_multimesh(nullptr);
+	remove_labels();
 }
 
 void GEQODebugSpheres3D::render_spheres() {
@@ -90,7 +96,13 @@ void GEQODebugSpheres3D::render_spheres() {
 }
 
 void GEQODebugSpheres3D::draw_items(std::vector<Ref<QueryItem3D>> &query_items_list, double time_to_destroy) {
-	remove_labels();
+	// Cancel previous timer if it's still active
+	if (destroy_timer.is_valid()) {
+		if (destroy_timer->is_connected("timeout", timeout_function)) {
+			destroy_timer->disconnect("timeout", timeout_function);
+		}
+		destroy_timer.unref();
+	}
 	clear_spheres();
 
 	for (Ref<QueryItem3D> query_item : query_items_list) {
@@ -115,6 +127,8 @@ void GEQODebugSpheres3D::draw_items(std::vector<Ref<QueryItem3D>> &query_items_l
 		text_label->set_deferred("global_position", query_item->get_projection_position());
 	}
 	render_spheres();
+	destroy_timer = get_tree()->create_timer(time_to_destroy);
+	destroy_timer->connect("timeout", timeout_function, CONNECT_ONE_SHOT);
 }
 
 void GEQODebugSpheres3D::draw_debug_sphere(Vector3 pos, Color color) {

@@ -56,6 +56,9 @@ public:
 	void set_use_debug_shapes(const bool use_debug) { _set_use_debug_shapes(use_debug); }
 	bool get_use_debug_shapes() const { return _get_use_debug_shapes(); }
 
+	void set_debug_lifetime_sec(const double sec) { _set_debug_lifetime_sec(sec); }
+	double get_debug_lifetime_sec() const { return _get_debug_lifetime_sec(); }
+
 	// TODO: Change this when I figure out how to bind them to Godot without forwarding them
 	void set_time_budget_ms(const double budget) { _set_time_budget_ms(budget); }
 	double get_time_budget_ms() const { return _get_time_budget_ms(); }

@@ -5,6 +5,7 @@
 #include <godot_cpp/classes/gradient.hpp>
 #include <godot_cpp/classes/multi_mesh_instance3d.hpp>
 #include <godot_cpp/classes/node.hpp>
+#include <godot_cpp/classes/scene_tree_timer.hpp>
 #include <godot_cpp/classes/sphere_mesh.hpp>
 #include <godot_cpp/classes/standard_material3d.hpp>
 #include <vector>
@@ -31,9 +32,13 @@ private:
 	Ref<ArrayMesh> line_mesh;
 	Ref<StandardMaterial3D> sphere_material;
 	Ref<StandardMaterial3D> line_material;
+	Ref<SceneTreeTimer> destroy_timer;
+	Callable timeout_function;
 
 public:
-	GEQODebugSpheres3D() {}
+	GEQODebugSpheres3D() {
+		timeout_function = callable_mp(this, &GEQODebugSpheres3D::clear_spheres);
+	}
 	~GEQODebugSpheres3D() {}
 
 	void draw_items(std::vector<Ref<QueryItem3D>> &query_items_list, double time_to_destroy = 2.0) override;
